@@ -27,8 +27,10 @@ export function analyseFacultyPage(html, id, cfg) {
   const emails = new Set((html.match(/[\w.+-]+(?:@|◎|＠|\[at\])[\w-]+(?:\.[\w-]+)+/g) ?? [])
     .map((e) => e.replace(/◎|＠|\[at\]/g, '@').toLowerCase()));
   const hrefs = [...html.matchAll(/href\s*=\s*["']([^"']+)["']/gi)].map((m) => normUrl(m[1]));
-  const site = normUrl(cfg.site.production);
-  const linksToSite = hrefs.some((h) => h.startsWith(site));
+  // Only a link to the site's home counts (site.homes, relative to the production address): other pages under
+  // /intlexch/, such as the cancer centre's /intlexch/cancerimmuno/, are not the international site.
+  const homes = new Set((cfg.site.homes ?? ['']).map((h) => normUrl(`${cfg.site.production}${h}`)));
+  const linksToSite = hrefs.some((h) => homes.has(h));
   const programmeLinks = cfg.programmePages.filter((p) => hrefs.includes(normUrl(`${cfg.site.production}${id.lang}/${p}/`)));
   return { ...id, emails, linksToSite, programmeLinks };
 }

@@ -135,8 +135,17 @@ expectFail('a confirmation left for a removed page is reported', [[SYNC, (o) => 
   say(noLink.failures.some((f) => /directory \(en\).*does not link to the international site/.test(f)), 'a directory entry that stops linking to the site is reported');
   const wrongMail = run({ 'directory-ja': fx('directory-ja').replaceAll('med-intl◎t.mail.nagoya-u.ac.jp', 'old-office◎med.nagoya-u.ac.jp') });
   say(wrongMail.failures.some((f) => /directory \(ja\).*office address/.test(f)), 'a directory entry with another contact address is reported');
+  // Only a link to the site's home counts: the cancer centre's pages under /intlexch/cancerimmuno/ do not.
+  const homeGone = run({ 'units-en': fx('units-en').replace(/href="[^"]*\/intlexch\/"/g, 'href="https://example.org/"') });
+  say(homeGone.failures.some((f) => /units \(en\).*does not link to the international site/.test(f)),
+    'a page that keeps only a link to another page under /intlexch/ is reported', JSON.stringify(homeGone.failures));
+  // The old Japanese home (japanese/index.html) and the new language homes still count as the site's home.
+  const oldHome = run({ 'units-ja': fx('units-ja').replace(/href="[^"]*\/intlexch\/"/g, 'href="https://example.org/"') });
+  const newHome = run({ 'directory-en': fx('directory-en').replace(/href="[^"]*\/intlexch\/"/g, 'href="https://www.med.nagoya-u.ac.jp/intlexch/en/"') });
+  say(!oldHome.failures.some((f) => /units \(ja\).*does not link/.test(f)) && !newHome.failures.some((f) => /directory \(en\).*does not link/.test(f)),
+    'a link to the old Japanese home or to the new language home counts', JSON.stringify([...oldHome.failures, ...newHome.failures]));
 }
 
-const total = 21;
+const total = 23;
 process.stdout.write(`${total - failed}/${total} passed\n`);
 process.exit(failed ? 1 : 0);

@@ -1,7 +1,8 @@
 {
   "site": {
     "production": "https://www.med.nagoya-u.ac.jp/intlexch/",
-    "prototype": "https://basilechretien.github.io/nagoya-med-intl-prototype/"
+    "prototype": "https://basilechretien.github.io/nagoya-med-intl-prototype/",
+    "homes": ["", "index.html", "en/", "ja/", "japanese/", "japanese/index.html"]
   },
   "pages": {
     "home": {
