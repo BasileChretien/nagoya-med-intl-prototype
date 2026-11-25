@@ -140,15 +140,20 @@ function kanjiNumber(s) {
 export function numbersOf(text, lang) {
   let s = text.normalize('NFKC').replace(/(\d),(?=\d{3}\b)/g, '$1');
   if (lang === 'en') {
+    // A range sharing one unit: "20 to 30 million" is "20 million to 30 million".
+    s = s.replace(/(\d+(?:\.\d+)?)\s*(to|-|–|—)\s*(\d+(?:\.\d+)?)\s*(billion|million|thousand)/gi, (_, a, sepr, b, unit) => `${a} ${unit} ${sepr} ${b} ${unit}`);
     s = s.replace(/(\d+(?:\.\d+)?)\s*billion/gi, (_, n) => String(Math.round(parseFloat(n) * 1e9)));
     s = s.replace(/(\d+(?:\.\d+)?)\s*million/gi, (_, n) => String(Math.round(parseFloat(n) * 1e6)));
     s = s.replace(/(\d+(?:\.\d+)?)\s*thousand/gi, (_, n) => String(Math.round(parseFloat(n) * 1e3)));
     // Month names only in title case, so the verb "may" is not read as May, nor the acronym "SEP" as September.
     s = s.replace(/[A-Za-z]+/g, (w) => String((/^[A-Z][a-z]+$/.test(w) ? MONTHS[w.toLowerCase()] : undefined) ?? WORDS[w.toLowerCase()] ?? w));
   } else {
-    s = s.replace(new RegExp(`[一二三四五六七八九十百千]{1,8}${COUNTER}`, 'g'), (k) => String(kanjiNumber(k)));
-    // A range sharing one unit: 2〜3万 is 2万〜3万.
-    s = s.replace(/(\d+(?:\.\d+)?)\s*(〜|~|-|–|―|から)\s*(\d+(?:\.\d+)?)(万|億)/g, (_, a, sepr, b, unit) => `${a}${unit}${sepr}${b}${unit}`);
+    // A range sharing one unit: 2〜3万 is 2万〜3万, and 2〜3千万 is 2千万〜3千万.
+    s = s.replace(/(\d+(?:\.\d+)?)\s*(〜|~|-|–|―|から)\s*(\d+(?:\.\d+)?)([千百十]?[万億]|[千百])/g, (_, a, sepr, b, unit) => `${a}${unit}${sepr}${b}${unit}`);
+    // A digit before 千, 百 or 十 multiplies it: 5千 = 5000, 1千万 = 1000万.
+    s = s.replace(/(\d+(?:\.\d+)?)([千百十])/g, (_, n, unit) => String(Math.round(parseFloat(n) * KANJI_UNITS[unit])));
+    // Kanji numerals before a counter, but not after a digit (handled above) nor after 数 ("several": 数千 is no number).
+    s = s.replace(new RegExp(`(?<![\\d.数])[一二三四五六七八九十百千]{1,8}${COUNTER}`, 'g'), (k) => String(kanjiNumber(k)));
     s = s.replace(/(\d+(?:\.\d+)?)億(?:(\d+)万)?/g, (_, a, b) => String(Math.round(parseFloat(a) * 1e8 + (b ? parseInt(b, 10) * 1e4 : 0))));
     s = s.replace(/(\d+(?:\.\d+)?)万/g, (_, n) => String(Math.round(parseFloat(n) * 1e4)));
   }

@@ -90,7 +90,7 @@ Only `section`, `name`, `audience`, `contact` and `page` are required. Leave a f
 No version may fall behind another. `npm run check` fails when:
 
 - an English or Japanese page changed without its counterpart, or a bilingual field (`{ "en", "ja" }` in `src/data/`) changed in one language only, or has only one of the two;
-- a fact (programmes, contacts, partners) gives different numbers in its two languages. Numbers written differently count as the same: `1.5 million` and `150万`, `1 billion` and `10億`, `20,000 to 30,000` and `2〜3万`, `third-year` and `3年生`, `Apr` and `4月`, `3,000` and `三千`. The numbers 0 and 1 are not compared, because "a", "one", "single" and `1つ` are written in too many ways;
+- a fact (programmes, contacts, partners) gives different numbers in its two languages. Numbers written differently count as the same: `1.5 million` and `150万`, `10 million` and `1千万`, `1 billion` and `10億`, `20,000 to 30,000` and `2〜3万`, `20 to 30 million` and `2〜3千万`, `third-year` and `3年生`, `Apr` and `4月`. Kanji numerals count only before a counter or unit (`三千人`, `二百五十名`, `三千万円`): a bare `三千` is not read. "Thousands of" and `数千` state no number. The numbers 0 and 1 are not compared, because "a", "one", "single" and `1つ` are written in too many ways;
 - a report translation was made from an older version of its original;
 - the texts in `faculty/` no longer match what the data produces.
 
