@@ -2,7 +2,7 @@
   "site": {
     "production": "https://www.med.nagoya-u.ac.jp/intlexch/",
     "prototype": "https://basilechretien.github.io/nagoya-med-intl-prototype/",
-    "homes": ["", "index.html", "en/", "ja/", "japanese/", "japanese/index.html"]
+    "homes": ["", "index.html", "en/", "en/index.html", "ja/", "ja/index.html", "english/", "english/index.html", "japanese/", "japanese/index.html"]
   },
   "pages": {
     "home": {

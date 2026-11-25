@@ -139,11 +139,13 @@ expectFail('a confirmation left for a removed page is reported', [[SYNC, (o) => 
   const homeGone = run({ 'units-en': fx('units-en').replace(/href="[^"]*\/intlexch\/"/g, 'href="https://example.org/"') });
   say(homeGone.failures.some((f) => /units \(en\).*does not link to the international site/.test(f)),
     'a page that keeps only a link to another page under /intlexch/ is reported', JSON.stringify(homeGone.failures));
-  // The old Japanese home (japanese/index.html) and the new language homes still count as the site's home.
+  // The old homes (japanese/, english/) and the new language homes still count as the site's home.
   const oldHome = run({ 'units-ja': fx('units-ja').replace(/href="[^"]*\/intlexch\/"/g, 'href="https://example.org/"') });
-  const newHome = run({ 'directory-en': fx('directory-en').replace(/href="[^"]*\/intlexch\/"/g, 'href="https://www.med.nagoya-u.ac.jp/intlexch/en/"') });
-  say(!oldHome.failures.some((f) => /units \(ja\).*does not link/.test(f)) && !newHome.failures.some((f) => /directory \(en\).*does not link/.test(f)),
-    'a link to the old Japanese home or to the new language home counts', JSON.stringify([...oldHome.failures, ...newHome.failures]));
+  const homeMisses = ['english/index.html', 'english/', 'en/', 'en/index.html', 'ja/', 'ja/index.html', 'japanese/', 'index.html']
+    .filter((h) => run({ 'directory-en': fx('directory-en').replace(/href="[^"]*\/intlexch\/"/g, `href="https://www.med.nagoya-u.ac.jp/intlexch/${h}"`) })
+      .failures.some((f) => /directory \(en\).*does not link/.test(f)));
+  say(!oldHome.failures.some((f) => /units \(ja\).*does not link/.test(f)) && homeMisses.length === 0,
+    'a link to any old or new home of the site counts', JSON.stringify({ oldHome: oldHome.failures, homeMisses }));
 }
 
 const total = 23;
