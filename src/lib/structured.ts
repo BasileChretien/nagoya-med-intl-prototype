@@ -6,6 +6,7 @@
 import type { CollectionEntry } from 'astro:content';
 import type { Lang } from '../i18n/ui';
 import { t, OFFICIAL_URL } from '../i18n/ui';
+import { shownStatus, todayJapan } from './calendar';
 
 export type JsonLd = Record<string, unknown>;
 const CONTEXT = 'https://schema.org';
@@ -51,7 +52,7 @@ export function programmeData(p: CollectionEntry<'programmes'>, lang: Lang, page
     provider: school(lang),
     // Eligibility is not mapped to programPrerequisites: some entries hold completion rules there, not entry rules.
     ...(d.degree ? { educationalCredentialAwarded: d.degree[lang] } : {}),
-    ...(d.deadline?.status === 'open' && d.deadline.date ? { applicationDeadline: d.deadline.date } : {}),
+    ...(d.deadline?.date && shownStatus(d.deadline, todayJapan()) === 'open' ? { applicationDeadline: d.deadline.date } : {}),
   };
 }
 

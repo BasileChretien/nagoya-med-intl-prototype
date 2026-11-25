@@ -100,7 +100,7 @@ export async function checkAll(urls, opts = {}) {
 /**
  * The weekly report in Markdown, and whether anything needs a person.
  * @param {{ checked: string, results: { url: string, status: number | null, error?: string, places: string[] }[], content: { code: number, output: string } }} input
- * @returns {{ markdown: string, problems: boolean }}
+ * @returns {{ markdown: string, full: string, problems: boolean }} `markdown` fits in an issue; `full` is for the run summary
  */
 export function weeklyReport({ checked, results, content }) {
   const broken = results.filter((r) => verdict(r) === 'broken');
@@ -117,12 +117,22 @@ export function weeklyReport({ checked, results, content }) {
     ...rows.slice(0, MAX).map((r) => `| ${cell(r.url)} | ${result(r)} | ${where(r)} |`),
     ...(rows.length > MAX ? [`| … and ${rows.length - MAX} more | | |`] : []),
   ];
+  // A check that stopped without its own error lines (a crash) is shown with its exit code and last lines.
+  const crashed = content.code !== 0 && !contentLines.some((l) => l.startsWith('error: '));
+  const tail = content.output.trim().split(/\r?\n/).slice(-20).join('\n').replace(/```/g, "'''");
+  const contentPart = content.code === 0 && contentLines.length === 0
+    ? ['Nothing found.']
+    : [
+      ...contentLines.slice(0, MAX).map((l) => `- ${l}`),
+      ...(contentLines.length > MAX ? [`- … and ${contentLines.length - MAX} more`] : []),
+      ...(crashed ? ['', `The content check stopped with exit code ${content.code}. Its last lines:`, '', '```', tail, '```'] : []),
+    ];
   const md = [
     `# Weekly check, ${checked}`,
     '',
     '## Content checks (deadlines, pairs, data)',
     '',
-    content.code === 0 && contentLines.length === 0 ? 'Nothing found.' : contentLines.map((l) => `- ${l}`).join('\n'),
+    ...contentPart,
     '',
     '## Outside links',
     '',
@@ -139,5 +149,15 @@ export function weeklyReport({ checked, results, content }) {
       : ['None.']),
     '',
   ].join('\n');
-  return { markdown: md, problems: broken.length > 0 || content.code !== 0 || contentLines.length > 0 };
+  return { markdown: capReport(md), full: md, problems: broken.length > 0 || content.code !== 0 || contentLines.length > 0 };
+}
+
+/** GitHub refuses an issue body over 65,536 characters; keep the report under that, saying so when it is cut. */
+export const ISSUE_LIMIT = 65536;
+const ROOM = ISSUE_LIMIT - 2000; // the workflow adds a link to the run
+/** @param {string} md */
+function capReport(md) {
+  if (md.length <= ROOM) return md;
+  const note = '\n\n… The report was cut here because it is too long for an issue. The run summary has it in full.\n';
+  return md.slice(0, ROOM - note.length).replace(/\n[^\n]*$/, '') + note;
 }

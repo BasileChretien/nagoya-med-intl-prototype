@@ -53,9 +53,10 @@ const run = spawnSync(process.execPath, [join(ROOT, 'scripts', 'check-content.mj
 const content = { code: run.status ?? 1, output: `${run.stdout}\n${run.stderr}` };
 
 const date = new Date().toISOString().slice(0, 10);
-const { markdown, problems } = weeklyReport({ checked: date, results, content });
+const { markdown, full, problems } = weeklyReport({ checked: date, results, content });
 writeFileSync(join(OUT, 'weekly-check.md'), markdown);
 writeFileSync(join(OUT, 'weekly-check.json'), JSON.stringify({ checked: date, content, results }, null, 1));
-if (process.env.GITHUB_STEP_SUMMARY) appendFileSync(process.env.GITHUB_STEP_SUMMARY, markdown);
+// The issue body (weekly-check.md) is cut to GitHub's limit when needed; the run summary keeps the whole report.
+if (process.env.GITHUB_STEP_SUMMARY) appendFileSync(process.env.GITHUB_STEP_SUMMARY, full);
 if (process.env.GITHUB_OUTPUT) appendFileSync(process.env.GITHUB_OUTPUT, `problems=${problems}\n`);
 process.stdout.write(`${markdown}\nProblems that need a person: ${problems ? 'yes' : 'no'}\n`);

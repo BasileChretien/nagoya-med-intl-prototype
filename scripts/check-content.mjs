@@ -9,14 +9,15 @@ import { readFileSync, readdirSync, statSync, existsSync, openSync, readSync, cl
 import { join, relative, sep, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readFeatures, drawFeatures } from './features.mjs';
-import { structuredData } from './structured-lib.mjs';
+import { structuredData, missingTypes } from './structured-lib.mjs';
+import { outsideResources, outsideLinks } from './resources-lib.mjs';
 import { PROTOTYPE } from '../src/lib/launch.mjs';
 import { urlLang } from '../src/lib/url-lang.mjs';
 
 /** Names of the checks below; feature map entries refer to them in `tests`. */
 const CHECKS = ['pairing', 'programme-references', 'deadlines', 'data-files', 'images', 'internal-links', 'noindex', 'feature-map',
   'photo-descriptions', 'report-translations', 'versions-in-step', 'facts-match', 'translations-current', 'faculty-texts', 'faculty-live', 'acronyms', 'content-plugin',
-  'structured-data', 'sitemap', 'weekly-check', 'ja-summaries', 'dated-facts', 'search-index', 'feeds'];
+  'structured-data', 'sitemap', 'weekly-check', 'ja-summaries', 'dated-facts', 'search-index', 'feeds', 'no-outside-resources'];
 
 // fileURLToPath decodes %20 and non-ASCII characters, so the check runs from any folder.
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
@@ -95,8 +96,10 @@ for (const f of walk(join(DATA, 'programmes')).filter((x) => x.endsWith('.json')
   if (contactIds && !contactIds.has(p.contact)) fail(`programmes/${id}.json: unknown contact "${p.contact}"`);
   if (!slugs.has(p.page)) fail(`programmes/${id}.json: page "${p.page}" does not exist`);
   const d = p.deadline;
-  if (d?.status === 'open' && d.date && d.date < today) fail(`programmes/${id}.json: deadline ${d.date} has passed but status is "open"`);
-  if (d?.date && d.date < today && d.status !== 'closed' && d.status !== 'tba') warn(`programmes/${id}.json: deadline ${d.date} has passed`);
+  // A passed "open" deadline is shown as closed at the next build (src/lib/calendar.ts shownStatus), so it no longer
+  // stops a deploy; the warning stays, and the weekly check opens an issue, until the data is updated.
+  if (d?.status === 'open' && d.date && d.date < todayJapan) warn(`programmes/${id}.json: deadline ${d.date} has passed but status is "open": the site shows it as closed; set the status to "tba" (or "closed") and update the text`);
+  else if (d?.date && d.date < todayJapan && d.status !== 'closed' && d.status !== 'tba') warn(`programmes/${id}.json: deadline ${d.date} has passed`);
   // The fact box shows when the facts were last compared with their sources.
   if (!isDate(p.checked) || p.checked > todayJapan) fail(`programmes/${id}.json: "checked" must be the date the facts were last compared with their sources (YYYY-MM-DD, not in the future)`);
   else if (p.checked < yearAgo) warn(`programmes/${id}.json: facts last checked on ${p.checked}, more than a year ago: compare them with the sources again`);
@@ -229,7 +232,7 @@ if (stories) {
   }
 }
 
-// 3d. Every acronym in the pages and in the programme, contact, partner and news texts is explained in
+// 3d. Every acronym in the pages and in the programme, contact, partner, news and summary texts is explained in
 //     glossary.json. Content pages mark it where it is first used (src/lib/rehype-abbr.mjs); acronyms in titles
 //     and data texts are explained on the glossary page.
 const glossary = readList('glossary.json');
@@ -257,7 +260,8 @@ if (glossary) {
   const report = (where, text) => { for (const a of acronymsIn(text)) if (!known.has(a)) fail(`${where}: "${a}" is not in src/data/glossary.json: add what it stands for (and the website, for an institution)`); };
   for (const lang of ['en', 'ja']) for (const p of md(lang)) report(`${lang}/${p}`, readFileSync(join(PAGES, lang, p), 'utf8'));
   // Visible texts of the data files: skip keys that hold ids, codes, tags or addresses.
-  const SKIP_KEYS = new Set(['id', 'sources', 'source', 'page', 'contact', 'section', 'url', 'status', 'date', 'category', 'countryCode', 'region', 'links', 'email', 'phone', 'fax', 'file', 'thumb', 'story', 'kind', 'programmes', 'partners', 'map']);
+  const SKIP_KEYS = new Set(['id', 'sources', 'source', 'page', 'contact', 'section', 'url', 'status', 'date', 'category', 'countryCode', 'region', 'links', 'email', 'phone', 'fax', 'file', 'thumb', 'story', 'kind', 'programmes', 'partners', 'map',
+    'evidence', 'checked', 'method']);
   const texts = (value, key = '') => {
     if (SKIP_KEYS.has(key)) return [];
     if (typeof value === 'string') return [value];
@@ -267,7 +271,7 @@ if (glossary) {
   };
   const dataFiles = [
     ...walk(join(DATA, 'programmes')).filter((f) => f.endsWith('.json')).map((f) => `programmes/${basename(f)}`),
-    'contacts.json', 'partners.json', 'news.json',
+    'contacts.json', 'partners.json', 'news.json', 'ja-summaries.json',
   ];
   for (const name of dataFiles) {
     const f = join(DATA, name);
@@ -291,13 +295,14 @@ if (summaries) {
     if (typeof s.en !== 'string' || !s.en.trim()) fail(`ja-summaries.json ${s.url}: no "en" summary`);
     else if (s.en.trim().split(/\s+/).length > 70) fail(`ja-summaries.json ${s.url}: summary longer than 70 words`);
     if (s.method !== 'machine') fail(`ja-summaries.json ${s.url}: "method" must be "machine": the summaries are written automatically and the page says so`);
-    if (typeof s.checked !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(s.checked) || s.checked > today) fail(`ja-summaries.json ${s.url}: "checked" must be the date it was written (YYYY-MM-DD, not in the future)`);
+    // A real day (the plugin shows it), not later than today in Japan.
+    if (!isDate(s.checked) || s.checked > todayJapan) fail(`ja-summaries.json ${s.url}: "checked" must be the date it was written (YYYY-MM-DD, not in the future)`);
   }
   const linkedFromEnglish = new Set();
   for (const p of md('en')) {
     const body = readFileSync(join(PAGES, 'en', p), 'utf8').replace(/^---\r?\n[\s\S]*?\r?\n---/, '');
-    for (const m of body.matchAll(/\]\((https?:\/\/[^)\s]+)\)/g)) {
-      const url = m[1].split('#')[0];
+    for (const link of outsideLinks(body)) {
+      const url = link.split('#')[0];
       linkedFromEnglish.add(url);
       let pathname = '';
       try { pathname = new URL(url).pathname; } catch { continue; }
@@ -336,10 +341,24 @@ if (process.argv.includes('--dist')) {
   if (!existsSync(DIST)) fail('dist/ not found: run `astro build` first');
   const html = walk(DIST).filter((f) => f.endsWith('.html'));
   let checked = 0;
+  // Pages that must carry structured data: the office on each home page, the breadcrumb trail on each content page.
+  const expected = new Map([['en/index.html', ['EducationalOrganization']], ['ja/index.html', ['EducationalOrganization']]]);
+  for (const lang of ['en', 'ja']) {
+    for (const p of md(lang)) {
+      const slug = p.replace(/\.md$/, '').replace(/(^|\/)index$/, '');
+      expected.set(`${lang}/${slug ? `${slug}/` : ''}index.html`, ['BreadcrumbList']);
+    }
+  }
   for (const f of html) {
     const text = readFileSync(f, 'utf8');
-    if (PROTOTYPE && !/<meta name="robots" content="noindex/.test(text)) fail(`${relative(DIST, f)} is missing the noindex meta tag`);
-    for (const problem of structuredData(text).problems) fail(`${relative(DIST, f)}: ${problem}`);
+    const page = relative(DIST, f).split(sep).join('/');
+    if (PROTOTYPE && !/<meta name="robots" content="noindex/.test(text)) fail(`${page} is missing the noindex meta tag`);
+    const sd = structuredData(text);
+    for (const problem of sd.problems) fail(`${page}: ${problem}`);
+    for (const type of missingTypes(sd.blocks, expected.get(page) ?? [])) fail(`${page}: no ${type} structured data`);
+    expected.delete(page);
+    // The privacy page says a page loads nothing from other sites.
+    for (const url of outsideResources(text)) fail(`${page} loads ${url} from another site: serve it from the site itself (the privacy page says nothing is loaded from elsewhere)`);
     // Links in the markup only: scripts build some hrefs from strings at run time.
     const markup = text.replace(/<script\b[\s\S]*?<\/script>/gi, '');
     for (const m of markup.matchAll(/(?:href|src)="([^"#?]+)[^"]*"/g)) {
@@ -355,6 +374,7 @@ if (process.argv.includes('--dist')) {
       if (!ok) fail(`${relative(DIST, f)} links to missing ${url}`);
     }
   }
+  for (const page of expected.keys()) fail(`${page} was not built, so its structured data could not be checked`);
   process.stdout.write(`Checked ${checked} internal links in ${html.length} pages.\n`);
   // The sitemap lists both home pages and leaves out the office's checklist; robots.txt never blocks crawling
   // while the pages rely on their noindex tag.

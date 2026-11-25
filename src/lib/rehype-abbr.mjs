@@ -30,6 +30,11 @@ const SUMMARIES_FILE = new URL('../data/ja-summaries.json', import.meta.url);
 /** Elements after which (p) or inside which (the others) a summary box can go. */
 const BLOCKS = new Set(['p', 'li', 'td', 'th', 'dd', 'blockquote']);
 const SUMMARY_DATE = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+/** "25 November 2026"; a date that cannot be read is shown as written (the content check reports it) instead of stopping the build. */
+const summaryDate = (iso) => {
+  const day = new Date(`${iso}T00:00:00`);
+  return Number.isNaN(day.getTime()) ? String(iso) : SUMMARY_DATE.format(day);
+};
 const SKIP = new Set(['abbr', 'code', 'pre', 'script', 'style']);
 const TEXT = {
   en: { heading: 'Abbreviations on this page', website: 'website', all: 'All abbreviations', unconfirmed: 'to be confirmed',
@@ -109,7 +114,7 @@ export default function abbrPlugin(options = {}) {
                 const box = el('details', { className: ['ja-summary'] }, [
                   el('summary', {}, [text(t.summaryButton)]),
                   el('p', {}, [text(summary.en)]),
-                  el('p', { className: ['ja-summary-note'] }, [text(t.summaryNote(SUMMARY_DATE.format(new Date(`${summary.checked}T00:00:00`))))]),
+                  el('p', { className: ['ja-summary-note'] }, [text(t.summaryNote(summaryDate(summary.checked)))]),
                 ]);
                 // A box cannot sit inside a paragraph; in a list item or a cell it stays with its item.
                 if (block.tagName === 'p') ctx.insertAfter(block, box);

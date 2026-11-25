@@ -86,3 +86,19 @@ const DATE_FMT: Record<Lang, Intl.DateTimeFormat> = {
 export function formatDate(iso: string, lang: Lang): string {
   return DATE_FMT[lang].format(new Date(`${iso}T00:00:00`));
 }
+
+/**
+ * Whether a date can be shown as "checked against the official pages": the content has a source on the university's
+ * own sites and is not an automatic translation still waiting for its check. Otherwise the date is shown as the day
+ * the content was last updated.
+ */
+export function checkedAgainstOfficial(sources: string[], status?: string): boolean {
+  if (status === 'draft-translation') return false;
+  return sources.some((u) => {
+    try {
+      return /(^|\.)nagoya-u\.ac\.jp$/.test(new URL(u).hostname);
+    } catch {
+      return false;
+    }
+  });
+}

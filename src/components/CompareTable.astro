@@ -1,10 +1,12 @@
 ---
 import { t, type Lang } from '../i18n/ui';
 import { href, type ProgrammeEntry } from '../lib/site';
+import { shownStatus, todayJapan } from '../lib/calendar';
 
 interface Props { lang: Lang; programmes: ProgrammeEntry[]; caption: string }
 const { lang, programmes, caption } = Astro.props;
 const ui = t(lang);
+const today = todayJapan();
 type Key = 'audience' | 'language' | 'duration' | 'capacity' | 'degree' | 'cost' | 'funding';
 const keys: Key[] = ['audience', 'language', 'duration', 'capacity', 'degree', 'cost', 'funding'];
 const usedKeys = keys.filter((k) => programmes.some((p) => p.data[k]));
@@ -28,7 +30,7 @@ const usedKeys = keys.filter((k) => programmes.some((p) => p.data[k]));
       <tr>
         <th scope="row">{ui.facts.deadline}</th>
         {programmes.map((p) => (
-          <td>{p.data.deadline ? <><span class={`pill ${p.data.deadline.status}`}>{ui.deadlineStatus[p.data.deadline.status]}</span><br />{p.data.deadline.text[lang]}</> : '—'}</td>
+          <td>{p.data.deadline ? <><span class={`pill ${shownStatus(p.data.deadline, today)}`}>{ui.deadlineStatus[shownStatus(p.data.deadline, today)]}</span><br />{p.data.deadline.text[lang]}</> : '—'}</td>
         ))}
       </tr>
     </tbody>
