@@ -21,7 +21,7 @@ for (const kind of kinds) {
     try {
       const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0 (compatible; faculty-drift-check)' } });
       if (!res.ok) { unreachable.push(`${kind} (${lang}): ${url} answered ${res.status}`); continue; }
-      results.push(analyseFacultyPage(await res.text(), { kind, lang }, cfg));
+      results.push(analyseFacultyPage(await res.text(), { kind, lang }, cfg, res.url));
     } catch (e) {
       unreachable.push(`${kind} (${lang}): ${url} could not be fetched (${e.message})`);
     }

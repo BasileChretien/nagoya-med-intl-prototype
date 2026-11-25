@@ -22,23 +22,33 @@ export function loadFacultyConfig(root) {
 
 /**
  * A link as "host/path/", so that the same page compares equal however it is written: relative ("/intlexch/",
- * "../intlexch/") or protocol-relative links are resolved against the page they are on; http and https, "www." or
- * not, a missing trailing slash, the query, the fragment and letter case do not count. Null for mailto: and the like.
- * @param {string} u @param {string} base address of the page the link is on @returns {string | null}
+ * "../intlexch/") or protocol-relative links are resolved against the page's base address; http and https, a missing
+ * trailing slash, the query, the fragment and letter case do not count. The host and port do: the bare
+ * med.nagoya-u.ac.jp does not serve the site, so a link to it is broken. Null for mailto: and the like.
+ * @param {string} u @param {string} base the page's base address @returns {string | null}
  */
 function normUrl(u, base) {
   let url;
   try { url = new URL(u.trim(), base); } catch { return null; }
   if (url.protocol !== 'http:' && url.protocol !== 'https:') return null;
-  return `${url.hostname.replace(/^www\./i, '')}${url.pathname.replace(/\/?$/, '/')}`.toLowerCase();
+  return `${url.host}${url.pathname.replace(/\/?$/, '/')}`.toLowerCase();
 }
 
-/** Facts found on one faculty page. @param {string} html @param {PageId} id */
-export function analyseFacultyPage(html, id, cfg) {
+/**
+ * Facts found on one faculty page.
+ * @param {string} html @param {PageId} id
+ * @param {string} [fetchedUrl] the address the page was finally fetched from (after redirects); relative links
+ *   resolve against it, or against the page's <base href>, as in a browser
+ */
+export function analyseFacultyPage(html, id, cfg, fetchedUrl) {
   const emails = new Set((html.match(/[\w.+-]+(?:@|◎|＠|\[at\])[\w-]+(?:\.[\w-]+)+/g) ?? [])
     .map((e) => e.replace(/◎|＠|\[at\]/g, '@').toLowerCase()));
-  const pageUrl = cfg.pages?.[id.kind]?.[id.lang] ?? cfg.site.production;
-  const hrefs = new Set([...html.matchAll(/href\s*=\s*["']([^"']+)["']/gi)].map((m) => normUrl(m[1], pageUrl)).filter(Boolean));
+  const pageUrl = fetchedUrl ?? cfg.pages?.[id.kind]?.[id.lang] ?? cfg.site.production;
+  const baseHref = html.match(/<base\b[^>]*?\bhref\s*=\s*["']([^"']+)["']/i)?.[1];
+  let base = pageUrl;
+  if (baseHref) { try { base = new URL(baseHref.trim(), pageUrl).href; } catch { /* an unusable <base> is ignored, as in a browser */ } }
+  // Links are the href of <a> and <area> elements (not <base>, nor <link rel="stylesheet">).
+  const hrefs = new Set([...html.matchAll(/<(?:a|area)\b[^>]*?\bhref\s*=\s*["']([^"']+)["']/gi)].map((m) => normUrl(m[1], base)).filter(Boolean));
   // Only a link to the site's home counts (site.homes, relative to the production address): other pages under
   // /intlexch/, such as the cancer centre's /intlexch/cancerimmuno/, are not the international site.
   const linksToSite = (cfg.site.homes ?? ['']).some((h) => hrefs.has(normUrl(h, cfg.site.production)));

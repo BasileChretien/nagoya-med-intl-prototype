@@ -16,6 +16,17 @@ export function asset(path: string): string {
   return `${import.meta.env.BASE_URL.replace(/\/$/, '')}/${path.replace(/^\//, '')}`;
 }
 
+interface PhotoSizes { file: string; thumb?: string; width: number; height: number; thumbWidth?: number; thumbHeight?: number }
+
+/**
+ * The image a card shows: the thumbnail, with its own sizes when both are recorded, or with the full photo's sizes
+ * otherwise (same shape), so width and height never come from two different files.
+ */
+export function cardImage(d: PhotoSizes): { src: string; width: number; height: number } {
+  if (d.thumb && d.thumbWidth && d.thumbHeight) return { src: asset(d.thumb), width: d.thumbWidth, height: d.thumbHeight };
+  return { src: asset(d.thumb ?? d.file), width: d.width, height: d.height };
+}
+
 export interface PageRef {
   lang: Lang;
   /** Path after the language, e.g. "study-in-nagoya" or "study-in-nagoya/faq". */

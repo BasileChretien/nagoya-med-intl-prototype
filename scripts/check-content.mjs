@@ -145,8 +145,8 @@ if (imgs) {
       const alt = im.alt?.[l];
       if (typeof alt !== 'string' || !alt.trim()) fail(`images.json ${im.id}: no ${l} description`);
     }
-    if (typeof im.file !== 'string') fail(`images.json ${im.id}: "file" must be a path under public/, such as "img/pages/x.webp"`);
-    if (im.thumb !== undefined && typeof im.thumb !== 'string') fail(`images.json ${im.id}: "thumb" must be a path under public/, such as "img/pages/x-t.webp"`);
+    if (typeof im.file !== 'string' || !im.file.trim()) fail(`images.json ${im.id}: "file" must be a path under public/, such as "img/pages/x.webp"`);
+    if (im.thumb !== undefined && (typeof im.thumb !== 'string' || !im.thumb.trim())) fail(`images.json ${im.id}: "thumb" must be a path under public/, such as "img/pages/x-t.webp"`);
     if (im.thumb && (!Number.isInteger(im.thumbWidth) || !Number.isInteger(im.thumbHeight))) {
       fail(`images.json ${im.id}: a photo with a thumbnail needs thumbWidth and thumbHeight`);
     }
