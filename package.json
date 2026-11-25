@@ -9,7 +9,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "node scripts/check-content.mjs",
-    "typecheck": "astro check"
+    "typecheck": "astro check",
+    "test": "node scripts/test-checks.mjs"
   },
   "engines": {
     "node": ">=20"

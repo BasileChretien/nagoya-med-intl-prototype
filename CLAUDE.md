@@ -6,6 +6,7 @@ Astro 7 static site: bilingual (en/ja) prototype replacing the seven internation
 
 - `npm run dev` / `npm run build` / `npm run preview`
 - `npm run check` — content checks (pairing, deadlines, images, references); `node scripts/check-content.mjs --dist` after a build also checks internal links
+- `npm test` — tests of the checks themselves (`scripts/test-checks.mjs`); add a case when a check gains a rule
 - `node scripts/draw-features.mjs` — redraws `docs/features.md` from the feature map `docs/features.yaml`
 
 ## Layout
