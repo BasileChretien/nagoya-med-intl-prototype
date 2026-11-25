@@ -83,7 +83,7 @@ features:
     status: works
     delivered_by: [scripts/build-faculty-texts.mjs, faculty, scripts/check-faculty-live.mjs, scripts/faculty-live-lib.mjs, .github/workflows/faculty-drift.yml]
     tests: [faculty-texts, faculty-live]
-    limits: The International section rule stays pending until the faculty's web team publishes the gateway texts.
+    limits: The International section rule stays pending until the faculty's web team publishes the gateway texts. Problems the faculty has not fixed yet are listed as known gaps (faculty.json knownGaps) until they are.
   - id: content-status
     says: Editors see every fact that still needs confirming, on each page and on one checklist page.
     stage: Maintain

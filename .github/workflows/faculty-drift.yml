@@ -2,7 +2,8 @@ name: Faculty pages drift
 
 # Compares the live faculty pages (directory entry, Units page, International section) with the
 # international site's data every Monday 09:00 JST. Fails when an active rule in src/data/faculty.json
-# is broken; pending rules are listed in the run summary without failing.
+# is broken; pending rules and known gaps (faculty.json knownGaps) are listed in the run summary without
+# failing, and a known gap that no longer happens fails until it is removed.
 on:
   schedule:
     - cron: '0 0 * * 1'

@@ -121,13 +121,28 @@ expectFail('a confirmation left for a removed page is reported', [[SYNC, (o) => 
   const cfg = loadFacultyConfig(ROOT);
   const fx = (name) => readFileSync(join(ROOT, 'tests', 'fixtures', 'faculty', `${name}.html`), 'utf8');
   const pages = ['directory-en', 'directory-ja', 'units-en', 'units-ja', 'international-en', 'international-ja'];
-  const run = (overrides = {}) => evaluateFaculty(pages.map((p) => {
+  const run = (overrides = {}, c = cfg) => evaluateFaculty(pages.map((p) => {
     const [kind, lang] = p.split('-');
-    return analyseFacultyPage(overrides[p] ?? fx(p), { kind, lang }, cfg);
-  }), cfg);
+    return analyseFacultyPage(overrides[p] ?? fx(p), { kind, lang }, c);
+  }), c);
 
   const live = run();
-  say(live.failures.some((f) => /units \(ja\).*office address/.test(f)), 'the Japanese Units page without the office address is reported', JSON.stringify(live.failures));
+  // A gap recorded in faculty.json (knownGaps) is listed, not failed, so that new drift still turns the job red.
+  say(live.failures.length === 0 && live.known.some((k) => /units \(ja\).*office address/.test(k)),
+    'the Japanese Units page without the office address is listed as a known gap, not a failure', JSON.stringify({ failures: live.failures, known: live.known }));
+  const noGaps = run({}, { ...cfg, knownGaps: [] });
+  say(noGaps.failures.some((f) => /units \(ja\).*office address/.test(f)), 'without the known gap, the Japanese Units page without the office address fails', JSON.stringify(noGaps.failures));
+  // A known gap covers its own rule on its own page, nothing else.
+  const unitsJaNoLink = run({ 'units-ja': fx('units-ja').replace(/href="[^"]*\/intlexch\/(japanese\/index\.html)?"/g, 'href="https://example.org/"') });
+  say(unitsJaNoLink.failures.some((f) => /units \(ja\).*does not link to the international site/.test(f)),
+    'a known gap does not hide another rule failing on the same page', JSON.stringify(unitsJaNoLink.failures));
+  // Once the faculty fixes the page, the gap must be removed: the check fails until it is.
+  const fixedUnits = run({ 'units-ja': fx('units-ja').replace('</body>', '<p>med-intl◎t.mail.nagoya-u.ac.jp</p></body>') });
+  say(fixedUnits.failures.some((f) => /units \(ja\).*now gives the office address.*remove .*knownGaps/.test(f)),
+    'a known gap that no longer happens is reported, so it is removed', JSON.stringify(fixedUnits.failures));
+  const badGap = run({}, { ...cfg, knownGaps: [...cfg.knownGaps, { rule: 'linksToSite', page: 'international', lang: 'en', since: '2026-11-25' }] });
+  say(badGap.failures.some((f) => /knownGaps.*linksToSite.*international \(en\).*not checked/.test(f)),
+    'a known gap for a page its rule does not check is reported', JSON.stringify(badGap.failures));
   say(!live.failures.some((f) => /directory/.test(f)), 'the directory entries give the office address and link to the site', JSON.stringify(live.failures));
   say(live.pending.some((p) => /international \((en|ja)\).*not yet/.test(p)) && !live.failures.some((f) => /^international/.test(f)),
     'the International section not linking to the site yet is pending, not a failure', JSON.stringify(live.pending));
@@ -148,6 +163,6 @@ expectFail('a confirmation left for a removed page is reported', [[SYNC, (o) => 
     'a link to any old or new home of the site counts', JSON.stringify({ oldHome: oldHome.failures, homeMisses }));
 }
 
-const total = 23;
+const total = 27;
 process.stdout.write(`${total - failed}/${total} passed\n`);
 process.exit(failed ? 1 : 0);

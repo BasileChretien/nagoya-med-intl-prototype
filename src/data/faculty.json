@@ -26,5 +26,14 @@
     "officeAddress": { "status": "active", "pages": ["directory", "units"] },
     "linksToSite": { "status": "active", "pages": ["directory", "units"] },
     "gateway": { "status": "pending", "pages": ["international"] }
-  }
+  },
+  "knownGaps": [
+    {
+      "rule": "officeAddress",
+      "page": "units",
+      "lang": "ja",
+      "since": "2026-11-25",
+      "note": "The Japanese Units page gives no contact address. Remove this entry once the faculty adds med-intl@t.mail.nagoya-u.ac.jp; the check fails until it is removed."
+    }
+  ]
 }
