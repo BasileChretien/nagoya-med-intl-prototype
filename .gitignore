@@ -8,3 +8,6 @@ dist/
 Thumbs.db
 .claude/
 desktop.ini
+._*
+# Files a test run plants; left behind only if a run is interrupted
+zz-test*

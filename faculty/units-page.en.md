@@ -1,4 +1,4 @@
-# Office of International Affairs
+# Office of International Affairs (Department of International Medical Education)
 
 The office promotes international education, international strategy and support for exchange, and runs the international side of the School of Medicine.
 
