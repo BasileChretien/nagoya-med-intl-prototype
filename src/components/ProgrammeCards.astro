@@ -11,8 +11,8 @@ const ui = t(lang);
     const d = p.data;
     return (
       <a class="card" href={href(lang, d.page)}>
-        {d.deadline && <span><span class={`pill ${d.deadline.status}`}>{ui.deadlineStatus[d.deadline.status]}</span></span>}
         <h3>{(d.short ?? d.name)[lang]}</h3>
+        {d.deadline && <span class="card-status"><span class="visually-hidden">{ui.facts.deadline}: </span><span class={`pill ${d.deadline.status}`}>{ui.deadlineStatus[d.deadline.status]}</span></span>}
         <p>{d.audience[lang]}</p>
         {d.duration && <p style="font-size:0.88rem;color:var(--muted)">{ui.facts.duration}: {d.duration[lang]}</p>}
       </a>

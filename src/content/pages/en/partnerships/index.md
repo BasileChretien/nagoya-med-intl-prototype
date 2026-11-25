@@ -8,19 +8,31 @@ status: to-confirm
 toConfirm:
   - The faculty agreements table (39 rows, newest entry 2019) and the exchange site's agreement list name different partners. Confirm which list is complete before publication.
   - The old pages describe MIRAI and the GAME activities only up to 2022. Confirm what is running now.
+  - The joint work with the School of Health Sciences and with other programmes of the university is described on the old strategy page without dates. Confirm what runs now.
 sources:
   - https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/
   - https://www.med.nagoya-u.ac.jp/medical_E/international/global/game/outline/
   - https://www.med.nagoya-u.ac.jp/medical_E/international/global/mirai/outline/
   - https://www.med.nagoya-u.ac.jp/medical_E/laboratory/clinical-med/comprehensive-ambulatory/international-medical-education/
+  - https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/overseas.html
+  - https://www.med.nagoya-u.ac.jp/intlexch/japanese/strategy/index.html
+  - https://www.met.nagoya-u.ac.jp/ENGLISH/index.html
 updated: 2026-11-25
 ---
 
 Nagoya University Graduate School of Medicine and School of Medicine works with universities, research institutions and hospitals in Asia, Oceania, North America and Europe. The Office of International Affairs coordinates these ties. A partner school, a visiting delegation or a student can start with that one office.
 
+## Where to start
+
+- **A school that wants to become a partner:** [Becoming a partner](become-a-partner).
+- **A coordinator at a partner school:** [For partner coordinators](coordinators).
+- **A delegation planning a visit:** [Delegation visits](visits).
+- **A company or research institute:** [For companies and research institutes](companies).
+- **A Nagoya faculty member or clinician:** [For Nagoya faculty and clinicians](for-faculty).
+
 ## Exchange agreements
 
-The school has academic exchange agreements with partner institutions on four continents. The faculty's list runs from the University of North Carolina at Chapel Hill (1989) to the University of Leicester (2019). The agreements are the basis for student exchange, including clinical clerkships, and for contacts between researchers. The [agreements page](agreements) lists every partner by region.
+The school has academic exchange agreements with partner institutions on four continents. As of March 2025, it lists 29 medical schools with an inter-school academic exchange agreement. The faculty's list runs from the University of North Carolina at Chapel Hill (1989) to the University of Leicester (2019). The agreements are the basis for student exchange, including clinical clerkships, and for contacts between researchers. The [agreements page](agreements) lists every partner by region.
 
 ## Networks of universities
 
@@ -37,6 +49,10 @@ At doctoral level, the school offers joint degrees with Adelaide University, Lun
 
 Partner universities hold joint symposia in turn. The [symposia page](symposia) lists the meetings held since 2013. The office also receives delegations and arranges courtesy visits. The [visits page](visits) explains how to request one and summarizes recent visits.
 
+## Within Nagoya University
+
+The departments of medicine and of health sciences hold joint lectures in English, and students of both take part together in the medical English programme. The office also plans international events and lectures with other programmes of the university. The School of Health Sciences has [its own website](https://www.met.nagoya-u.ac.jp/ENGLISH/index.html).
+
 ## Contact
 
-Write to the Office of International Affairs. Its address is on the contact page of the About section.
+Write to the Office of International Affairs through the [Contact](../about/contact) page.

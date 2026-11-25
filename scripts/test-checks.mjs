@@ -74,6 +74,25 @@ const cases = [
     edit: ['src/data/images.json', (old) => old.replace(/"width": (\d+)/, (_, w) => `"width": ${Number(w) + 1}`)], expect: 'fail',
     message: /recorded size \d+x\d+ does not match public\/\S+ \(\d+x\d+\)$/m,
   },
+  // Every acronym is explained in src/data/glossary.json (the user asked that acronyms say what they stand for).
+  {
+    name: 'an unexplained acronym on a page is reported',
+    edit: ['src/content/pages/en/about/index.md', (old) => `${old.trimEnd()}
+
+The XQZW office also helps.
+`], expect: 'fail',
+    message: /en\/about\/index\.md: "XQZW" is not in src\/data\/glossary\.json/,
+  },
+  {
+    name: 'an unexplained acronym in a programme text is reported',
+    edit: ['src/data/programmes/clinical-clerkship.json', (old) => { const d = JSON.parse(old); d.duration.en += ' (see the QZXV rules)'; return JSON.stringify(d, null, 2); }], expect: 'fail',
+    message: /programmes\/clinical-clerkship\.json: "QZXV" is not in src\/data\/glossary\.json/,
+  },
+  {
+    name: 'a glossary entry without its Japanese text is reported',
+    edit: ['src/data/glossary.json', (old) => { const d = JSON.parse(old); delete d[0].ja; return JSON.stringify(d, null, 2); }], expect: 'fail',
+    message: /glossary\.json \S+: no ja text/,
+  },
   // Recorded review items of #2: a listed file that is not WebP, and wrong-typed entries (no crash).
   {
     name: 'a listed photo that is not a WebP file is reported',

@@ -1,40 +1,132 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
-import { t, CONTENT_DATE, type Lang } from '../../../i18n/ui';
+import { t, fill, CONTENT_DATE, type Lang } from '../../../i18n/ui';
 import { href, langPaths, formatDate } from '../../../lib/site';
+import { newsItems, LABELS } from './_news';
 
 export function getStaticPaths() {
   return langPaths();
 }
 const lang = Astro.params.lang as Lang;
 const ui = t(lang);
-const items = (await getCollection('news')).sort((a, b) => b.data.date.localeCompare(a.data.date));
-const years = [...new Set(items.map((n) => n.data.date.slice(0, 4)))];
+const L = LABELS[lang];
+const items = await newsItems();
+const years = [...new Set(items.map((n) => n.entry.data.date.slice(0, 4)))];
 const cutoff = `${Number(CONTENT_DATE.slice(0, 4)) - 1}${CONTENT_DATE.slice(4)}`;
-const hasArchive = items.some((n) => n.data.date < cutoff);
+const hasArchive = items.some((n) => n.entry.data.date < cutoff);
+// Events and calls whose date (or last day) has not passed, soonest first. Empty until the office adds dated items.
+const upcoming = items.filter((n) => n.entry.data.category !== 'news' && !n.past).reverse();
+const partnerMap = new Map((await getCollection('partners')).map((p) => [p.id, p.data]));
+const partnerName = (id: string) => {
+  const p = partnerMap.get(id);
+  return p ? p.name[lang] : undefined;
+};
+const tagged = [...new Set(items.flatMap((n) => n.partners))]
+  .map((id) => ({ id, name: partnerName(id) }))
+  .filter((p): p is { id: string; name: string } => Boolean(p.name))
+  .sort((a, b) => a.name.localeCompare(b.name, lang));
+const categories = (Object.keys(ui.newsCategory) as (keyof typeof ui.newsCategory)[])
+  .filter((c) => items.some((n) => n.entry.data.category === c));
+const labels = { shown: L.shown };
 ---
 <Base lang={lang} title={ui.news} description={ui.newsLede} slug="news">
   <div class="wrap" style="padding-bottom:4rem">
     <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href={href(lang)}>{ui.home}</a></li><li aria-current="page">{ui.news}</li></ol></nav>
     <header class="page-head"><h1>{ui.news}</h1><p class="lede">{ui.newsLede}</p></header>
-    {hasArchive && <p class="notice" role="note" style="margin-bottom:1.5rem">{ui.newsPast}</p>}
-    {years.map((y) => (
-      <section style="margin-bottom:2rem">
-        <h2 style="margin-bottom:0.6rem">{y}</h2>
+
+    {upcoming.length > 0 && (
+      <section class="news-upcoming" aria-labelledby="upcoming">
+        <h2 id="upcoming">{L.upcoming}</h2>
         <ul class="news-list">
-          {items.filter((n) => n.data.date.startsWith(y)).map((n) => (
+          {upcoming.map((n) => (
             <li>
-              <time datetime={n.data.date}>{formatDate(n.data.date, lang)}</time>
+              <time datetime={n.entry.data.date}>{formatDate(n.entry.data.date, lang)}</time>
               <div>
-                <span class="cat">{ui.newsCategory[n.data.category]}</span>
-                {n.data.url ? <a href={n.data.url} rel="noopener">{n.data.title[lang]}</a> : <strong>{n.data.title[lang]}</strong>}
-                {n.data.summary && <p>{n.data.summary[lang]}</p>}
+                <span class="cat">{ui.newsCategory[n.entry.data.category]}</span>
+                <a href={href(lang, `news/${n.id}`)}>{n.entry.data.title[lang]}</a>
+                {n.until !== n.entry.data.date && <span class="news-until">{lang === 'ja' ? `${formatDate(n.until, lang)}${L.upcomingUntil}` : `${L.upcomingUntil} ${formatDate(n.until, lang)}`}</span>}
               </div>
             </li>
           ))}
         </ul>
       </section>
+    )}
+
+    {hasArchive && <p class="notice" role="note" style="margin-bottom:1.5rem">{ui.newsPast}</p>}
+
+    <form class="filters" id="news-filters" role="search" onsubmit="return false">
+      <label for="nf-type">{ui.filterType}
+        <select id="nf-type"><option value="">{ui.all}</option>{categories.map((c) => <option value={c}>{ui.newsCategory[c]}</option>)}</select>
+      </label>
+      {tagged.length > 0 && (
+        <label for="nf-partner">{L.filterPartner}
+          <select id="nf-partner"><option value="">{ui.all}</option>{tagged.map((p) => <option value={p.id}>{p.name}</option>)}</select>
+        </label>
+      )}
+    </form>
+    <p class="count" id="news-count" aria-live="polite">{fill(L.shown, { shown: items.length, total: items.length })}</p>
+    <p class="count" id="news-none" hidden>{L.none}</p>
+
+    {years.map((y) => (
+      <section class="news-year" style="margin-bottom:2rem">
+        <h2 style="margin-bottom:0.6rem">{y}</h2>
+        <ul class="news-list">
+          {items.filter((n) => n.entry.data.date.startsWith(y)).map((n) => {
+            const d = n.entry.data;
+            const past = n.past && d.category !== 'news' ? L.past[d.category] : undefined;
+            return (
+              <li data-cat={d.category} data-partners={n.partners.join(' ')}>
+                <time datetime={d.date}>{formatDate(d.date, lang)}</time>
+                <div>
+                  <span class="cat">{ui.newsCategory[d.category]}</span>
+                  {past && <span class="news-past">{past}</span>}
+                  <a href={href(lang, `news/${n.id}`)}>{d.title[lang]}</a>
+                  {d.summary && <p>{d.summary[lang]}</p>}
+                  {n.partners.length > 0 && (
+                    <p class="news-tags">{n.partners.map((id) => partnerName(id)).filter(Boolean).map((name) => <span class="badge">{name}</span>)}</p>
+                  )}
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
     ))}
   </div>
 </Base>
+
+<style>
+  .news-upcoming { margin-bottom: 2rem; }
+  .news-upcoming h2 { margin-bottom: 0.6rem; }
+  .news-until { color: var(--muted); font-size: 0.9rem; margin-left: 0.5rem; }
+  .news-past { display: inline-block; font-size: 0.72rem; font-weight: 600; color: var(--muted); border: 1px solid var(--line-2); border-radius: 4px; padding: 0 0.35rem; margin-right: 0.5rem; }
+  .news-tags { margin-top: 0.3rem; }
+  .news-year[hidden], .news-list li[hidden], .count[hidden] { display: none; }
+</style>
+
+<script is:inline define:vars={{ labels }}>
+  (function () {
+    var type = document.getElementById('nf-type');
+    var partner = document.getElementById('nf-partner');
+    var countEl = document.getElementById('news-count');
+    var none = document.getElementById('news-none');
+    var rows = Array.prototype.slice.call(document.querySelectorAll('.news-year li[data-cat]'));
+    var years = Array.prototype.slice.call(document.querySelectorAll('.news-year'));
+    function apply() {
+      var t = type.value, p = partner ? partner.value : '';
+      var shown = 0;
+      rows.forEach(function (li) {
+        var ok = (!t || li.getAttribute('data-cat') === t) &&
+          (!p || (' ' + li.getAttribute('data-partners') + ' ').indexOf(' ' + p + ' ') >= 0);
+        li.hidden = !ok;
+        if (ok) shown += 1;
+      });
+      years.forEach(function (sec) { sec.hidden = !sec.querySelector('li[data-cat]:not([hidden])'); });
+      countEl.textContent = labels.shown.replace('{shown}', shown).replace('{total}', rows.length);
+      none.hidden = shown > 0;
+    }
+    type.addEventListener('change', apply);
+    if (partner) partner.addEventListener('change', apply);
+  })();
+</script>

@@ -4,14 +4,17 @@
     "en": "Scholar Exchange Program (SEP) between Nagoya University Graduate School of Medicine and the University of North Carolina at Chapel Hill, School of Medicine",
     "ja": "名古屋大学医学系研究科とノースカロライナ大学チャペルヒル校医学部との客員研究員交換プログラム（Scholar Exchange Program）"
   },
-  "short": { "en": "Scholar exchange with UNC", "ja": "UNC客員研究員交換" },
+  "short": {
+    "en": "Scholar exchange with UNC",
+    "ja": "UNC客員研究員交換"
+  },
   "audience": {
     "en": "Medical doctoral students, and lecturers, assistant professors and paid researchers aged 39 or younger, who intend to continue research after returning",
     "ja": "帰国後も研究を続ける意思のある、医学博士課程の大学院生と、39歳以下の講師・助教・有給の研究員"
   },
   "duration": {
-    "en": "Within one year (six months or more preferable); funded period 3 months to 1 year",
-    "ja": "1年以内（6か月以上が望ましい）。助成対象期間は3か月以上1年以内"
+    "en": "Up to one year. A stay of 6 months or more is preferred. Funding covers, in principle, 3 months to 1 year, as the programme committee decides.",
+    "ja": "1年以内で、6か月以上の渡航が望ましいとされています。助成の対象期間は原則3か月以上1年以内で、実施委員会が定めます"
   },
   "capacity": {
     "en": "2 participants from each university a year",
@@ -22,8 +25,8 @@
     "ja": "UNCへの授業料の支払いは不要"
   },
   "funding": {
-    "en": "Doctoral students: up to JPY 200,000 for travel and return, and up to JPY 250,000 a month for accommodation. Faculty and researchers keep their Nagoya salary.",
-    "ja": "大学院生は渡航・帰国費が上限20万円、滞在費が月額上限25万円。教員・研究員は名古屋大学の給与を受けながら渡航できる"
+    "en": "Doctoral students: up to JPY 200,000 for travel and return, and up to JPY 200,000 a month for the stay. Faculty and researchers keep their Nagoya salary.",
+    "ja": "大学院生は渡航・帰国費が上限20万円、滞在費が月額上限20万円。教員・研究員は名古屋大学の給与を受けながら渡航できる"
   },
   "degree": {
     "en": "No UNC degree. A certificate of completion and an evaluation are issued; results can be used in the doctoral dissertation at Nagoya.",
@@ -34,26 +37,30 @@
     "ja": "受験から2年以内のTOEFL iBT 65点、IELTS 6、CEFR B2、OPI Intermediate MidまたはTOEIC 650点。年齢は各年度4月1日時点。教員の派遣は共同研究の推進に限る"
   },
   "howToApply": {
-    "en": "Contact the Office of International Affairs. The old pages give no application procedure.",
-    "ja": "国際連携室に問い合わせます。旧サイトには出願手続きの記載がありません"
+    "en": "Send four documents to the joint degree programmes office: the UNC visiting scholar application form and the UNC recommendation form (both in a set format), a CV in English and a motivation letter. The CV and the letter are forwarded to UNC. Ask the office for the two UNC forms.",
+    "ja": "ジョイント・ディグリー・プログラムの担当窓口に4種類の書類を提出します。UNCへの客員研究員応募申請書と推薦書（いずれも指定様式）、英語の履歴書、Motivation Letterです。履歴書とMotivation LetterはUNCへ送られます。UNCの指定様式2種類は、担当窓口に請求してください"
   },
   "deadline": {
-    "status": "tba",
+    "status": "rolling",
     "text": {
-      "en": "To be announced. No application period is given on the old pages.",
-      "ja": "未定。旧サイトには応募時期の記載がありません"
+      "en": "Selection is ongoing. Send your documents at least 4 months before the date you plan to start. Each year's call covers stays that start between 1 April and 31 March of the following year.",
+      "ja": "選考は随時行います。渡航開始を希望する日の4か月前までに書類を提出してください。毎年の募集は、4月1日から翌年3月31日までに活動を始める人が対象です"
     }
   },
-  "partners": ["unc"],
-  "contact": "intl-office",
+  "partners": [
+    "unc"
+  ],
+  "contact": "jdp-office",
   "page": "degrees/unc-scholar-exchange",
   "sources": [
+    "https://www.med.nagoya-u.ac.jp/intlexch/japanese/education/abroad/program6.html",
     "https://www.med.nagoya-u.ac.jp/jdp/en/unc/",
     "https://www.med.nagoya-u.ac.jp/jdp/unc/"
   ],
   "toConfirm": [
-    "Application period and procedure",
-    "Support amounts carry no year; confirm they are current",
-    "Minimum funded period (3 months) versus preferred stay (6 months or more)"
+    "Monthly stay allowance: the exchange site (intlexch/japanese/education/abroad/program6.html) gives up to JPY 200,000 a month, the JDP site (jdp/unc/, jdp/en/unc/) up to JPY 250,000. JPY 200,000 is shown, following the more recent exchange site; confirm the current amount.",
+    "Support amounts carry no year; confirm they are current.",
+    "The UNC visiting scholar application form and recommendation form are not online. Send them, or a link, so the page can offer them.",
+    "The exchange site says applications go to the Office of International Affairs. This site sends applicants to the joint degree programmes office; confirm which address receives the documents."
   ]
 }

@@ -40,10 +40,10 @@
     "ja": "募集はTACTと掲示板で案内します。学内選考があります。早めに国際連携室の留学担当教員に相談してください"
   },
   "deadline": {
-    "status": "rolling",
+    "status": "tba",
     "text": {
-      "en": "Calls open around May to June of the fifth year, for dispatch from January of the fifth year to April of the sixth year.",
-      "ja": "5年次の5〜6月ごろに募集します。派遣は5年次の1月から6年次の4月までです"
+      "en": "Next call: expected around May to June of the fifth year, on TACT and the notice board. Dispatch runs from January of the fifth year to April of the sixth year.",
+      "ja": "次回の募集は5年次の5〜6月ごろの予定で、TACTと掲示板で案内します。派遣は5年次の1月から6年次の4月までです"
     }
   },
   "page": "study-abroad/clinical-electives",
@@ -55,7 +55,9 @@
   "toConfirm": [
     "Application documents, English score required and selection method (the old pages only say that details are on TACT).",
     "Destination list for the current year: the 2022 faculty table lists Leicester and Adelaide, which the 2025 table does not; the 2025 table adds Munich, Edinburgh and Bologna.",
-    "The audit flagged three rows (US 9 weeks, Sweden 8, Austria 12) as having no university name in one saved copy; the full saved text names Johns Hopkins, Lund and the Medical University of Vienna."
+    "The audit flagged three rows (US 9 weeks, Sweden 8, Austria 12) as having no university name in one saved copy; the full saved text names Johns Hopkins, Lund and the Medical University of Vienna.",
+    "Exact dates of the next call (the plan gives only around May to June of the fifth year), and the TACT course or notice board where it appears. The deadline status was changed from rolling to to-be-announced, because the program has a yearly call.",
+    "Whether the University of North Carolina, the first destination in 1993, still accepts Nagoya students for clinical clerkship. It is not in the 2025 table."
   ],
   "section": "study-abroad",
   "contact": "intl-office"

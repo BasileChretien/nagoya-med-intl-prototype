@@ -16,9 +16,10 @@
     "check:faculty": "node scripts/check-faculty-live.mjs"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22.23.4"
   },
   "dependencies": {
+    "@astrojs/markdown-satteri": "0.4.8",
     "@fontsource-variable/source-serif-4": "5.3.1",
     "astro": "7.4.10"
   },

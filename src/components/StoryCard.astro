@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { t, type Lang } from '../i18n/ui';
+import { t, fill, textLang, countryName, type Lang } from '../i18n/ui';
 import { href, cardImage } from '../lib/site';
 import { reportFor, storyImages, excerptOf } from '../lib/reports';
 
@@ -21,10 +21,12 @@ const link = href(lang, `stories/${story.id}`);
       <img src={img.src} alt={photo.data.alt[lang]} width={img.width} height={img.height} loading="lazy" decoding="async" />
     </div>
   )}
-  <div class="meta"><span>{ui.storyTypes[s.type]}</span><span>{s.year}</span><span>{s.country}</span></div>
-  <h3><a href={link} lang={s.lang}>{s.name}</a></h3>
-  {s.university && s.university !== 'Not stated' && <span class="uni">{s.university}</span>}
-  {s.departments.length > 0 && <div>{s.departments.slice(0, 4).map((d) => <span class="badge" lang={s.lang}>{d}</span>)}</div>}
-  <blockquote lang={report?.lang ?? s.lang}>{excerpt}{machine && <span class="tag-machine">{ui.machineLabel}</span>}</blockquote>
-  <a class="read" href={link}>{ui.readStory} →</a>
+  <div class="meta"><span>{ui.storyTypes[s.type]}</span><span>{s.year}</span><span>{countryName(s.country, s.countryCode, lang)}</span></div>
+  <h3><a href={link} lang={textLang(s.name)}>{s.name}</a></h3>
+  {s.university && s.university !== 'Not stated' && <span class="uni" lang={textLang(s.university)}>{s.university}</span>}
+  {s.departments.length > 0 && (
+    <div><span class="visually-hidden">{ui.storyDepartments}: </span>{s.departments.slice(0, 4).map((d) => <span class="badge" lang={textLang(d)}>{d}</span>)}</div>
+  )}
+  <blockquote lang={report?.lang ?? s.lang}>{excerpt}{machine && <span class="tag-machine" lang={lang}>{ui.machineLabel}</span>}</blockquote>
+  <a class="read" href={link} aria-label={fill(ui.readStoryLabel, { name: s.name })}>{ui.readStory} →</a>
 </article>

@@ -14,7 +14,7 @@ sources:
   - https://www.med.nagoya-u.ac.jp/jdp/fee/
   - https://www.med.nagoya-u.ac.jp/medical_J/international/graduate/jdp/outline/
 updated: 2026-11-25
-programmes: [jdp-adelaide, jdp-lund, jdp-freiburg]
+programmes: []
 ---
 
 ジョイント・ディグリー・プログラム（JDP）は、連携する2大学が共同で1つの教育プログラムを作るものです。学生1人の1つの研究テーマを、両大学の指導教員が中心となって指導します。研究が完結すると、2つの大学が連名で単一の学位を授与します。在籍期間は通常と同じ4年間で、その間に12か月以上の留学が保証されます。
@@ -43,4 +43,4 @@ programmes: [jdp-adelaide, jdp-lund, jdp-freiburg]
 
 入学料と授業料は名古屋大学にのみ納めます。連携大学の授業料は不要です。留学中は、渡航費の補助と毎月の研究活動費があります。金額と条件は[入学案内・費用・支援](admission)をご覧ください。
 
-各プログラムの詳細は、[アデレード大学](adelaide)、[ルンド大学](lund)、[フライブルク大学](freiburg)のページをご覧ください。
+各プログラムの詳細は、[アデレード大学](adelaide)、[ルンド大学](lund)、[フライブルク大学](freiburg)のページをご覧ください。3つのプログラムの定員、費用、支援、次回の募集は、[海外大学との学位プログラム](index)の比較表で比べられます。

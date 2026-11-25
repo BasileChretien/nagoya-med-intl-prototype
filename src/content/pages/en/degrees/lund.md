@@ -6,7 +6,7 @@ order: 40
 summary: Doctoral programme with at least 12 months at Lund University, 48 credits and a single joint Doctor of Philosophy in Medical Science.
 status: to-confirm
 toConfirm:
-  - The English page said "4 students a year"; the 4 is the total for both universities, and the admission page gives 2 a year for Nagoya as principal university.
+  - The English page said "4 students a year"; the 4 is the total for both universities, and the JDP admission page gives 2 a year for Nagoya as principal university.
   - The Japanese page also lists paper-based and computer-based TOEFL scores, which are no longer offered; only the iBT and IELTS requirements are given here.
   - The English page gave two different hours per credit (15 and 45); this page uses 45 hours per credit, as in the Japanese page.
   - Lund's completion requirements differ by year of entry; the figures here apply to students admitted from 1 January 2024.
@@ -21,10 +21,6 @@ programmes: [jdp-lund]
 ---
 
 The International Collaborative Program in Comprehensive Medical Science between Nagoya University and Lund University (Nagoya = Lund JDP) was established in November 2016. Lund University in Sweden is among the top 100 universities worldwide, and its medical research is strong in neuroscience, especially neurodegenerative disease.
-
-## Capacity
-
-With Nagoya University as the principal university, 2 students are admitted each year. Another 2 students a year enrol with Lund University as their principal university, which makes 4 in total.
 
 ## Who can apply
 
@@ -45,7 +41,7 @@ The portfolio records your progress each year and is discussed with your supervi
 
 You spend at least 12 months at Lund University, from the second year of the doctoral course. A longer stay, up to 30 months, can be approved by the joint committee when the experiments need special techniques or the host laboratory is highly specialised.
 
-Example study plans on the old site include neuroscience in Lund's Multipark research environment, working on Parkinson's disease, and health and welfare research for engineering graduates.
+Past example study plans include neuroscience in Lund's Multipark research environment, working on Parkinson's disease, and health and welfare research for engineering graduates.
 
 ## Completing the degree
 

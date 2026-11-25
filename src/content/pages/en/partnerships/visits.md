@@ -9,6 +9,9 @@ toConfirm:
   - The old English page names international@med.nagoya-u.ac.jp for visit requests, while the exchange site names the office address (med-intl@t.mail.nagoya-u.ac.jp). This page refers to the office contact. Confirm the address to use.
   - The old page claims a ranking and a Nobel Prize count for the university without a date or source. They are not repeated here.
   - The visit reports name the university president and vice president differently on different pages. No names of university executives are given here.
+  - The old pages give no minimum notice for a visit and no sample programme. Add both.
+  - Confirm whether the office also receives visits from companies and from organisations in Japan.
+  - The old pages give no advice on hotels or transport for delegations. Add it if the office gives such advice.
 sources:
   - https://www.med.nagoya-u.ac.jp/medical_E/international/outline/visit/
   - https://www.med.nagoya-u.ac.jp/medical_J/international/outline/visit/
@@ -20,13 +23,27 @@ Nagoya University welcomes delegations from universities, hospitals and research
 
 ## How to request a visit
 
-Send your request to the Office of International Affairs. The contact details are on the contact page of the About section. The office can do the following.
+Write to the Office of International Affairs through the [Contact](../about/contact) page. The office can do the following.
 
 - Exchange messages with your coordinator and prepare the documents needed to receive you.
 - Issue official documents from the university when you need them.
 - Arrange a courtesy meeting with school representatives, and visits to facilities.
 
-A meeting with a representative may not always be possible because of schedules. Send your enquiry as early as you can, with details about your group and what you wish to do. The office has experience with delegations from many countries, and its staff work with visitors in English.
+Send your request as early as you can, because a meeting with a representative depends on their schedule and may not always be possible. Ask the office how much notice it needs. Its staff work with visitors in English.
+
+## What to put in your request
+
+- Your institution, its country, and the person who coordinates the visit.
+- The members of your group and their roles.
+- The dates you propose.
+- What you wish to do: whom you would like to meet, which facilities you would like to see, and the purpose of the visit.
+- Any official document you need from the university.
+
+## What a visit can include
+
+Recent visits, listed below, have included a courtesy meeting with university and school leaders, a tour of Nagoya University Hospital, meetings with faculty members, and a lecture or mini-symposium.
+
+The school is on the Tsurumai campus. For directions, see [How to reach the office](../about/access). Companies should first read [For companies and research institutes](companies).
 
 ## Recent visits
 

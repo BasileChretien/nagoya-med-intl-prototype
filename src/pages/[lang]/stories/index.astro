@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
 import StoryCard from '../../../components/StoryCard.astro';
-import { t, fill, type Lang } from '../../../i18n/ui';
+import { t, fill, countryName, type Lang } from '../../../i18n/ui';
 import { href, asset, langPaths } from '../../../lib/site';
 import { reportFor, storyImages, excerptOf } from '../../../lib/reports';
 
@@ -13,16 +13,23 @@ const lang = Astro.params.lang as Lang;
 const ui = t(lang);
 const stories = (await getCollection('stories')).sort((a, b) => b.data.year - a.data.year || a.data.name.localeCompare(b.data.name));
 const types = Object.keys(ui.storyTypes) as (keyof typeof ui.storyTypes)[];
-const countries = [...new Set(stories.map((s) => s.data.country))].sort();
+// Japanese visitors are mostly Nagoya students looking for a destination: their page opens on reports from abroad.
+// Each filter state has its own address (?type=...&country=IT&year=...&q=...); "type=all" lifts the default.
+const DEFAULT_TYPE: string = lang === 'ja' ? 'outgoing' : 'all';
+const countryKey = (c: string, code?: string) => code ?? c;
+const countries = [...new Map(stories.map((s) => [countryKey(s.data.country, s.data.countryCode), countryName(s.data.country, s.data.countryCode, lang)] as [string, string])).entries()]
+  .sort((a, b) => a[1].localeCompare(b[1], lang));
 const years = [...new Set(stories.map((s) => s.data.year))].sort((a, b) => b - a);
 const PAGE = 24;
+const initial = stories.filter((s) => DEFAULT_TYPE === 'all' || s.data.type === DEFAULT_TYPE);
 // All stories as compact JSON for filtering; the first PAGE are also rendered as HTML so the page works without JavaScript.
 const data = await Promise.all(stories.map(async (st) => {
   const s = st.data;
   const report = await reportFor(st.id, lang);
   const [photo] = await storyImages(st.id);
   return {
-    t: s.type, n: s.name, u: s.university === 'Not stated' ? '' : s.university, c: s.country, y: s.year,
+    t: s.type, n: s.name, u: s.university === 'Not stated' ? '' : s.university, c: countryName(s.country, s.countryCode, lang),
+    ck: countryKey(s.country, s.countryCode), ce: s.country, y: s.year,
     d: s.departments.slice(0, 4), l: report?.lang ?? s.lang, x: report ? excerptOf(report.paragraphs) : s.excerpt,
     m: report ? !report.original : false, h: href(lang, `stories/${st.id}`), sl: s.lang,
     i: photo ? asset(photo.data.thumb ?? photo.data.file) : '', a: photo ? photo.data.alt[lang] : '',
@@ -30,18 +37,21 @@ const data = await Promise.all(stories.map(async (st) => {
   };
 }));
 const json = JSON.stringify(data).replace(/</g, '\\u003c');
-const labels = { types: ui.storyTypes, read: ui.readStory, shown: ui.storiesShown, machine: ui.machineLabel };
+const labels = {
+  types: ui.storyTypes, read: ui.readStory, readLabel: ui.readStoryLabel, shown: ui.storiesShown, machine: ui.machineLabel,
+  departments: ui.storyDepartments, lang,
+};
 ---
 <Base lang={lang} title={ui.stories} description={ui.storiesLede} slug="stories">
   <div class="wrap">
-    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href={href(lang)}>{ui.home}</a></li><li aria-current="page">{ui.stories}</li></ol></nav>
+    <nav class="crumbs" aria-label={ui.breadcrumb}><ol><li><a href={href(lang)}>{ui.home}</a></li><li aria-current="page">{ui.stories}</li></ol></nav>
     <header class="page-head"><h1>{ui.stories}</h1><p class="lede">{ui.storiesLede}</p></header>
     <form class="filters" id="story-filters" role="search" onsubmit="return false">
       <label for="f-type">{ui.filterType}
-        <select id="f-type"><option value="">{ui.all}</option>{types.map((ty) => <option value={ty}>{ui.storyTypes[ty]}</option>)}</select>
+        <select id="f-type" data-default={DEFAULT_TYPE}><option value="all" selected={DEFAULT_TYPE === 'all'}>{ui.all}</option>{types.map((ty) => <option value={ty} selected={DEFAULT_TYPE === ty}>{ui.storyTypes[ty]}</option>)}</select>
       </label>
       <label for="f-country">{ui.filterCountry}
-        <select id="f-country"><option value="">{ui.all}</option>{countries.map((c) => <option value={c}>{c}</option>)}</select>
+        <select id="f-country"><option value="">{ui.all}</option>{countries.map(([key, name]) => <option value={key}>{name}</option>)}</select>
       </label>
       <label for="f-year">{ui.filterYear}
         <select id="f-year"><option value="">{ui.all}</option>{years.map((y) => <option value={y}>{y}</option>)}</select>
@@ -50,12 +60,12 @@ const labels = { types: ui.storyTypes, read: ui.readStory, shown: ui.storiesShow
         <input id="f-q" type="search" placeholder={ui.searchPlaceholder} />
       </label>
     </form>
-    <p class="count" id="story-count" aria-live="polite">{fill(ui.storiesShown, { shown: Math.min(PAGE, stories.length), total: stories.length })}</p>
+    <p class="count" id="story-count" aria-live="polite">{fill(ui.storiesShown, { shown: Math.min(PAGE, initial.length), total: initial.length })}</p>
     <h2 class="visually-hidden">{ui.stories}</h2>
     <div class="grid cols-3" id="story-grid">
-      {stories.slice(0, PAGE).map((s) => <StoryCard story={s} lang={lang} />)}
+      {initial.slice(0, PAGE).map((s) => <StoryCard story={s} lang={lang} />)}
     </div>
-    <p style="margin:1.5rem 0 4rem"><button class="btn ghost" type="button" id="story-more" hidden={stories.length <= PAGE}>{ui.showMore}</button></p>
+    <p style="margin:1.5rem 0 4rem"><button class="btn ghost" type="button" id="story-more" hidden={initial.length <= PAGE}>{ui.showMore}</button></p>
   </div>
   <script type="application/json" id="story-data" set:html={json}></script>
 </Base>
@@ -67,30 +77,57 @@ const labels = { types: ui.storyTypes, read: ui.readStory, shown: ui.storiesShow
     var countEl = document.getElementById('story-count');
     var more = document.getElementById('story-more');
     var f = { type: document.getElementById('f-type'), country: document.getElementById('f-country'), year: document.getElementById('f-year'), q: document.getElementById('f-q') };
+    var defaultType = f.type.getAttribute('data-default') || 'all';
     var limit = PAGE;
     function esc(v) { return String(v).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+    function textLang(v) { return /[\u3040-\u30ff\u3400-\u9fff]/.test(v) ? 'ja' : 'en'; }
     function card(s) {
       return '<article class="card story">' +
         (s.i ? '<div class="card-img"><img src="' + esc(s.i) + '" alt="' + esc(s.a) + '" width="' + s.iw + '" height="' + s.ih + '" loading="lazy" decoding="async"></div>' : '') +
         '<div class="meta"><span>' + esc(labels.types[s.t]) + '</span><span>' + s.y + '</span><span>' + esc(s.c) + '</span></div>' +
-        '<h3><a href="' + esc(s.h) + '" lang="' + s.sl + '">' + esc(s.n) + '</a></h3>' + (s.u ? '<span class="uni">' + esc(s.u) + '</span>' : '') +
-        (s.d.length ? '<div>' + s.d.map(function (d) { return '<span class="badge" lang="' + s.sl + '">' + esc(d) + '</span>'; }).join('') + '</div>' : '') +
-        '<blockquote lang="' + s.l + '">' + esc(s.x) + (s.m ? '<span class="tag-machine">' + esc(labels.machine) + '</span>' : '') + '</blockquote>' +
-        '<a class="read" href="' + esc(s.h) + '">' + esc(labels.read) + ' →</a></article>';
+        '<h3><a href="' + esc(s.h) + '" lang="' + textLang(s.n) + '">' + esc(s.n) + '</a></h3>' +
+        (s.u ? '<span class="uni" lang="' + textLang(s.u) + '">' + esc(s.u) + '</span>' : '') +
+        (s.d.length ? '<div><span class="visually-hidden">' + esc(labels.departments) + ': </span>' + s.d.map(function (d) { return '<span class="badge" lang="' + textLang(d) + '">' + esc(d) + '</span>'; }).join('') + '</div>' : '') +
+        '<blockquote lang="' + s.l + '">' + esc(s.x) + (s.m ? '<span class="tag-machine" lang="' + labels.lang + '">' + esc(labels.machine) + '</span>' : '') + '</blockquote>' +
+        '<a class="read" href="' + esc(s.h) + '" aria-label="' + esc(labels.readLabel.replace('{name}', s.n)) + '">' + esc(labels.read) + ' →</a></article>';
+    }
+    function hasOption(sel, v) { return Array.prototype.some.call(sel.options, function (o) { return o.value === v; }); }
+    // Read the filters from the address, so a link such as ?country=IT opens on the matching stories.
+    function readUrl() {
+      var p = new URLSearchParams(location.search);
+      var ty = p.get('type'), c = p.get('country'), y = p.get('year'), q = p.get('q');
+      if (ty && hasOption(f.type, ty)) f.type.value = ty;
+      if (c && hasOption(f.country, c.toUpperCase())) f.country.value = c.toUpperCase();
+      else if (c && hasOption(f.country, c)) f.country.value = c;
+      if (y && hasOption(f.year, y)) f.year.value = y;
+      if (q) f.q.value = q;
+      return Boolean(ty || c || y || q);
+    }
+    function writeUrl() {
+      var p = new URLSearchParams();
+      if (f.type.value !== defaultType) p.set('type', f.type.value);
+      if (f.country.value) p.set('country', f.country.value);
+      if (f.year.value) p.set('year', f.year.value);
+      if (f.q.value.trim()) p.set('q', f.q.value.trim());
+      var qs = p.toString();
+      history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
     }
     function apply() {
       var q = f.q.value.trim().toLowerCase();
+      var ty = f.type.value;
       var rows = all.filter(function (s) {
-        return (!f.type.value || s.t === f.type.value) && (!f.country.value || s.c === f.country.value) &&
+        return (ty === 'all' || s.t === ty) && (!f.country.value || s.ck === f.country.value) &&
           (!f.year.value || String(s.y) === f.year.value) &&
-          (!q || (s.n + ' ' + s.u + ' ' + s.c + ' ' + s.d.join(' ') + ' ' + s.x).toLowerCase().indexOf(q) >= 0);
+          (!q || (s.n + ' ' + s.u + ' ' + s.c + ' ' + s.ce + ' ' + s.d.join(' ') + ' ' + s.x).toLowerCase().indexOf(q) >= 0);
       });
       grid.innerHTML = rows.slice(0, limit).map(card).join('');
       countEl.textContent = labels.shown.replace('{shown}', Math.min(rows.length, limit)).replace('{total}', rows.length);
       more.hidden = rows.length <= limit;
     }
-    [f.type, f.country, f.year].forEach(function (el) { el.addEventListener('change', function () { limit = PAGE; apply(); }); });
-    f.q.addEventListener('input', function () { limit = PAGE; apply(); });
+    function changed() { limit = PAGE; writeUrl(); apply(); }
+    [f.type, f.country, f.year].forEach(function (el) { el.addEventListener('change', changed); });
+    f.q.addEventListener('input', changed);
     more.addEventListener('click', function () { limit += PAGE * 2; apply(); });
+    if (readUrl()) apply();
   })();
 </script>

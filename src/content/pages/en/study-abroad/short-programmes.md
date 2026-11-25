@@ -22,13 +22,13 @@ updated: 2026-11-25
 programmes: [tei-summer-camp, colorado-entrepreneurship, shibahara-entrepreneurship, uk-short-clinical, cambridge-exchange]
 ---
 
-These programs fit into summer or spring breaks. Many do not run on a fixed yearly schedule, so check the latest information with the Office of International Affairs.
+These programs fit into summer or spring breaks. Many do not run on a fixed yearly schedule, so check the latest information with the Office of International Affairs. Before you leave, read [safety, insurance and emergencies](safety).
 
 ## GAME TEI Summer Camp
 
 The Transnational Educational Initiative (TEI), led by Korea University, brings medical students from around the world to a summer camp. Nagoya University belongs to GAME (Global Alliance of Medical Excellence) and takes part.
 
-The first camp took place at Nagoya in 2019. It lasted five days, and its themes were disaster medicine and professionalism. Eighteen students from seven universities took part. They visited Fukushima to see hospitals and the reconstruction work, and they toured a disaster prevention center in Nagoya and the university's Mitigation Center. The old site's report headings list the second camp as 2020 (Bologna) and the third as 2021 (Monash). The third camp was led by Monash University and held online in the evenings of 26 to 29 July 2021.
+The first camp took place at Nagoya in 2019. It lasted five days, and its themes were disaster medicine and professionalism. Eighteen students from seven universities took part. They visited Fukushima to see hospitals and the reconstruction work, and they toured a disaster prevention center in Nagoya and the university's Mitigation Center. The second camp is listed for 2020 at Bologna and the third for 2021 at Monash. The third camp was led by Monash University and held online in the evenings of 26 to 29 July 2021.
 
 No later camp has been announced.
 
@@ -60,7 +60,7 @@ You must be enrolled in a regular course, able to follow lectures and join discu
 
 ## Programs without published details
 
-The old sites list two more programs but give no content. Please ask the office about them.
+Two more programs are listed by name only, with no details yet. Ask the office about them.
 
 - Monash Intense Spring Camp
 - Summer Program with Duke University, the University of North Carolina and universities in China

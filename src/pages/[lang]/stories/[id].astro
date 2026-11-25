@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
 import Photo from '../../../components/Photo.astro';
-import { t, fill, LANGS, type Lang } from '../../../i18n/ui';
+import { t, fill, textLang, countryName, targetMarker, LANGS, type Lang } from '../../../i18n/ui';
 import { href, otherLang } from '../../../lib/site';
 import { reportFor, storyImages, excerptOf, type StoryEntry } from '../../../lib/reports';
 
@@ -22,21 +22,23 @@ const other = otherLang(lang);
 const originalLang = s.lang as Lang;
 const isTranslation = report !== null && !report.original;
 const untranslated = report !== null && report.original && report.lang !== lang;
-const title = `${s.name} · ${s.university !== 'Not stated' ? s.university : s.country} · ${s.year}`;
+const country = countryName(s.country, s.countryCode, lang);
+const title = `${s.name} · ${s.university !== 'Not stated' ? s.university : country} · ${s.year}`;
 const description = report ? excerptOf(report.paragraphs, 150) : s.excerpt;
 const [hero, ...rest] = photos;
+const sourceMark = targetMarker(s.source, lang);
 ---
 <Base lang={lang} title={title} description={description} slug={`stories/${story.id}`}>
   <div class="wrap">
-    <nav class="crumbs" aria-label="Breadcrumb">
-      <ol><li><a href={href(lang)}>{ui.home}</a></li><li><a href={href(lang, 'stories')}>{ui.stories}</a></li><li aria-current="page">{s.name}</li></ol>
+    <nav class="crumbs" aria-label={ui.breadcrumb}>
+      <ol><li><a href={href(lang)}>{ui.home}</a></li><li><a href={href(lang, 'stories')}>{ui.stories}</a></li><li aria-current="page" lang={textLang(s.name)}>{s.name}</li></ol>
     </nav>
     <header class="page-head story-head">
-      <p class="kicker-line"><span>{ui.storyTypes[s.type]}</span><span>{s.year}</span><span>{s.country}</span></p>
-      <h1 lang={s.lang}>{s.name}</h1>
-      {s.university !== 'Not stated' && <p class="lede">{s.university}</p>}
+      <p class="kicker-line"><span>{ui.storyTypes[s.type]}</span><span>{s.year}</span><span>{country}</span></p>
+      <h1 lang={textLang(s.name)}>{s.name}</h1>
+      {s.university !== 'Not stated' && <p class="lede" lang={textLang(s.university)}>{s.university}</p>}
       {report?.title && <p class="story-title" lang={report.lang}>{report.title}</p>}
-      {s.departments.length > 0 && <div>{s.departments.map((d) => <span class="badge" lang={s.lang}>{d}</span>)}</div>}
+      {s.departments.length > 0 && <div><span class="visually-hidden">{ui.storyDepartments}: </span>{s.departments.map((d) => <span class="badge" lang={textLang(d)}>{d}</span>)}</div>}
     </header>
 
     <div class="story-layout">
@@ -64,7 +66,7 @@ const [hero, ...rest] = photos;
         )}
         <footer class="sources">
           {photos.length > 0 && <span>{ui.photoFrom}</span>}
-          <span><a href={s.source} rel="noopener">{ui.officialReport} ↗</a></span>
+          <span><a href={s.source} rel="noopener" hreflang={sourceMark.hreflang}>{ui.officialReport} ↗</a>{sourceMark.text && <span class="target-lang">{lang === 'en' ? ' ' : ''}{sourceMark.text}</span>}</span>
         </footer>
         <p><a class="btn ghost" href={href(lang, 'stories')}>← {ui.backToStories}</a></p>
       </article>

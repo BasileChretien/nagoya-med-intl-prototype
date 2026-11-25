@@ -10,7 +10,9 @@ toConfirm:
   - The English member list names The University of Hong Kong, while the project pages, the TEI pages and the Japanese pages name The Chinese University of Hong Kong (CUHK). CUHK is used here.
   - TEI is expanded as Transnational Educational Initiative on three pages and as Translational Educational Initiatives on the English summer camp page. This page uses Transnational.
   - The first online case discussion is described as organized by Nagoya, CUHK and Korea University with students from Korea, Hong Kong, Germany and Nagoya (English), and as 16 students from four universities (Japanese). Confirm the participating schools.
-  - The old pages show no GAME activity at Nagoya after the 2022 annual meeting. Confirm what is running now.
+  - The old pages show no GAME activity at Nagoya after the 2022 annual meeting. Confirm what is running now, and give the next planned meeting or camp.
+  - The old pages do not say how a new school joins GAME or takes part in a project. Add the procedure.
+  - Confirm the role of each Nagoya person in charge of GAME, and who leads the Lewy body cohort project at Nagoya.
 sources:
   - https://www.med.nagoya-u.ac.jp/medical_E/international/global/game/outline/
   - https://www.med.nagoya-u.ac.jp/medical_J/international/global/game/outline/
@@ -53,6 +55,14 @@ PhD4GAME is a further priority. It adds a layer of support for research between 
 
 Members take turns to host the annual meeting. Nagoya hosted the sixth meeting on 3 and 4 November 2022, the first in person for three years, with more than 20 delegates from the member schools.
 
+## Current status
+
+The latest GAME event on the school's pages is the annual meeting Nagoya hosted in November 2022. The pages record no GAME meeting, camp or case discussion at Nagoya from 2023 to 2026, and announce no next event. Visitors from two member schools, Monash University and the University of Nottingham, came to Nagoya in March 2024 (see [Delegation visits](visits)). Ask the office what is planned now.
+
+## Taking part
+
+Only medical schools belong to GAME. The old pages do not describe how a new school joins. A medical school that wants to take part in a project, or to reach a project's lead at Nagoya, can write to the office.
+
 ## Contact
 
-Questions about GAME at Nagoya go to the Office of International Affairs.
+Questions about GAME at Nagoya go to the Office of International Affairs, through the [Contact](../about/contact) page.

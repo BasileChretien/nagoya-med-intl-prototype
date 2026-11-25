@@ -1,127 +1,171 @@
 {
  "pages": {
   "about": {
-   "en": "63addf559488ad13",
-   "ja": "ff8bdcee88620d7a"
+   "en": "f6f08bb3beb29e9f",
+   "ja": "c4d183bb07326d82"
+  },
+  "about/access": {
+   "en": "1147472c23f3ee8c",
+   "ja": "e30674e98e89ec9e"
   },
   "about/contact": {
-   "en": "a00869da5ded25e6",
-   "ja": "65af133beb51bd88"
+   "en": "5477c8c9f1edcb47",
+   "ja": "232814cdf0a19f61"
+  },
+  "about/glossary": {
+   "en": "1ed4a2a8a3cb736f",
+   "ja": "10a8f30346152755"
+  },
+  "about/support": {
+   "en": "a49ccff89fa6c2f0",
+   "ja": "af41256c816012bf"
   },
   "degrees": {
-   "en": "09bfff869e83decf",
-   "ja": "e0af4b51bb358566"
+   "en": "a118bf2849705167",
+   "ja": "fe95ebdd17b51032"
   },
   "degrees/adelaide": {
-   "en": "4c3686c01ffcfeab",
-   "ja": "6001c6896df78a75"
+   "en": "a9a9ee58db9e2c8a",
+   "ja": "476e3a9075ab4749"
   },
   "degrees/admission": {
-   "en": "25ea19d21bfe8da9",
-   "ja": "181c1e27e6c0ac13"
+   "en": "2da32acc224ce297",
+   "ja": "cb5fbb0163f3917b"
   },
   "degrees/cuhk-double-degree": {
-   "en": "c0877c5f7be8272d",
-   "ja": "07fea17310aaf3aa"
+   "en": "03acd93d315b81f6",
+   "ja": "7fcc9771dd89cb2a"
   },
   "degrees/faq": {
-   "en": "3d8e68d98b9b589d",
-   "ja": "7a50f63d1a310a92"
+   "en": "045a87b7dd71fe1a",
+   "ja": "bf0a03b0cd9b351e"
   },
   "degrees/freiburg": {
-   "en": "32c85e34fba4754d",
-   "ja": "f2174e28f6d34161"
+   "en": "f1d4f9a6fb8a8a85",
+   "ja": "9529164e31103eb0"
   },
   "degrees/joint-degree": {
-   "en": "150985e8f8e9766d",
-   "ja": "764bf651060669df"
+   "en": "84ca21750a3aa9b0",
+   "ja": "e3aa5ec5490a08d6"
   },
   "degrees/lund": {
-   "en": "a9df9bbaf885d222",
-   "ja": "aff70aa029f05495"
+   "en": "b6ae14a1c36ecf2d",
+   "ja": "7df54ce3bc49a791"
   },
   "degrees/unc-scholar-exchange": {
-   "en": "0e793e4d14cf11cb",
-   "ja": "0c2118d247f4c42b"
+   "en": "997d0fd9f4fe1170",
+   "ja": "5cd71f885f3f63b1"
   },
   "partnerships": {
-   "en": "7c56a91fc1877b0d",
-   "ja": "dfbd6e5a2122a279"
+   "en": "e86a12fdf951b657",
+   "ja": "41df635434439531"
   },
   "partnerships/agreements": {
-   "en": "9b51cbab2a896cfc",
-   "ja": "5c89dd15b4f9b911"
+   "en": "35acdb6716b2b358",
+   "ja": "5c7ddb143de2d18f"
+  },
+  "partnerships/become-a-partner": {
+   "en": "c3e73c4f67b5e21a",
+   "ja": "f0967b6340740f75"
+  },
+  "partnerships/companies": {
+   "en": "78b1c32adb027fd0",
+   "ja": "87845de0088b3ed9"
+  },
+  "partnerships/coordinators": {
+   "en": "0d66f351380d913d",
+   "ja": "cb03d875465a4e49"
+  },
+  "partnerships/for-faculty": {
+   "en": "5420e184bf41c395",
+   "ja": "17e6bb671cb5d31f"
   },
   "partnerships/game": {
-   "en": "01d2083e620cf7ad",
-   "ja": "f360bb32da97e59e"
+   "en": "8a9f8bebef8be42f",
+   "ja": "2ee168ddd6fafeb2"
   },
   "partnerships/mirai": {
-   "en": "b56e43d0886fcca3",
-   "ja": "b62e02bfa7eb4a74"
+   "en": "cf9fb043f3bd341c",
+   "ja": "1039ec92f816f6ff"
   },
   "partnerships/symposia": {
    "en": "501c02a44d00866b",
    "ja": "16a01b0867e0306e"
   },
   "partnerships/visits": {
-   "en": "cb18d80c7f8e13eb",
-   "ja": "e7593648be3d1ab2"
+   "en": "e2f13f482bb7061e",
+   "ja": "245c3bbf834c3cd7"
   },
   "study-abroad": {
-   "en": "6e4119dbe863dbfd",
-   "ja": "39cbb5405239c112"
+   "en": "0fc5e7f62e80632b",
+   "ja": "4b8907d838f19bd7"
   },
   "study-abroad/clinical-electives": {
-   "en": "391cf699a8dfbd37",
-   "ja": "a30616746768c571"
+   "en": "d18b00d72a49fcac",
+   "ja": "5ab816d599115d12"
   },
   "study-abroad/faq": {
-   "en": "3b68365cf6eb84d6",
-   "ja": "6b882c581c9b737c"
-  },
-  "study-abroad/honours-programme": {
-   "en": "6b894cd3f32668ef",
-   "ja": "70d3f9274e8e1e5c"
+   "en": "895f852dc125d266",
+   "ja": "861bc2ae643763e6"
   },
   "study-abroad/medical-english": {
-   "en": "48357426de675f85",
-   "ja": "b03ecd00f213b78e"
+   "en": "57bcc0d6dfaf7007",
+   "ja": "1bb1cb9aa082de00"
   },
   "study-abroad/research-abroad": {
-   "en": "85bdcce99a56fbe0",
-   "ja": "06e2f866c1113e4c"
+   "en": "54eacb8e28ae5432",
+   "ja": "4d9b8328437f544b"
+  },
+  "study-abroad/safety": {
+   "en": "2ba8ed5ec70f7e76",
+   "ja": "39377f3091358efd"
   },
   "study-abroad/scholarships": {
-   "en": "eea3ef5f70391f60",
-   "ja": "bf90b0fd95fbb755"
+   "en": "11027a523e20cc6d",
+   "ja": "8d0ccba9b5aca2ce"
   },
   "study-abroad/short-programmes": {
-   "en": "fef0517137920752",
-   "ja": "4add5d5ce7c2a538"
+   "en": "36878f58067db4c2",
+   "ja": "5d2e727fab286f33"
+  },
+  "study-abroad/usmle-and-certificates": {
+   "en": "09c6f57e2d4b34fc",
+   "ja": "7e0511213f6d377a"
   },
   "study-in-nagoya": {
-   "en": "180acb3a81f25fd6",
-   "ja": "8c3f79d3595800e0"
+   "en": "53c7d72d6742b50d",
+   "ja": "8b5596c061e2160c"
   },
   "study-in-nagoya/clinical-clerkship": {
-   "en": "37bb087fb744e1ee",
-   "ja": "1fa994711412ab3f"
+   "en": "8ec7a2f504f7febf",
+   "ja": "91a5cfe0a57603b3"
   },
   "study-in-nagoya/faq": {
-   "en": "1a9e5d47dbcca45d",
-   "ja": "28030603e31f6e91"
+   "en": "8a1e2a7bf6bbc86e",
+   "ja": "c6e9695655949c20"
   },
   "study-in-nagoya/living-in-nagoya": {
-   "en": "7ac548a8e54ce7c1",
-   "ja": "0c93256f1ecd0bbd"
+   "en": "465539eea9e16c20",
+   "ja": "c0d8b645ee6defdd"
   },
   "study-in-nagoya/research-training": {
-   "en": "2865bb82401e6901",
-   "ja": "a8bc457162a7d55c"
+   "en": "b329d75f28765ca6",
+   "ja": "03e0ef1606faf841"
+  },
+  "study-in-nagoya/visiting-researchers": {
+   "en": "ddbd682728696c0f",
+   "ja": "a992f7ee9e79387d"
   }
  },
  "fields": {
+  "contacts.json#donations/audience": {
+   "en": "ce472821caa0bce5",
+   "ja": "d34b1dba6d39a9c2"
+  },
+  "contacts.json#donations/label": {
+   "en": "0c041580e3b30834",
+   "ja": "8630487b73875492"
+  },
   "contacts.json#intl-office/address": {
    "en": "125e3a37e484d81e",
    "ja": "03375f07bbb318bd"
@@ -133,6 +177,10 @@
   "contacts.json#intl-office/label": {
    "en": "cd912e655399db83",
    "ja": "4b7549720df106ed"
+  },
+  "contacts.json#intl-office/location": {
+   "en": "e438c3048735f3d4",
+   "ja": "cce826b58cc99507"
   },
   "contacts.json#jdp-office/address": {
    "en": "bacc2b3cb74cbd8b",
@@ -1914,6 +1962,14 @@
    "en": "83ac8edb2926dbd9",
    "ja": "4d1d8558342317cb"
   },
+  "images.json#page-office-route-map-about-access/alt": {
+   "en": "3f47a91bf440959e",
+   "ja": "a0168b48ddf90d06"
+  },
+  "images.json#page-office-route-map-about-access/caption": {
+   "en": "58a4063c773ee057",
+   "ja": "1788aaa8036d34b7"
+  },
   "images.json#research-2014-kimberley-evans-1/alt": {
    "en": "e71d7e27a0b9fdb0",
    "ja": "de9c91df08c47375"
@@ -2005,6 +2061,90 @@
   "news.json#2018-11-jdp-freiburg-site/title": {
    "en": "f3d10603ee7af99d",
    "ja": "9cb2ce699d41c7b1"
+  },
+  "news.json#2019-01-mnums-visit/body": {
+   "en": "91422318d52be188",
+   "ja": "4ef6d995d22a32ad"
+  },
+  "news.json#2019-01-mnums-visit/summary": {
+   "en": "20c50ce089aff0c0",
+   "ja": "ee4b8da445a9e907"
+  },
+  "news.json#2019-01-mnums-visit/title": {
+   "en": "e9069cf6a5b5f5ae",
+   "ja": "0bbb202fbeafb7ed"
+  },
+  "news.json#2019-05-bangkok-hospital-visit/body": {
+   "en": "535d291f9c4916b6",
+   "ja": "2384089c36ba22ba"
+  },
+  "news.json#2019-05-bangkok-hospital-visit/summary": {
+   "en": "53687a329f022abd",
+   "ja": "17828bcf4422c0b9"
+  },
+  "news.json#2019-05-bangkok-hospital-visit/title": {
+   "en": "2c597520e503e415",
+   "ja": "8705a5fa897d5650"
+  },
+  "news.json#2019-05-snuh-visit/body": {
+   "en": "bd2c16c3780249f8",
+   "ja": "73db47ce7d327002"
+  },
+  "news.json#2019-05-snuh-visit/summary": {
+   "en": "1d53d41f6bc8613b",
+   "ja": "a4d982d52f717cbf"
+  },
+  "news.json#2019-05-snuh-visit/title": {
+   "en": "9636dfe0d48c870b",
+   "ja": "1aa48ee46bfda706"
+  },
+  "news.json#2019-07-korea-university-visit/body": {
+   "en": "bfe727d946f1b58a",
+   "ja": "407f22bde72dc49b"
+  },
+  "news.json#2019-07-korea-university-visit/summary": {
+   "en": "4bb3395117aff8a6",
+   "ja": "8f89aa19f264f8a0"
+  },
+  "news.json#2019-07-korea-university-visit/title": {
+   "en": "a4f30d25d3a17e41",
+   "ja": "f60772abca6c9691"
+  },
+  "news.json#2019-08-ustc-visit/body": {
+   "en": "636dd774f87d6d4d",
+   "ja": "aee324e993fdc1b5"
+  },
+  "news.json#2019-08-ustc-visit/summary": {
+   "en": "71fdb45e8144b5d7",
+   "ja": "5fb8d61054dc74e9"
+  },
+  "news.json#2019-08-ustc-visit/title": {
+   "en": "586388f9bf025ef5",
+   "ja": "cac696e98de061ce"
+  },
+  "news.json#2019-10-edinburgh-visit/body": {
+   "en": "6fd3d944d79665b4",
+   "ja": "768a6c7999cb30dc"
+  },
+  "news.json#2019-10-edinburgh-visit/summary": {
+   "en": "58fd27e4e392b93c",
+   "ja": "51438504058b30a2"
+  },
+  "news.json#2019-10-edinburgh-visit/title": {
+   "en": "467c867313553b53",
+   "ja": "a8374999de0662ea"
+  },
+  "news.json#2019-10-yangming-visit/body": {
+   "en": "a7f9b9f97e876b4c",
+   "ja": "348b2d539e28f68e"
+  },
+  "news.json#2019-10-yangming-visit/summary": {
+   "en": "6420af12f54ce98d",
+   "ja": "b4f7f34c71e1ff17"
+  },
+  "news.json#2019-10-yangming-visit/title": {
+   "en": "dab4ca3c73431490",
+   "ja": "983f98b8d4aa1033"
   },
   "news.json#2020-10-mirai-kickoff/summary": {
    "en": "bd6ca0b8c43e5997",
@@ -2142,6 +2282,30 @@
    "en": "612a83707f681107",
    "ja": "44e1ded2e5233d64"
   },
+  "news.json#2023-11-nz-embassy/body": {
+   "en": "ce9b1349a541e5fb",
+   "ja": "deb420cd7ba483d3"
+  },
+  "news.json#2023-11-nz-embassy/summary": {
+   "en": "7bb7293d9fe607ae",
+   "ja": "f9651c75823ab52e"
+  },
+  "news.json#2023-11-nz-embassy/title": {
+   "en": "cc55f2f7db1ab928",
+   "ja": "47188ea8b113a3a8"
+  },
+  "news.json#2023-12-unc-delegation/body": {
+   "en": "7f10af8c04cb3be6",
+   "ja": "038a54e6ea253158"
+  },
+  "news.json#2023-12-unc-delegation/summary": {
+   "en": "2f0f929dc53f5824",
+   "ja": "e99a22ca72f086f3"
+  },
+  "news.json#2023-12-unc-delegation/title": {
+   "en": "c4e10301efa9138c",
+   "ja": "b2a06d09e46d0b20"
+  },
   "news.json#2024-01-jdp-call/summary": {
    "en": "067c55f4d38bbf8e",
    "ja": "a0f45b8363db3729"
@@ -2150,9 +2314,21 @@
    "en": "687e5e638911928c",
    "ja": "851ef63e1dc0fa53"
   },
+  "news.json#2024-01-uwa-visit/body": {
+   "en": "1949e0ef51c9b76f",
+   "ja": "5c91eae93a33af6d"
+  },
+  "news.json#2024-01-uwa-visit/summary": {
+   "en": "b5dbe566477c325c",
+   "ja": "c06624d91d42784a"
+  },
+  "news.json#2024-01-uwa-visit/title": {
+   "en": "111da703b1049d9e",
+   "ja": "6cc9b5655e5171cc"
+  },
   "news.json#2024-02-colorado-call/summary": {
-   "en": "328964e156b8cb0d",
-   "ja": "44038e2610d93e2f"
+   "en": "f62c8380f4c3d1b6",
+   "ja": "b7f2eb076345d0d3"
   },
   "news.json#2024-02-colorado-call/title": {
    "en": "4bea86787d99d98e",
@@ -2166,6 +2342,22 @@
    "en": "14326a50f1d3564b",
    "ja": "2f89d5d6ae9324bf"
   },
+  "news.json#2024-02-unc-geriatrics/body": {
+   "en": "6f4a5de9cf101450",
+   "ja": "61fa466ca00c89fc"
+  },
+  "news.json#2024-02-unc-geriatrics/summary": {
+   "en": "8ed845e9c695a03e",
+   "ja": "534e1d227c888f5f"
+  },
+  "news.json#2024-02-unc-geriatrics/title": {
+   "en": "bcfce0e50f6e1e8c",
+   "ja": "4d74b84cc359ada7"
+  },
+  "news.json#2024-03-experience-reports/body": {
+   "en": "bfa0d3e020f8950c",
+   "ja": "2539c39deb269f97"
+  },
   "news.json#2024-03-experience-reports/summary": {
    "en": "2bdfd3cff235835e",
    "ja": "e6827914db90333c"
@@ -2173,6 +2365,10 @@
   "news.json#2024-03-experience-reports/title": {
    "en": "5498d2df4e42ea51",
    "ja": "2f597a500c354777"
+  },
+  "news.json#2024-03-freiburg-visit/body": {
+   "en": "75879f5c24272cf0",
+   "ja": "736f10c084429e89"
   },
   "news.json#2024-03-freiburg-visit/summary": {
    "en": "69678d786eafa88a",
@@ -2182,6 +2378,10 @@
    "en": "5cf9b19c2505046a",
    "ja": "33a9551818d47fc2"
   },
+  "news.json#2024-03-monash-symposium/body": {
+   "en": "b6a1eb6d2a942e0c",
+   "ja": "9b4e267721172364"
+  },
   "news.json#2024-03-monash-symposium/summary": {
    "en": "fe776472adee40bb",
    "ja": "2dc9b058080b1f4b"
@@ -2189,6 +2389,10 @@
   "news.json#2024-03-monash-symposium/title": {
    "en": "c1f191a61b216af0",
    "ja": "2a60e63cc005380a"
+  },
+  "news.json#2024-03-nottingham-visit/body": {
+   "en": "4269544c754df8e0",
+   "ja": "ab388ec304faeb82"
   },
   "news.json#2024-03-nottingham-visit/summary": {
    "en": "d4781e087f8a0fee",
@@ -2198,6 +2402,10 @@
    "en": "1daa2b9586d54cdc",
    "ja": "80ca4eac2a70230f"
   },
+  "news.json#2024-09-freiburg-delegation/body": {
+   "en": "7ff24ba4dc120a1d",
+   "ja": "83e1e5be4329dc6e"
+  },
   "news.json#2024-09-freiburg-delegation/summary": {
    "en": "3c089e970a64ce7e",
    "ja": "689cfd3923179b17"
@@ -2205,6 +2413,22 @@
   "news.json#2024-09-freiburg-delegation/title": {
    "en": "cf2681bcc6a2486b",
    "ja": "209a99945a6c1492"
+  },
+  "news.json#2024-09-unc-dementia/body": {
+   "en": "f31f98994aec0d23",
+   "ja": "bb9cf7d9bc140db6"
+  },
+  "news.json#2024-09-unc-dementia/summary": {
+   "en": "9fcdff0c3e21caf8",
+   "ja": "49621ca11be43cd1"
+  },
+  "news.json#2024-09-unc-dementia/title": {
+   "en": "d2711539e725514d",
+   "ja": "8429301e29eed32c"
+  },
+  "news.json#2024-12-reims-visit/body": {
+   "en": "0ce4e30e6fb01700",
+   "ja": "8d40e80114b675a8"
   },
   "news.json#2024-12-reims-visit/summary": {
    "en": "1139403999850ceb",
@@ -2214,6 +2438,10 @@
    "en": "d166f3051e0a8fcb",
    "ja": "50d5ed565dc626d4"
   },
+  "news.json#2025-01-ncsu-visit/body": {
+   "en": "b95ab76911e5e179",
+   "ja": "107009dfed159dcc"
+  },
   "news.json#2025-01-ncsu-visit/summary": {
    "en": "47699df5bb3eaf3d",
    "ja": "3e150e5a7c5cc111"
@@ -2221,6 +2449,10 @@
   "news.json#2025-01-ncsu-visit/title": {
    "en": "89b804b19c5f3d7c",
    "ja": "8c73597a62d073ed"
+  },
+  "news.json#2025-03-experience-reports/body": {
+   "en": "9d976f0db2060865",
+   "ja": "a71192739211c15a"
   },
   "news.json#2025-03-experience-reports/summary": {
    "en": "f7d64dab6d168315",
@@ -2230,6 +2462,10 @@
    "en": "5498d2df4e42ea51",
    "ja": "2f597a500c354777"
   },
+  "news.json#2025-04-vienna-visit/body": {
+   "en": "49ad0a5f331328a2",
+   "ja": "7d35026948aa9ff7"
+  },
   "news.json#2025-04-vienna-visit/summary": {
    "en": "dfe9d0086aff49c6",
    "ja": "29be2165adc11d3a"
@@ -2237,6 +2473,10 @@
   "news.json#2025-04-vienna-visit/title": {
    "en": "3d44919da04b905c",
    "ja": "b906194e39cb3a4e"
+  },
+  "news.json#2025-05-unc-visit/body": {
+   "en": "47595767d6f1a208",
+   "ja": "2ba622a3f8d952b0"
   },
   "news.json#2025-05-unc-visit/summary": {
    "en": "041ba663e87be59c",
@@ -2246,6 +2486,10 @@
    "en": "4613ac50662430cb",
    "ja": "f992da6dbb1c340a"
   },
+  "news.json#2025-06-gdansk-visit/body": {
+   "en": "98228c278117b6a7",
+   "ja": "dd6e90760507b493"
+  },
   "news.json#2025-06-gdansk-visit/summary": {
    "en": "8b035ab2e319fb41",
    "ja": "88a818c29affee14"
@@ -2253,6 +2497,10 @@
   "news.json#2025-06-gdansk-visit/title": {
    "en": "27eb6c4183be17e7",
    "ja": "9a10617913f1b76e"
+  },
+  "news.json#2025-11-mayo-visit/body": {
+   "en": "35c1154a138de6da",
+   "ja": "07ac233d47953019"
   },
   "news.json#2025-11-mayo-visit/summary": {
    "en": "2980ff90e75e9682",
@@ -2262,6 +2510,10 @@
    "en": "326ed58bcd5d5fd7",
    "ja": "c116f0a7fe35ef5b"
   },
+  "news.json#2026-02-uwa-lecture/body": {
+   "en": "fd2095aa9c27dda8",
+   "ja": "12858fd630090d42"
+  },
   "news.json#2026-02-uwa-lecture/summary": {
    "en": "56af952cccb5086c",
    "ja": "f695825096abfcc9"
@@ -2269,6 +2521,10 @@
   "news.json#2026-02-uwa-lecture/title": {
    "en": "e15972f1f938cd6e",
    "ja": "a37ef03cdd6f6510"
+  },
+  "news.json#2026-03-experience-reports/body": {
+   "en": "3f95fd37eb7595a7",
+   "ja": "f8d7653296b56f3e"
   },
   "news.json#2026-03-experience-reports/summary": {
    "en": "aaf997605d786698",
@@ -2307,7 +2563,7 @@
    "ja": "62865cc56a9e2b91"
   },
   "partners.json#bangkok-hospital/name": {
-   "en": "34e855ab11c7115f",
+   "en": "093208bd904fa3c1",
    "ja": "050d32cbfe390725"
   },
   "partners.json#bologna/country": {
@@ -2341,6 +2597,14 @@
   "partners.json#cjfh/name": {
    "en": "a38485f729937c59",
    "ja": "c9a046b1d9b06888"
+  },
+  "partners.json#colorado/country": {
+   "en": "49dca65f362fee40",
+   "ja": "f7f181033c4da3c4"
+  },
+  "partners.json#colorado/name": {
+   "en": "bca201129c414ef5",
+   "ja": "9528325ed3e7cf17"
   },
   "partners.json#cuhk/country": {
    "en": "1ed8c7e56c947beb",
@@ -2783,8 +3047,8 @@
    "ja": "150dc93c74c49886"
   },
   "programmes/basic-medical-seminar.json#deadline/text": {
-   "en": "a0bf0d29a9f88d91",
-   "ja": "f155bc1e1a58a10b"
+   "en": "0579153e33b06b53",
+   "ja": "b2588bbad3fc6a1b"
   },
   "programmes/basic-medical-seminar.json#duration": {
    "en": "40bcc8ea11573ce1",
@@ -2819,8 +3083,8 @@
    "ja": "bcbc2a73b532d55b"
   },
   "programmes/cambridge-exchange.json#deadline/text": {
-   "en": "d2184007a88dc941",
-   "ja": "3604909d7ecce995"
+   "en": "df89ffc9ef127d64",
+   "ja": "1b9f56497f288122"
   },
   "programmes/cambridge-exchange.json#duration": {
    "en": "15c6cefd22769064",
@@ -2847,16 +3111,16 @@
    "ja": "a8aa2a0542bd0c12"
   },
   "programmes/clinical-clerkship.json#capacity": {
-   "en": "60e60d131dcda89e",
-   "ja": "b763c81bb0a43a9f"
+   "en": "55183214179adee7",
+   "ja": "7e41df43c7a3b9a3"
   },
   "programmes/clinical-clerkship.json#cost": {
    "en": "db3819e8ab707281",
    "ja": "76faec1c53944a1a"
   },
   "programmes/clinical-clerkship.json#deadline/text": {
-   "en": "26b22f3dd2048245",
-   "ja": "299980b1490059c0"
+   "en": "202d49bb0c65b181",
+   "ja": "d102ecfd526fb3ef"
   },
   "programmes/clinical-clerkship.json#duration": {
    "en": "e4916c1b0580fd16",
@@ -2871,8 +3135,8 @@
    "ja": "38843d4c94ba6d1e"
   },
   "programmes/clinical-clerkship.json#howToApply": {
-   "en": "2b08bf0a10a4d041",
-   "ja": "f33c81e5006580c5"
+   "en": "c45de89336eb45ca",
+   "ja": "3b8c75f674f08a7f"
   },
   "programmes/clinical-clerkship.json#name": {
    "en": "5cdaffbd64525876",
@@ -2895,8 +3159,8 @@
    "ja": "2185d5f7f06d1052"
   },
   "programmes/clinical-electives.json#deadline/text": {
-   "en": "00de2688d1d13ce7",
-   "ja": "005c8b09b26f0433"
+   "en": "91b8e93033510a23",
+   "ja": "6578d97ca247556d"
   },
   "programmes/clinical-electives.json#degree": {
    "en": "5defb5e613283a6c",
@@ -2939,8 +3203,8 @@
    "ja": "9eb1ccbbc94968b7"
   },
   "programmes/colorado-entrepreneurship.json#deadline/text": {
-   "en": "847eea374931d600",
-   "ja": "a0ee2daef850cf65"
+   "en": "4653dc0eefae069d",
+   "ja": "073068f20eef35a6"
   },
   "programmes/colorado-entrepreneurship.json#degree": {
    "en": "f83ffea82ca85e05",
@@ -2975,8 +3239,8 @@
    "ja": "b993b5c6c5dbab8a"
   },
   "programmes/dd-cuhk.json#deadline/text": {
-   "en": "47ea2cf6d6b4356b",
-   "ja": "9d57f9b08d2f0b4e"
+   "en": "7033ad4d3d91ad2c",
+   "ja": "29386bbae5558801"
   },
   "programmes/dd-cuhk.json#degree": {
    "en": "e166fb2ad56926da",
@@ -2992,11 +3256,11 @@
   },
   "programmes/dd-cuhk.json#funding": {
    "en": "baa8af84636327db",
-   "ja": "3b9dccbea14154e7"
+   "ja": "46ea3ddf6ec8de47"
   },
   "programmes/dd-cuhk.json#howToApply": {
-   "en": "842dc445c796c039",
-   "ja": "a672128f0f698162"
+   "en": "0721af16933f9625",
+   "ja": "1d77675c670734cf"
   },
   "programmes/dd-cuhk.json#name": {
    "en": "2718e7f95e7b5d98",
@@ -3019,8 +3283,8 @@
    "ja": "6b328eb54d03d69c"
   },
   "programmes/game-case-discussion.json#deadline/text": {
-   "en": "5f7fccd703f6bd9e",
-   "ja": "ecc1855ee05e3f22"
+   "en": "b588c6019ad522d8",
+   "ja": "f2ba58fd37de3b83"
   },
   "programmes/game-case-discussion.json#degree": {
    "en": "7e59e38e9a3833a6",
@@ -3051,8 +3315,8 @@
    "ja": "11f767dfcfd952bf"
   },
   "programmes/hawaii-medical-english.json#deadline/text": {
-   "en": "2bc60aef1140073f",
-   "ja": "ae8827243a97f21b"
+   "en": "b1d430ef306978a0",
+   "ja": "75cfd326e947be86"
   },
   "programmes/hawaii-medical-english.json#howToApply": {
    "en": "76be8526576582c6",
@@ -3075,12 +3339,12 @@
    "ja": "a71abdbe25c00963"
   },
   "programmes/jdp-adelaide.json#cost": {
-   "en": "1efa6aa088f824ca",
-   "ja": "be87e61db0c9b308"
+   "en": "0ef1d452f4584992",
+   "ja": "67a15365cabae5ba"
   },
   "programmes/jdp-adelaide.json#deadline/text": {
-   "en": "4e9aa79a17177389",
-   "ja": "c1c8b416223633e7"
+   "en": "5baa4af465d28ac8",
+   "ja": "75bc543b9192b48b"
   },
   "programmes/jdp-adelaide.json#degree": {
    "en": "741d94f87f55ff6e",
@@ -3095,20 +3359,20 @@
    "ja": "a2ea933e39f3e116"
   },
   "programmes/jdp-adelaide.json#funding": {
-   "en": "19007f51f6eb4cfb",
-   "ja": "0668b46b1b9da6ad"
+   "en": "3e2dc29e0a84c1a3",
+   "ja": "dadfb70964d00a2c"
   },
   "programmes/jdp-adelaide.json#howToApply": {
-   "en": "688eb98ce2a72a15",
-   "ja": "83295c8199d5fbd3"
+   "en": "56cf16ffb82c337c",
+   "ja": "57bd9ed00cb4b5e4"
   },
   "programmes/jdp-adelaide.json#name": {
    "en": "cfb4a3d76a676d35",
    "ja": "d41c1aed9c2ea3c4"
   },
   "programmes/jdp-adelaide.json#short": {
-   "en": "29a721665789eb13",
-   "ja": "4bba8e872bf3950c"
+   "en": "9e9bc55e85f86b4c",
+   "ja": "747da8311293772b"
   },
   "programmes/jdp-freiburg.json#audience": {
    "en": "7f24de47b8719440",
@@ -3119,12 +3383,12 @@
    "ja": "a9894ecbbe417897"
   },
   "programmes/jdp-freiburg.json#cost": {
-   "en": "06754a9fad6a4c21",
-   "ja": "636f85d3b8d78a2c"
+   "en": "aeaaa134ca73bb5f",
+   "ja": "80df3d0c7db34ca8"
   },
   "programmes/jdp-freiburg.json#deadline/text": {
-   "en": "4e9aa79a17177389",
-   "ja": "c1c8b416223633e7"
+   "en": "aff63581ebef3ea8",
+   "ja": "5028a6e44bbfca3c"
   },
   "programmes/jdp-freiburg.json#degree": {
    "en": "db54d958ba5cc514",
@@ -3139,20 +3403,20 @@
    "ja": "0567675c75bd8c76"
   },
   "programmes/jdp-freiburg.json#funding": {
-   "en": "19007f51f6eb4cfb",
-   "ja": "0668b46b1b9da6ad"
+   "en": "3e2dc29e0a84c1a3",
+   "ja": "dadfb70964d00a2c"
   },
   "programmes/jdp-freiburg.json#howToApply": {
-   "en": "8949616c3d5fae3e",
-   "ja": "fb814d8c58a1e094"
+   "en": "dec9322ef234e4df",
+   "ja": "22906225aae4f82e"
   },
   "programmes/jdp-freiburg.json#name": {
    "en": "26495436f5e855d2",
    "ja": "c7feda656543ee61"
   },
   "programmes/jdp-freiburg.json#short": {
-   "en": "0e3c424ab15a127a",
-   "ja": "7893e1da35052919"
+   "en": "2af40523415e31fe",
+   "ja": "ca68e4d64648e3ee"
   },
   "programmes/jdp-lund.json#audience": {
    "en": "7f24de47b8719440",
@@ -3163,12 +3427,12 @@
    "ja": "a71abdbe25c00963"
   },
   "programmes/jdp-lund.json#cost": {
-   "en": "c70d7874a44f67b7",
-   "ja": "3328e57f635a2589"
+   "en": "10c8d75179ea6f31",
+   "ja": "6e2f34cc478dd082"
   },
   "programmes/jdp-lund.json#deadline/text": {
-   "en": "4e9aa79a17177389",
-   "ja": "c1c8b416223633e7"
+   "en": "5baa4af465d28ac8",
+   "ja": "75bc543b9192b48b"
   },
   "programmes/jdp-lund.json#degree": {
    "en": "db54d958ba5cc514",
@@ -3183,20 +3447,20 @@
    "ja": "9b3b1bc277b5148c"
   },
   "programmes/jdp-lund.json#funding": {
-   "en": "19007f51f6eb4cfb",
-   "ja": "0668b46b1b9da6ad"
+   "en": "3e2dc29e0a84c1a3",
+   "ja": "dadfb70964d00a2c"
   },
   "programmes/jdp-lund.json#howToApply": {
-   "en": "bcd6e8408a5303b8",
-   "ja": "a39c5d41d7329795"
+   "en": "a52128ec7d30469d",
+   "ja": "89ad1af8c00a0d30"
   },
   "programmes/jdp-lund.json#name": {
    "en": "e653809b9bb0e432",
    "ja": "e10d28d3465ce86a"
   },
   "programmes/jdp-lund.json#short": {
-   "en": "667cb38882333c65",
-   "ja": "705ef23331ff4401"
+   "en": "9f900feb2194a291",
+   "ja": "ca74e92175cb5460"
   },
   "programmes/leicester-summer-school.json#audience": {
    "en": "b8a8e1c7ce57a685",
@@ -3207,8 +3471,8 @@
    "ja": "bc9b3c77fbd1e3c9"
   },
   "programmes/leicester-summer-school.json#deadline/text": {
-   "en": "2bc60aef1140073f",
-   "ja": "ae8827243a97f21b"
+   "en": "9e1a7d96a6a16a60",
+   "ja": "7d4e18ecd1eecf23"
   },
   "programmes/leicester-summer-school.json#duration": {
    "en": "166ffe391ab35c34",
@@ -3229,6 +3493,10 @@
   "programmes/lmu-nu-usmle.json#audience": {
    "en": "148df5263bb167c1",
    "ja": "cf04afb07757b54a"
+  },
+  "programmes/lmu-nu-usmle.json#deadline/text": {
+   "en": "429e3445b0d4a89c",
+   "ja": "eaebe71b35b1d85c"
   },
   "programmes/lmu-nu-usmle.json#duration": {
    "en": "2c2451bf1c7a619d",
@@ -3255,8 +3523,8 @@
    "ja": "2dcdb0077e2b5e07"
   },
   "programmes/research-abroad.json#deadline/text": {
-   "en": "a0bf0d29a9f88d91",
-   "ja": "f155bc1e1a58a10b"
+   "en": "0579153e33b06b53",
+   "ja": "b2588bbad3fc6a1b"
   },
   "programmes/research-abroad.json#duration": {
    "en": "d332e301976f683a",
@@ -3283,32 +3551,32 @@
    "ja": "62e5873cf5bae0d7"
   },
   "programmes/research-training.json#audience": {
-   "en": "7f42cdbaedf43ab7",
-   "ja": "4044e0a546855415"
+   "en": "14d2ba251f271883",
+   "ja": "42badbf4232726a4"
   },
   "programmes/research-training.json#cost": {
    "en": "48804fdf053e803a",
    "ja": "cff8e2651cd91397"
   },
   "programmes/research-training.json#deadline/text": {
-   "en": "f7f153ea0f0a74fe",
-   "ja": "72d9471b9304f59b"
+   "en": "3baa489e0ecd0c6f",
+   "ja": "f6dfa3334da766b5"
   },
   "programmes/research-training.json#duration": {
    "en": "ee552e25bec70d2f",
    "ja": "5b87e4814cb857a5"
   },
   "programmes/research-training.json#eligibility": {
-   "en": "d0f51304ee8ed6a9",
-   "ja": "deabf5b267c44a29"
+   "en": "f32298884fb7dac8",
+   "ja": "06d29a3ab2c48730"
   },
   "programmes/research-training.json#funding": {
    "en": "dac9583bf52837a1",
    "ja": "0b80076f6b1ef50e"
   },
   "programmes/research-training.json#howToApply": {
-   "en": "2b08bf0a10a4d041",
-   "ja": "f33c81e5006580c5"
+   "en": "c45de89336eb45ca",
+   "ja": "3b8c75f674f08a7f"
   },
   "programmes/research-training.json#name": {
    "en": "f26fea17f289abd7",
@@ -3331,28 +3599,28 @@
    "ja": "8e32b934a9b54e55"
   },
   "programmes/sep-unc.json#deadline/text": {
-   "en": "47ea2cf6d6b4356b",
-   "ja": "9d57f9b08d2f0b4e"
+   "en": "e5e52eda5a57504f",
+   "ja": "5de2d970a6dd36a9"
   },
   "programmes/sep-unc.json#degree": {
    "en": "84c0f83ea1eb0578",
    "ja": "feda0b7e3e01a888"
   },
   "programmes/sep-unc.json#duration": {
-   "en": "72534e9802df67b7",
-   "ja": "d7004f53b9a45770"
+   "en": "0bd6d0b4fdab8d99",
+   "ja": "10584ef14d2dd300"
   },
   "programmes/sep-unc.json#eligibility": {
    "en": "6d51b3bb8b2df5fb",
    "ja": "e53f9b43f36b0dbd"
   },
   "programmes/sep-unc.json#funding": {
-   "en": "82d7e23ca911d434",
-   "ja": "cb5f1113cc143a0e"
+   "en": "fce323a52d7dbe55",
+   "ja": "8fbdbfb08e213e16"
   },
   "programmes/sep-unc.json#howToApply": {
-   "en": "842dc445c796c039",
-   "ja": "a672128f0f698162"
+   "en": "68d791d27f2315c3",
+   "ja": "a37bfec7b539a7f8"
   },
   "programmes/sep-unc.json#name": {
    "en": "e87b58c539965014",
@@ -3371,8 +3639,8 @@
    "ja": "79e13c383570fa80"
   },
   "programmes/shibahara-entrepreneurship.json#deadline/text": {
-   "en": "a0bf0d29a9f88d91",
-   "ja": "f155bc1e1a58a10b"
+   "en": "0579153e33b06b53",
+   "ja": "b2588bbad3fc6a1b"
   },
   "programmes/shibahara-entrepreneurship.json#duration": {
    "en": "e358a8d34309d247",
@@ -3407,8 +3675,8 @@
    "ja": "dba424e6ed56bc2b"
   },
   "programmes/shibahara-fund.json#deadline/text": {
-   "en": "a0bf0d29a9f88d91",
-   "ja": "f155bc1e1a58a10b"
+   "en": "0579153e33b06b53",
+   "ja": "b2588bbad3fc6a1b"
   },
   "programmes/shibahara-fund.json#duration": {
    "en": "a033d6012f04ad45",
@@ -3435,8 +3703,8 @@
    "ja": "be477819694b7dd3"
   },
   "programmes/tei-summer-camp.json#deadline/text": {
-   "en": "2d90db5948ecebeb",
-   "ja": "1fa5abd168dfad53"
+   "en": "02e4e31b38156191",
+   "ja": "90c47d1109eee77d"
   },
   "programmes/tei-summer-camp.json#duration": {
    "en": "ffd6f7ce77db93c1",
@@ -3463,8 +3731,8 @@
    "ja": "f86a1d6369f197fe"
   },
   "programmes/uk-short-clinical.json#deadline/text": {
-   "en": "f46b5be0e3ab005b",
-   "ja": "118ae27c2404dbd1"
+   "en": "9f018f808bf83446",
+   "ja": "3b9e354a679908aa"
   },
   "programmes/uk-short-clinical.json#duration": {
    "en": "302aceaf374d9124",

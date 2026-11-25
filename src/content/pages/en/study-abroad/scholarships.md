@@ -1,16 +1,16 @@
 ---
 title: Scholarships for study abroad
-description: The Shibahara Fund's four support programs, JASSO, the Tobitate Japan program and private foundation scholarships, with amounts and how to apply.
+description: The Shibahara Fund's four support programs, JASSO, the Tobitate Japan program and private foundation scholarships, with amounts and where to apply.
 section: study-abroad
 order: 50
-summary: The Shibahara Fund and the other scholarships you can receive while studying abroad.
+summary: The Shibahara Fund and the other scholarships you can receive while studying abroad, and where to apply for each.
 status: to-confirm
 toConfirm:
-  - Number of recipients for the Shibahara Fund basic medical seminar. The fund page says 2 a year, but the 2024 list shows 4 names. Both are shown here until the figure is confirmed.
-  - Application period and deadline for each Shibahara Fund program. The old site says only that details are announced on TACT.
+  - Number of recipients for the Shibahara Fund basic medical seminar. The fund page says 2 a year, which this page shows, but the 2024 list of recipients has 4 names.
+  - Application period and deadline for each Shibahara Fund program, the TACT course or board where calls appear, and the month they usually appear. The old site says only that details are announced on TACT.
   - Recipients for 2025. The 2025 page on the old site has program headings but no names.
-  - Whether the JASSO amounts are monthly or total. The old page gives only the amounts by region and a JPY 160,000 travel allowance.
-  - Current call for the Tobitate Japan program. The old description stops at the plan to 2020.
+  - Which of the faculty's programs JASSO currently supports under the agreement-based scheme, and how the faculty selects students for it.
+  - Which Nagoya University office collects Tobitate applications, and its internal deadline for the 2027 call.
   - Names and timing of the private foundation scholarships.
 sources:
   - https://www.med.nagoya-u.ac.jp/medical_J/international/scholarship/fundprogram/
@@ -21,11 +21,27 @@ sources:
   - https://www.med.nagoya-u.ac.jp/intlexch/japanese/education/abroad/scholarship3.html
   - https://www.med.nagoya-u.ac.jp/intlexch/japanese/education/abroad/program6.html
   - https://www.med.nagoya-u.ac.jp/intlexch/japanese/faq.html
+  - https://www.jasso.go.jp/ryugaku/scholarship_a/haken/index.html
+  - https://www.jasso.go.jp/shogakukin/about/kaigai/index.html
+  - https://tobitate-mext.jasso.go.jp/
+  - https://tobitate-mext.jasso.go.jp/newprogram/uv/
+  - https://tobitate-mext.jasso.go.jp/news/539_00001.html
+  - https://tobitate-mext.jasso.go.jp/news/401.html
 updated: 2026-11-25
 programmes: [shibahara-fund]
 ---
 
 You can receive scholarships from inside and outside the university while you study abroad. Each scholarship has its own target programs and its own financial and academic criteria, so read them carefully before you apply.
+
+## Where to apply
+
+| Scholarship | Where the call or application is | Who to ask |
+| --- | --- | --- |
+| Keiichi Shibahara Fund | Calls are announced on TACT | Study-abroad program staff of the Office of International Affairs |
+| JASSO agreement-based support | The university applies for each program, then selects students | The office, for the faculty's programs |
+| JASSO loans | [JASSO loans for study abroad](https://www.jasso.go.jp/shogakukin/about/kaigai/index.html) (in Japanese), through your university | Your university |
+| Tobitate! Study Abroad Japan | [Tobitate for university students](https://tobitate-mext.jasso.go.jp/newprogram/uv/) (in Japanese), through your university | The office, to find out who collects applications |
+| Private foundations | Recruited from time to time | The office |
 
 ## Keiichi Shibahara Fund overseas study support program
 
@@ -42,19 +58,21 @@ The fund supports four programs. Amounts are adjusted by destination and period.
 
 The programs themselves are described on the pages for [clinical electives](clinical-electives), [research abroad](research-abroad) and [short programs](short-programmes).
 
-Details of each call are announced on TACT, and briefings are held from time to time. No application period is published, so ask the Office of International Affairs.
-
-The 2024 list shows 4 recipients for the basic medical seminar, 2 for the basic-science placement and 12 for the clinical clerkship. The number for the basic medical seminar does not match the 2 a year on the fund page. Treat it as unconfirmed until the office clarifies it.
+**How to apply.** Calls for the four programs are announced on TACT, and briefings are held from time to time. Ask the study-abroad program staff of the Office of International Affairs when the next call is expected, where on TACT it will appear and which form to use.
 
 ## JASSO scholarship for study abroad (agreement-based dispatch)
 
-The Japan Student Services Organization supports dispatch of 31 days to one year under exchange agreements. The university, not the student, applies for each program, and the review decides the number of recipients and the period. After the program is approved, the university selects students internally.
+The Japan Student Services Organization supports stays of 8 days to one year at schools or research institutes that have an exchange agreement with your university. You cannot apply on your own. The university applies for each program, JASSO decides which programs it supports, and the university then selects students.
 
-The amount depends on the destination region: JPY 100,000 for designated cities, 80,000 for Region A, 70,000 for Region B and 60,000 for Region C. Students who meet a household criterion also receive a JPY 160,000 travel allowance. You must be a Japanese national or a permanent resident of Japan (including special permanent residents), be accepted by the host university and meet the grade criterion.
+The monthly amount depends on the region: JPY 120,000 for Region A, 110,000 for Region B, 90,000 for Region C and 80,000 for Region D. Students who meet a household criterion also receive JPY 160,000 for travel. You must be a Japanese national or a permanent resident of Japan (including special permanent residents), be accepted by the host university, and be recognized by your university as unable to join the program at your own expense alone. Other conditions include a good academic record and, in principle, a destination below level 2 on the Ministry of Foreign Affairs safety website. Details are on [JASSO's page for agreement-based support](https://www.jasso.go.jp/ryugaku/scholarship_a/haken/index.html) (in Japanese).
+
+JASSO's type 2 loan for short study abroad (第二種奨学金（短期留学）) stopped recruiting in fiscal year 2023. If you already receive a JASSO domestic loan, it can continue during a short stay abroad if you meet the conditions. See [JASSO loans for study abroad](https://www.jasso.go.jp/shogakukin/about/kaigai/index.html) (in Japanese).
 
 ## Tobitate! Study Abroad Japan
 
-This public-private scheme began in 2014. It favors cultural experience and practical activities abroad. It supports study at universities and also study plans that include activities you design yourself. Returned students are expected to share the appeal of studying abroad. Ask the university's scholarship staff for details.
+This is a public-private scheme run by the Ministry of Education and JASSO. Its current scholarship, the New Japan Representative Program, supports study plans that include practical activities you design yourself, and requires no academic or language score. It does not need to be repaid.
+
+The call for university students departing in 2027 (19th cohort) opened on 1 October 2026. You cannot apply on your own. You apply through the university where you are enrolled. Read the guidelines on the [Tobitate page for university students](https://tobitate-mext.jasso.go.jp/newprogram/uv/) (in Japanese), then ask the office who collects applications at Nagoya University and by when.
 
 ## Private foundation scholarships
 

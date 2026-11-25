@@ -1,14 +1,15 @@
 ---
 title: Joint degree with the University of Freiburg
-description: Nagoya = Freiburg JDP. One place a year from Nagoya, 30 credits, 12 months in Freiburg and a single joint Doctor of Philosophy in Medical Science.
+description: Nagoya = Freiburg JDP. Capacity, eligibility, 30 credits, 12 months in Freiburg and a single joint Doctor of Philosophy in Medical Science.
 section: degrees
 order: 50
 summary: Doctoral programme with about 12 months at the University of Freiburg, with seminars and retreats for doctoral students.
 status: to-confirm
 toConfirm:
-  - The English page said "2 students each year"; the 2 is the total for both universities, and the admission page gives 1 a year for Nagoya as principal university.
+  - The English page said "2 students each year"; the 2 is the total for both universities, and the JDP admission page gives 1 a year for Nagoya as principal university.
   - The English page asks applicants who cannot submit an English score at application to tell the office; the Japanese page does not say this.
   - The documents to submit to Freiburg are not listed on any page.
+  - 'Housing in Freiburg: no page says whether the University of Freiburg helps joint degree students find a room. Add a line or a link once the office supplies it.'
 sources:
   - https://www.med.nagoya-u.ac.jp/jdp/en/freiburg/
   - https://www.med.nagoya-u.ac.jp/jdp/freiburg/
@@ -18,10 +19,6 @@ programmes: [jdp-freiburg]
 ---
 
 The International Collaborative Program in Comprehensive Medical Science between Nagoya University and the University of Freiburg (Nagoya = Freiburg JDP) was established in June 2018. It aims to train research leaders who promote international collaboration and act as a bridge between the EU and Japan.
-
-## Capacity
-
-With Nagoya University as the principal university, 1 student is admitted each year. One more student a year enrols with the University of Freiburg as their principal university, which makes 2 in total.
 
 ## Who can apply
 
@@ -44,7 +41,7 @@ Because the degree is a joint one, you can also join the activities of Freiburg 
 
 ## Time in Freiburg
 
-You spend 12 months at the University of Freiburg, in principle in the second year. The stay can be extended to a maximum of 30 months if the experiments need special techniques or the research plan changes. You agree the period with your supervisors.
+You spend 12 months at the University of Freiburg, in principle in the second year. The stay can be extended to a maximum of 30 months if the experiments need special techniques or the research plan changes. You agree the period with your supervisors. For housing in Freiburg, ask the joint degree programmes office through the [contact page](../about/contact).
 
 ## Completing the degree
 

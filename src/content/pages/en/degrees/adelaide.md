@@ -7,7 +7,7 @@ summary: Doctoral programme with at least 12 months at Adelaide University, endi
 status: to-confirm
 toConfirm:
   - Official programme and partner name after the University of Adelaide merged with the University of South Australia in January 2026; the original approval used "the University of Adelaide".
-  - The English page said "4 students a year"; the 4 is the total for both universities, and the admission page gives 2 a year for Nagoya as principal university.
+  - The English page said "4 students a year"; the 4 is the total for both universities, and the JDP admission page gives 2 a year for Nagoya as principal university.
   - The Japanese page requires research ability equivalent to a master's degree, which the English page omits.
   - Which period of the doctoral course the stay falls in; the Japanese faculty page says from the 2nd year to the first half of the 4th year.
 sources:
@@ -21,15 +21,11 @@ programmes: [jdp-adelaide]
 
 The International Collaborative Program in Comprehensive Medical Science between Nagoya University and Adelaide University (Nagoya = Adelaide JDP) was approved by MEXT on 15 June 2015 and was the first joint degree programme in Japan. Adelaide University was formed in January 2026 by the merger of the University of Adelaide and the University of South Australia. This programme was established with the former University of Adelaide.
 
-## Capacity
-
-With Nagoya University as the principal university, 2 students are admitted each year. Another 2 students a year enrol with Adelaide University as their principal university, which makes 4 in total.
-
 ## Who can apply
 
 Graduates of the Nagoya University School of Medicine or of Adelaide University's health faculty are the main target. Graduates with a bachelor's degree in dentistry, pharmacy or veterinary medicine, and holders of a master's degree in engineering, agriculture or medicine, can also apply. You need research ability equivalent to a master's degree, for example a paper as first author.
 
-If you did not study medicine and your basic medical knowledge is judged insufficient, you may be asked to take foundation courses such as International Collaborative Advanced Medicine. These do not count toward the credits you need. Eligibility is sometimes decided case by case, so contact the office before you apply.
+If you did not study medicine and your basic medical knowledge is judged insufficient, you may be asked to take foundation courses such as International Collaborative Advanced Medicine. These do not count toward the credits you need. Eligibility is sometimes decided case by case, so contact the joint degree programmes office through the [contact page](../about/contact) before you apply.
 
 English: IELTS Overall 6.5, with at least 6 in Reading, Listening, Speaking and Writing. Other English tests are accepted according to the equivalents published by Adelaide.
 
@@ -47,7 +43,7 @@ The advanced medicine lectures are given jointly by both universities. The semin
 
 You spend at least 12 months at Adelaide University, in principle from the second year. You agree the exact period with both supervisors according to the progress of the project. Adelaide's research partners include the South Australian Health and Medical Research Institute (SAHMRI).
 
-Example study plans on the old site include the genetics of autism spectrum disorder and schizophrenia, and the molecular mechanisms of cancer.
+Past example study plans include the genetics of autism spectrum disorder and schizophrenia, and the molecular mechanisms of cancer.
 
 ## Completing the degree
 

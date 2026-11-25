@@ -67,6 +67,9 @@ const contacts = defineCollection({
     phone: z.string().optional(),
     fax: z.string().optional(),
     address: L.optional(),
+    /** Building, floor and room, shown on the contact cards and the access page. */
+    location: L.optional(),
+    map: z.object({ lat: z.number(), lng: z.number() }).optional(),
     sources,
     toConfirm,
   }),
@@ -81,6 +84,8 @@ const partners = defineCollection({
     region: z.enum(['Asia', 'Oceania', 'Europe', 'North America', 'Latin America', 'Africa', 'Middle East']),
     links: z.array(z.enum(['GAME', 'MIRAI', 'JDP', 'DD', 'SEP', 'Agreement', 'Clerkship'])).default([]),
     url: z.string().url().optional(),
+    /** Year the first agreement was signed, when a source gives it. */
+    since: z.string().regex(/^\d{4}$/).optional(),
     sources,
     toConfirm,
   }),
@@ -93,8 +98,17 @@ const news = defineCollection({
     category: z.enum(['news', 'event', 'call']),
     title: L,
     summary: L.optional(),
+    /** The item's own text; paragraphs separated by a blank line. */
+    body: L.optional(),
     url: z.string().url().optional(),
+    /** A page of this site the item belongs to, for example "partnerships/visits". */
+    page: z.string().optional(),
+    /** Ids from partners.json. */
+    partners: z.array(z.string()).default([]),
+    /** Last day of an event, or a call deadline. */
+    until: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
     sources,
+    toConfirm,
   }),
 });
 

@@ -3,6 +3,8 @@ import { getEntry } from 'astro:content';
 import { t, type Lang } from '../i18n/ui';
 import type { ProgrammeEntry } from '../lib/site';
 import { formatDate } from '../lib/site';
+import EmailLink from './EmailLink.astro';
+import PhoneLink from './PhoneLink.astro';
 
 interface Props { programme: ProgrammeEntry; lang: Lang; showTitle?: boolean }
 const { programme, lang, showTitle = true } = Astro.props;
@@ -14,10 +16,10 @@ const rows: Key[] = ['audience', 'duration', 'capacity', 'degree', 'cost', 'fund
 ---
 <section class="facts" aria-label={`${ui.factsTitle}: ${d.name[lang]}`}>
   {showTitle && (
-    <h2>
-      <span>{d.name[lang]}</span>
+    <div class="facts-head">
+      <h2>{d.name[lang]}</h2>
       {d.deadline && <span class={`pill ${d.deadline.status}`}>{ui.deadlineStatus[d.deadline.status]}</span>}
-    </h2>
+    </div>
   )}
   <dl>
     {rows.filter((k) => d[k]).map((k) => (
@@ -35,7 +37,11 @@ const rows: Key[] = ['audience', 'duration', 'capacity', 'degree', 'cost', 'fund
     {contact && (
       <>
         <dt>{ui.facts.contact}</dt>
-        <dd>{contact.data.label[lang]} · <span>{contact.data.email}</span></dd>
+        <dd>
+          {contact.data.label[lang]}<br />
+          <span class="visually-hidden">{ui.contactEmail}: </span><EmailLink email={contact.data.email} />
+          {contact.data.phone && <><br /><span class="visually-hidden">{ui.contactPhone}: </span><PhoneLink phone={contact.data.phone} lang={lang} /></>}
+        </dd>
       </>
     )}
   </dl>

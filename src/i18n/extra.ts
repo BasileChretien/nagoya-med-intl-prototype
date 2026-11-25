@@ -1,0 +1,69 @@
+/**
+ * Interface text for the access page, the abbreviations list, the agreements table and the page notes,
+ * in both languages. Kept apart from ui.ts so the two can be edited independently.
+ */
+import type { Lang } from './ui';
+
+const extra = {
+  en: {
+    officeBox: 'The office',
+    location: 'Building and room',
+    address: 'Address',
+    routeGuide: 'Route guide with photos (PDF)',
+    routeGuideOther: 'Route guide in Japanese (PDF)',
+    openMap: 'Open the map (OpenStreetMap)',
+    howToReach: 'How to reach the office',
+    glossaryTerm: 'Abbreviation',
+    glossaryMeaning: 'Stands for',
+    website: 'Website',
+    unconfirmed: 'to be confirmed',
+    since: 'Since',
+    institution: 'Institution',
+    country: 'Country',
+    links: 'Links',
+    tagLegend: 'Tags',
+    tags: {
+      Agreement: { label: 'Agreement', title: 'Academic or student exchange agreement' },
+      Clerkship: { label: 'Clerkship', title: 'Students come to Nagoya for clinical clerkships' },
+      GAME: { label: 'GAME', title: 'Member of the Global Alliance of Medical Excellence' },
+      MIRAI: { label: 'MIRAI', title: 'Member of MIRAI, the Sweden-Japan consortium' },
+      JDP: { label: 'JDP', title: 'Joint degree programme with Nagoya' },
+      DD: { label: 'DD', title: 'Double degree programme with Nagoya' },
+      SEP: { label: 'SEP', title: 'Scholar Exchange Program with Nagoya' },
+    } as Record<string, { label: string; title: string }>,
+    stillChecking: 'Some details on this page are still being confirmed by the office.',
+    seeChecklist: 'See what still needs checking',
+  },
+  ja: {
+    officeBox: '国際連携室',
+    location: '建物と部屋',
+    address: '住所',
+    routeGuide: '写真つきの案内図（PDF）',
+    routeGuideOther: '英語の案内図（PDF）',
+    openMap: '地図を開く（OpenStreetMap）',
+    howToReach: '国際連携室への行き方',
+    glossaryTerm: '略語',
+    glossaryMeaning: '正式名称',
+    website: '公式サイト',
+    unconfirmed: '確認中',
+    since: '協定年',
+    institution: '大学・機関',
+    country: '国',
+    links: '連携',
+    tagLegend: '記号',
+    tags: {
+      Agreement: { label: '協定', title: '学術交流協定または学生交流協定' },
+      Clerkship: { label: '臨床実習', title: '臨床実習の学生を名古屋に派遣' },
+      GAME: { label: 'GAME', title: '国際医学教育アライアンスGAMEの加盟校' },
+      MIRAI: { label: 'MIRAI', title: '日本・スウェーデン大学間連携コンソーシアムMIRAIの加盟校' },
+      JDP: { label: 'JDP', title: '名古屋大学とのジョイント・ディグリー・プログラム' },
+      DD: { label: 'DD', title: '名古屋大学とのダブル・ディグリー・プログラム' },
+      SEP: { label: 'SEP', title: '名古屋大学とのスカラー交流プログラム' },
+    } as Record<string, { label: string; title: string }>,
+    stillChecking: 'このページには、国際連携室が確認中の情報があります。',
+    seeChecklist: '確認中の項目を見る',
+  },
+};
+
+export type ExtraText = (typeof extra)['en'];
+export const tx = (lang: Lang): ExtraText => extra[lang];

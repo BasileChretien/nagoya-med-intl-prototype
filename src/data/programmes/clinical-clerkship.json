@@ -14,8 +14,8 @@
     "ja": "協定校の学生は1週間から90日間。NUPACE経由は91日から1年間で、臨床実習は最長3か月"
   },
   "capacity": {
-    "en": "More than 40 students a year (older Japanese site)",
-    "ja": "年間40名を超える（旧日本語サイトの記載）"
+    "en": "More than 40 students a year",
+    "ja": "年間40名を超える"
   },
   "cost": {
     "en": "Tuition, registration and admission fees waived for partner schools with a waiver agreement (number limited); otherwise tuition is 29,600 yen per 4 weeks",
@@ -30,14 +30,14 @@
     "ja": "正規の最終学年の医学生で、成績が良好であり、学部長の承認書があり、日本語か英語が堪能な方。現在は協定校の学生のみ受け付けています。"
   },
   "howToApply": {
-    "en": "Contact the Office of International Affairs to confirm availability, then send the application documents. NUPACE applicants send them with the NUPACE application.",
-    "ja": "国際連携室に連絡して受入れ可否を確認し、その後に申請書類を送ります。NUPACE経由の学生はNUPACEの申請書類に添えて提出します。"
+    "en": "Contact the Office of International Affairs to confirm availability, then send the application form (PDF on the programme page) and the other documents. NUPACE applicants send them with the NUPACE application.",
+    "ja": "国際連携室に連絡して受入れ可否を確認し、その後に申請書（プログラムのページにあるPDF）とほかの書類を送ります。NUPACE経由の学生はNUPACEの申請書類に添えて提出します。"
   },
   "deadline": {
     "status": "rolling",
     "text": {
-      "en": "6 months before the start of the clerkship (NUPACE applicants follow the date on the NUPACE website)",
-      "ja": "実習開始の6か月前まで（NUPACE経由の学生はNUPACEのウェブサイトに示された日まで）"
+      "en": "Applications accepted all year: complete documents 6 months before the start of the clerkship (NUPACE applicants follow the date on the NUPACE website)",
+      "ja": "1年を通じて受付。書類一式は実習開始の6か月前まで（NUPACE経由の学生はNUPACEのウェブサイトに示された日まで）"
     }
   },
   "contact": "intl-office",
@@ -46,13 +46,16 @@
     "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/overseas.html",
     "https://www.med.nagoya-u.ac.jp/intlexch/english/index.html",
     "https://www.med.nagoya-u.ac.jp/intlexch/japan/index.html",
-    "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/program1.html"
+    "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/program1.html",
+    "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/TemplateApplicationforVisitingStudentClerkship.pdf",
+    "https://nupace.iee.nagoya-u.ac.jp/en/index.shtml"
   ],
   "toConfirm": [
     "Whether students of non-partner schools may still apply (the notice says partner schools only; the older clerkship page offers 1 to 4 weeks)",
     "Whether the COVID-19 vaccination certificate is still required",
-    "Tuition (29,600 yen vs 14,800 yen on the older Japanese site)",
-    "Application deadline (6 months vs 4 months on the older Japanese site)",
-    "Yearly capacity (older Japanese site says more than 40 students)"
+    "Tuition (29,600 yen on the English and faculty pages vs 14,800 yen on the older Japanese site)",
+    "Application deadline (6 months on the English page vs 4 months on the older Japanese site)",
+    "Yearly capacity (only the older Japanese site gives a figure: more than 40 students)",
+    "Whether the clerkship application form linked on the page is the current version"
   ]
 }

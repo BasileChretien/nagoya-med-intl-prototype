@@ -4,7 +4,10 @@
     "en": "International Collaborative Program in Comprehensive Medical Science between Nagoya University and Lund University (Nagoya = Lund JDP)",
     "ja": "名古屋大学・ルンド大学国際連携総合医学専攻（名古屋＝ルンドJDP）"
   },
-  "short": { "en": "Nagoya = Lund JDP", "ja": "名古屋＝ルンドJDP" },
+  "short": {
+    "en": "Joint degree with Lund University",
+    "ja": "ルンド大学とのジョイント・ディグリー"
+  },
   "audience": {
     "en": "Doctoral applicants with a medical degree, or a dentistry, pharmacy or veterinary bachelor's degree, or a master's degree in engineering, agriculture or medicine",
     "ja": "医学部卒業者、歯学・薬学・獣医学の学士課程卒業者、工学・農学・医学系の修士課程修了者で博士課程を目指す人"
@@ -18,12 +21,12 @@
     "ja": "名古屋大学を主とする学生は年2名（両大学合計で年4名）"
   },
   "cost": {
-    "en": "Nagoya fees only: entrance fee JPY 282,000 and tuition JPY 535,800 a year, as for the general doctoral course. Lund tuition is waived.",
-    "ja": "納入は名古屋大学のみ。入学料282,000円、授業料は年額535,800円で、一般博士課程と同額。ルンド大学の授業料は不要"
+    "en": "Nagoya fees only: entrance fee JPY 282,000 and tuition JPY 535,800 a year, as for the general doctoral course (amounts as of 2025). Lund tuition is waived.",
+    "ja": "納入は名古屋大学のみ。入学料282,000円、授業料は年額535,800円で、一般博士課程と同額（2025年時点の金額）。ルンド大学の授業料は不要"
   },
   "funding": {
-    "en": "Travel support of up to JPY 300,000 (once) and JPY 250,000 a month for research abroad, for 12 months (up to 24 months after review). JDP incentive revised April 2025.",
-    "ja": "渡航・帰国費は最大30万円（1回）、留学中の研究活動費は月25万円で12か月分（審議のうえ最長24か月）。2025年4月改訂のJDP奨励金"
+    "en": "Travel support of up to JPY 300,000 (once) and JPY 250,000 a month for research abroad, for 12 months (up to 24 months after review). Amounts of the JDP incentive as revised in April 2025.",
+    "ja": "渡航・帰国費は最大30万円（1回）、留学中の研究活動費は月25万円で12か月分（審議のうえ最長24か月）。2025年4月改訂のJDP奨励金の金額"
   },
   "degree": {
     "en": "Doctor of Philosophy in Medical Science, one joint degree from both universities",
@@ -34,28 +37,34 @@
     "ja": "出願時にTOEFL iBT 79点以上、またはIELTS Academic Overall 6.5以上（各セクション5.0以上）。2024年1月1日以降の入学者は48単位が必要"
   },
   "howToApply": {
-    "en": "Consult the Office of International Affairs, apply to Nagoya University, then attend interviews and submit documents to Lund. See the admission page.",
-    "ja": "国際連携室に事前相談のうえ名古屋大学に出願し、面接後にルンド大学へ書類を提出します。入学案内を参照"
+    "en": "Consult the joint degree programmes office first. Then apply to Nagoya University through the graduate school's call for applications, attend the interviews and submit documents to Lund. See the admission page.",
+    "ja": "まずジョイント・ディグリー・プログラムの担当窓口に相談します。研究科の募集要項に従って名古屋大学に出願し、面接後にルンド大学へ書類を提出します。入学案内を参照"
   },
   "deadline": {
     "status": "tba",
     "text": {
-      "en": "To be announced. The usual pattern is applications in early June for April enrolment (last dated cycle on the old site: June 2017 for April 2018).",
-      "ja": "未定。例年は4月入学に向けて6月上旬に出願（旧サイトで確認できる最後の日付は2018年4月入学・2017年6月）"
+      "en": "Next round not announced (checked 25 November 2026). Last round: applications 9 to 13 November 2026, the second round for April 2027 enrolment.",
+      "ja": "次回は未定（2026年11月25日確認）。直近の募集は2027年4月入学の第2回目で、出願期間は2026年11月9日から13日でした"
     }
   },
-  "partners": ["lund"],
+  "partners": [
+    "lund"
+  ],
   "contact": "jdp-office",
   "page": "degrees/lund",
   "sources": [
     "https://www.med.nagoya-u.ac.jp/jdp/en/lund/",
     "https://www.med.nagoya-u.ac.jp/jdp/lund/",
     "https://www.med.nagoya-u.ac.jp/jdp/en/admission/",
-    "https://www.med.nagoya-u.ac.jp/jdp/fee/"
+    "https://www.med.nagoya-u.ac.jp/jdp/fee/",
+    "https://www.med.nagoya-u.ac.jp/medical_J/admission/doctral/admissions/international/",
+    "https://www.med.nagoya-u.ac.jp/medical_E/admission/doctral/admissions/international/",
+    "https://life.gmc.nagoya-u.ac.jp/en/arrival/preparation/"
   ],
   "toConfirm": [
-    "Application dates for the next intake",
+    "Dates of the next round: the call page gave 9 to 13 November 2026 for the second round of April 2027 enrolment; calls in 2024 to 2026 were posted in February to April and in July",
+    "How many rounds are held when places remain unfilled: the call page notes, in the Freiburg row, that calls are then held three times a year; left out of the deadline text until confirmed",
     "Lund's completion requirements differ by year of entry; figures apply to students admitted from 1 January 2024",
-    "Current entrance fee, tuition and JDP incentive amounts"
+    "Entrance fee and tuition are dated 2025 from the JDP fee page (revised April 2025) and the university's living guide (tuition for academic year 2025); confirm the amounts for the next intake"
   ]
 }

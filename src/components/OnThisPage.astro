@@ -1,0 +1,30 @@
+---
+import type { MarkdownHeading } from 'astro';
+import { t, type Lang } from '../i18n/ui';
+
+/**
+ * "On this page" list for long pages, built from the headings that render() returns.
+ * Shows the h2 headings (and their h3s) only when the page has at least `min` h2 headings.
+ */
+interface Props { lang: Lang; headings: MarkdownHeading[]; min?: number }
+const { lang, headings, min = 4 } = Astro.props;
+const ui = t(lang);
+const groups: { h: MarkdownHeading; subs: MarkdownHeading[] }[] = [];
+for (const h of headings) {
+  if (h.depth === 2) groups.push({ h, subs: [] });
+  else if (h.depth === 3 && groups.length > 0) groups[groups.length - 1].subs.push(h);
+}
+---
+{groups.length >= min && (
+  <nav class="on-this-page" aria-labelledby="on-this-page">
+    <h2 id="on-this-page">{ui.onThisPage}</h2>
+    <ol>
+      {groups.map(({ h, subs }) => (
+        <li>
+          <a href={`#${h.slug}`}>{h.text}</a>
+          {subs.length > 0 && <ol>{subs.map((s) => <li><a href={`#${s.slug}`}>{s.text}</a></li>)}</ol>}
+        </li>
+      ))}
+    </ol>
+  </nav>
+)}

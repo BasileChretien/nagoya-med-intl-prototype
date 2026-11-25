@@ -82,6 +82,7 @@ p { margin: 0; }
   .menu-toggle[open] .menu-panel { display: block; }
   .menu-panel { display: none; position: absolute; left: 0; right: 0; top: 100%; background: var(--navy); z-index: 20; padding: 0.4rem 0 0.8rem; }
   .menu-panel a { display: block; color: #fff; text-decoration: none; padding: 0.7rem max(20px, env(safe-area-inset-left, 0px)); }
+  .menu-panel a.is-active, .menu-panel a[aria-current="page"] { background: var(--navy-deep); box-shadow: inset 4px 0 0 var(--teal); }
   .head-top { position: relative; }
   .head-actions { display: flex; gap: 0.5rem; align-items: center; }
   .brand-org { font-size: 0.7rem; }
@@ -264,6 +265,25 @@ a.card:hover { border-color: var(--navy); box-shadow: 0 6px 20px rgba(28, 37, 96
 .foot-grid { display: grid; gap: 1.5rem 2rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
 .foot-grid h2 { font-family: var(--f-sans); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: #aab4d8; margin-bottom: 0.6rem; }
 .foot-grid ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.3rem; }
+.foot-contact { margin-top: 0.6rem; display: grid; gap: 0.2rem; }
+.foot-links { margin-top: 0.8rem !important; }
+.contact-link { overflow-wrap: anywhere; }
+.phone-intl { white-space: nowrap; }
+.facts-head { display: flex; flex-wrap: wrap; gap: 0.4rem 0.8rem; align-items: baseline; justify-content: space-between; }
+.facts-head h2 { font-size: 1.15rem; }
+.card .card-status { order: -1; }
+.door-more { border-top: 4px solid var(--teal); }
+.door-more-title { font-weight: 600; font-size: 1.05rem; color: var(--navy-ink); }
+.door-more-title::after { content: " →"; color: var(--teal-ink); }
+.band-sub { font-size: 1.1rem; margin: 2rem 0 1rem; }
+.plain-list { list-style: none; margin: 0; padding: 0; }
+.plain-list > li { display: grid; }
+.number a { color: inherit; text-decoration-color: var(--line-2); }
+.target-lang { font-size: 0.86em; color: var(--muted); }
+.on-this-page { font-size: 0.92rem; border-left: 3px solid var(--line-2); padding: 0.2rem 0 0.2rem 1rem; max-width: 46em; }
+.on-this-page h2 { font-family: var(--f-sans); font-size: 0.86rem; color: var(--muted); margin-bottom: 0.35rem; }
+.on-this-page ol { margin: 0; padding-left: 1.1em; display: grid; gap: 0.2rem; }
+.on-this-page ol ol { margin-top: 0.2rem; }
 .foot-note { border-top: 1px solid rgba(255, 255, 255, 0.15); margin-top: 2rem; padding-top: 1rem; font-size: 0.84rem; color: #aab4d8; }
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
