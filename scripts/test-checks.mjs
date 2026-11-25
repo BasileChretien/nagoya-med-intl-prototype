@@ -1,45 +1,119 @@
 #!/usr/bin/env node
 /**
- * Tests for scripts/check-content.mjs. Each case plants one bad file, expects the check to fail with a
- * specific message, then removes the file. Run: node scripts/test-checks.mjs
+ * Tests for scripts/check-content.mjs. Each case changes the tree (plants a file, or edits one and restores it),
+ * runs the check, and compares the outcome with what the case expects. Run: node scripts/test-checks.mjs
  */
 import { spawnSync } from 'node:child_process';
-import { writeFileSync, rmSync, mkdirSync, existsSync } from 'node:fs';
+import { writeFileSync, readFileSync, rmSync, mkdirSync, existsSync, cpSync, mkdtempSync } from 'node:fs';
 import { dirname, join } from 'node:path';
+import { tmpdir } from 'node:os';
+import { fileURLToPath } from 'node:url';
 
-const ROOT = new URL('..', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
-const runCheck = () => spawnSync(process.execPath, [join(ROOT, 'scripts', 'check-content.mjs')], { cwd: ROOT, encoding: 'utf8' });
+const ROOT = fileURLToPath(new URL('..', import.meta.url));
+const runCheck = (root = ROOT) => spawnSync(process.execPath, [join(root, 'scripts', 'check-content.mjs')], { cwd: root, encoding: 'utf8' });
+const crashed = (r) => /\n\s+at |TypeError|ReferenceError|SyntaxError: /.test(r.stderr) && !/invalid JSON/.test(r.stderr.split('\n').find((l) => /SyntaxError/.test(l)) ?? 'invalid JSON');
+const count = (text, re) => (text.match(new RegExp(re.source, 'g')) ?? []).length;
 
-/** @type {{ name: string, file: string, content: string, expect: RegExp }[]} */
+/**
+ * plant: create a file for the run. edit: replace a file's content for the run (restored after).
+ * expect: 'fail' with `message`, or 'pass'. `also`: extra assertion on the run.
+ * @typedef {{ name: string, plant?: [string, string], edit?: [string, (old: string) => string], expect: 'fail' | 'pass', message?: RegExp, also?: (r: any) => string | null }} Case
+ */
+/** @type {Case[]} */
 const cases = [
-  { name: 'an undescribed .gif photo is reported', file: 'public/img/pages/zz-test.gif', content: 'GIF89a', expect: /public\/img\/pages\/zz-test\.gif is not in images\.json/ },
-  { name: 'an undescribed .svg image is reported', file: 'public/img/pages/zz-test.svg', content: '<svg xmlns="http://www.w3.org/2000/svg"/>', expect: /public\/img\/pages\/zz-test\.svg is not in images\.json/ },
-  { name: 'an undescribed .webp photo is reported', file: 'public/img/pages/zz-test.webp', content: 'RIFF', expect: /public\/img\/pages\/zz-test\.webp is not in images\.json/ },
-  { name: 'an undescribed .bmp image is reported', file: 'public/img/pages/zz-test.bmp', content: 'BM', expect: /public\/img\/pages\/zz-test\.bmp is not in images\.json/ },
-  { name: 'an upper-case extension is reported', file: 'public/img/pages/zz-test.GIF', content: 'GIF89a', expect: /public\/img\/pages\/zz-test\.GIF is not in images\.json/ },
-  { name: 'a file with no extension is reported', file: 'public/img/pages/zz-test', content: 'x', expect: /public\/img\/pages\/zz-test is not in images\.json/ },
-  { name: 'only campus-N.webp is exempt, not campus-N.gif', file: 'public/img/campus-1.gif', content: 'GIF89a', expect: /public\/img\/campus-1\.gif is not in images\.json/ },
+  // Photo files must all be described (rounds 1-2 of the review).
+  { name: 'an undescribed .gif photo is reported', plant: ['public/img/pages/zz-test.gif', 'GIF89a'], expect: 'fail', message: /public\/img\/pages\/zz-test\.gif is not in images\.json/ },
+  { name: 'an undescribed .svg image is reported', plant: ['public/img/pages/zz-test.svg', '<svg xmlns="http://www.w3.org/2000/svg"/>'], expect: 'fail', message: /public\/img\/pages\/zz-test\.svg is not in images\.json/ },
+  { name: 'an undescribed .webp photo is reported', plant: ['public/img/pages/zz-test.webp', 'RIFF'], expect: 'fail', message: /public\/img\/pages\/zz-test\.webp is not in images\.json/ },
+  { name: 'an undescribed .bmp image is reported', plant: ['public/img/pages/zz-test.bmp', 'BM'], expect: 'fail', message: /public\/img\/pages\/zz-test\.bmp is not in images\.json/ },
+  { name: 'an upper-case extension is reported', plant: ['public/img/pages/zz-test.GIF', 'GIF89a'], expect: 'fail', message: /public\/img\/pages\/zz-test\.GIF is not in images\.json/ },
+  { name: 'a file with no extension is reported', plant: ['public/img/pages/zz-test', 'x'], expect: 'fail', message: /public\/img\/pages\/zz-test is not in images\.json/ },
+  { name: 'only campus-N.webp is exempt, not campus-N.gif', plant: ['public/img/campus-1.gif', 'GIF89a'], expect: 'fail', message: /public\/img\/campus-1\.gif is not in images\.json/ },
+  // Operating-system files are not photos (round 3).
+  { name: 'Thumbs.db written by Windows Explorer is ignored', plant: ['public/img/pages/Thumbs.db', 'x'], expect: 'pass' },
+  { name: '.DS_Store written by macOS is ignored', plant: ['public/img/stories/.DS_Store', 'x'], expect: 'pass' },
+  // Wrong-shaped data is reported, not a crash, and does not flood the output (round 1, pass 2).
+  {
+    name: 'images.json holding an object instead of a list is reported without a crash or a flood',
+    edit: ['src/data/images.json', () => '{}'], expect: 'fail', message: /images\.json: must be a list/,
+    also: (r) => (crashed(r) ? 'the check crashed' : count(r.stderr, /is not in images\.json/) > 0 ? 'unlisted-photo errors flooded the output' : null),
+  },
+  {
+    name: 'stories.json holding an object instead of a list is reported without a crash or a flood',
+    edit: ['src/data/stories.json', () => '{}'], expect: 'fail', message: /stories\.json: must be a list/,
+    also: (r) => (crashed(r) ? 'the check crashed' : count(r.stderr, /has no story/) > 0 ? 'orphan errors flooded the output' : null),
+  },
+  {
+    name: 'a stories.json that does not parse gives one error, not hundreds of orphan errors',
+    edit: ['src/data/stories.json', (old) => old.replace(/\]\s*$/, ',]')], expect: 'fail', message: /stories\.json: invalid JSON/,
+    also: (r) => (count(r.stderr, /has no story/) > 0 ? 'orphan errors flooded the output' : null),
+  },
+  {
+    name: 'a null entry in images.json is reported without a crash',
+    edit: ['src/data/images.json', (old) => old.replace(/^\[/, '[null,')], expect: 'fail', message: /images\.json: entry 0 is not an object/,
+    also: (r) => (crashed(r) ? 'the check crashed' : null),
+  },
+  // The orphan scan reads the same files as the site: not subfolders (round 1, pass 2).
+  { name: 'a JSON file in a subfolder of reports/original is not reported as an orphan', plant: ['src/data/reports/original/old/zz-test.json', '{}'], expect: 'pass' },
+  // Recorded photo sizes must match the files (round 1, pass 2: thumbnail width of tall photos).
+  {
+    name: 'a recorded photo width that does not match the file is reported',
+    edit: ['src/data/images.json', (old) => old.replace(/"width": (\d+)/, (_, w) => `"width": ${Number(w) + 1}`)], expect: 'fail', message: /do not match/,
+  },
+  {
+    name: 'a photo with a thumbnail but no recorded thumbnail size is reported',
+    edit: ['src/data/images.json', (old) => old.replace(/,\s*"thumbWidth": \d+/, '')], expect: 'fail', message: /thumbWidth/,
+  },
 ];
 
 let failed = 0;
+const say = (ok, name, why = '') => { process.stdout.write(`${ok ? 'ok  ' : 'FAIL'} ${name}${why ? ` (${why})` : ''}\n`); if (!ok) failed += 1; };
+
 const baseline = runCheck();
 if (baseline.status !== 0) {
   process.stderr.write(`FAIL baseline: the check must pass on the clean tree\n${baseline.stderr}\n`);
   process.exit(1);
 }
+
 for (const c of cases) {
-  const path = join(ROOT, c.file);
-  if (existsSync(path)) throw new Error(`${c.file} already exists; refusing to overwrite`);
-  mkdirSync(dirname(path), { recursive: true });
-  writeFileSync(path, c.content);
+  let undo = () => {};
+  if (c.plant) {
+    const path = join(ROOT, c.plant[0]);
+    if (existsSync(path)) throw new Error(`${c.plant[0]} already exists; refusing to overwrite`);
+    mkdirSync(dirname(path), { recursive: true });
+    writeFileSync(path, c.plant[1]);
+    undo = () => { rmSync(path, { force: true }); if (c.plant[0].includes('/old/')) rmSync(dirname(path), { recursive: true, force: true }); };
+  } else if (c.edit) {
+    const path = join(ROOT, c.edit[0]);
+    const original = readFileSync(path, 'utf8');
+    writeFileSync(path, c.edit[1](original));
+    undo = () => writeFileSync(path, original);
+  }
   try {
     const r = runCheck();
-    const ok = r.status !== 0 && c.expect.test(r.stderr);
-    process.stdout.write(`${ok ? 'ok  ' : 'FAIL'} ${c.name}\n`);
-    if (!ok) failed += 1;
+    const statusOk = c.expect === 'pass' ? r.status === 0 : r.status === 1;
+    const messageOk = !c.message || c.message.test(r.stderr);
+    const extra = c.also ? c.also(r) : null;
+    say(statusOk && messageOk && !extra, c.name, !statusOk ? `exit ${r.status}` : !messageOk ? 'expected message missing' : extra ?? '');
   } finally {
-    rmSync(path, { force: true });
+    undo();
   }
 }
-process.stdout.write(`${cases.length - failed}/${cases.length} passed\n`);
+
+// The scripts must run from a folder whose path has a space and non-ASCII characters (round 2).
+{
+  const base = mkdtempSync(join(tmpdir(), 'check test ü 名古屋 '));
+  try {
+    for (const part of ['scripts', 'docs', 'public', join('src', 'content'), join('src', 'data')]) {
+      cpSync(join(ROOT, part), join(base, part), { recursive: true });
+    }
+    const r = runCheck(base);
+    say(r.status === 0, 'the check runs from a path with a space and non-ASCII characters', r.status === 0 ? '' : r.stderr.split('\n')[0]);
+  } finally {
+    rmSync(base, { recursive: true, force: true });
+  }
+}
+
+const total = cases.length + 1;
+process.stdout.write(`${total - failed}/${total} passed\n`);
 process.exit(failed ? 1 : 0);

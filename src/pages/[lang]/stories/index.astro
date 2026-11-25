@@ -26,6 +26,7 @@ const data = await Promise.all(stories.map(async (st) => {
     d: s.departments.slice(0, 4), l: report?.lang ?? s.lang, x: report ? excerptOf(report.paragraphs) : s.excerpt,
     m: report ? !report.original : false, h: href(lang, `stories/${st.id}`), sl: s.lang,
     i: photo ? asset(photo.data.thumb ?? photo.data.file) : '', a: photo ? photo.data.alt[lang] : '',
+    iw: photo ? photo.data.thumbWidth ?? photo.data.width : 0, ih: photo ? photo.data.thumbHeight ?? photo.data.height : 0,
   };
 }));
 const json = JSON.stringify(data).replace(/</g, '\\u003c');
@@ -70,7 +71,7 @@ const labels = { types: ui.storyTypes, read: ui.readStory, shown: ui.storiesShow
     function esc(v) { return String(v).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
     function card(s) {
       return '<article class="card story">' +
-        (s.i ? '<div class="card-img"><img src="' + esc(s.i) + '" alt="' + esc(s.a) + '" width="480" height="300" loading="lazy" decoding="async"></div>' : '') +
+        (s.i ? '<div class="card-img"><img src="' + esc(s.i) + '" alt="' + esc(s.a) + '" width="' + s.iw + '" height="' + s.ih + '" loading="lazy" decoding="async"></div>' : '') +
         '<div class="meta"><span>' + esc(labels.types[s.t]) + '</span><span>' + s.y + '</span><span>' + esc(s.c) + '</span></div>' +
         '<h3><a href="' + esc(s.h) + '" lang="' + s.sl + '">' + esc(s.n) + '</a></h3>' + (s.u ? '<span class="uni">' + esc(s.u) + '</span>' : '') +
         (s.d.length ? '<div>' + s.d.map(function (d) { return '<span class="badge" lang="' + s.sl + '">' + esc(d) + '</span>'; }).join('') + '</div>' : '') +

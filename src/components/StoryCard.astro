@@ -17,7 +17,7 @@ const link = href(lang, `stories/${story.id}`);
 <article class="card story">
   {photo && (
     <div class="card-img">
-      <img src={asset(photo.data.thumb ?? photo.data.file)} alt={photo.data.alt[lang]} width="480" height="300" loading="lazy" decoding="async" />
+      <img src={asset(photo.data.thumb ?? photo.data.file)} alt={photo.data.alt[lang]} width={photo.data.thumbWidth ?? photo.data.width} height={photo.data.thumbHeight ?? photo.data.height} loading="lazy" decoding="async" />
     </div>
   )}
   <div class="meta"><span>{ui.storyTypes[s.type]}</span><span>{s.year}</span><span>{s.country}</span></div>
