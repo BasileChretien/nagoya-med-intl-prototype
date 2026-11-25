@@ -107,8 +107,9 @@ for (const im of imgs) {
     if (!existsSync(join(PUBLIC, f))) fail(`images.json ${im.id}: missing file public/${f}`);
   }
 }
-// The home page's campus photo is decorative (alt="") behind the title; every other photo must be listed.
-for (const f of walk(join(PUBLIC, 'img')).filter((x) => /\.(webp|jpe?g|png|avif|gif|svg)$/i.test(x))) {
+// Every file under public/img, whatever its type, must be listed with a description. Only the home page's
+// campus photo is exempt: it is decorative (alt="") behind the title.
+for (const f of walk(join(PUBLIC, 'img'))) {
   const rel = relative(PUBLIC, f).split(sep).join('/');
   if (!/^img\/campus-\d+\.webp$/.test(rel) && !listed.has(rel)) fail(`public/${rel} is not in images.json, so it has no description`);
 }
