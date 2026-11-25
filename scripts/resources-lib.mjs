@@ -39,7 +39,8 @@ const srcsetUrls = (value) => value.split(',').map((part) => part.trim().split(/
 export function outsideInCss(css, ownHosts = []) {
   const found = [];
   for (const m of css.matchAll(/url\(\s*(['"]?)([^'")\s]+)\1\s*\)/gi)) found.push(m[2]);
-  for (const m of css.matchAll(/@import\s+(['"])([^'"]+)\1/gi)) found.push(m[2]);
+  // Minified CSS drops the space: @import"https://...".
+  for (const m of css.matchAll(/@import\s*(['"])([^'"]+)\1/gi)) found.push(m[2]);
   return found.filter((u) => isOutside(u, ownHosts));
 }
 

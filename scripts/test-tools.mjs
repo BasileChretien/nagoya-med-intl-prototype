@@ -168,6 +168,9 @@ const SELF = 'https://example.github.io/site/';
   const css = '@font-face{font-family:F;src:url(https://fonts.example.com/f.woff2) format("woff2")}@import url("//cdn.example.com/b.css");.x{background:url(/site/img/a.webp)}';
   const got3 = outsideInCss(css, ['example.github.io']).sort();
   say(JSON.stringify(got3) === JSON.stringify(['//cdn.example.com/b.css', 'https://fonts.example.com/f.woff2']), 'fonts and imports from other sites are found in a built stylesheet; its own files are not', JSON.stringify(got3));
+  // Blocking item of the #20 review: minified CSS writes @import without a space.
+  const minified = outsideInCss('@import"https://x.example/a.css";@import \'https://x.example/b.css\';.y{color:red}');
+  say(JSON.stringify(minified) === JSON.stringify(['https://x.example/a.css', 'https://x.example/b.css']), 'an @import with no space after it, as minified CSS writes it, is found', JSON.stringify(minified));
 }
 
 // Structured data that must be there: a page without its expected type is reported, whatever the attribute order.
