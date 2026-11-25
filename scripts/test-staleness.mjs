@@ -10,6 +10,7 @@ import { readFileSync, writeFileSync, rmSync, existsSync, mkdirSync } from 'node
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { analyseFacultyPage, evaluateFaculty, loadFacultyConfig } from './faculty-live-lib.mjs';
+import { numbersOf } from './staleness-lib.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const node = (script, args = []) => spawnSync(process.execPath, [join(ROOT, 'scripts', script), ...args], { cwd: ROOT, encoding: 'utf8' });
@@ -96,6 +97,19 @@ expectPass('the same numbers written differently match (万, million, ordinals, 
 expectPass('a shared 万 in a range, kanji 千, "billion" and month abbreviations match, and the acronym SEP is not a month',
   [[PROG, (o) => { const d = JSON.parse(o); d.funding = { en: '20,000 to 30,000 yen a month for 3,000 students from a JPY 1 billion fund, until Apr 15 under the SEP agreement', ja: '10億円の基金から三千人の学生に月額2〜3万円、4月15日まで' }; return JSON.stringify(d, null, 2); }]],
   () => { const r = node('sync.mjs', ['confirm', 'programmes/clinical-clerkship.json#funding']); if (r.status !== 0) throw new Error(r.stderr); });
+// How numbers are read (recorded on #5): a digit before 千/百 multiplies it, 数千 ("several thousand") is not a
+// number, and a range sharing a unit is read as two amounts in both languages.
+{
+  const readings = [
+    ['1千万円', 'ja', '10000000'], ['5千円', 'ja', '5000'], ['2〜3千万円', 'ja', '20000000, 30000000'], ['数千人の学生', 'ja', ''],
+    ['数百人', 'ja', ''], ['三千人', 'ja', '3000'], ['二百五十名', 'ja', '250'], ['2〜3万円', 'ja', '20000, 30000'], ['150万円', 'ja', '1500000'],
+    ['10 million yen', 'en', '10000000'], ['20 to 30 million yen', 'en', '20000000, 30000000'], ['thousands of students', 'en', ''],
+    ['1.5 million', 'en', '1500000'], ['Scholar Exchange Program (SEP)', 'en', ''],
+    ['500,000 to 1 million yen', 'en', '500000, 1000000'], ['900,000 - 1.2 million', 'en', '900000, 1200000'], ['50〜100万円', 'ja', '500000, 1000000'], ['500000〜100万円', 'ja', '500000, 1000000'],
+  ];
+  const wrong = readings.filter(([text, lang, want]) => numbersOf(text, lang) !== want).map(([text, lang, want]) => `${text} -> "${numbersOf(text, lang)}", not "${want}"`);
+  say(wrong.length === 0, 'numbers are read the same way in both languages (千 after a digit, 数千, ranges)', wrong.join('; '));
+}
 expectFail('a field given in one language only is reported', [[PROG, (o) => { const d = JSON.parse(o); d.duration = { en: '2 to 8 weeks' }; return JSON.stringify(d, null, 2); }]],
   /programmes\/clinical-clerkship\.json#duration: has en but no ja text/);
 expectFail('a photo description changed in one language only is stale', [['src/data/images.json', (o) => o.replace(/"en": "([^"]+)"/, '"en": "$1 Changed."')]],
@@ -206,6 +220,6 @@ expectFail('a confirmation left for a removed page is reported', [[SYNC, (o) => 
     'a link to any old or new home of the site counts', JSON.stringify({ oldHome: oldHome.failures, homeMisses }));
 }
 
-const total = 36;
+const total = 37;
 process.stdout.write(`${total - failed}/${total} passed\n`);
 process.exit(failed ? 1 : 0);
