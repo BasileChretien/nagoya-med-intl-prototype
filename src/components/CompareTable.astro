@@ -5,8 +5,8 @@ import { href, type ProgrammeEntry } from '../lib/site';
 interface Props { lang: Lang; programmes: ProgrammeEntry[]; caption: string }
 const { lang, programmes, caption } = Astro.props;
 const ui = t(lang);
-type Key = 'audience' | 'duration' | 'capacity' | 'degree' | 'cost' | 'funding';
-const keys: Key[] = ['audience', 'duration', 'capacity', 'degree', 'cost', 'funding'];
+type Key = 'audience' | 'language' | 'duration' | 'capacity' | 'degree' | 'cost' | 'funding';
+const keys: Key[] = ['audience', 'language', 'duration', 'capacity', 'degree', 'cost', 'funding'];
 const usedKeys = keys.filter((k) => programmes.some((p) => p.data[k]));
 ---
 <div class="compare-wrap" role="region" aria-label={caption} tabindex="0">

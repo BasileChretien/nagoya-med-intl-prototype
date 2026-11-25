@@ -2,7 +2,7 @@
 # Redraw the picture with: node scripts/draw-features.mjs  (writes docs/features.md)
 features:
   - id: audience-sections
-    says: Visitors find content by what they want to do, in five sections.
+    says: Visitors find content by what they want to do, in five sections, with home-page entries for prospective partners, companies, Nagoya faculty, parents and the press.
     stage: Find
     status: works
     delivered_by: [src/components/Header.astro, src/pages/[lang]/[...slug].astro]
@@ -23,7 +23,7 @@ features:
     tests: [programme-references]
     docs: CONTENT_GUIDE.md
   - id: compare-programmes
-    says: Visitors can compare programmes side by side.
+    says: Visitors can compare programmes side by side, including the English test and scores each one requires.
     stage: Decide
     status: works
     delivered_by: [src/pages/[lang]/programmes/index.astro, src/components/CompareTable.astro]
@@ -60,7 +60,7 @@ features:
     delivered_by: [src/pages/[lang]/news/index.astro, src/pages/[lang]/news/[id].astro, src/pages/[lang]/news/_news.ts, src/data/news.json]
     tests: [data-files]
   - id: partners-contacts
-    says: Partner universities and contact points come from data files and stay consistent everywhere.
+    says: Partner universities and contact points come from data files and stay consistent everywhere; the partner list can be searched and filtered by region and link, with counts, and opened on one filter from another page.
     stage: Contact
     status: works
     delivered_by: [src/pages/[lang]/[...slug].astro, src/data/partners.json, src/data/contacts.json]
@@ -72,7 +72,7 @@ features:
     delivered_by: [src/content/pages/en/about/access.md, src/content/pages/ja/about/access.md, public/files/route-map-en.pdf, public/files/route-map-ja.pdf, src/data/contacts.json]
     tests: [pairing, images, internal-links]
   - id: acronyms-explained
-    says: Every abbreviation says what it stands for where it is first used on a page, with a list at the end of the page, links to the institutions, and a full list of abbreviations.
+    says: Every abbreviation says what it stands for where it is first used on a page, with a list at the end of the page, links to the institutions, and a full list of abbreviations; links to pages in the other language or to PDFs say so.
     stage: Explore
     status: works
     delivered_by: [src/lib/rehype-abbr.mjs, src/data/glossary.json, src/content/pages/en/about/glossary.md, src/content/pages/ja/about/glossary.md]
@@ -103,6 +103,13 @@ features:
     status: works
     delivered_by: [src/components/PageNotes.astro, src/pages/[lang]/status/index.astro]
     tests: [data-files]
+  - id: browser-editing
+    says: Office staff can edit in the browser and record that both languages are in step from the Actions tab, with nothing to install.
+    stage: Maintain
+    status: works
+    delivered_by: [.github/workflows/confirm.yml, CONTENT_GUIDE.md]
+    tests: [versions-in-step]
+    limits: Commits made by the workflow do not start the pull request's checks again; the workflow runs the content and staleness checks itself.
   - id: automatic-checks
     says: Every change is checked for missing translations, passed deadlines, large images and broken internal links before it is published.
     stage: Maintain

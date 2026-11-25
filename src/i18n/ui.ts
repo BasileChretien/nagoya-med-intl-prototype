@@ -1,4 +1,5 @@
 import sectionNames from './sections.json';
+import { urlLang as urlLangOf } from '../lib/url-lang.mjs';
 
 export type Lang = 'en' | 'ja';
 export const LANGS: readonly Lang[] = ['en', 'ja'] as const;
@@ -42,6 +43,8 @@ const en = {
     'partnerships/become-a-partner': 'For universities that want to become partners',
     'partnerships/companies': 'For companies and research institutes',
     'partnerships/for-faculty': 'For Nagoya faculty and clinicians',
+    'study-abroad/safety': 'For parents of Nagoya students',
+    'about/contact': 'For the media and official enquiries',
   } as Record<string, string>,
   keyDates: 'Key dates',
   keyDatesNote: 'Deadlines come from each programme’s fact sheet. When a date is not yet announced, the last known cycle is shown.',
@@ -59,7 +62,7 @@ const en = {
   deadlineStatus: { open: 'Open', rolling: 'Rolling', tba: 'Not yet announced', closed: 'Closed' },
   facts: {
     audience: 'Who', duration: 'Duration', capacity: 'Places', cost: 'Cost', funding: 'Support',
-    degree: 'Degree', eligibility: 'Eligibility', howToApply: 'How to apply', deadline: 'Deadline', contact: 'Contact',
+    degree: 'Degree', language: 'English requirement', eligibility: 'Eligibility', howToApply: 'How to apply', deadline: 'Deadline', contact: 'Contact',
   },
   factsTitle: 'Key facts',
   tableCorner: 'Programme',
@@ -173,6 +176,8 @@ const ja: UI = {
     'partnerships/become-a-partner': '協定校になりたい大学の方へ',
     'partnerships/companies': '企業・研究機関の方へ',
     'partnerships/for-faculty': '教職員・医師の方へ',
+    'study-abroad/safety': '名大生の保護者の方へ',
+    'about/contact': '報道機関・公的機関の方へ',
   },
   keyDates: '主な締切',
   keyDatesNote: '締切は各プログラムの概要から表示します。日程が未発表の場合は、前回の日程を示します。',
@@ -190,7 +195,7 @@ const ja: UI = {
   deadlineStatus: { open: '受付中', rolling: '随時', tba: '未発表', closed: '締切' },
   facts: {
     audience: '対象', duration: '期間', capacity: '定員', cost: '費用', funding: '支援',
-    degree: '学位', eligibility: '応募資格', howToApply: '応募方法', deadline: '締切', contact: '問い合わせ先',
+    degree: '学位', language: '英語の要件', eligibility: '応募資格', howToApply: '応募方法', deadline: '締切', contact: '問い合わせ先',
   },
   factsTitle: '概要',
   tableCorner: 'プログラム',
@@ -281,14 +286,7 @@ export function t(lang: Lang): UI {
 
 /** Language of an official page, read from its address; null when the address does not say. */
 export function urlLang(url: string): Lang | null {
-  let u: URL;
-  try { u = new URL(url); } catch { return null; }
-  const p = u.pathname.toLowerCase();
-  if (/\/(medical_j|japanese|ja|jp)(\/|\.|$)/.test(p)) return 'ja';
-  // The old exchange site's English pages live under /intlexch/english/ and /intlexch/japan/ ("Clinical Exchange in Japan").
-  if (/\/(medical_e|english|en)(\/|\.|$)/.test(p) || /^\/intlexch\/japan\//.test(p)) return 'en';
-  if (u.hostname === 'www.med.nagoya-u.ac.jp' && /^\/jdp\//.test(p)) return 'ja';
-  return null;
+  return urlLangOf(url);
 }
 
 /** Language of a short text from the data (names, universities, departments): Japanese if it holds kana or kanji. */

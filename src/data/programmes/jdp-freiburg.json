@@ -32,9 +32,13 @@
     "en": "Doctor of Philosophy in Medical Science, one joint degree from both universities",
     "ja": "博士（医学）。両大学による単一の共同学位"
   },
+  "language": {
+    "en": "Desirable: TOEFL iBT 100 or higher (25 or more in each section), or IELTS Academic Overall 7.0 or higher (7.0 or more in each section).",
+    "ja": "TOEFL iBT 100点以上（各セクション25点以上）、またはIELTS Academic Overall 7.0以上（各セクション7.0以上）が望ましい"
+  },
   "eligibility": {
-    "en": "Desirable: TOEFL iBT 100 or higher (25 or more in each section), or IELTS Academic Overall 7.0 or higher (7.0 or more in each section). 30 credits are required.",
-    "ja": "TOEFL iBT 100点以上（各セクション25点以上）、またはIELTS Academic Overall 7.0以上（各セクション7.0以上）が望ましい。必要単位は30単位"
+    "en": "30 credits are required.",
+    "ja": "必要単位は30単位"
   },
   "howToApply": {
     "en": "Consult the joint degree programmes office first. Then apply to Nagoya University through the graduate school's call for applications and attend the interviews. See the admission page.",

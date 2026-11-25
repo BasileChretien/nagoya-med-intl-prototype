@@ -181,7 +181,7 @@ for (const c of cases) {
   const base = mkdtempSync(join(tmpdir(), 'check test ü 名古屋 '));
   try {
     // Everything the checks read, including the files the feature map names (src/, .github/, faculty/, content-sync.json).
-    for (const part of ['scripts', 'docs', 'public', 'src', '.github', 'faculty', 'tests', 'content-sync.json']) {
+    for (const part of ['scripts', 'docs', 'public', 'src', '.github', 'faculty', 'tests', 'content-sync.json', 'CONTENT_GUIDE.md']) {
       cpSync(join(ROOT, part), join(base, part), { recursive: true });
     }
     const r = runCheck(base);

@@ -1,0 +1,73 @@
+name: Confirm both languages
+
+# Run from the Actions tab ("Run workflow") after editing in the browser, once you have read the English and the
+# Japanese and they say the same thing. It records them as in step (npm run sync -- confirm), stamps report
+# translations if asked, regenerates the faculty texts, commits the result to the branch you choose, and runs the
+# content and staleness checks. The keys to confirm are printed by the failing check on the pull request.
+on:
+  workflow_dispatch:
+    inputs:
+      keys:
+        description: 'Pages or fields to confirm, separated by spaces, copied from the failing check (for example: study-in-nagoya/faq programmes/sep-unc.json#duration)'
+        required: true
+        type: string
+      reports:
+        description: 'Story ids whose translation you updated after its original changed, separated by spaces (leave empty if none)'
+        required: false
+        type: string
+        default: ''
+      checked:
+        description: 'I have read both languages and they now say the same thing'
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: confirm-${{ github.ref }}
+
+jobs:
+  confirm:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Stop unless both languages were read
+        if: ${{ !inputs.checked }}
+        run: |
+          echo "::error::Tick the box only after reading both languages: confirming says they say the same thing."
+          exit 1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      # The inputs reach the commands as environment variables, split into words: never as shell code.
+      - name: Record both languages as in step
+        env:
+          KEYS: ${{ inputs.keys }}
+          REPORTS: ${{ inputs.reports }}
+        run: |
+          set -eu
+          read -r -a keys <<< "$KEYS"
+          npm run -s sync -- confirm "${keys[@]}"
+          if [ -n "$REPORTS" ]; then
+            read -r -a ids <<< "$REPORTS"
+            npm run -s sync -- stamp-report "${ids[@]}"
+          fi
+          npm run -s faculty-texts
+      - name: Commit to the branch
+        env:
+          KEYS: ${{ inputs.keys }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content-sync.json faculty src/data/reports/translated
+          if git diff --cached --quiet; then echo "Nothing new to record."; exit 0; fi
+          git commit -m "chore: confirm both languages: $KEYS"
+          git push
+      - name: Check the content
+        run: node scripts/check-content.mjs
+      - name: Check that no version is stale
+        run: node scripts/check-staleness.mjs
