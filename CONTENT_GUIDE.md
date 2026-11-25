@@ -147,12 +147,15 @@ The ids, names and pages of all programmes are listed in the [programme index](d
   "partners": ["adelaide"],
   "contact": "intl-office",
   "page": "study-in-nagoya/clinical-clerkship",
+  "checked": "2026-11-25",
   "sources": ["https://..."],
   "toConfirm": ["..."]
 }
 ```
 
-Only `section`, `name`, `audience`, `contact` and `page` are required. Leave a field out rather than guess. `section` is one of `study-in-nagoya`, `study-abroad` or `degrees`.
+Only `section`, `name`, `audience`, `contact`, `page` and `checked` are required. Leave a field out rather than guess.
+
+**When the facts were checked.** `checked` is the day you last compared the facts with their sources (or the office confirmed them). The fact box shows it, with the number of `toConfirm` items still open; each page shows its `updated` date at the top in the same way. Change the date only after checking. `npm run check` warns when a programme or page was last checked more than a year ago, and the weekly check reports the warning. `section` is one of `study-in-nagoya`, `study-abroad` or `degrees`.
 
 **Deadlines.** Never invent a date.
 - A recurring rule from the sources ("6 months before the start") → `"status": "rolling"`.
@@ -160,6 +163,8 @@ Only `section`, `name`, `audience`, `contact` and `page` are required. Leave a f
 - Only past deadlines are known → `"status": "tba"`, text like "To be announced (last cycle: applications 6–15 January 2025)", and a `toConfirm` entry.
 
 The check fails when an `open` deadline's date has passed: change it to `tba` as above.
+
+A dated deadline (`open` or `rolling` with a `date` still to come) gets an "Add to calendar" link in its fact box, and it appears in the calendar file visitors can subscribe to (`/en/calendar.ics`, `/ja/calendar.ics`), with news events and calls whose day has not passed (an event's `date` to `until`; a call's `until`, its deadline). The news feed (`/en/news/rss.xml`, `/ja/news/rss.xml`) lists every news item. Both are built from the data on every deploy and every Monday: nothing to update by hand.
 
 **Contact ids.** `intl-office` (Office of International Affairs, general) and `jdp-office` (joint degrees, the double degree and the scholar exchange with UNC). Others may be added to `contacts.json`.
 

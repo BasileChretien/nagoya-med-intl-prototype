@@ -4,7 +4,7 @@ Astro 7 static site: bilingual (en/ja) prototype replacing the seven internation
 
 ## Commands
 
-- `npm run dev` / `npm run build` / `npm run preview`
+- `npm run dev` / `npm run build` (Astro, then the Pagefind search index in `dist/pagefind`) / `npm run preview`
 - `npm run check` — content checks (pairing, deadlines, images, references) and staleness checks (`scripts/check-staleness.mjs`); `node scripts/check-content.mjs --dist` after a build also checks internal links
 - `npm test` — tests of the checks themselves (`scripts/test-checks.mjs`, `scripts/test-staleness.mjs`, `scripts/test-content-plugin.mjs`, `scripts/test-tools.mjs`); add a case when a check gains a rule
 - `npm run sync -- status | confirm <key> | stamp-report <id> | prune` — record that both languages are in step (`content-sync.json`)

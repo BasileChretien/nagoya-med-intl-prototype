@@ -17,6 +17,9 @@ flowchart LR
   S0 --- bilingual_pairs("bilingual-pairs")
   S1 --- programme_facts("programme-facts")
   S1 --- compare_programmes("compare-programmes")
+  S1 --- dated_facts("dated-facts")
+  S0 --- site_search("site-search")
+  S1 --- calendar_and_feed("calendar-and-feed")
   S1 --- key_dates("key-dates")
   S2 --- story_library("story-library")
   S2 --- report_pages("report-pages")
@@ -45,6 +48,9 @@ flowchart LR
 | Find | `bilingual-pairs` | Every page exists in English and Japanese, and the language switch opens the same page in the other language. | works | pairing |
 | Decide | `programme-facts` | Each programme's key facts appear in a box on its page, from one data file. | works | programme-references |
 | Decide | `compare-programmes` | Visitors can compare programmes side by side, including the English test and scores each one requires. | works | programme-references |
+| Decide | `dated-facts` | Each programme box and each page says when its facts were last checked against the official pages, and how many details the office is still confirming, with a link to them. *Limit: The date says when the facts were compared with their sources, not when the office confirmed them; all are 25 November 2026 until someone checks again.* | works | dated-facts |
+| Find | `site-search` | Visitors can search every page, programme, story and news item in their language, from a search link in the header. *Limit: Search needs JavaScript; without it the page points to the menu, the programme list and the stories. Each language searches its own pages.* | works | search-index |
+| Decide | `calendar-and-feed` | Visitors can subscribe to a calendar of coming deadlines and events and to a news feed, and add a programme's deadline to their calendar from its box. *Limit: The calendar is empty until the office records dated deadlines or coming events; no programme has a dated deadline today.* | works | feeds |
 | Decide | `key-dates` | The home page lists deadlines, and never shows a passed deadline as open. | works | deadlines |
 | Explore | `story-library` | Visitors can filter student stories by type, country and year, share or link a filtered list by its address, and open the full report; the Japanese list opens on Nagoya students abroad. | works | data-files |
 | Explore | `report-pages` | Every student report has its own page in English and Japanese; the version that is not the original is an automatic translation, labelled as such, with a link to the original. *Limit: Translations are automatic (AI) and have not been checked by a person.* | works | report-translations |

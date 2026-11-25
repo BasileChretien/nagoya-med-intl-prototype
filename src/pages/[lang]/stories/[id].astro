@@ -30,7 +30,7 @@ const sourceMark = targetMarker(s.source, lang);
 ---
 <Base lang={lang} title={title} description={description} slug={`stories/${story.id}`}>
   <div class="wrap">
-    <nav class="crumbs" aria-label={ui.breadcrumb}>
+    <nav class="crumbs" data-pagefind-ignore aria-label={ui.breadcrumb}>
       <ol><li><a href={href(lang)}>{ui.home}</a></li><li><a href={href(lang, 'stories')}>{ui.stories}</a></li><li aria-current="page" lang={textLang(s.name)}>{s.name}</li></ol>
     </nav>
     <header class="page-head story-head">

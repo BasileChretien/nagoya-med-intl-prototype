@@ -1,0 +1,58 @@
+---
+/**
+ * Site search with Pagefind: `npm run build` indexes dist/ after Astro (pagefind --site dist), one index per page
+ * language. The search runs in the browser with that index; nothing is sent to another service.
+ * Pages are indexed from their <main> (Base.astro data-pagefind-body); breadcrumbs and side menus are left out.
+ * ?q=word opens the page with a search already made.
+ */
+import Base from '../../../layouts/Base.astro';
+import { t, type Lang } from '../../../i18n/ui';
+import { href, asset, langPaths } from '../../../lib/site';
+
+export function getStaticPaths() {
+  return langPaths();
+}
+const lang = Astro.params.lang as Lang;
+const ui = t(lang);
+const bundle = asset('pagefind/');
+---
+<Base lang={lang} title={ui.searchTitle} description={ui.searchLede} slug="search" searchable={false}>
+  <link rel="stylesheet" href={asset('pagefind/pagefind-ui.css')} />
+  <div class="wrap search-page">
+    <nav class="crumbs" data-pagefind-ignore aria-label="Breadcrumb"><ol><li><a href={href(lang)}>{ui.home}</a></li><li aria-current="page">{ui.searchTitle}</li></ol></nav>
+    <header class="page-head">
+      <h1>{ui.searchTitle}</h1>
+      <p class="lede">{ui.searchLede}</p>
+    </header>
+    <div id="search" data-bundle={bundle}></div>
+    <noscript>
+      <p class="notice">{ui.searchNoScript}</p>
+      <ul>
+        <li><a href={href(lang, 'programmes')}>{ui.programmesTitle}</a></li>
+        <li><a href={href(lang, 'stories')}>{ui.stories}</a></li>
+      </ul>
+    </noscript>
+  </div>
+  <script is:inline src={asset('pagefind/pagefind-ui.js')}></script>
+  <script is:inline>
+    (() => {
+      const box = document.getElementById('search');
+      if (!box || typeof PagefindUI === 'undefined') return;
+      const search = new PagefindUI({ element: '#search', bundlePath: box.dataset.bundle, showSubResults: true, showImages: false, autofocus: true });
+      const q = new URLSearchParams(location.search).get('q');
+      if (q) search.triggerSearch(q);
+    })();
+  </script>
+</Base>
+
+<style is:global>
+  .search-page { padding-bottom: 4rem; }
+  .search-page #search { max-width: 46rem; }
+  .search-page {
+    --pagefind-ui-primary: var(--navy);
+    --pagefind-ui-text: var(--ink);
+    --pagefind-ui-border: var(--line-2);
+    --pagefind-ui-border-radius: 8px;
+    --pagefind-ui-font: inherit;
+  }
+</style>

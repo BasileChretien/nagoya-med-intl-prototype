@@ -31,7 +31,7 @@ const dateText = item.until !== n.date
 ---
 <Base lang={lang} title={title} description={description} slug={`news/${item.id}`}>
   <div class="wrap" style="padding-bottom:4rem">
-    <nav class="crumbs" aria-label="Breadcrumb">
+    <nav class="crumbs" data-pagefind-ignore aria-label="Breadcrumb">
       <ol><li><a href={href(lang)}>{ui.home}</a></li><li><a href={href(lang, 'news')}>{ui.news}</a></li><li aria-current="page">{title}</li></ol>
     </nav>
     <header class="page-head">

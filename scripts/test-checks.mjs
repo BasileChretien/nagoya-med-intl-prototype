@@ -147,6 +147,27 @@ The XQZW office also helps.
     message: /summary longer than 70 words/,
     also: (r) => (/"checked" must be the date it was written/.test(r.stderr) ? null : 'the future date was not reported'),
   },
+  // Dated facts: every programme and page says when it was last compared with its sources.
+  {
+    name: 'a programme without a checked date is reported',
+    edit: ['src/data/programmes/jdp-lund.json', (old) => { const d = JSON.parse(old); delete d.checked; return JSON.stringify(d, null, 2); }], expect: 'fail',
+    message: /programmes\/jdp-lund\.json: "checked" must be the date/,
+  },
+  {
+    name: 'an impossible checked date is reported, without a crash',
+    edit: ['src/data/programmes/jdp-lund.json', (old) => { const d = JSON.parse(old); d.checked = '2026-00-10'; return JSON.stringify(d, null, 2); }], expect: 'fail',
+    message: /programmes\/jdp-lund\.json: "checked" must be the date/, also: (r) => (crashed(r) ? 'the check crashed' : null),
+  },
+  {
+    name: 'a checked date more than a year old is a warning, not an error',
+    edit: ['src/data/programmes/jdp-lund.json', (old) => { const d = JSON.parse(old); d.checked = '2024-01-10'; return JSON.stringify(d, null, 2); }], expect: 'pass',
+    also: (r) => (/warning: programmes\/jdp-lund\.json: facts last checked on 2024-01-10, more than a year ago/.test(r.stdout) ? null : 'no warning'),
+  },
+  {
+    name: 'a page with a future updated date is reported',
+    edit: ['src/content/pages/en/about/contact.md', (old) => old.replace(/^updated: .*$/m, 'updated: 2999-01-01')], expect: 'fail',
+    message: /en\/about\/contact\.md: "updated" must be a date/,
+  },
 ];
 
 let failed = 0;

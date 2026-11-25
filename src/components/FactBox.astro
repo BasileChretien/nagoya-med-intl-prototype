@@ -1,15 +1,21 @@
 ---
 import { getEntry } from 'astro:content';
-import { t, type Lang } from '../i18n/ui';
+import { t, fill, type Lang } from '../i18n/ui';
+import { tx } from '../i18n/extra';
 import type { ProgrammeEntry } from '../lib/site';
-import { formatDate } from '../lib/site';
+import { formatDate, href } from '../lib/site';
+import { programmeDeadline, todayJapan } from '../lib/calendar';
 import EmailLink from './EmailLink.astro';
 import PhoneLink from './PhoneLink.astro';
 
 interface Props { programme: ProgrammeEntry; lang: Lang; showTitle?: boolean }
 const { programme, lang, showTitle = true } = Astro.props;
 const ui = t(lang);
+const x = tx(lang);
 const d = programme.data;
+const open = d.toConfirm.length;
+// A calendar file exists only for a coming dated deadline (src/pages/[lang]/deadlines/[id].ics.ts).
+const dated = programmeDeadline(programme, lang, '', todayJapan());
 const contact = await getEntry('contacts', d.contact);
 type Key = 'audience' | 'duration' | 'capacity' | 'cost' | 'funding' | 'degree' | 'language' | 'eligibility' | 'howToApply';
 const rows: Key[] = ['audience', 'duration', 'capacity', 'degree', 'cost', 'funding', 'language', 'eligibility', 'howToApply'];
@@ -31,7 +37,10 @@ const rows: Key[] = ['audience', 'duration', 'capacity', 'degree', 'cost', 'fund
     {d.deadline && (
       <>
         <dt>{ui.facts.deadline}</dt>
-        <dd>{d.deadline.date ? `${formatDate(d.deadline.date, lang)} · ` : ''}{d.deadline.text[lang]}</dd>
+        <dd>
+          {d.deadline.date ? `${formatDate(d.deadline.date, lang)} · ` : ''}{d.deadline.text[lang]}
+          {dated && <> · <a href={`${href(lang, 'deadlines')}${programme.id}.ics`} type="text/calendar">{ui.addToCalendar}</a></>}
+        </dd>
       </>
     )}
     {contact && (
@@ -45,4 +54,8 @@ const rows: Key[] = ['audience', 'duration', 'capacity', 'degree', 'cost', 'fund
       </>
     )}
   </dl>
+  <p class="facts-meta">
+    {fill(x.checkedOn, { date: formatDate(d.checked, lang) })}
+    {open > 0 && <a href={`${href(lang, 'status')}#programme-${programme.id}`}>{open === 1 ? x.confirmOne : fill(x.confirmMany, { n: open })}</a>}
+  </p>
 </section>

@@ -6,7 +6,7 @@
   "description": "Prototype of a single bilingual international website for Nagoya University Graduate School of Medicine. Not an official site.",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && pagefind --site dist",
     "preview": "astro preview",
     "check": "node scripts/check-content.mjs && node scripts/check-staleness.mjs",
     "typecheck": "astro check",
@@ -21,12 +21,15 @@
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "0.4.8",
+    "@astrojs/rss": "4.0.19",
     "@astrojs/sitemap": "3.7.6",
     "@fontsource-variable/source-serif-4": "5.3.1",
-    "astro": "7.4.10"
+    "astro": "7.4.10",
+    "ics": "3.12.1"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.12",
+    "pagefind": "1.6.0",
     "typescript": "6.0.3"
   }
 }

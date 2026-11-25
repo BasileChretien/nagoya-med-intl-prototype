@@ -32,8 +32,13 @@ const labels = { shown: L.shown };
 ---
 <Base lang={lang} title={ui.news} description={ui.newsLede} slug="news">
   <div class="wrap" style="padding-bottom:4rem">
-    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href={href(lang)}>{ui.home}</a></li><li aria-current="page">{ui.news}</li></ol></nav>
+    <nav class="crumbs" data-pagefind-ignore aria-label="Breadcrumb"><ol><li><a href={href(lang)}>{ui.home}</a></li><li aria-current="page">{ui.news}</li></ol></nav>
     <header class="page-head"><h1>{ui.news}</h1><p class="lede">{ui.newsLede}</p></header>
+    <p class="subscribe">
+      <a href={`${href(lang, 'news')}rss.xml`} type="application/rss+xml">{ui.newsFeed}</a>
+      <a href={`${href(lang)}calendar.ics`} type="text/calendar">{ui.calendarFeed}</a>
+      <span>{ui.calendarHelp}</span>
+    </p>
 
     {upcoming.length > 0 && (
       <section class="news-upcoming" aria-labelledby="upcoming">

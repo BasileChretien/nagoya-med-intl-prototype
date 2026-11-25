@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 /**
- * Tests for the weekly check (scripts/external-lib.mjs) and the structured-data check (scripts/structured-lib.mjs).
+ * Tests for the weekly check (scripts/external-lib.mjs), the structured-data check (scripts/structured-lib.mjs) and
+ * the calendar files (src/lib/calendar.ts, loaded through Node's type stripping).
  * No network: requests go to a fake fetch. Run: node scripts/test-tools.mjs
  */
 import { externalLinks, verdict, checkAll, limiter, weeklyReport, OWN_HOST } from './external-lib.mjs';
 import { structuredData } from './structured-lib.mjs';
+import { programmeDeadline, newsEntry, icsText } from '../src/lib/calendar.ts';
 
 let failed = 0;
 let total = 0;
@@ -106,6 +108,29 @@ const SELF = 'https://example.github.io/site/';
   say(structuredData(block({ '@type': 'Thing' })).problems.some((p) => /@context/.test(p)), 'structured data without the schema.org context is reported');
   const rel = block({ '@context': 'https://schema.org', '@type': 'EducationalOccupationalProgram', url: '/site/en/degrees/', provider: { '@type': 'CollegeOrUniversity', url: 'http://x.org/' } });
   say(structuredData(rel).problems.length === 2, 'relative and plain-http addresses in structured data are reported', structuredData(rel).problems.join('; '));
+}
+
+// Calendar files: only coming dates, all-day entries that end the day after, deadlines named as such.
+{
+  const prog = (deadline) => ({ id: 'jdp-x', data: { name: { en: 'Joint degree X', ja: 'X' }, short: { en: 'JD X', ja: 'X' }, deadline } });
+  const TODAY = '2026-11-26';
+  const open = programmeDeadline(prog({ status: 'open', date: '2027-01-15', text: { en: 'Apply by 15 January', ja: '1月15日まで' } }), 'en', 'https://x/en/degrees/x/', TODAY);
+  say(open?.title === 'Deadline: JD X' && open.start === '2027-01-15' && open.end === '2027-01-15', 'an open programme deadline with a coming date becomes an entry', JSON.stringify(open));
+  say(programmeDeadline(prog({ status: 'tba', date: '2027-01-15', text: { en: '', ja: '' } }), 'en', '', TODAY) === null, 'a deadline not yet announced gets no entry, even with a date');
+  say(programmeDeadline(prog({ status: 'open', date: '2026-11-25', text: { en: '', ja: '' } }), 'en', '', TODAY) === null, 'a passed deadline gets no entry');
+  say(programmeDeadline(prog({ status: 'open', text: { en: '', ja: '' } }), 'en', '', TODAY) === null, 'a deadline without a date gets no entry');
+  const news = (category, date, until) => ({ id: `n-${category}`, until: until ?? date, entry: { data: { category, date, title: { en: 'Call for students', ja: '学生募集' } } } });
+  const call = newsEntry(news('call', '2026-11-20', '2026-12-10'), 'ja', 'https://x/ja/news/n/', TODAY);
+  say(call?.title === '締切: 学生募集' && call.start === '2026-12-10' && call.end === '2026-12-10', 'a call with a deadline becomes an entry on its deadline', JSON.stringify(call));
+  const event = newsEntry(news('event', '2026-12-01', '2026-12-03'), 'en', 'https://x/en/news/n/', TODAY);
+  say(event?.title === 'Call for students' && event.start === '2026-12-01' && event.end === '2026-12-03', 'an event keeps its first and last day');
+  say(newsEntry(news('news', '2026-12-01'), 'en', '', TODAY) === null && newsEntry(news('event', '2026-11-01'), 'en', '', TODAY) === null, 'plain news and past events get no entry');
+  const text = icsText([open, { ...event, title: '国際シンポジウム, 名古屋; 2日目' }], 'Test calendar');
+  say(/DTSTART;VALUE=DATE:20270115/.test(text) && /DTEND;VALUE=DATE:20270116/.test(text), 'entries are all-day and end the day after their last day');
+  say(/UID:deadline-jdp-x-2027-01-15@/.test(text) && /X-WR-CALNAME:Test calendar/.test(text) && /\r\n/.test(text), 'entries have a stable UID, the calendar its name, lines end with CRLF');
+  const unfolded = text.replace(/\r\n[ \t]/g, '');
+  say(unfolded.includes('SUMMARY:国際シンポジウム\\, 名古屋\\; 2日目'), 'commas and semicolons in titles are escaped', unfolded);
+  say(/END:VCALENDAR/.test(icsText([], 'Empty')), 'a calendar with no coming dates is still a valid file');
 }
 
 process.stdout.write(`${total - failed}/${total} passed\n`);

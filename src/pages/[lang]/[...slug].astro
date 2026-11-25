@@ -10,9 +10,9 @@ import Photo from '../../components/Photo.astro';
 import { pageImages } from '../../lib/reports';
 import faculty from '../../data/faculty.json';
 import glossary from '../../data/glossary.json';
-import { t, type Lang, type Section } from '../../i18n/ui';
+import { t, fill, type Lang, type Section } from '../../i18n/ui';
 import { tx } from '../../i18n/extra';
-import { href, asset, pageRef, sectionPages, counterpartExists, programmesIn, type PageEntry, type ProgrammeEntry } from '../../lib/site';
+import { href, asset, pageRef, sectionPages, counterpartExists, programmesIn, formatDate, type PageEntry, type ProgrammeEntry } from '../../lib/site';
 import { breadcrumbData, programmeData } from '../../lib/structured';
 
 export async function getStaticPaths() {
@@ -69,7 +69,7 @@ const structured = [
 ---
 <Base lang={lang} title={d.title} description={d.description} slug={ref.slug} hasCounterpart={hasCounterpart} section={section} structured={structured}>
   <div class="wrap">
-    <nav class="crumbs" aria-label="Breadcrumb">
+    <nav class="crumbs" data-pagefind-ignore aria-label="Breadcrumb">
       <ol>
         <li><a href={href(lang)}>{ui.home}</a></li>
         {!ref.isIndex && <li><a href={sectionIndexHref}>{ui.sections[section]}</a></li>}
@@ -79,9 +79,15 @@ const structured = [
     <header class="page-head">
       <h1>{d.title}</h1>
       {d.summary && <p class="lede">{d.summary}</p>}
+      {d.updated && (
+        <p class="page-meta">
+          {fill(x.checkedOn, { date: formatDate(d.updated, lang) })}
+          {d.toConfirm.length > 0 && <a href={`${href(lang, 'status')}#page-${ref.slug.replace(/\//g, '--')}`}>{x.pageConfirm}</a>}
+        </p>
+      )}
     </header>
     <div class="layout">
-      <nav class="side-nav" aria-label={ui.inSection}>
+      <nav class="side-nav" data-pagefind-ignore aria-label={ui.inSection}>
         <h2>{ui.sections[section]}</h2>
         <ul>
           <li><a href={sectionIndexHref} aria-current={ref.isIndex ? 'page' : undefined}>{ui.sectionWho[section]}</a></li>
