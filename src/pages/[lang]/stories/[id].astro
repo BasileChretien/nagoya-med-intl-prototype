@@ -63,7 +63,7 @@ const [hero, ...rest] = photos;
           </section>
         )}
         <footer class="sources">
-          <span>{ui.photoFrom}</span>
+          {photos.length > 0 && <span>{ui.photoFrom}</span>}
           <span><a href={s.source} rel="noopener">{ui.officialReport} ↗</a></span>
         </footer>
         <p><a class="btn ghost" href={href(lang, 'stories')}>← {ui.backToStories}</a></p>

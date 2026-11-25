@@ -91,34 +91,56 @@ for (const name of ['staff', 'contacts', 'partners', 'news', 'stories']) {
   } catch (e) { fail(`${name}.json: invalid JSON (${e.message})`); }
 }
 
-// 3b. Every photo has a description in both languages and its file exists.
+/** Parse a JSON file; report a failure instead of crashing. @param {string} file @returns {any} */
+function readJson(file) {
+  try { return JSON.parse(readFileSync(file, 'utf8')); } catch (e) { fail(`${relative(ROOT, file)}: invalid JSON (${e.message})`); return null; }
+}
+
+// 3b. Every photo has a description in both languages, its files exist, and no photo file is left unlisted.
 const imagesFile = join(DATA, 'images.json');
-if (existsSync(imagesFile)) {
-  const imgs = JSON.parse(readFileSync(imagesFile, 'utf8'));
-  for (const im of imgs) {
-    for (const l of ['en', 'ja']) if (!im.alt?.[l]?.trim()) fail(`images.json ${im.id}: no ${l} description`);
-    for (const f of [im.file, im.thumb].filter(Boolean)) if (!existsSync(join(PUBLIC, f))) fail(`images.json ${im.id}: missing file public/${f}`);
+const imgs = existsSync(imagesFile) ? readJson(imagesFile) ?? [] : [];
+const listed = new Set();
+for (const im of imgs) {
+  for (const l of ['en', 'ja']) if (!im.alt?.[l]?.trim()) fail(`images.json ${im.id}: no ${l} description`);
+  for (const f of [im.file, im.thumb].filter(Boolean)) {
+    listed.add(f);
+    if (!existsSync(join(PUBLIC, f))) fail(`images.json ${im.id}: missing file public/${f}`);
   }
+}
+// The home page's campus photo is decorative (alt="") behind the title; every other photo must be listed.
+for (const f of walk(join(PUBLIC, 'img')).filter((x) => /\.(webp|jpe?g|png|avif)$/i.test(x))) {
+  const rel = relative(PUBLIC, f).split(sep).join('/');
+  if (!/^img\/campus-\d+\.webp$/.test(rel) && !listed.has(rel)) fail(`public/${rel} is not in images.json, so it has no description`);
 }
 
 // 3c. Every student report exists in its original language and as an automatic translation, paragraph for paragraph.
 const storiesFile = join(DATA, 'stories.json');
 if (existsSync(storiesFile)) {
-  const stories = JSON.parse(readFileSync(storiesFile, 'utf8'));
+  const stories = readJson(storiesFile) ?? [];
+  const ids = new Set(stories.map((s) => s.id));
   let missingTr = 0;
   for (const s of stories) {
     const o = join(DATA, 'reports', 'original', `${s.id}.json`);
     const tr = join(DATA, 'reports', 'translated', `${s.id}.json`);
     if (!existsSync(o)) { fail(`report ${s.id}: no original text`); continue; }
     if (!existsSync(tr)) { missingTr += 1; continue; }
-    const od = JSON.parse(readFileSync(o, 'utf8'));
-    const td = JSON.parse(readFileSync(tr, 'utf8'));
+    const od = readJson(o);
+    const td = readJson(tr);
+    if (!od || !td) continue;
+    if (!Array.isArray(od.paragraphs) || !Array.isArray(td.paragraphs)) { fail(`report ${s.id}: "paragraphs" must be a list in both files`); continue; }
+    if (od.lang !== s.lang) fail(`report ${s.id}: original is "${od.lang}" but stories.json says "${s.lang}"`);
     if (td.lang === od.lang) fail(`report ${s.id}: translation is in the same language as the original`);
     if (td.method !== 'machine') fail(`report ${s.id}: translation must be labelled "machine"`);
     if (td.paragraphs.length !== od.paragraphs.length) fail(`report ${s.id}: ${td.paragraphs.length} translated paragraphs for ${od.paragraphs.length} original ones`);
-    if (td.paragraphs.some((p) => !p.trim())) fail(`report ${s.id}: empty translated paragraph`);
+    if (td.paragraphs.some((p) => typeof p !== 'string' || !p.trim())) fail(`report ${s.id}: empty translated paragraph`);
   }
   if (missingTr) fail(`${missingTr} reports have no translation`);
+  for (const dir of ['original', 'translated']) {
+    for (const f of walk(join(DATA, 'reports', dir)).filter((x) => x.endsWith('.json'))) {
+      const id = f.split(sep).pop().replace(/\.json$/, '');
+      if (!ids.has(id)) fail(`reports/${dir}/${id}.json has no story in stories.json`);
+    }
+  }
 }
 
 // 4. Images stay small.
