@@ -28,6 +28,16 @@ export function todayJapan(): string {
   return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Tokyo' }).format(new Date());
 }
 
+export type DeadlineStatus = 'open' | 'closed' | 'rolling' | 'tba';
+
+/**
+ * The status the site shows. An "open" deadline whose date has passed shows as closed from the next build (every
+ * deploy, and every Monday), before anyone updates the data; the content check warns until they do.
+ */
+export function shownStatus(d: { status: DeadlineStatus; date?: string }, today: string): DeadlineStatus {
+  return d.status === 'open' && d.date !== undefined && d.date < today ? 'closed' : d.status;
+}
+
 /** A programme's deadline, when it has a date that has not passed and applications are open or rolling. */
 export function programmeDeadline(p: CollectionEntry<'programmes'>, lang: Lang, pageUrl: string, today: string): DatedItem | null {
   const d = p.data.deadline;
@@ -42,19 +52,20 @@ export function programmeDeadline(p: CollectionEntry<'programmes'>, lang: Lang, 
   };
 }
 
-/** A news event (its days) or call (its deadline, when one is given) that has not passed; plain news has no date to keep. */
+/**
+ * A news event (from its date to its last day) or a call (on its deadline, `until`) that has not passed. A call with
+ * no deadline has no date worth keeping, and plain news none at all.
+ */
 export function newsEntry(n: NewsItem, lang: Lang, url: string, today: string): DatedItem | null {
-  const { category, date, title, summary } = n.entry.data;
-  if (category === 'news' || n.until < today) return null;
-  const deadline = category === 'call' && n.until !== date;
-  return {
-    uid: `${category}-${n.id}@${UID_DOMAIN}`,
-    title: deadline ? `${DEADLINE[lang]}: ${title[lang]}` : title[lang],
-    description: summary?.[lang],
-    url,
-    start: deadline ? n.until : date,
-    end: n.until,
-  };
+  const { category, date, title, summary, until } = n.entry.data;
+  if (category === 'news') return null;
+  if (category === 'call') {
+    if (!until || until < today) return null;
+    return { uid: `call-${n.id}@${UID_DOMAIN}`, title: `${DEADLINE[lang]}: ${title[lang]}`, description: summary?.[lang], url, start: until, end: until };
+  }
+  const end = until ?? date;
+  if (end < today) return null;
+  return { uid: `event-${n.id}@${UID_DOMAIN}`, title: title[lang], description: summary?.[lang], url, start: date, end };
 }
 
 const parts = (iso: string): [number, number, number] => {

@@ -12,7 +12,7 @@ import faculty from '../../data/faculty.json';
 import glossary from '../../data/glossary.json';
 import { t, fill, type Lang, type Section } from '../../i18n/ui';
 import { tx } from '../../i18n/extra';
-import { href, asset, pageRef, sectionPages, counterpartExists, programmesIn, formatDate, type PageEntry, type ProgrammeEntry } from '../../lib/site';
+import { href, asset, pageRef, sectionPages, counterpartExists, programmesIn, formatDate, checkedAgainstOfficial, type PageEntry, type ProgrammeEntry } from '../../lib/site';
 import { breadcrumbData, programmeData } from '../../lib/structured';
 
 export async function getStaticPaths() {
@@ -81,7 +81,7 @@ const structured = [
       {d.summary && <p class="lede">{d.summary}</p>}
       {d.updated && (
         <p class="page-meta">
-          {fill(x.checkedOn, { date: formatDate(d.updated, lang) })}
+          {fill(checkedAgainstOfficial(d.sources, d.status) ? x.checkedOn : x.updatedOn, { date: formatDate(d.updated, lang) })}
           {d.toConfirm.length > 0 && <a href={`${href(lang, 'status')}#page-${ref.slug.replace(/\//g, '--')}`}>{x.pageConfirm}</a>}
         </p>
       )}

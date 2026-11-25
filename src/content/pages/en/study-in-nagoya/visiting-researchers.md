@@ -51,12 +51,12 @@ A research student enrols at the Graduate School to do research on a set topic, 
    - the application form for research students (an Excel file on the faculty page)
    - your CV, in any format
    - your research proposal, in any format
-   - a copy of your graduation certificate, or of your certificate of expected graduation (both undergraduate and graduate certificates if you hold a graduate degree)
+   - a copy of your graduation certificate in English (the Japanese version of the guidelines asks for it in English), or of your certificate of expected graduation (both undergraduate and graduate certificates if you hold a graduate degree)
    - a copy of your passport
    - a copy of your residence card, only if you already live in Japan
 3. If your files are larger than 5 megabytes in total, share them through a file-sharing service instead of attaching them.
 
-The current form, the email address and the steps are on the faculty's [research student guidelines](https://www.med.nagoya-u.ac.jp/medical_E/admission/research/guideline/). The Japanese version of the guidelines also asks for the graduation certificate in English. Fees and housing for research students are explained on the university's [research students page](https://en.nagoya-u.ac.jp/admissions/research-students/research-students/).
+The current form, the email address and the steps are on the faculty's [research student guidelines](https://www.med.nagoya-u.ac.jp/medical_E/admission/research/guideline/). Fees and housing for research students are explained on the university's [research students page](https://en.nagoya-u.ac.jp/admissions/research-students/research-students/).
 
 If you come from abroad as a research student, ask the Student Affairs Division which status of residence applies. The [visa section of Living in Nagoya](living-in-nagoya) explains the Certificate of Eligibility that the university requests for students.
 

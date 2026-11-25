@@ -35,7 +35,7 @@ features:
     delivered_by: [src/components/FactBox.astro, src/pages/[lang]/[...slug].astro, src/pages/[lang]/status/index.astro]
     tests: [dated-facts]
     docs: CONTENT_GUIDE.md
-    limits: The date says when the facts were compared with their sources, not when the office confirmed them; all are 25 November 2026 until someone checks again.
+    limits: The date says when the facts were compared with their sources, not when the office confirmed them; all are 25 November 2026 until someone checks again. Pages with no source on the university's sites, and draft translations, show "Last updated" instead.
   - id: site-search
     says: Visitors can search every page, programme, story and news item in their language, from a search link in the header.
     stage: Find
@@ -153,7 +153,7 @@ features:
     status: works
     delivered_by: [.github/workflows/weekly-check.yml, scripts/weekly-check.mjs, scripts/external-lib.mjs, .github/workflows/deploy.yml]
     tests: [weekly-check, deadlines]
-    limits: Sites that refuse automated checks are listed in the run summary, not in the issue. GitHub pauses scheduled workflows after 60 days without a commit to the repository.
+    limits: Sites that refuse automated checks never open an issue on their own; they are listed in the run summary, and in the issue when one is open. A very long report is cut to fit an issue, with the whole report in the run summary. GitHub pauses scheduled workflows after 60 days without a commit to the repository.
   - id: tool-updates
     says: Updates of the site's tools arrive once a month as pull requests, checked like any other change.
     stage: Maintain
@@ -179,6 +179,6 @@ features:
     says: Visitors can read what the site records about them and how it is made accessible, and how to report a problem.
     stage: Find
     status: partial
-    delivered_by: [src/content/pages/en/about/privacy.md, src/content/pages/en/about/accessibility.md, src/components/Footer.astro]
-    tests: [pairing]
+    delivered_by: [src/content/pages/en/about/privacy.md, src/content/pages/en/about/accessibility.md, src/components/Footer.astro, scripts/resources-lib.mjs]
+    tests: [pairing, no-outside-resources]
     limits: Both pages describe the prototype. The statements for the launched site, the accessibility target and any measurement of visits are to be agreed with the faculty (docs/launch.md).

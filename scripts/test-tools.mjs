@@ -4,9 +4,10 @@
  * the calendar files (src/lib/calendar.ts, loaded through Node's type stripping).
  * No network: requests go to a fake fetch. Run: node scripts/test-tools.mjs
  */
-import { externalLinks, verdict, checkAll, limiter, weeklyReport, OWN_HOST } from './external-lib.mjs';
-import { structuredData } from './structured-lib.mjs';
-import { programmeDeadline, newsEntry, icsText } from '../src/lib/calendar.ts';
+import { externalLinks, verdict, checkAll, limiter, weeklyReport, OWN_HOST, ISSUE_LIMIT } from './external-lib.mjs';
+import { structuredData, missingTypes } from './structured-lib.mjs';
+import { outsideResources, outsideLinks } from './resources-lib.mjs';
+import { programmeDeadline, newsEntry, icsText, shownStatus } from '../src/lib/calendar.ts';
 
 let failed = 0;
 let total = 0;
@@ -119,9 +120,13 @@ const SELF = 'https://example.github.io/site/';
   say(programmeDeadline(prog({ status: 'tba', date: '2027-01-15', text: { en: '', ja: '' } }), 'en', '', TODAY) === null, 'a deadline not yet announced gets no entry, even with a date');
   say(programmeDeadline(prog({ status: 'open', date: '2026-11-25', text: { en: '', ja: '' } }), 'en', '', TODAY) === null, 'a passed deadline gets no entry');
   say(programmeDeadline(prog({ status: 'open', text: { en: '', ja: '' } }), 'en', '', TODAY) === null, 'a deadline without a date gets no entry');
-  const news = (category, date, until) => ({ id: `n-${category}`, until: until ?? date, entry: { data: { category, date, title: { en: 'Call for students', ja: '学生募集' } } } });
+  // As src/pages/[lang]/news/_news.ts builds it: `until` falls back to the date; the data's own `until` may be absent.
+  const news = (category, date, until) => ({ id: `n-${category}`, until: until ?? date, entry: { data: { category, date, until, title: { en: 'Call for students', ja: '学生募集' } } } });
   const call = newsEntry(news('call', '2026-11-20', '2026-12-10'), 'ja', 'https://x/ja/news/n/', TODAY);
   say(call?.title === '締切: 学生募集' && call.start === '2026-12-10' && call.end === '2026-12-10', 'a call with a deadline becomes an entry on its deadline', JSON.stringify(call));
+  say(newsEntry(news('call', '2026-11-26'), 'en', '', TODAY) === null, 'a call with no deadline gets no entry, not one on its publication day');
+  const sameDay = newsEntry(news('call', '2026-11-26', '2026-11-26'), 'en', '', TODAY);
+  say(sameDay?.title === 'Deadline: Call for students' && sameDay.start === '2026-11-26', 'a call due on its publication day is still labelled as a deadline', JSON.stringify(sameDay));
   const event = newsEntry(news('event', '2026-12-01', '2026-12-03'), 'en', 'https://x/en/news/n/', TODAY);
   say(event?.title === 'Call for students' && event.start === '2026-12-01' && event.end === '2026-12-03', 'an event keeps its first and last day');
   say(newsEntry(news('news', '2026-12-01'), 'en', '', TODAY) === null && newsEntry(news('event', '2026-11-01'), 'en', '', TODAY) === null, 'plain news and past events get no entry');
@@ -131,6 +136,57 @@ const SELF = 'https://example.github.io/site/';
   const unfolded = text.replace(/\r\n[ \t]/g, '');
   say(unfolded.includes('SUMMARY:国際シンポジウム\\, 名古屋\\; 2日目'), 'commas and semicolons in titles are escaped', unfolded);
   say(/END:VCALENDAR/.test(icsText([], 'Empty')), 'a calendar with no coming dates is still a valid file');
+  const shown = [
+    shownStatus({ status: 'open', date: '2026-11-25' }, TODAY),
+    shownStatus({ status: 'open', date: '2026-11-26' }, TODAY),
+    shownStatus({ status: 'open' }, TODAY),
+    shownStatus({ status: 'rolling', date: '2026-01-01' }, TODAY),
+  ];
+  say(JSON.stringify(shown) === JSON.stringify(['closed', 'open', 'open', 'rolling']), 'a passed open deadline is shown as closed; a deadline due today is still open', JSON.stringify(shown));
+}
+
+// Nothing loaded from other sites: images, scripts, stylesheets, fonts and frames count; clicked links and the
+// canonical and language links do not.
+{
+  const page = `<link rel="canonical" href="https://example.github.io/site/en/"><link rel="alternate" hreflang="ja" href="https://example.github.io/site/ja/">
+    <link rel="stylesheet" href="https://fonts.example.com/css"><link href="//cdn.example.com/x.css" rel="preload">
+    <img alt="" src="/site/img/a.webp"><img alt="" src="https://img.example.com/b.png"><img alt="" srcset="/a.webp 1x, https://img.example.com/c.png 2x">
+    <script async src="https://track.example.com/t.js"></script><iframe src="https://maps.example.com/embed"></iframe>
+    <a href="https://www.med.nagoya-u.ac.jp/">a link</a><div style="background:url('https://img.example.com/bg.png')"></div>`;
+  const got = outsideResources(page).sort();
+  const want = ['//cdn.example.com/x.css', 'https://fonts.example.com/css', 'https://img.example.com/b.png', 'https://img.example.com/bg.png', 'https://img.example.com/c.png', 'https://maps.example.com/embed', 'https://track.example.com/t.js'];
+  say(JSON.stringify(got) === JSON.stringify(want), 'resources loaded from other sites are found; clicked, canonical and language links are not', JSON.stringify(got));
+}
+
+// Structured data that must be there: a page without its expected type is reported, whatever the attribute order.
+{
+  const page = '<script data-x="1" type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage"}</script>';
+  const { blocks } = structuredData(page);
+  say(blocks.length === 1, 'a structured-data block with another attribute before its type is still read');
+  say(JSON.stringify(missingTypes(blocks, ['BreadcrumbList'])) === '["BreadcrumbList"]' && missingTypes(blocks, ['WebPage']).length === 0, 'an expected type that is missing is reported');
+}
+
+// Links from Markdown pages in every form: titled, in angle brackets, reference definitions and HTML.
+{
+  const md = [
+    'A [plain](https://a.example/1) link and a [titled](https://a.example/2 "Title") one.',
+    'An [angle](<https://a.example/3>) link, a [reference][r] and <a href="https://a.example/5">HTML</a>.',
+    '',
+    '[r]: https://a.example/4',
+  ].join('\n');
+  const got = outsideLinks(md).sort();
+  say(JSON.stringify(got) === JSON.stringify(['https://a.example/1', 'https://a.example/2', 'https://a.example/3', 'https://a.example/4', 'https://a.example/5']), 'links in every Markdown and HTML form are found', JSON.stringify(got));
+}
+
+// The weekly report shows a crashed content check, and stays within GitHub's issue size.
+{
+  const crash = weeklyReport({ checked: '2026-11-30', results: [], content: { code: 1, output: 'TypeError: x is not a function\n    at main (check-content.mjs:12)' } });
+  say(crash.problems && /stopped with exit code 1/.test(crash.markdown) && /TypeError: x is not a function/.test(crash.markdown), 'a content check that crashed is shown with its exit code and last lines', crash.markdown);
+  // Long addresses in both tables (each table shows 80 rows) and long warnings push the report past the limit.
+  const many = Array.from({ length: 400 }, (_, i) => ({ url: `https://a.example/${'x'.repeat(320)}/${i}`, status: i % 2 ? 403 : 404, places: ['/en/a/', '/en/b/', '/en/c/'] }));
+  const warnings = Array.from({ length: 900 }, (_, i) => `warning: programmes/p${i}.json: ${'y'.repeat(200)}`).join('\n');
+  const long = weeklyReport({ checked: '2026-11-30', results: many, content: { code: 0, output: warnings } });
+  say(long.markdown.length < ISSUE_LIMIT - 1000 && /too long for an issue/.test(long.markdown) && long.full.length > long.markdown.length, 'a very long report is cut to fit an issue and kept whole for the run summary', `${long.markdown.length} / ${long.full.length}`);
 }
 
 process.stdout.write(`${total - failed}/${total} passed\n`);

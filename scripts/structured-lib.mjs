@@ -1,9 +1,12 @@
 /**
  * Checks the structured data (JSON-LD) in a built page: each block parses, names schema.org and a type, and every
- * address in it is a full https address. Used by scripts/check-content.mjs --dist; tested by scripts/test-tools.mjs.
+ * address in it is a full https address; `missingTypes` says which expected types a page lacks (the office on the
+ * home pages, the breadcrumb trail on content pages), so that blocks that disappear are noticed too.
+ * Used by scripts/check-content.mjs --dist; tested by scripts/test-tools.mjs.
  */
 
-const BLOCK = /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g;
+// Any attribute order, and other attributes beside the type.
+const BLOCK = /<script\b[^>]*\btype\s*=\s*["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi;
 const URL_KEYS = new Set(['url', 'item', '@id', 'sameAs', 'logo', 'image']);
 
 /** @param {string} html @returns {{ blocks: unknown[], problems: string[] }} */
@@ -35,4 +38,10 @@ export function structuredData(html) {
     visit(data, '');
   }
   return { blocks, problems };
+}
+
+/** The expected types a page's blocks do not include. @param {unknown[]} blocks @param {string[]} types */
+export function missingTypes(blocks, types) {
+  const present = new Set(blocks.map((b) => (b && typeof b === 'object' ? /** @type {any} */ (b)['@type'] : undefined)));
+  return types.filter((t) => !present.has(t));
 }

@@ -623,5 +623,13 @@
       "ja": "https://www.w3.org/WAI/standards-guidelines/wcag/"
     },
     "source": "w3.org/WAI/standards-guidelines/wcag/ (checked 2026-11-25); context en/about/accessibility.md"
+  },
+  {
+    "term": "ZIP",
+    "kind": "term",
+    "en": "ZIP file: several files packed into one compressed file",
+    "ja": "ZIPファイル（複数のファイルを1つにまとめて圧縮したもの）",
+    "common": true,
+    "source": "standard term; context src/data/ja-summaries.json (the joint degree call page links its forms as ZIP files)"
   }
 ]

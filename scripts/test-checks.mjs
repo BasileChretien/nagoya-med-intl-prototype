@@ -168,6 +168,23 @@ The XQZW office also helps.
     edit: ['src/content/pages/en/about/contact.md', (old) => old.replace(/^updated: .*$/m, 'updated: 2999-01-01')], expect: 'fail',
     message: /en\/about\/contact\.md: "updated" must be a date/,
   },
+  // Recorded review items of #16 and #17.
+  {
+    name: 'a titled or reference-style link to a page in Japanese without a summary is reported',
+    edit: ['src/content/pages/en/about/contact.md', (old) => `${old}\nSee the [notice](https://www.med.nagoya-u.ac.jp/medical_J/zz-titled/ "Notice") and the [form][f].\n\n[f]: https://www.med.nagoya-u.ac.jp/medical_J/zz-ref/\n`], expect: 'fail',
+    message: /links to a page in Japanese with no English summary: add https:\/\/www\.med\.nagoya-u\.ac\.jp\/medical_J\/zz-titled\//,
+    also: (r) => (/medical_J\/zz-ref\//.test(r.stderr) ? null : 'the reference-style link was not reported'),
+  },
+  {
+    name: 'a summary with an impossible date is reported, without a crash',
+    edit: ['src/data/ja-summaries.json', (old) => { const d = JSON.parse(old); d[0].checked = '2026-00-10'; return JSON.stringify(d, null, 2); }], expect: 'fail',
+    message: /ja-summaries\.json \S+: "checked" must be the date it was written/, also: (r) => (crashed(r) ? 'the check crashed' : null),
+  },
+  {
+    name: 'a passed open deadline is a warning, not an error, because the site shows it as closed',
+    edit: ['src/data/programmes/jdp-lund.json', (old) => { const d = JSON.parse(old); d.deadline = { ...d.deadline, status: 'open', date: '2025-01-10' }; return JSON.stringify(d, null, 2); }], expect: 'pass',
+    also: (r) => (/warning: programmes\/jdp-lund\.json: deadline 2025-01-10 has passed but status is "open": the site shows it as closed/.test(r.stdout) ? null : 'no warning'),
+  },
 ];
 
 let failed = 0;

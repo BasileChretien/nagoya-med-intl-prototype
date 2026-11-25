@@ -1,10 +1,12 @@
 ---
 import { t, type Lang } from '../i18n/ui';
 import { href, type ProgrammeEntry } from '../lib/site';
+import { shownStatus, todayJapan } from '../lib/calendar';
 
 interface Props { lang: Lang; programmes: ProgrammeEntry[] }
 const { lang, programmes } = Astro.props;
 const ui = t(lang);
+const today = todayJapan();
 ---
 <div class="grid cols-3">
   {programmes.map((p) => {
@@ -12,7 +14,7 @@ const ui = t(lang);
     return (
       <a class="card" href={href(lang, d.page)}>
         <h3>{(d.short ?? d.name)[lang]}</h3>
-        {d.deadline && <span class="card-status"><span class="visually-hidden">{ui.facts.deadline}: </span><span class={`pill ${d.deadline.status}`}>{ui.deadlineStatus[d.deadline.status]}</span></span>}
+        {d.deadline && <span class="card-status"><span class="visually-hidden">{ui.facts.deadline}: </span><span class={`pill ${shownStatus(d.deadline, today)}`}>{ui.deadlineStatus[shownStatus(d.deadline, today)]}</span></span>}
         <p>{d.audience[lang]}</p>
         {d.duration && <p style="font-size:0.88rem;color:var(--muted)">{ui.facts.duration}: {d.duration[lang]}</p>}
       </a>
