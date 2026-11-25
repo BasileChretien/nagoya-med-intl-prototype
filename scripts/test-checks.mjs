@@ -176,7 +176,7 @@ The XQZW office also helps.
     also: (r) => (/medical_J\/zz-ref\//.test(r.stderr) ? null : 'the reference-style link was not reported'),
   },
   {
-    name: 'a summary with an impossible date is reported, without a crash',
+    name: 'a summary with an impossible date is reported by the content check (the plugin is tested in test-content-plugin)',
     edit: ['src/data/ja-summaries.json', (old) => { const d = JSON.parse(old); d[0].checked = '2026-00-10'; return JSON.stringify(d, null, 2); }], expect: 'fail',
     message: /ja-summaries\.json \S+: "checked" must be the date it was written/, also: (r) => (crashed(r) ? 'the check crashed' : null),
   },

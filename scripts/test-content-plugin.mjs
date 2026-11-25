@@ -14,10 +14,10 @@ let total = 0;
 const say = (ok, name, why = '') => { total += 1; process.stdout.write(`${ok ? 'ok  ' : 'FAIL'} ${name}${why && !ok ? ` (${why})` : ''}\n`); if (!ok) failed += 1; };
 
 /** Render Markdown as if it were the page src/content/pages/<file>. Returns the HTML, or the error thrown. */
-async function render(md, file = 'en/degrees/adelaide.md') {
+async function render(md, file = 'en/degrees/adelaide.md', summaries = undefined) {
   const fileURL = new URL(`file:///C:/site/src/content/pages/${file}`);
   try {
-    const r = await markdownToHtml(md, { fileURL, hastPlugins: [abbrPlugin({ base: BASE })] });
+    const r = await markdownToHtml(md, { fileURL, hastPlugins: [abbrPlugin({ base: BASE, summaries })] });
     return { html: String(r.html ?? r) };
   } catch (error) {
     return { error };
@@ -77,6 +77,9 @@ const body = (html) => html.replace(/<aside class="abbrevs".*$/s, '');
   say(!/ja-summary/.test(ja.html ?? ''), 'Japanese pages get no summary box');
   const other = await render('[elsewhere](https://www.med.nagoya-u.ac.jp/medical_J/zz-none/)', 'en/about/contact.md');
   say(!/ja-summary/.test(other.html ?? ''), 'a page without a summary gets no box');
+  // A summary date that cannot be read is shown as written (the content check reports it) instead of stopping the build.
+  const bad = await render(`[media](${MEDIA})`, 'en/about/contact.md', [{ url: MEDIA, en: 'A test summary.', checked: '2026-00-10' }]);
+  say(!bad.error && /from the Japanese page on 2026-00-10\./.test(bad.html ?? ''), 'an impossible summary date does not stop the build', String(bad.error?.message ?? ''));
 }
 
 process.stdout.write(`${total - failed}/${total} passed\n`);

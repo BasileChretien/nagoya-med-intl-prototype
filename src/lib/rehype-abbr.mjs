@@ -57,22 +57,25 @@ function loadGlossary() {
   return { terms, pattern: new RegExp(`(?<![A-Za-z0-9])(${alternatives})(?![A-Za-z0-9])`, 'g') };
 }
 
-/** Summaries keyed by address, without the fragment. @returns {Map<string, { en: string, checked: string }>} */
-function loadSummaries() {
-  const entries = JSON.parse(readFileSync(SUMMARIES_FILE, 'utf8'));
+/**
+ * Summaries keyed by address, without the fragment: from src/data/ja-summaries.json, or the list given (tests).
+ * @param {{ url: string, en: string, checked: string }[]} [given] @returns {Map<string, { en: string, checked: string }>}
+ */
+function loadSummaries(given) {
+  const entries = given ?? JSON.parse(readFileSync(SUMMARIES_FILE, 'utf8'));
   return new Map(entries.map((e) => [e.url, e]));
 }
 
 const el = (tagName, properties, children) => ({ type: 'element', tagName, properties, children });
 const text = (value) => ({ type: 'text', value });
 
-/** @param {{ base?: string }} [options] */
+/** @param {{ base?: string, summaries?: { url: string, en: string, checked: string }[] }} [options] `summaries` replaces the data file (tests) */
 export default function abbrPlugin(options = {}) {
   const base = (options.base ?? '').replace(/\/$/, '');
   // The factory runs once per document, so `seen` is per page.
   return (factory) => {
     const { terms, pattern } = loadGlossary();
-    const summaries = loadSummaries();
+    const summaries = loadSummaries(options.summaries);
     const summarised = new Set();
     const path = decodeURIComponent(factory.fileURL?.pathname ?? '');
     const lang = /\/pages\/ja\//.test(path) ? 'ja' : 'en';

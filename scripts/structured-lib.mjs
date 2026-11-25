@@ -27,7 +27,10 @@ export function structuredData(html) {
       continue;
     }
     if (data['@context'] !== 'https://schema.org') problems.push(`structured data without "@context": "https://schema.org"`);
-    if (typeof data['@type'] !== 'string' || !data['@type']) problems.push('structured data without a "@type"');
+    // A type is a name or a list of names; a block holding an @graph has its types on the graph's items.
+    const type = data['@type'];
+    const typed = (typeof type === 'string' && type !== '') || (Array.isArray(type) && type.length > 0 && type.every((t) => typeof t === 'string' && t));
+    if (!typed && !Array.isArray(data['@graph'])) problems.push('structured data without a "@type"');
     const visit = (v, key) => {
       if (Array.isArray(v)) return v.forEach((x) => visit(x, key));
       if (v && typeof v === 'object') return Object.entries(v).forEach(([k, x]) => visit(x, k));
@@ -42,6 +45,14 @@ export function structuredData(html) {
 
 /** The expected types a page's blocks do not include. @param {unknown[]} blocks @param {string[]} types */
 export function missingTypes(blocks, types) {
-  const present = new Set(blocks.map((b) => (b && typeof b === 'object' ? /** @type {any} */ (b)['@type'] : undefined)));
+  const present = new Set();
+  /** A block's own types (a string or a list) and those of the items of an @graph. @param {any} node */
+  const collect = (node) => {
+    if (!node || typeof node !== 'object') return;
+    if (Array.isArray(node)) return node.forEach(collect);
+    for (const t of [node['@type']].flat()) if (typeof t === 'string') present.add(t);
+    if (Array.isArray(node['@graph'])) node['@graph'].forEach(collect);
+  };
+  blocks.forEach(collect);
   return types.filter((t) => !present.has(t));
 }

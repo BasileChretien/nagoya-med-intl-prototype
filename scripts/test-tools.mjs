@@ -6,7 +6,7 @@
  */
 import { externalLinks, verdict, checkAll, limiter, weeklyReport, OWN_HOST, ISSUE_LIMIT } from './external-lib.mjs';
 import { structuredData, missingTypes } from './structured-lib.mjs';
-import { outsideResources, outsideLinks } from './resources-lib.mjs';
+import { outsideResources, outsideInCss, outsideLinks } from './resources-lib.mjs';
 import { programmeDeadline, newsEntry, icsText, shownStatus } from '../src/lib/calendar.ts';
 
 let failed = 0;
@@ -156,6 +156,18 @@ const SELF = 'https://example.github.io/site/';
   const got = outsideResources(page).sort();
   const want = ['//cdn.example.com/x.css', 'https://fonts.example.com/css', 'https://img.example.com/b.png', 'https://img.example.com/bg.png', 'https://img.example.com/c.png', 'https://maps.example.com/embed', 'https://track.example.com/t.js'];
   say(JSON.stringify(got) === JSON.stringify(want), 'resources loaded from other sites are found; clicked, canonical and language links are not', JSON.stringify(got));
+  // Recorded on #19: @import, entity quotes, SVG links, imagesrcset; and the site's own host is not another site.
+  const more = `<style>@import "https://x.example/a.css"; .a { color: red }</style>
+    <div style="background:url(&quot;https://img.example.com/q.png&quot;)"></div>
+    <svg><image href="https://svg.example/i.png"></image><use xlink:href="https://svg.example/s.svg#a"></use><use href="#local"></use></svg>
+    <link rel="preload" as="image" href="/site/a.webp" imagesrcset="/site/a.webp 1x, https://img.example.com/r.png 2x">
+    <img alt="" src="https://example.github.io/site/own.webp"><img alt="" src="//example.github.io/site/own2.webp">`;
+  const got2 = outsideResources(more, ['example.github.io']).sort();
+  const want2 = ['https://img.example.com/q.png', 'https://img.example.com/r.png', 'https://svg.example/i.png', 'https://svg.example/s.svg#a', 'https://x.example/a.css'];
+  say(JSON.stringify(got2) === JSON.stringify(want2), '@import, entity-quoted url(), SVG links and imagesrcset are found; the site\'s own host is not another site', JSON.stringify(got2));
+  const css = '@font-face{font-family:F;src:url(https://fonts.example.com/f.woff2) format("woff2")}@import url("//cdn.example.com/b.css");.x{background:url(/site/img/a.webp)}';
+  const got3 = outsideInCss(css, ['example.github.io']).sort();
+  say(JSON.stringify(got3) === JSON.stringify(['//cdn.example.com/b.css', 'https://fonts.example.com/f.woff2']), 'fonts and imports from other sites are found in a built stylesheet; its own files are not', JSON.stringify(got3));
 }
 
 // Structured data that must be there: a page without its expected type is reported, whatever the attribute order.
@@ -164,6 +176,10 @@ const SELF = 'https://example.github.io/site/';
   const { blocks } = structuredData(page);
   say(blocks.length === 1, 'a structured-data block with another attribute before its type is still read');
   say(JSON.stringify(missingTypes(blocks, ['BreadcrumbList'])) === '["BreadcrumbList"]' && missingTypes(blocks, ['WebPage']).length === 0, 'an expected type that is missing is reported');
+  // Recorded on #19: a list of types, or types inside an @graph, count.
+  const graph = '<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[]},{"@type":["EducationalOrganization","Organization"]}]}</script>';
+  const g = structuredData(graph);
+  say(g.problems.length === 0 && missingTypes(g.blocks, ['BreadcrumbList', 'EducationalOrganization']).length === 0, 'types given as a list or inside an @graph are found', JSON.stringify(g));
 }
 
 // Links from Markdown pages in every form: titled, in angle brackets, reference definitions and HTML.
@@ -187,6 +203,10 @@ const SELF = 'https://example.github.io/site/';
   const warnings = Array.from({ length: 900 }, (_, i) => `warning: programmes/p${i}.json: ${'y'.repeat(200)}`).join('\n');
   const long = weeklyReport({ checked: '2026-11-30', results: many, content: { code: 0, output: warnings } });
   say(long.markdown.length < ISSUE_LIMIT - 1000 && /too long for an issue/.test(long.markdown) && long.full.length > long.markdown.length, 'a very long report is cut to fit an issue and kept whole for the run summary', `${long.markdown.length} / ${long.full.length}`);
+  // Recorded on #19: a cut inside the crash output's code block closes the block before the note.
+  const fenced = weeklyReport({ checked: '2026-11-30', results: [], content: { code: 1, output: `TypeError: boom\n${'z'.repeat(80000)}` } });
+  const fences = (fenced.markdown.match(/^```/gm) ?? []).length;
+  say(fences % 2 === 0 && /```\n\n… The report was cut here/.test(fenced.markdown) && fenced.markdown.length < ISSUE_LIMIT, 'a cut inside a code block closes the block before the note', `${fences} fences`);
 }
 
 process.stdout.write(`${total - failed}/${total} passed\n`);
