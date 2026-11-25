@@ -5,7 +5,8 @@
  *   2. every outside link in the built site, with the audit's rules (scripts/external-lib.mjs).
  * Writes weekly-check.md and weekly-check.json in the folder given (default: the current one), adds the report to
  * the run summary, and sets `problems=true|false` for the step that opens or closes the issue.
- *   node scripts/weekly-check.mjs [out-dir]
+ *   node --max-http-header-size=65536 scripts/weekly-check.mjs [out-dir]   (npm run weekly-check)
+ * The larger header limit lets sites that send long headers (ets.org) answer instead of failing.
  */
 import { readFileSync, readdirSync, statSync, writeFileSync, appendFileSync, existsSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';

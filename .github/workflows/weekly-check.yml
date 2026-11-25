@@ -31,7 +31,8 @@ jobs:
       - run: npm run build
       - id: check
         name: Check deadlines, content and outside links
-        run: node scripts/weekly-check.mjs "$RUNNER_TEMP"
+        # Some sites (ets.org) send more headers than Node accepts by default.
+        run: node --max-http-header-size=65536 scripts/weekly-check.mjs "$RUNNER_TEMP"
       - name: Open, update or close the issue
         env:
           GH_TOKEN: ${{ github.token }}
