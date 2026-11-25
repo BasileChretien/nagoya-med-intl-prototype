@@ -110,6 +110,10 @@ expectPass('a shared 万 in a range, kanji 千, "billion" and month abbreviation
     ['1万5千円', 'ja', '15000'], ['1千5百万円', 'ja', '15000000'], ['3千5百円', 'ja', '3500'], ['1億2千万円', 'ja', '120000000'],
     ['1.5万円', 'ja', '15000'], ['1.1万円', 'ja', '11000'], ['IELTS 6.5以上', 'ja', '6.5'], ['定員数二十名', 'ja', '20'], ['数十名', 'ja', ''], ['数万人', 'ja', ''],
     ['30 to 20 million yen', 'en', '20000000, 30000000'], ['3 to 3 million', 'en', '3000000'], ['3000万〜2000万円', 'ja', '20000000, 30000000'],
+    // Round 1 of #7: a full first amount keeps its own scale; kanji amounts with 万 or 億 are read; a kanji numeral
+    // after a digit is not part of the digit's amount.
+    ['500 to 1 million yen', 'en', '500, 1000000'], ['1,000 to 1 million yen', 'en', '1000, 1000000'], ['500〜100万円', 'ja', '500, 1000000'],
+    ['100〜1万円', 'ja', '100, 10000'], ['約三万部', 'ja', '30000'], ['三千万ドル', 'ja', '30000000'], ['二億の予算', 'ja', '200000000'], ['第2四半期', 'ja', '2'],
   ];
   const wrong = readings.filter(([text, lang, want]) => numbersOf(text, lang) !== want).map(([text, lang, want]) => `${text} -> "${numbersOf(text, lang)}", not "${want}"`);
   say(wrong.length === 0, 'numbers are read the same way in both languages (千 after a digit, 数千, ranges)', wrong.join('; '));
@@ -212,10 +216,11 @@ expectFail('a confirmation left for a removed page is reported', [[SYNC, (o) => 
   const unitsEn = (html, fetched) => analyseFacultyPage(html, { kind: 'units', lang: 'en' }, cfg, fetched).linksToSite;
   const resolved = {
     afterRedirect: unitsEn('<a href="../intlexch/">x</a>', 'https://www.med.nagoya-u.ac.jp/medical_E/'),
+    dataHrefFirst: unitsEn('<a data-href="#x" href="https://www.med.nagoya-u.ac.jp/intlexch/">x</a>'),
     baseElsewhere: unitsEn('<head><base href="/medical_E/x/"></head><a href="intlexch/">x</a>'),
     baseAtRoot: unitsEn('<head><base href="https://www.med.nagoya-u.ac.jp/"></head><a href="intlexch/">x</a>'),
   };
-  say(resolved.afterRedirect && !resolved.baseElsewhere && resolved.baseAtRoot, 'relative links resolve against the fetched address and <base href>', JSON.stringify(resolved));
+  say(resolved.afterRedirect && resolved.dataHrefFirst && !resolved.baseElsewhere && resolved.baseAtRoot, 'relative links resolve against the fetched address and <base href>', JSON.stringify(resolved));
   say(!live.failures.some((f) => /directory/.test(f)), 'the directory entries give the office address and link to the site', JSON.stringify(live.failures));
   say(live.pending.some((p) => /international \((en|ja)\).*not yet/.test(p)) && !live.failures.some((f) => /^international/.test(f)),
     'the International section not linking to the site yet is pending, not a failure', JSON.stringify(live.pending));

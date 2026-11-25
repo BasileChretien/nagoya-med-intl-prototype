@@ -141,16 +141,27 @@ function jaAmount(s) {
 }
 
 /**
- * Whether the first number of a range shares the unit written after the second ("20 to 30 million", 2〜3万).
- * The two ends of a range are of a similar size, so it does when the first number is closer to the second with the
- * unit than without it: "30 to 20 million" and "3 to 3 million" share it, "500,000 to 1 million" and 500000〜100万
- * do not.
- * @param {string} a first number @param {string} b second number @param {number} unit value of the unit
+ * One Japanese amount, or the text unchanged when it is no amount. With a digit it is always an amount. A kanji-only
+ * one is an amount before a counter (三千人) or when it holds 万 or 億 (約三万部, 二億の), but not when it starts with
+ * 万 or 億 (万一, 億万長者) nor after 数 when it starts with a unit (数十, 数千, 数万: "several").
+ * @param {string} piece @param {string | undefined} before the character before it @param {string} after the text after it
  */
-function sharesUnit(a, b, unit) {
+function readJaPiece(piece, before, after) {
+  if (/\d/.test(piece)) return String(jaAmount(piece));
+  if (/^[万億]/.test(piece) || (before === '数' && /^[十百千]/.test(piece))) return piece;
+  return COUNTER.test(after) || /[万億]/.test(piece) ? String(jaAmount(piece)) : piece;
+}
+
+/**
+ * Whether the first number of a range shares the unit written after the second ("20 to 30 million", 2〜3万).
+ * A range goes up, so it does when the first number is the smaller as written; a first number larger than the
+ * second is a full amount ("500,000 to 1 million", "500 to 1 million", 500〜100万), except in a range written
+ * downward or with equal ends, where the two are close ("30 to 20 million", "3 to 3 million": at most twice).
+ * @param {string} a first number @param {string} b second number
+ */
+function sharesUnit(a, b) {
   const x = parseFloat(a), y = parseFloat(b);
-  if (!(x > 0 && y > 0)) return true;
-  return Math.abs(Math.log10(x / y)) <= Math.abs(Math.log10(x / (y * unit)));
+  return x < y || (y > 0 && x / y <= 2);
 }
 
 /**
@@ -165,21 +176,23 @@ export function numbersOf(text, lang) {
   if (lang === 'en') {
     // A range sharing one unit: "20 to 30 million" is "20 million to 30 million" (see sharesUnit).
     s = s.replace(/(\d+(?:\.\d+)?)\s*(to|-|–|—)\s*(\d+(?:\.\d+)?)\s*(billion|million|thousand)\b/gi,
-      (m, a, sepr, b, unit) => (sharesUnit(a, b, EN_UNITS[unit.toLowerCase()]) ? `${a} ${unit} ${sepr} ${b} ${unit}` : m));
+      (m, a, sepr, b, unit) => (sharesUnit(a, b) ? `${a} ${unit} ${sepr} ${b} ${unit}` : m));
     s = s.replace(/(\d+(?:\.\d+)?)\s*(billion|million|thousand)\b/gi, (_, n, unit) => String(Math.round(parseFloat(n) * EN_UNITS[unit.toLowerCase()])));
     // Month names only in title case, so the verb "may" is not read as May, nor the acronym "SEP" as September.
     s = s.replace(/[A-Za-z]+/g, (w) => String((/^[A-Z][a-z]+$/.test(w) ? MONTHS[w.toLowerCase()] : undefined) ?? WORDS[w.toLowerCase()] ?? w));
   } else {
     // A range sharing one unit: 2〜3万 is 2万〜3万, and 2〜3千万 is 2千万〜3千万 (see sharesUnit).
     s = s.replace(/(\d+(?:\.\d+)?)\s*(〜|~|-|–|―|から)\s*(\d+(?:\.\d+)?)([千百十]?[万億]|[千百])/g,
-      (m, a, sepr, b, unit) => (sharesUnit(a, b, jaAmount(unit)) ? `${a}${unit}${sepr}${b}${unit}` : m));
-    // Every amount, digits and kanji together. A kanji-only one counts only before a counter, not when it starts
-    // with 万 or 億 (万一 is no number), and not after 数 when it starts with a unit (数十, 数千, 数万: "several").
-    s = s.replace(/(?:\d+(?:\.\d+)?|[一二三四五六七八九十百千万億])+/g, (m, offset, str) => {
-      if (/\d/.test(m)) return String(jaAmount(m));
-      if (!COUNTER.test(str.slice(offset + m.length)) || /^[万億]/.test(m)) return m;
-      if (str[offset - 1] === '数' && /^[十百千]/.test(m)) return m;
-      return String(jaAmount(m));
+      (m, a, sepr, b, unit) => (sharesUnit(a, b) ? `${a}${unit}${sepr}${b}${unit}` : m));
+    // Every amount, digits and kanji together (1万5千, 三千万). A digit and a kanji numeral side by side are two
+    // things (第2四半期 is the 2nd quarter, not 4), so a run is first split between them.
+    s = s.replace(/(?:\d+(?:\.\d+)?|[一二三四五六七八九十百千万億])+/g, (run, offset, str) => {
+      let at = offset;
+      return run.split(/(?<=[\d.])(?=[一二三四五六七八九])|(?<=[一二三四五六七八九])(?=\d)/).map((piece) => {
+        const read = readJaPiece(piece, str[at - 1], str.slice(at + piece.length));
+        at += piece.length;
+        return read;
+      }).join(' ');
     });
   }
   const found = new Set();

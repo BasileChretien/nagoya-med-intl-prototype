@@ -44,11 +44,12 @@ export function analyseFacultyPage(html, id, cfg, fetchedUrl) {
   const emails = new Set((html.match(/[\w.+-]+(?:@|◎|＠|\[at\])[\w-]+(?:\.[\w-]+)+/g) ?? [])
     .map((e) => e.replace(/◎|＠|\[at\]/g, '@').toLowerCase()));
   const pageUrl = fetchedUrl ?? cfg.pages?.[id.kind]?.[id.lang] ?? cfg.site.production;
-  const baseHref = html.match(/<base\b[^>]*?\bhref\s*=\s*["']([^"']+)["']/i)?.[1];
+  // "href" as a whole attribute name: not the tail of data-href or ng-href.
+  const baseHref = html.match(/<base\b[^>]*?(?<![\w:-])href\s*=\s*["']([^"']+)["']/i)?.[1];
   let base = pageUrl;
   if (baseHref) { try { base = new URL(baseHref.trim(), pageUrl).href; } catch { /* an unusable <base> is ignored, as in a browser */ } }
   // Links are the href of <a> and <area> elements (not <base>, nor <link rel="stylesheet">).
-  const hrefs = new Set([...html.matchAll(/<(?:a|area)\b[^>]*?\bhref\s*=\s*["']([^"']+)["']/gi)].map((m) => normUrl(m[1], base)).filter(Boolean));
+  const hrefs = new Set([...html.matchAll(/<(?:a|area)\b[^>]*?(?<![\w:-])href\s*=\s*["']([^"']+)["']/gi)].map((m) => normUrl(m[1], base)).filter(Boolean));
   // Only a link to the site's home counts (site.homes, relative to the production address): other pages under
   // /intlexch/, such as the cancer centre's /intlexch/cancerimmuno/, are not the international site.
   const linksToSite = (cfg.site.homes ?? ['']).some((h) => hrefs.has(normUrl(h, cfg.site.production)));
