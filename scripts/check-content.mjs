@@ -9,10 +9,13 @@ import { readFileSync, readdirSync, statSync, existsSync, openSync, readSync, cl
 import { join, relative, sep, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readFeatures, drawFeatures } from './features.mjs';
+import { structuredData } from './structured-lib.mjs';
+import { PROTOTYPE } from '../src/lib/launch.mjs';
 
 /** Names of the checks below; feature map entries refer to them in `tests`. */
 const CHECKS = ['pairing', 'programme-references', 'deadlines', 'data-files', 'images', 'internal-links', 'noindex', 'feature-map',
-  'photo-descriptions', 'report-translations', 'versions-in-step', 'facts-match', 'translations-current', 'faculty-texts', 'faculty-live', 'acronyms', 'content-plugin'];
+  'photo-descriptions', 'report-translations', 'versions-in-step', 'facts-match', 'translations-current', 'faculty-texts', 'faculty-live', 'acronyms', 'content-plugin',
+  'structured-data', 'sitemap', 'weekly-check'];
 
 // fileURLToPath decodes %20 and non-ASCII characters, so the check runs from any folder.
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
@@ -274,14 +277,16 @@ if (existsSync(featuresFile)) {
   }
 } else fail('docs/features.yaml is missing');
 
-// 6. After a build: every internal link points to a file that exists, and every page is noindex.
+// 6. After a build: every internal link points to a file that exists, every page is noindex while the site is a
+//    prototype (src/lib/launch.mjs), structured data is well formed, and the sitemap lists the pages.
 if (process.argv.includes('--dist')) {
   if (!existsSync(DIST)) fail('dist/ not found: run `astro build` first');
   const html = walk(DIST).filter((f) => f.endsWith('.html'));
   let checked = 0;
   for (const f of html) {
     const text = readFileSync(f, 'utf8');
-    if (!/<meta name="robots" content="noindex/.test(text)) fail(`${relative(DIST, f)} is missing the noindex meta tag`);
+    if (PROTOTYPE && !/<meta name="robots" content="noindex/.test(text)) fail(`${relative(DIST, f)} is missing the noindex meta tag`);
+    for (const problem of structuredData(text).problems) fail(`${relative(DIST, f)}: ${problem}`);
     // Links in the markup only: scripts build some hrefs from strings at run time.
     const markup = text.replace(/<script\b[\s\S]*?<\/script>/gi, '');
     for (const m of markup.matchAll(/(?:href|src)="([^"#?]+)[^"]*"/g)) {
@@ -298,6 +303,18 @@ if (process.argv.includes('--dist')) {
     }
   }
   process.stdout.write(`Checked ${checked} internal links in ${html.length} pages.\n`);
+  // The sitemap lists both home pages and leaves out the office's checklist; robots.txt never blocks crawling
+  // while the pages rely on their noindex tag.
+  const sitemapFile = join(DIST, 'sitemap-0.xml');
+  if (!existsSync(join(DIST, 'sitemap-index.xml')) || !existsSync(sitemapFile)) fail('the sitemap was not built (sitemap-index.xml, sitemap-0.xml)');
+  else {
+    const sm = readFileSync(sitemapFile, 'utf8');
+    for (const lang of ['en', 'ja']) if (!sm.includes(`${BASE}/${lang}/</loc>`)) fail(`the sitemap does not list the ${lang} home page`);
+    if (/\/status\/<\/loc>/.test(sm)) fail('the sitemap lists the office checklist (status) page');
+  }
+  const robots = join(DIST, 'robots.txt');
+  if (!existsSync(robots)) fail('robots.txt was not built');
+  else if (PROTOTYPE && /^Disallow:\s*\/\s*$/m.test(readFileSync(robots, 'utf8'))) fail('robots.txt blocks crawling, which hides the noindex tag');
 }
 
 for (const w of warnings) process.stdout.write(`warning: ${w}\n`);

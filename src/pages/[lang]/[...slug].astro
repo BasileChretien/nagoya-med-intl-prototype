@@ -13,6 +13,7 @@ import glossary from '../../data/glossary.json';
 import { t, type Lang, type Section } from '../../i18n/ui';
 import { tx } from '../../i18n/extra';
 import { href, asset, pageRef, sectionPages, counterpartExists, programmesIn, type PageEntry, type ProgrammeEntry } from '../../lib/site';
+import { breadcrumbData, programmeData } from '../../lib/structured';
 
 export async function getStaticPaths() {
   const pages = await getCollection('pages');
@@ -56,8 +57,17 @@ const terms = ref.slug === 'about/glossary' ? glossary : [];
 const tel = (phone: string) => `tel:${phone.replace(/[^+\d]/g, '')}`;
 const phoneText = (phone: string) => (lang === 'ja' ? phone.replace(/^\+81-?/, '0') : phone);
 const { hero, figures } = await pageImages(ref.slug);
+const full = (path: string) => new URL(href(lang, path), Astro.site).toString();
+const structured = [
+  breadcrumbData([
+    { name: ui.home, url: full('') },
+    ...(ref.isIndex ? [] : [{ name: ui.sections[section], url: full(section) }]),
+    { name: d.title, url: full(ref.slug) },
+  ]),
+  ...(ref.isIndex ? [] : linked.filter((p) => p.data.page === ref.slug).map((p) => programmeData(p, lang, full(ref.slug)))),
+];
 ---
-<Base lang={lang} title={d.title} description={d.description} slug={ref.slug} hasCounterpart={hasCounterpart} section={section}>
+<Base lang={lang} title={d.title} description={d.description} slug={ref.slug} hasCounterpart={hasCounterpart} section={section} structured={structured}>
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb">
       <ol>

@@ -1,0 +1,56 @@
+name: Weekly check
+
+# Every Monday 09:30 JST: builds the site, runs the content checks (passed deadlines, pairs, data) and checks every
+# outside link with the audit's rules. When something needs a person, it opens an issue labelled weekly-check, or
+# updates the one already open; when nothing is found, it closes that issue. Sites that refuse automated checks
+# are listed in the run summary without opening an issue.
+on:
+  schedule:
+    - cron: '30 0 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: weekly-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - id: check
+        name: Check deadlines, content and outside links
+        # Some sites (ets.org) send more headers than Node accepts by default.
+        run: node --max-http-header-size=65536 scripts/weekly-check.mjs "$RUNNER_TEMP"
+      - name: Open, update or close the issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PROBLEMS: ${{ steps.check.outputs.problems }}
+          REPORT: ${{ runner.temp }}/weekly-check.md
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          gh label create weekly-check --color D93F0B --description "Found by the weekly check" --force
+          printf '\n[The run that found this](%s)\n' "$RUN_URL" >> "$REPORT"
+          num=$(gh issue list --label weekly-check --state open --json number --jq '.[0].number // empty')
+          today=$(date -u +%F)
+          if [ "$PROBLEMS" = "true" ]; then
+            if [ -n "$num" ]; then
+              gh issue edit "$num" --body-file "$REPORT"
+              gh issue comment "$num" --body "Checked again on $today: the description now shows what is still found."
+            else
+              gh issue create --title "Weekly check: broken links or deadlines to update" --label weekly-check --body-file "$REPORT"
+            fi
+          elif [ -n "$num" ]; then
+            gh issue close "$num" --comment "Nothing found on $today."
+          fi

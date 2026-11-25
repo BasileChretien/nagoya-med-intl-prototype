@@ -5,6 +5,10 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+  # Rebuild every Monday 10:00 JST, so lists that depend on the date (upcoming events, passed calls) move on
+  # even when nothing was committed. A passed deadline still marked open stops this deploy like any other.
+  schedule:
+    - cron: '0 1 * * 1'
 
 permissions:
   contents: read
@@ -35,6 +39,8 @@ jobs:
         run: node scripts/test-staleness.mjs
       - name: Test the content-page plugin
         run: node scripts/test-content-plugin.mjs
+      - name: Test the weekly check and the structured-data check
+        run: node scripts/test-tools.mjs
       - name: Type check
         run: npx astro check
       - run: npm run build

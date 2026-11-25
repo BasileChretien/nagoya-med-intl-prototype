@@ -1,5 +1,12 @@
 [
   {
+    "term": "AA",
+    "kind": "term",
+    "en": "Level AA, the middle one of the three WCAG conformance levels (A, AA and AAA)",
+    "ja": "WCAGの3つの適合レベル（A、AA、AAA）のうち中間のレベル（AA）",
+    "source": "w3.org/TR/WCAG22/ (conformance levels); context en/about/accessibility.md"
+  },
+  {
     "term": "AAMC",
     "kind": "organisation",
     "en": "Association of American Medical Colleges",
@@ -261,6 +268,22 @@
     "source": "site itself: en/ja partnerships/game.md table; crawl"
   },
   {
+    "term": "IP",
+    "kind": "term",
+    "en": "Internet Protocol (an IP address identifies a device on the internet)",
+    "ja": "インターネット・プロトコル（IP）。IPアドレスはインターネット上の機器を識別する番号",
+    "common": true,
+    "source": "standard term; context en/about/privacy.md"
+  },
+  {
+    "term": "IT",
+    "kind": "term",
+    "en": "Information technology",
+    "ja": "情報技術（IT）",
+    "common": true,
+    "source": "standard term; context en/about/privacy.md"
+  },
+  {
     "term": "ITP",
     "kind": "test",
     "en": "Institutional Testing Program (TOEFL ITP)",
@@ -288,6 +311,13 @@
     "en": "Joint degree programme",
     "ja": "ジョイント・ディグリー・プログラム",
     "source": "site itself: en/degrees/adelaide.md ('Nagoya = Adelaide JDP ... joint degree programme'); crawl 'Joint Degree Program (JDP)'"
+  },
+  {
+    "term": "JIS",
+    "kind": "term",
+    "en": "Japanese Industrial Standards",
+    "ja": "日本産業規格（JIS）",
+    "source": "standard term; context en/about/accessibility.md (JIS X 8341-3:2016, web accessibility). jisc.go.jp showed a service notice on 2026-11-25, so no website is linked"
   },
   {
     "term": "JR",
@@ -582,5 +612,16 @@
       "ja": "https://www.usmle.org/"
     },
     "source": "site itself: 'US medical licensing exam (USMLE)' en/study-abroad/medical-english.md; usmle.org"
+  },
+  {
+    "term": "WCAG",
+    "kind": "term",
+    "en": "Web Content Accessibility Guidelines, published by the W3C",
+    "ja": "ウェブコンテンツ・アクセシビリティ・ガイドライン（WCAG）。W3Cが公開しているウェブの利用しやすさの指針",
+    "url": {
+      "en": "https://www.w3.org/WAI/standards-guidelines/wcag/",
+      "ja": "https://www.w3.org/WAI/standards-guidelines/wcag/"
+    },
+    "source": "w3.org/WAI/standards-guidelines/wcag/ (checked 2026-11-25); context en/about/accessibility.md"
   }
 ]
