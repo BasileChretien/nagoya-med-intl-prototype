@@ -227,7 +227,7 @@ const { hero, figures } = await pageImages(ref.slug);
                 if (q.value) next.set('q', q.value);
                 if (region.value) next.set('region', region.value);
                 if (tag.value) next.set('tag', tag.value);
-                history.replaceState(null, '', next.toString() ? `?${next}` : location.pathname);
+                history.replaceState(null, '', `${next.toString() ? `?${next}` : location.pathname}${location.hash}`);
               };
               form.addEventListener('input', apply);
               form.addEventListener('submit', (event) => event.preventDefault());

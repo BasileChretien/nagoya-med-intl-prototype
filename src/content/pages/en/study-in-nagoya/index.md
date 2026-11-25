@@ -18,7 +18,7 @@ Nagoya University Graduate School of Medicine welcomes students from abroad for 
 
 Rotations are coordinated in English. The Office of International Affairs arranges your rotation and looks after your stay, from the first enquiry to your return home. Students from partner institutions may have tuition waived, and a dormitory is available when there are vacancies.
 
-Clinical clerkships are currently open to students of partner medical schools only. If you are not sure whether your school is a partner, check [Agreements and partner institutions](../partnerships/agreements?tag=Clerkship) or ask the office before you prepare any documents.
+Clinical clerkships are currently open to students of partner medical schools only. If you are not sure whether your school is a partner, check [Agreements and partner institutions](../partnerships/agreements) or ask the office before you prepare any documents.
 
 ## Which page is for you
 

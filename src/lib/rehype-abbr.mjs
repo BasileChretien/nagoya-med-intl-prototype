@@ -7,6 +7,7 @@
  *    (which the --dist link check then verifies).
  *
  *    A link to a page in the other language, or to a PDF, says so after its text: "(Japanese)", "（英語）", "(PDF)".
+ *    A PDF only says "PDF": its folder does not tell its language. An address that cannot be read is left alone.
  *
  * 2. Acronyms, from src/data/glossary.json:
  *   - the first use of each acronym on a page becomes <abbr title="what it stands for">;
@@ -70,16 +71,21 @@ export default function abbrPlugin(options = {}) {
             const next = parent?.children?.[(ctx.indexOf(node) ?? -1) + 1];
             const after = next?.type === 'text' ? next.value.slice(0, 40) : '';
             const said = ctx.textContent(node) + (/^[^.。]{0,25}?(in (Japanese|English)|日本語|英語)/i.test(after) ? ' Japanese' : '') + (/^\s*[(（]\s*PDF/i.test(after) ? ' PDF' : '');
-            const target = urlLang(href);
+            let pathname;
+            try { pathname = new URL(href).pathname; } catch { return; } // an address that cannot be read is left as written
+            // A PDF's folder does not tell its language (English templates sit under /medical_J/), so it only says "PDF".
+            const pdf = /\.pdf$/i.test(pathname);
+            const target = pdf ? null : urlLang(href);
             const labels = [];
             if (target && target !== lang && !/(Japanese|English|日本語|英語)/i.test(said)) labels.push(t.other);
-            if (/\.pdf$/i.test(new URL(href).pathname) && !/PDF/i.test(said)) labels.push(t.pdf);
+            if (pdf && !/PDF/i.test(said)) labels.push(t.pdf);
             if (target && target !== lang) ctx.setProperty(node, 'hrefLang', target);
             if (labels.length) ctx.appendChild(node, text(`${t.open}${labels.join(t.sep)}${t.close}`));
             return;
           }
           if (typeof href !== 'string' || !href || /^([a-z][a-z0-9+.-]*:|\/|#)/i.test(href)) return;
-          const url = new URL(href, `https://site${base}/${folder}`);
+          let url;
+          try { url = new URL(href, `https://site${base}/${folder}`); } catch { return; }
           // "index" is the section's own page: degrees/index is /degrees/.
           const clean = url.pathname.replace(/\/index\/?$/, '/');
           const pathname = /\.[a-z0-9]+$/i.test(clean) || clean.endsWith('/') ? clean : `${clean}/`;

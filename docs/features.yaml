@@ -76,7 +76,7 @@ features:
     stage: Explore
     status: works
     delivered_by: [src/lib/rehype-abbr.mjs, src/data/glossary.json, src/content/pages/en/about/glossary.md, src/content/pages/ja/about/glossary.md]
-    tests: [acronyms]
+    tests: [acronyms, content-plugin]
     limits: Abbreviations in texts drawn from the data files (programme boxes, partner names, news) are listed on the abbreviations page but not marked where they appear.
   - id: faculty-links
     says: The site shows where it sits in the faculty website and sends visitors to the faculty's directory entry for the team, research and publications.
