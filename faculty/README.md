@@ -10,4 +10,6 @@ These texts are for the faculty's web team. They are generated from the internat
 | `international-section.en.md`, `international-section.ja.md` | The International section, as a gateway to the international site: https://www.med.nagoya-u.ac.jp/medical_E/international/ and https://www.med.nagoya-u.ac.jp/medical_J/international/ |
 | `directory-entry.en.md`, `directory-entry.ja.md` | One paragraph to add to the department's laboratory directory entry: https://www.med.nagoya-u.ac.jp/medical_E/laboratory/clinical-med/comprehensive-ambulatory/international-medical-education/ and https://www.med.nagoya-u.ac.jp/medical_J/laboratory/clinical-med/comprehensive-ambulatory/international-medical-education/ |
 
+**When to send them.** Their links use the new site's addresses (https://www.med.nagoya-u.ac.jp/intlexch/en/… and https://www.med.nagoya-u.ac.jp/intlexch/ja/…), which exist only once the new site is published at https://www.med.nagoya-u.ac.jp/intlexch/. Send the texts with that launch, not before: until then, those links lead nowhere. After the launch, send each file again when it changes.
+
 A weekly check (`npm run check:faculty`, `.github/workflows/faculty-drift.yml`) compares the live faculty pages with the site.

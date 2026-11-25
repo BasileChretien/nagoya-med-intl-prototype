@@ -2,7 +2,7 @@
 /**
  * Record that English and Japanese versions are in step (see staleness-lib.mjs).
  *
- *   npm run sync -- status                     list everything out of step
+ *   npm run sync -- status                     list everything out of step (the same list as npm run check)
  *   npm run sync -- confirm <key> [<key>...]   after updating BOTH languages: record them as in step
  *                                              key = a page slug ("study-in-nagoya/faq") or a field
  *                                              ("programmes/clinical-clerkship.json#duration")
@@ -15,7 +15,8 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { SYNC_FILE, pagePairs, dataFields, readRegistry, comparePages, compareFields, reportFingerprint } from './staleness-lib.mjs';
+import { SYNC_FILE, pagePairs, dataFields, readRegistry, reportFingerprint } from './staleness-lib.mjs';
+import { staleness } from './staleness-report.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const [command, ...args] = process.argv.slice(2);
@@ -32,8 +33,7 @@ const fields = dataFields(ROOT);
 
 switch (command) {
   case 'status': {
-    const reg = readRegistry(ROOT) ?? { pages: {}, fields: {} };
-    const errors = [...comparePages(pages, reg.pages), ...compareFields(fields, reg.fields)];
+    const { errors } = staleness(ROOT);
     for (const e of errors) process.stdout.write(`${e}\n`);
     process.stdout.write(`${errors.length} out of step\n`);
     process.exit(errors.length ? 1 : 0);

@@ -70,8 +70,25 @@ const cases = [
   { name: 'a JSON file in a subfolder of reports/original is not reported as an orphan', plant: ['src/data/reports/original/zz-test-subfolder/zz-test.json', '{}'], expect: 'pass' },
   // Recorded photo sizes must match the files (round 1, pass 2: thumbnail width of tall photos).
   {
-    name: 'a recorded photo width that does not match the file is reported',
-    edit: ['src/data/images.json', (old) => old.replace(/"width": (\d+)/, (_, w) => `"width": ${Number(w) + 1}`)], expect: 'fail', message: /do not match/,
+    name: 'a recorded photo width that does not match the file is reported, once per line',
+    edit: ['src/data/images.json', (old) => old.replace(/"width": (\d+)/, (_, w) => `"width": ${Number(w) + 1}`)], expect: 'fail',
+    message: /recorded size \d+x\d+ does not match public\/\S+ \(\d+x\d+\)$/m,
+  },
+  // Recorded review items of #2: a listed file that is not WebP, and wrong-typed entries (no crash).
+  {
+    name: 'a listed photo that is not a WebP file is reported',
+    edit: ['src/data/images.json', (old) => old.replace(/"file": "[^"]+"/, '"file": "favicon.svg"')], expect: 'fail',
+    message: /images\.json \S+: public\/favicon\.svg is not a WebP file/,
+  },
+  {
+    name: 'a photo whose file is not a text path is reported without a crash',
+    edit: ['src/data/images.json', (old) => old.replace(/"file": "[^"]+"/, '"file": 5')], expect: 'fail',
+    message: /images\.json \S+: "file" must be a path/, also: (r) => (crashed(r) ? 'the check crashed' : null),
+  },
+  {
+    name: 'a photo description that is not text is reported without a crash',
+    edit: ['src/data/images.json', (old) => old.replace(/"alt": \{\s*"en": "[^"]*"/, '"alt": { "en": 5')], expect: 'fail',
+    message: /images\.json \S+: no en description/, also: (r) => (crashed(r) ? 'the check crashed' : null),
   },
   {
     name: 'a photo with a thumbnail but no recorded thumbnail size is reported',
@@ -123,6 +140,15 @@ for (const c of cases) {
   }
 }
 
+// Files the operating system writes (which the check ignores), and files an interrupted test run may leave
+// behind, are kept out of git, so they are never committed and deployed (recorded review items of #2).
+{
+  const paths = ['public/img/x/Thumbs.db', 'public/img/x/desktop.ini', 'public/img/x/.DS_Store', 'public/img/x/._photo.webp',
+    ...cases.filter((c) => c.plant && c.plant[0].includes('zz-test')).map((c) => c.plant[0])];
+  const tracked = paths.filter((p) => spawnSync('git', ['check-ignore', '-q', '--no-index', p], { cwd: ROOT }).status !== 0);
+  say(tracked.length === 0, 'operating-system files and files left by an interrupted test run are kept out of git', tracked.join(', '));
+}
+
 // The scripts must run from a folder whose path has a space and non-ASCII characters (round 2).
 {
   const base = mkdtempSync(join(tmpdir(), 'check test ü 名古屋 '));
@@ -140,6 +166,6 @@ for (const c of cases) {
   }
 }
 
-const total = cases.length + 2;
+const total = cases.length + 3;
 process.stdout.write(`${total - failed}/${total} passed\n`);
 process.exit(failed ? 1 : 0);

@@ -141,18 +141,24 @@ const imgs = readList('images.json');
 if (imgs) {
   const listed = new Set();
   for (const im of imgs) {
-    for (const l of ['en', 'ja']) if (!im.alt?.[l]?.trim()) fail(`images.json ${im.id}: no ${l} description`);
+    for (const l of ['en', 'ja']) {
+      const alt = im.alt?.[l];
+      if (typeof alt !== 'string' || !alt.trim()) fail(`images.json ${im.id}: no ${l} description`);
+    }
+    if (typeof im.file !== 'string') fail(`images.json ${im.id}: "file" must be a path under public/, such as "img/pages/x.webp"`);
+    if (im.thumb !== undefined && typeof im.thumb !== 'string') fail(`images.json ${im.id}: "thumb" must be a path under public/, such as "img/pages/x-t.webp"`);
     if (im.thumb && (!Number.isInteger(im.thumbWidth) || !Number.isInteger(im.thumbHeight))) {
       fail(`images.json ${im.id}: a photo with a thumbnail needs thumbWidth and thumbHeight`);
     }
     for (const [f, w, h] of [[im.file, im.width, im.height], [im.thumb, im.thumbWidth, im.thumbHeight]]) {
-      if (!f) continue;
+      if (typeof f !== 'string' || !f) continue;
       listed.add(f);
       const path = join(PUBLIC, f);
       if (!existsSync(path)) { fail(`images.json ${im.id}: missing file public/${f}`); continue; }
       const size = webpSize(path);
-      if (size && Number.isInteger(w) && Number.isInteger(h) && (size.w !== w || size.h !== h)) {
-        fail(`images.json ${im.id}: recorded size ${w}x${h} does not match public/${f} (${size.w}x${size.h}); the sizes do not match the file`);
+      if (!size) { fail(`images.json ${im.id}: public/${f} is not a WebP file`); continue; }
+      if (Number.isInteger(w) && Number.isInteger(h) && (size.w !== w || size.h !== h)) {
+        fail(`images.json ${im.id}: recorded size ${w}x${h} does not match public/${f} (${size.w}x${size.h})`);
       }
     }
   }

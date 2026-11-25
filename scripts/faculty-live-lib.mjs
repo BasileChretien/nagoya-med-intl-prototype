@@ -20,24 +20,39 @@ export function loadFacultyConfig(root) {
   return { ...faculty, officeEmail: office.email.toLowerCase(), programmePages: [...new Set(programmes.map((p) => p.page))] };
 }
 
-const normUrl = (u) => u.trim().replace(/^http:\/\//i, 'https://').replace(/[#?].*$/, '').replace(/\/?$/, '/').toLowerCase();
+/**
+ * A link as "host/path/", so that the same page compares equal however it is written: relative ("/intlexch/",
+ * "../intlexch/") or protocol-relative links are resolved against the page they are on; http and https, "www." or
+ * not, a missing trailing slash, the query, the fragment and letter case do not count. Null for mailto: and the like.
+ * @param {string} u @param {string} base address of the page the link is on @returns {string | null}
+ */
+function normUrl(u, base) {
+  let url;
+  try { url = new URL(u.trim(), base); } catch { return null; }
+  if (url.protocol !== 'http:' && url.protocol !== 'https:') return null;
+  return `${url.hostname.replace(/^www\./i, '')}${url.pathname.replace(/\/?$/, '/')}`.toLowerCase();
+}
 
 /** Facts found on one faculty page. @param {string} html @param {PageId} id */
 export function analyseFacultyPage(html, id, cfg) {
   const emails = new Set((html.match(/[\w.+-]+(?:@|◎|＠|\[at\])[\w-]+(?:\.[\w-]+)+/g) ?? [])
     .map((e) => e.replace(/◎|＠|\[at\]/g, '@').toLowerCase()));
-  const hrefs = [...html.matchAll(/href\s*=\s*["']([^"']+)["']/gi)].map((m) => normUrl(m[1]));
+  const pageUrl = cfg.pages?.[id.kind]?.[id.lang] ?? cfg.site.production;
+  const hrefs = new Set([...html.matchAll(/href\s*=\s*["']([^"']+)["']/gi)].map((m) => normUrl(m[1], pageUrl)).filter(Boolean));
   // Only a link to the site's home counts (site.homes, relative to the production address): other pages under
   // /intlexch/, such as the cancer centre's /intlexch/cancerimmuno/, are not the international site.
-  const homes = new Set((cfg.site.homes ?? ['']).map((h) => normUrl(`${cfg.site.production}${h}`)));
-  const linksToSite = hrefs.some((h) => homes.has(h));
-  const programmeLinks = cfg.programmePages.filter((p) => hrefs.includes(normUrl(`${cfg.site.production}${id.lang}/${p}/`)));
+  const linksToSite = (cfg.site.homes ?? ['']).some((h) => hrefs.has(normUrl(h, cfg.site.production)));
+  const programmeLinks = cfg.programmePages.filter((p) => hrefs.has(normUrl(`${id.lang}/${p}/`, cfg.site.production)));
   return { ...id, emails, linksToSite, programmeLinks };
 }
 
+/** Rules a known gap may be recorded for: those that only pass or fail. A gap on a rule that counts (gateway)
+ * could hide the page getting worse within the rule. */
+const GAP_RULES = ['officeAddress', 'linksToSite'];
+
 /**
- * Apply the rules to the analysed pages. A failure recorded in faculty.json "knownGaps" ({ rule, page, lang, since })
- * is listed under "known" instead of failing, so that new drift still fails; once the page passes again, the
+ * Apply the rules to the analysed pages. A failure recorded in faculty.json "knownGaps" ({ rule, page, lang, since,
+ * note }) is listed under "known" instead of failing, so that new drift still fails; once the page passes again, the
  * gap must be removed, and the check fails until it is.
  * @param {ReturnType<typeof analyseFacultyPage>[]} results
  * @returns {{ failures: string[], pending: string[], known: string[], passed: string[] }}
@@ -45,11 +60,17 @@ export function analyseFacultyPage(html, id, cfg) {
 export function evaluateFaculty(results, cfg) {
   const out = { failures: [], pending: [], known: [], passed: [] };
   const rules = cfg.liveChecks ?? {};
-  const gaps = cfg.knownGaps ?? [];
-  for (const g of gaps) {
-    if (!rules[g.rule]?.pages.includes(g.page) || !['en', 'ja'].includes(g.lang)) {
-      out.failures.push(`src/data/faculty.json knownGaps: ${g.rule} on ${g.page} (${g.lang}) is not checked by that rule; correct or remove the entry`);
+  const gaps = [];
+  for (const g of cfg.knownGaps ?? []) {
+    const label = `src/data/faculty.json knownGaps: ${g?.rule} on ${g?.page} (${g?.lang})`;
+    if (!GAP_RULES.includes(g?.rule)) { out.failures.push(`${label}: a known gap can be recorded for only officeAddress or linksToSite, the rules that pass or fail`); continue; }
+    if (!Object.hasOwn(rules, g.rule) || !rules[g.rule].pages?.includes(g.page) || !['en', 'ja'].includes(g.lang)) {
+      out.failures.push(`${label} is not checked by that rule; correct or remove the entry`);
+      continue;
     }
+    if (typeof g.since !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(g.since)) out.failures.push(`${label}: give "since", the date the gap was recorded (YYYY-MM-DD)`);
+    if (typeof g.note !== 'string' || !g.note.trim()) out.failures.push(`${label}: give a "note" saying what is missing and when to remove the entry`);
+    gaps.push(g);
   }
   /** @param {string} rule @param {{kind: string, lang: string}} r @param {boolean} ok @param {string} fail @param {string} does */
   const report = (rule, r, ok, fail, does) => {
@@ -70,9 +91,8 @@ export function evaluateFaculty(results, cfg) {
     }
     if (rules.gateway?.pages.includes(r.kind)) {
       const missing = cfg.programmePages.length - r.programmeLinks.length;
-      report('gateway', r, r.linksToSite && missing === 0,
-        `does not yet link to the international site and its programmes (${r.programmeLinks.length} of ${cfg.programmePages.length} programme pages linked)`,
-        'links to the international site and every programme');
+      const lacks = [...(r.linksToSite ? [] : ["the site's home page"]), ...(missing ? [`${missing} of the ${cfg.programmePages.length} programme pages`] : [])];
+      report('gateway', r, lacks.length === 0, `does not yet link to ${lacks.join(' and ')}`, 'links to the international site and every programme');
     }
   }
   return out;

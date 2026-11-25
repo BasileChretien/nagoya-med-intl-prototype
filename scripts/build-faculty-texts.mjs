@@ -14,7 +14,8 @@ const SECTION_ORDER = ['study-in-nagoya', 'study-abroad', 'degrees'];
 
 const T = {
   en: {
-    unitsTitle: 'Office of International Affairs',
+    // The faculty's own title for the page, naming the office and its department as the Japanese does.
+    unitsTitle: 'Office of International Affairs (Department of International Medical Education)',
     site: 'International website',
     directory: 'Team, research and publications',
     contact: 'Contact',
@@ -77,6 +78,8 @@ export function buildFacultyTexts(root) {
     `| \`units-page.en.md\`, \`units-page.ja.md\` | The office\'s page in the list of units: ${faculty.pages.units.en} and ${faculty.pages.units.ja} |`,
     `| \`international-section.en.md\`, \`international-section.ja.md\` | The International section, as a gateway to the international site: ${faculty.pages.international.en} and ${faculty.pages.international.ja} |`,
     `| \`directory-entry.en.md\`, \`directory-entry.ja.md\` | One paragraph to add to the department\'s laboratory directory entry: ${faculty.pages.directory.en} and ${faculty.pages.directory.ja} |`,
+    '',
+    `**When to send them.** Their links use the new site's addresses (${site('en')}… and ${site('ja')}…), which exist only once the new site is published at ${faculty.site.production}. Send the texts with that launch, not before: until then, those links lead nowhere. After the launch, send each file again when it changes.`,
     '',
     'A weekly check (`npm run check:faculty`, `.github/workflows/faculty-drift.yml`) compares the live faculty pages with the site.',
     '',

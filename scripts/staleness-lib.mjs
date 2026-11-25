@@ -67,16 +67,29 @@ export function dataFiles(root) {
   ].filter((f) => existsSync(join(data, f.file)));
 }
 
-const isPair = (v) => v && typeof v === 'object' && !Array.isArray(v) && typeof v.en === 'string' && typeof v.ja === 'string';
+const isObject = (v) => Boolean(v) && typeof v === 'object' && !Array.isArray(v);
+const isPair = (v) => isObject(v) && typeof v.en === 'string' && typeof v.ja === 'string';
+const looksBilingual = (v) => isObject(v) && (Object.hasOwn(v, 'en') || Object.hasOwn(v, 'ja'));
+
+/** Why an object with "en" or "ja" is not a usable pair. @returns {string} */
+function halfPairProblem(v) {
+  if (typeof v.en === 'string' && !Object.hasOwn(v, 'ja')) return 'has en but no ja text: give both languages';
+  if (typeof v.ja === 'string' && !Object.hasOwn(v, 'en')) return 'has ja but no en text: give both languages';
+  return '"en" and "ja" must both be text';
+}
 
 /**
- * Every { en, ja } field, keyed "programmes/x.json#deadline/text" or "images.json#<entry id>/alt".
- * @returns {Record<string, { en: string, ja: string, enText: string, jaText: string, facts: boolean }>}
+ * Every { en, ja } field, keyed "programmes/x.json#deadline/text" or "images.json#<entry id>/alt", and every object
+ * that has only one of the two languages (or a language that is not text): such a field is not in step with
+ * anything, so it is reported instead of silently left out.
+ * @returns {{ fields: Record<string, { en: string, ja: string, enText: string, jaText: string, facts: boolean }>, halves: string[] }}
  */
-export function dataFields(root) {
+export function scanData(root) {
   const out = {};
+  const halves = [];
   const walk = (value, key, facts) => {
     if (isPair(value)) { out[key] = { en: fingerprint(value.en), ja: fingerprint(value.ja), enText: value.en, jaText: value.ja, facts }; return; }
+    if (looksBilingual(value)) { halves.push(`${key}: ${halfPairProblem(value)}`); return; }
     if (Array.isArray(value)) value.forEach((v, i) => walk(v, `${key}/${i}`, facts));
     else if (value && typeof value === 'object') for (const [k, v] of Object.entries(value)) walk(v, key.endsWith('#') ? `${key}${k}` : `${key}/${k}`, facts);
   };
@@ -91,39 +104,51 @@ export function dataFields(root) {
       }
     } else if (data && typeof data === 'object') walk(data, `${file}#`, facts);
   }
-  return out;
+  return { fields: out, halves };
 }
+
+/** Every { en, ja } field (see scanData). */
+export const dataFields = (root) => scanData(root).fields;
 
 // ---------------------------------------------------------------- numbers in facts
 
-const MONTHS = { january: 1, february: 2, march: 3, april: 4, may: 5, june: 6, july: 7, august: 8, september: 9, october: 10, november: 11, december: 12 };
+const MONTHS = { january: 1, february: 2, march: 3, april: 4, may: 5, june: 6, july: 7, august: 8, september: 9, october: 10, november: 11, december: 12,
+  jan: 1, feb: 2, mar: 3, apr: 4, jun: 6, jul: 7, aug: 8, sep: 9, sept: 9, oct: 10, nov: 11, dec: 12 };
 const WORDS = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, eleven: 11, twelve: 12,
   first: 1, second: 2, third: 3, fourth: 4, fifth: 5, sixth: 6, seventh: 7, eighth: 8, ninth: 9, tenth: 10 };
 const KANJI = { 一: 1, 二: 2, 三: 3, 四: 4, 五: 5, 六: 6, 七: 7, 八: 8, 九: 9 };
-const COUNTER = '(?=つ|人|名|回|か月|ヶ月|カ月|週|年|日|校|大学|件|位|期|コース|プログラム)';
+const KANJI_UNITS = { 十: 10, 百: 100, 千: 1000 };
+const COUNTER = '(?=つ|人|名|回|か月|ヶ月|カ月|週|年|日|校|大学|件|位|期|コース|プログラム|万|億|円)';
 
-/** Kanji numerals up to 99 ("十二" -> 12, "三" -> 3). */
+/** Kanji numerals up to 9999 ("十二" -> 12, "三千" -> 3000, "二百五十" -> 250, "三" -> 3). */
 function kanjiNumber(s) {
-  if (s === '十') return 10;
-  const [a, b] = s.split('十');
-  if (s.includes('十')) return (a ? KANJI[a] : 1) * 10 + (b ? KANJI[b] : 0);
-  return KANJI[s];
+  let total = 0, digit = 0;
+  for (const ch of s) {
+    if (KANJI[ch]) digit = KANJI[ch];
+    else { total += (digit || 1) * KANJI_UNITS[ch]; digit = 0; }
+  }
+  return total + digit;
 }
 
 /**
- * The set of numbers a text states (above 1), written the same way whatever the language:
- * 1.5 million = 150万 = 1500000; 80,000 = 8万; "third" = 3年生 = 3; "May" = 5月 = 5; 三つ = 3.
+ * The set of numbers a text states, written the same way whatever the language:
+ * 1.5 million = 150万 = 1500000; 1 billion = 10億; 80,000 = 8万; 20,000 to 30,000 = 2〜3万; "third" = 3年生 = 3;
+ * "May" = 5月 = 5; "Apr" = 4月 = 4; 三千人 = 3000. 0 and 1 are left out: "a", "one", "single" and 1つ are written in too
+ * many ways to compare.
  * @param {string} text @param {'en'|'ja'} lang @returns {string}
  */
 export function numbersOf(text, lang) {
   let s = text.normalize('NFKC').replace(/(\d),(?=\d{3}\b)/g, '$1');
   if (lang === 'en') {
+    s = s.replace(/(\d+(?:\.\d+)?)\s*billion/gi, (_, n) => String(Math.round(parseFloat(n) * 1e9)));
     s = s.replace(/(\d+(?:\.\d+)?)\s*million/gi, (_, n) => String(Math.round(parseFloat(n) * 1e6)));
     s = s.replace(/(\d+(?:\.\d+)?)\s*thousand/gi, (_, n) => String(Math.round(parseFloat(n) * 1e3)));
-    // Month names only when capitalised, so the verb "may" is not read as May.
-    s = s.replace(/[A-Za-z]+/g, (w) => String((/^[A-Z]/.test(w) ? MONTHS[w.toLowerCase()] : undefined) ?? WORDS[w.toLowerCase()] ?? w));
+    // Month names only in title case, so the verb "may" is not read as May, nor the acronym "SEP" as September.
+    s = s.replace(/[A-Za-z]+/g, (w) => String((/^[A-Z][a-z]+$/.test(w) ? MONTHS[w.toLowerCase()] : undefined) ?? WORDS[w.toLowerCase()] ?? w));
   } else {
-    s = s.replace(new RegExp(`[一二三四五六七八九十]{1,3}${COUNTER}`, 'g'), (k) => String(kanjiNumber(k) ?? k));
+    s = s.replace(new RegExp(`[一二三四五六七八九十百千]{1,8}${COUNTER}`, 'g'), (k) => String(kanjiNumber(k)));
+    // A range sharing one unit: 2〜3万 is 2万〜3万.
+    s = s.replace(/(\d+(?:\.\d+)?)\s*(〜|~|-|–|―|から)\s*(\d+(?:\.\d+)?)(万|億)/g, (_, a, sepr, b, unit) => `${a}${unit}${sepr}${b}${unit}`);
     s = s.replace(/(\d+(?:\.\d+)?)億(?:(\d+)万)?/g, (_, a, b) => String(Math.round(parseFloat(a) * 1e8 + (b ? parseInt(b, 10) * 1e4 : 0))));
     s = s.replace(/(\d+(?:\.\d+)?)万/g, (_, n) => String(Math.round(parseFloat(n) * 1e4)));
   }
