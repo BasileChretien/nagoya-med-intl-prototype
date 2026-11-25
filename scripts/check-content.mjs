@@ -349,13 +349,14 @@ if (process.argv.includes('--dist')) {
       expected.set(`${lang}/${slug ? `${slug}/` : ''}index.html`, ['BreadcrumbList']);
     }
   }
-  // The site's own host, from the English home page's canonical address: an address there is not another site.
+  // The site's own address (origin and base path), from the English home page's canonical address: an address under
+  // it is not another site; another project on the same host is.
   const homeFile = join(DIST, 'en', 'index.html');
   const canonical = existsSync(homeFile) ? readFileSync(homeFile, 'utf8').match(/<link rel="canonical" href="([^"]+)"/)?.[1] : undefined;
-  const ownHosts = canonical ? [new URL(canonical).hostname] : [];
+  const own = canonical ? [canonical.replace(/en\/$/, '')] : [];
   // Built stylesheets too: a font or image named in CSS is loaded like one named in a page.
   for (const f of walk(DIST).filter((x) => x.endsWith('.css'))) {
-    for (const url of outsideInCss(readFileSync(f, 'utf8'), ownHosts)) fail(`${relative(DIST, f).split(sep).join('/')} loads ${url} from another site: serve it from the site itself (the privacy page says nothing is loaded from elsewhere)`);
+    for (const url of outsideInCss(readFileSync(f, 'utf8'), own)) fail(`${relative(DIST, f).split(sep).join('/')} loads ${url} from another site: serve it from the site itself (the privacy page says nothing is loaded from elsewhere)`);
   }
   for (const f of html) {
     const text = readFileSync(f, 'utf8');
@@ -366,7 +367,7 @@ if (process.argv.includes('--dist')) {
     for (const type of missingTypes(sd.blocks, expected.get(page) ?? [])) fail(`${page}: no ${type} structured data`);
     expected.delete(page);
     // The privacy page says a page loads nothing from other sites.
-    for (const url of outsideResources(text, ownHosts)) fail(`${page} loads ${url} from another site: serve it from the site itself (the privacy page says nothing is loaded from elsewhere)`);
+    for (const url of outsideResources(text, own)) fail(`${page} loads ${url} from another site: serve it from the site itself (the privacy page says nothing is loaded from elsewhere)`);
     // Links in the markup only: scripts build some hrefs from strings at run time.
     const markup = text.replace(/<script\b[\s\S]*?<\/script>/gi, '');
     for (const m of markup.matchAll(/(?:href|src)="([^"#?]+)[^"]*"/g)) {
