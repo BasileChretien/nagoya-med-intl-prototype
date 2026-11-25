@@ -9,6 +9,15 @@
 const BLOCK = /<script\b[^>]*\btype\s*=\s*["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi;
 const URL_KEYS = new Set(['url', 'item', '@id', 'sameAs', 'logo', 'image']);
 
+/** An item's type as text ("A" or "A, B"), or undefined when it has none. @param {any} item */
+function typeName(item) {
+  if (!item || typeof item !== 'object') return undefined;
+  const type = item['@type'];
+  if (typeof type === 'string' && type) return type;
+  if (Array.isArray(type) && type.length > 0 && type.every((t) => typeof t === 'string' && t)) return type.join(', ');
+  return undefined;
+}
+
 /** @param {string} html @returns {{ blocks: unknown[], problems: string[] }} */
 export function structuredData(html) {
   const blocks = [];
@@ -27,18 +36,26 @@ export function structuredData(html) {
       continue;
     }
     if (data['@context'] !== 'https://schema.org') problems.push(`structured data without "@context": "https://schema.org"`);
-    // A type is a name or a list of names; a block holding an @graph has its types on the graph's items.
-    const type = data['@type'];
-    const typed = (typeof type === 'string' && type !== '') || (Array.isArray(type) && type.length > 0 && type.every((t) => typeof t === 'string' && t));
-    if (!typed && !Array.isArray(data['@graph'])) problems.push('structured data without a "@type"');
-    const visit = (v, key) => {
-      if (Array.isArray(v)) return v.forEach((x) => visit(x, key));
-      if (v && typeof v === 'object') return Object.entries(v).forEach(([k, x]) => visit(x, k));
+    // A type is a name or a list of names. A block holding an @graph has its types on the graph's items instead:
+    // the graph must hold items, and each item needs its own type.
+    if (Array.isArray(data['@graph'])) {
+      if (data['@graph'].length === 0) problems.push('structured data with an empty "@graph"');
+      data['@graph'].forEach((item, i) => {
+        if (!typeName(item)) problems.push(`structured data: item ${i + 1} of the "@graph" has no "@type"`);
+      });
+    } else if (!typeName(data)) problems.push('structured data without a "@type"');
+    // Each address is reported with the type of the item that holds it.
+    const visit = (v, key, owner) => {
+      if (Array.isArray(v)) return v.forEach((x) => visit(x, key, owner));
+      if (v && typeof v === 'object') {
+        const here = typeName(v) ?? owner;
+        return Object.entries(v).forEach(([k, x]) => visit(x, k, here));
+      }
       if (URL_KEYS.has(key) && typeof v === 'string' && !/^https:\/\/[^/\s]+\.[^/\s]+/.test(v)) {
-        problems.push(`structured data ${data['@type']}: "${key}" is not a full https address: ${v}`);
+        problems.push(`structured data ${owner ?? '(no type)'}: "${key}" is not a full https address: ${v}`);
       }
     };
-    visit(data, '');
+    visit(data, '', undefined);
   }
   return { blocks, problems };
 }

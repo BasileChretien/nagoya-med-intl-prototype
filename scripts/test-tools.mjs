@@ -162,15 +162,26 @@ const SELF = 'https://example.github.io/site/';
     <svg><image href="https://svg.example/i.png"></image><use xlink:href="https://svg.example/s.svg#a"></use><use href="#local"></use></svg>
     <link rel="preload" as="image" href="/site/a.webp" imagesrcset="/site/a.webp 1x, https://img.example.com/r.png 2x">
     <img alt="" src="https://example.github.io/site/own.webp"><img alt="" src="//example.github.io/site/own2.webp">`;
-  const got2 = outsideResources(more, ['example.github.io']).sort();
+  const OWN = ['https://example.github.io/site/'];
+  const got2 = outsideResources(more, OWN).sort();
   const want2 = ['https://img.example.com/q.png', 'https://img.example.com/r.png', 'https://svg.example/i.png', 'https://svg.example/s.svg#a', 'https://x.example/a.css'];
-  say(JSON.stringify(got2) === JSON.stringify(want2), '@import, entity-quoted url(), SVG links and imagesrcset are found; the site\'s own host is not another site', JSON.stringify(got2));
+  say(JSON.stringify(got2) === JSON.stringify(want2), '@import, entity-quoted url(), SVG links and imagesrcset are found; the site\'s own addresses are not another site', JSON.stringify(got2));
   const css = '@font-face{font-family:F;src:url(https://fonts.example.com/f.woff2) format("woff2")}@import url("//cdn.example.com/b.css");.x{background:url(/site/img/a.webp)}';
-  const got3 = outsideInCss(css, ['example.github.io']).sort();
+  const got3 = outsideInCss(css, OWN).sort();
   say(JSON.stringify(got3) === JSON.stringify(['//cdn.example.com/b.css', 'https://fonts.example.com/f.woff2']), 'fonts and imports from other sites are found in a built stylesheet; its own files are not', JSON.stringify(got3));
   // Blocking item of the #20 review: minified CSS writes @import without a space.
   const minified = outsideInCss('@import"https://x.example/a.css";@import \'https://x.example/b.css\';.y{color:red}');
   say(JSON.stringify(minified) === JSON.stringify(['https://x.example/a.css', 'https://x.example/b.css']), 'an @import with no space after it, as minified CSS writes it, is found', JSON.stringify(minified));
+  // Recorded on #20: single-quoted style attributes, numeric entities, another project on the same host, an
+  // @import address holding the other quote, and a comment before the address.
+  const page20 = `<div style='background:url(https://img.example.com/single.png)'></div>
+    <div style="background:url(&#x22;https://img.example.com/hex.png&#x22;)"></div><div style="background:url(&#34;https://img.example.com/dec.png&#34;)"></div>
+    <script src="https://example.github.io/other-project/x.js"></script><img alt="" src="http://example.github.io/site/own-http.webp">`;
+  const got4 = outsideResources(page20, OWN).sort();
+  const want4 = ['https://example.github.io/other-project/x.js', 'https://img.example.com/dec.png', 'https://img.example.com/hex.png', 'https://img.example.com/single.png'];
+  say(JSON.stringify(got4) === JSON.stringify(want4), 'single-quoted styles and numeric entities are read; another project on the same host is outside; the site itself over http is not', JSON.stringify(got4));
+  const css20 = outsideInCss('@import "https://x.example/a\'b.css";@import/**/"https://x.example/c.css";@import /* note */ \'https://x.example/d"e.css\';');
+  say(JSON.stringify(css20) === JSON.stringify(['https://x.example/a\'b.css', 'https://x.example/c.css', 'https://x.example/d"e.css']), 'an @import address holding the other quote, or after a comment, is found', JSON.stringify(css20));
 }
 
 // Structured data that must be there: a page without its expected type is reported, whatever the attribute order.
@@ -183,6 +194,13 @@ const SELF = 'https://example.github.io/site/';
   const graph = '<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[]},{"@type":["EducationalOrganization","Organization"]}]}</script>';
   const g = structuredData(graph);
   say(g.problems.length === 0 && missingTypes(g.blocks, ['BreadcrumbList', 'EducationalOrganization']).length === 0, 'types given as a list or inside an @graph are found', JSON.stringify(g));
+  // Recorded on #20: an empty @graph, or an item without a type, is reported; an address problem names its item's type.
+  const block = (o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`;
+  const empty = structuredData(block({ '@context': 'https://schema.org', '@graph': [] }));
+  const untyped = structuredData(block({ '@context': 'https://schema.org', '@graph': [{ name: 'x' }] }));
+  say(empty.problems.some((p) => /empty "@graph"/.test(p)) && untyped.problems.some((p) => /item 1 of the "@graph" has no "@type"/.test(p)), 'an empty @graph, or a graph item without a type, is reported', JSON.stringify([empty.problems, untyped.problems]));
+  const relative = structuredData(block({ '@context': 'https://schema.org', '@graph': [{ '@type': 'WebPage', url: '/x' }] }));
+  say(relative.problems.length === 1 && /structured data WebPage: "url" is not a full https address: \/x/.test(relative.problems[0]), 'an address problem inside an @graph names the item\'s type', relative.problems.join('; '));
 }
 
 // Links from Markdown pages in every form: titled, in angle brackets, reference definitions and HTML.
