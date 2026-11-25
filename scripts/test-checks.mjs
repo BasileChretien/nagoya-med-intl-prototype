@@ -11,7 +11,9 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const runCheck = (root = ROOT) => spawnSync(process.execPath, [join(root, 'scripts', 'check-content.mjs')], { cwd: root, encoding: 'utf8' });
-const crashed = (r) => /\n\s+at |TypeError|ReferenceError|SyntaxError: /.test(r.stderr) && !/invalid JSON/.test(r.stderr.split('\n').find((l) => /SyntaxError/.test(l)) ?? 'invalid JSON');
+// An uncaught exception prints "TypeError: ..." (or another *Error) at the start of a line and "    at ..." stack
+// frames; the check's own failures are lines starting with "error: ".
+const crashed = (r) => /^\s+at \S|^[A-Za-z]*Error: /m.test(r.stderr);
 const count = (text, re) => (text.match(new RegExp(re.source, 'g')) ?? []).length;
 
 /**
@@ -47,6 +49,16 @@ const cases = [
     name: 'a stories.json that does not parse gives one error, not hundreds of orphan errors',
     edit: ['src/data/stories.json', (old) => old.replace(/\]\s*$/, ',]')], expect: 'fail', message: /stories\.json: invalid JSON/,
     also: (r) => (count(r.stderr, /has no story/) > 0 ? 'orphan errors flooded the output' : null),
+  },
+  {
+    name: 'contacts.json holding an object instead of a list is reported without a crash or a flood',
+    edit: ['src/data/contacts.json', () => '{}'], expect: 'fail', message: /contacts\.json: must be a list/,
+    also: (r) => (crashed(r) ? 'the check crashed' : count(r.stderr, /unknown contact/) > 0 ? 'unknown-contact errors flooded the output' : null),
+  },
+  {
+    name: 'a programme file holding null is reported without a crash',
+    edit: ['src/data/programmes/clinical-clerkship.json', () => 'null'], expect: 'fail', message: /programmes\/clinical-clerkship\.json: must be an object/,
+    also: (r) => (crashed(r) ? 'the check crashed' : null),
   },
   {
     name: 'a null entry in images.json is reported without a crash',
@@ -104,7 +116,8 @@ for (const c of cases) {
 {
   const base = mkdtempSync(join(tmpdir(), 'check test ü 名古屋 '));
   try {
-    for (const part of ['scripts', 'docs', 'public', join('src', 'content'), join('src', 'data')]) {
+    // Everything the check reads, including the files the feature map names (src/, .github/).
+    for (const part of ['scripts', 'docs', 'public', 'src', '.github']) {
       cpSync(join(ROOT, part), join(base, part), { recursive: true });
     }
     const r = runCheck(base);

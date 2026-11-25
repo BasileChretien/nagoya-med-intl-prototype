@@ -68,13 +68,18 @@ for (const lang of ['en', 'ja']) {
 const slugs = new Set([...en].map((p) => p.replace(/\.md$/, '').replace(/\/index$/, '')));
 
 // 2. Programmes: valid JSON, known contact, existing page, no passed deadline shown as open.
-const contacts = existsSync(join(DATA, 'contacts.json')) ? JSON.parse(readFileSync(join(DATA, 'contacts.json'), 'utf8')) : [];
-const contactIds = new Set(contacts.map((c) => c.id));
+// contacts.json problems are reported once, by section 3; here an unusable file only skips the contact check.
+let contactIds = null;
+try {
+  const c = JSON.parse(readFileSync(join(DATA, 'contacts.json'), 'utf8'));
+  if (Array.isArray(c)) contactIds = new Set(c.filter((x) => x && typeof x === 'object').map((x) => x.id));
+} catch { /* reported by section 3 */ }
 for (const f of walk(join(DATA, 'programmes')).filter((x) => x.endsWith('.json'))) {
   const id = f.split(sep).pop().replace(/\.json$/, '');
   let p;
   try { p = JSON.parse(readFileSync(f, 'utf8')); } catch (e) { fail(`programmes/${id}.json: invalid JSON (${e.message})`); continue; }
-  if (!contactIds.has(p.contact)) fail(`programmes/${id}.json: unknown contact "${p.contact}"`);
+  if (!p || typeof p !== 'object' || Array.isArray(p)) { fail(`programmes/${id}.json: must be an object`); continue; }
+  if (contactIds && !contactIds.has(p.contact)) fail(`programmes/${id}.json: unknown contact "${p.contact}"`);
   if (!slugs.has(p.page)) fail(`programmes/${id}.json: page "${p.page}" does not exist`);
   const d = p.deadline;
   if (d?.status === 'open' && d.date && d.date < today) fail(`programmes/${id}.json: deadline ${d.date} has passed but status is "open"`);
