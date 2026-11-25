@@ -121,6 +121,32 @@ The XQZW office also helps.
     name: 'a photo with a thumbnail but no recorded thumbnail size is reported',
     edit: ['src/data/images.json', (old) => old.replace(/,\s*"thumbWidth": \d+/, '')], expect: 'fail', message: /thumbWidth/,
   },
+  // Summaries of Japanese-only pages (src/data/ja-summaries.json).
+  {
+    name: 'an English page linking to a page in Japanese without a summary is reported',
+    edit: ['src/content/pages/en/about/contact.md', (old) => `${old}\nSee the [new notice](https://www.med.nagoya-u.ac.jp/medical_J/zz-test/).\n`], expect: 'fail',
+    message: /en\/about\/contact\.md links to a page in Japanese with no English summary: add https:\/\/www\.med\.nagoya-u\.ac\.jp\/medical_J\/zz-test\//,
+  },
+  {
+    name: 'a link to a Japanese PDF needs no summary',
+    edit: ['src/content/pages/en/about/contact.md', (old) => `${old}\nSee the [form](https://www.med.nagoya-u.ac.jp/medical_J/zz-test.pdf).\n`], expect: 'pass',
+  },
+  {
+    name: 'a summary that no English page uses is reported',
+    edit: ['src/data/ja-summaries.json', (old) => { const d = JSON.parse(old); d.push({ ...d[0], url: 'https://www.med.nagoya-u.ac.jp/medical_J/zz-unused/' }); return JSON.stringify(d, null, 2); }], expect: 'fail',
+    message: /ja-summaries\.json: no English page links to https:\/\/www\.med\.nagoya-u\.ac\.jp\/medical_J\/zz-unused\//,
+  },
+  {
+    name: 'a summary not marked as written automatically is reported',
+    edit: ['src/data/ja-summaries.json', (old) => { const d = JSON.parse(old); d[0].method = 'human'; return JSON.stringify(d, null, 2); }], expect: 'fail',
+    message: /ja-summaries\.json \S+: "method" must be "machine"/,
+  },
+  {
+    name: 'a summary longer than 70 words or with a future date is reported',
+    edit: ['src/data/ja-summaries.json', (old) => { const d = JSON.parse(old); d[0].en = 'word '.repeat(71); d[1].checked = '2999-01-01'; return JSON.stringify(d, null, 2); }], expect: 'fail',
+    message: /summary longer than 70 words/,
+    also: (r) => (/"checked" must be the date it was written/.test(r.stderr) ? null : 'the future date was not reported'),
+  },
 ];
 
 let failed = 0;

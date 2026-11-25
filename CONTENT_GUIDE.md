@@ -267,6 +267,20 @@ Every abbreviation on the site is explained in `src/data/glossary.json`: what it
 - `npm run check` fails when a page or a programme, contact, partner or news text uses an abbreviation that is not in the glossary. Add the entry, with a source for the full name and a website you have opened (it must answer). Mark `"common": true` for terms everyone knows (UK, PDF), which then stay out of the box at the end of each page, and `"confirmed": false` when the full name is not certain (it then shows "to be confirmed" and belongs in the glossary page's `toConfirm`).
 - Abbreviations in programme boxes, partner names and news are listed on the glossary page but not marked where they appear.
 
+### Pages that exist only in Japanese
+
+When an English page links to a page that exists only in Japanese, an English reader gets a short summary under the link, in a closed box "What this Japanese page says". The summaries are in `src/data/ja-summaries.json`:
+
+```json
+{ "url": "https://www.med.nagoya-u.ac.jp/medical_J/others/media/", "en": "The faculty's page for the press. ...",
+  "checked": "2026-11-25", "method": "machine", "evidence": ["報道取材・撮影許可願", "..."] }
+```
+
+- First look for an English version of the page (a language switch, an `/en/` or `medical_E` address with the same content). If there is one, link it instead and write no summary.
+- Otherwise write two or three plain sentences, at most 70 words: what the page is, who it is for, and what a reader must submit or know. Only what the page says. Do not retype a deadline, phone number or email that a data file holds or that may change: say the page gives it. Keep the Japanese name of a form or office in brackets so the reader can find it on the page.
+- `evidence` holds the Japanese phrases from the page that support each fact, for whoever checks the summary. `checked` is the day it was written; `method` is always `machine`, and the box says the summary was written automatically and that the Japanese page is right if they differ.
+- `npm run check` fails when an English page links to a page in Japanese (by its address: `medical_J`, `/ja/`, `/japanese/` and so on) that has no summary, and when a summary is no longer linked from any English page. Links to PDF files need no summary, because their folder does not tell their language.
+
 ## 11. The office and how to reach it
 
 - The office's building, floor and room (`location`) and its map position (`map`) are in `src/data/contacts.json`, entry `intl-office`. The contact cards and the page `about/access` show them from there.

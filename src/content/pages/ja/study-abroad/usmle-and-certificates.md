@@ -6,6 +6,7 @@ order: 85
 summary: USMLEを受ける人の学籍確認と、米国のレジデンシーに応募する卒業生のためのMSPEの手続きです。
 status: to-confirm
 toConfirm:
+  - MSPEのどの部分を申請者が下書きするか。米国医師免許のページは、4の項目のうち臨床実習と選択実習だけを申請者が書くとしています。MSPEの書式（PDF）は、Preclinical Courseworkも申請者が下書きする部分としています。
   - これらの依頼の窓口は学務課大学院係ですが、contacts.jsonに登録がありません。このページで宛先を示せるよう、連絡先として追加してください。それまでは、宛先が載っている公式ページにリンクしています。
   - 機構のメールアドレスを持たない卒業生が、学籍確認を依頼できるか。できる場合の方法。
   - MSPEの申請期限（マッチングの年の5月末日）と、作成に1か月以上かかるという案内が、現在も有効か。
@@ -14,6 +15,7 @@ toConfirm:
 sources:
   - https://www.med.nagoya-u.ac.jp/medical_J/international/application/license/
   - https://www.med.nagoya-u.ac.jp/medical_J/alumni/issue/
+  - https://www.med.nagoya-u.ac.jp/medical_E/alumni/issue/
   - https://www.usmle.org/
 updated: 2026-11-25
 programmes: []

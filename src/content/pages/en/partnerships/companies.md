@@ -26,7 +26,7 @@ This page is for companies, research institutes and other organisations that wan
 
 ## Who handles what
 
-- **Joint research, contracted research, academic consulting, donations and endowed chairs.** The faculty's [corporate page](https://www.med.nagoya-u.ac.jp/medical_J/company/) (in Japanese) explains each form and links the forms and model contracts.
+- **Joint research, contracted research, academic consulting, donations and endowed chairs.** The faculty's [corporate page](https://www.med.nagoya-u.ac.jp/medical_J/company/) (in Japanese) links to a page for each of them. The forms and model contracts for joint research are on the [joint research page](https://www.med.nagoya-u.ac.jp/medical_J/company/iagc/collabo/).
 - **International collaboration with industry.** The university's Academic Research and Industry-Academia-Government Collaboration office has a [page on international industry-academia collaboration](https://www.aip.nagoya-u.ac.jp/sanren/industry-kokusai), in English and Japanese, with its contact for joint research.
 - **Clinical trials.** The Department of Advanced Medicine of Nagoya University Hospital has a [page for trial sponsors](https://www2.nu-camcr.org/client/) (in Japanese).
 - **International education and exchange.** The Office of International Affairs handles the school's partnerships with universities, hospitals and research institutions abroad, delegation visits and international education programmes. Research contracts go through the faculty's corporate page and the contract office described below. Write to it through the [Contact](../about/contact) page if your question concerns these programmes.

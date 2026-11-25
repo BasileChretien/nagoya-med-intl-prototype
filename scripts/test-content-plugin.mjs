@@ -64,5 +64,20 @@ const body = (html) => html.replace(/<aside class="abbrevs".*$/s, '');
   say(marked === 2 && /Abbreviations on this page/.test(html), 'an acronym is explained at its first use and listed at the end', `${marked} marks`);
 }
 
+// Summaries of Japanese-only pages: on English pages, once per page, after the paragraph or inside the list item.
+{
+  const MEDIA = 'https://www.med.nagoya-u.ac.jp/medical_J/others/media/';
+  const { html } = await render(`Apply on the [media page](${MEDIA}).\n\nAgain: [media](${MEDIA}#form).`, 'en/about/contact.md');
+  const boxes = (html.match(/<details class="ja-summary">/g) ?? []).length;
+  say(boxes === 1 && /<\/p>\s*<details class="ja-summary"><summary>What this Japanese page says<\/summary>/.test(html), 'a summary box follows the paragraph of the first link only', `${boxes} boxes`);
+  say(/written automatically \(AI\) from the Japanese page on 25 November 2026/.test(html), 'the summary box says it was written automatically, and when');
+  const list = await render(`- Read the [media page](${MEDIA}).`, 'en/about/contact.md');
+  say(/<li>[\s\S]*<details class="ja-summary">[\s\S]*<\/details>\s*<\/li>/.test(list.html ?? ''), 'in a list, the summary box stays inside the list item');
+  const ja = await render(`[取材](${MEDIA})`, 'ja/about/contact.md');
+  say(!/ja-summary/.test(ja.html ?? ''), 'Japanese pages get no summary box');
+  const other = await render('[elsewhere](https://www.med.nagoya-u.ac.jp/medical_J/zz-none/)', 'en/about/contact.md');
+  say(!/ja-summary/.test(other.html ?? ''), 'a page without a summary gets no box');
+}
+
 process.stdout.write(`${total - failed}/${total} passed\n`);
 process.exit(failed ? 1 : 0);

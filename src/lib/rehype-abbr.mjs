@@ -13,6 +13,10 @@
  *   - the first use of each acronym on a page becomes <abbr title="what it stands for">;
  *   - an "Abbreviations on this page" box at the end lists them, with the institution's website when it has one,
  *     and links to the full list (about/glossary). Common terms (UK, PDF...) get the title but stay out of the box.
+ *
+ * 3. Summaries of Japanese-only pages, from src/data/ja-summaries.json: on an English page, the first link to a page
+ *    that has a summary is followed by a closed "What this Japanese page says" box, after the paragraph (or inside
+ *    the list item) that holds the link. The box says the summary was written automatically, and when.
  * The page language comes from the file path (src/content/pages/<lang>/...).
  *
  * A hast plugin for Sätteri, Astro's Markdown processor:
@@ -22,10 +26,16 @@ import { readFileSync } from 'node:fs';
 import { urlLang } from './url-lang.mjs';
 
 const GLOSSARY_FILE = new URL('../data/glossary.json', import.meta.url);
+const SUMMARIES_FILE = new URL('../data/ja-summaries.json', import.meta.url);
+/** Elements after which (p) or inside which (the others) a summary box can go. */
+const BLOCKS = new Set(['p', 'li', 'td', 'th', 'dd', 'blockquote']);
+const SUMMARY_DATE = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 const SKIP = new Set(['abbr', 'code', 'pre', 'script', 'style']);
 const TEXT = {
   en: { heading: 'Abbreviations on this page', website: 'website', all: 'All abbreviations', unconfirmed: 'to be confirmed',
-    other: 'Japanese', pdf: 'PDF', open: ' (', sep: ', ', close: ')' },
+    other: 'Japanese', pdf: 'PDF', open: ' (', sep: ', ', close: ')',
+    summaryButton: 'What this Japanese page says',
+    summaryNote: (date) => `Summary written automatically (AI) from the Japanese page on ${date}. If the two differ, the Japanese page is right.` },
   ja: { heading: 'このページの略語', website: '公式サイト', all: '略語の一覧', unconfirmed: '確認中',
     other: '英語', pdf: 'PDF', open: '（', sep: '、', close: '）' },
 };
@@ -42,6 +52,12 @@ function loadGlossary() {
   return { terms, pattern: new RegExp(`(?<![A-Za-z0-9])(${alternatives})(?![A-Za-z0-9])`, 'g') };
 }
 
+/** Summaries keyed by address, without the fragment. @returns {Map<string, { en: string, checked: string }>} */
+function loadSummaries() {
+  const entries = JSON.parse(readFileSync(SUMMARIES_FILE, 'utf8'));
+  return new Map(entries.map((e) => [e.url, e]));
+}
+
 const el = (tagName, properties, children) => ({ type: 'element', tagName, properties, children });
 const text = (value) => ({ type: 'text', value });
 
@@ -51,6 +67,8 @@ export default function abbrPlugin(options = {}) {
   // The factory runs once per document, so `seen` is per page.
   return (factory) => {
     const { terms, pattern } = loadGlossary();
+    const summaries = loadSummaries();
+    const summarised = new Set();
     const path = decodeURIComponent(factory.fileURL?.pathname ?? '');
     const lang = /\/pages\/ja\//.test(path) ? 'ja' : 'en';
     // The page's folder within the site ("en/degrees/"), against which its relative links are read.
@@ -81,6 +99,23 @@ export default function abbrPlugin(options = {}) {
             if (pdf && !/PDF/i.test(said)) labels.push(t.pdf);
             if (target && target !== lang) ctx.setProperty(node, 'hrefLang', target);
             if (labels.length) ctx.appendChild(node, text(`${t.open}${labels.join(t.sep)}${t.close}`));
+            const key = href.split('#')[0];
+            const summary = lang === 'en' && !summarised.has(key) ? summaries.get(key) : undefined;
+            if (summary) {
+              let block = ctx.parent(node);
+              while (block && block.type !== 'root' && !(block.type === 'element' && BLOCKS.has(block.tagName))) block = ctx.parent(block);
+              if (block && block.type === 'element') {
+                summarised.add(key);
+                const box = el('details', { className: ['ja-summary'] }, [
+                  el('summary', {}, [text(t.summaryButton)]),
+                  el('p', {}, [text(summary.en)]),
+                  el('p', { className: ['ja-summary-note'] }, [text(t.summaryNote(SUMMARY_DATE.format(new Date(`${summary.checked}T00:00:00`))))]),
+                ]);
+                // A box cannot sit inside a paragraph; in a list item or a cell it stays with its item.
+                if (block.tagName === 'p') ctx.insertAfter(block, box);
+                else ctx.appendChild(block, box);
+              }
+            }
             return;
           }
           if (typeof href !== 'string' || !href || /^([a-z][a-z0-9+.-]*:|\/|#)/i.test(href)) return;

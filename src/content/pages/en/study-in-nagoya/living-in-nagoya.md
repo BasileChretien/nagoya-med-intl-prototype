@@ -29,6 +29,7 @@ sources:
   - https://life.gmc.nagoya-u.ac.jp/en/life-in-japan/health/
   - https://www.nic-nagoya.or.jp/en/living-in-nagoya/nagoya-living-guide/
   - https://jled.lec.nagoya-u.ac.jp/ja/nustep/
+  - https://jled.lec.nagoya-u.ac.jp/en/nustep/about/index.html
 updated: 2026-11-25
 ---
 
@@ -84,7 +85,7 @@ The university runs a Japanese language course for foreign students at Tsurumai 
 - Beginner and intermediate course: every Thursday, 9:00 to 10:30.
 - Intermediate and advanced course: every Monday, 9:00 to 10:30.
 
-Classes take place in seminar room 101, on the first floor of the Building for Medical Research. To apply, contact the International Student Service of the Student Affairs Division. If you do not know how to reach it, ask the Office of International Affairs. The university also runs a [short-term Japanese language programme](https://jled.lec.nagoya-u.ac.jp/ja/nustep/).
+Classes take place in seminar room 101, on the first floor of the Building for Medical Research. To apply, contact the International Student Service of the Student Affairs Division. If you do not know how to reach it, ask the Office of International Affairs. Students at universities that have an academic exchange agreement with Nagoya University can also apply, through their home university, to the university's [short-term Japanese language programme](https://jled.lec.nagoya-u.ac.jp/en/nustep/about/index.html).
 
 ## Guides for daily life
 
@@ -93,7 +94,7 @@ Classes take place in seminar room 101, on the first floor of the Building for M
 - [Family](https://life.gmc.nagoya-u.ac.jp/en/life-in-japan/family/) (Living Guide)
 - [Medical and health care](https://life.gmc.nagoya-u.ac.jp/en/life-in-japan/health/) (Living Guide)
 - [Nagoya Living Guide](https://www.nic-nagoya.or.jp/en/living-in-nagoya/nagoya-living-guide/) (Nagoya International Center)
-- [Short-term Japanese language programme](https://jled.lec.nagoya-u.ac.jp/ja/nustep/) (in Japanese)
+- [Short-term Japanese language programme](https://jled.lec.nagoya-u.ac.jp/en/nustep/about/index.html) (for students of universities with an exchange agreement)
 
 ## Getting to the campus
 
