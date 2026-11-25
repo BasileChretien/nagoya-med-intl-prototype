@@ -1,0 +1,23 @@
+name: Faculty pages drift
+
+# Compares the live faculty pages (directory entry, Units page, International section) with the
+# international site's data every Monday 09:00 JST. Fails when an active rule in src/data/faculty.json
+# is broken; pending rules are listed in the run summary without failing.
+on:
+  schedule:
+    - cron: '0 0 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Compare the faculty pages with the site
+        run: node scripts/check-faculty-live.mjs

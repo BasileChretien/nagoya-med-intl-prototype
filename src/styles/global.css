@@ -51,6 +51,12 @@ p { margin: 0; }
 .proto b { font-weight: 700; }
 .proto a { color: var(--proto-ink); font-weight: 600; }
 
+/* Faculty strip: places the site inside the Graduate School of Medicine */
+.faculty-bar { background: var(--navy-deep); font-size: 0.82rem; }
+.faculty-bar .wrap { display: flex; flex-wrap: wrap; gap: 0.2rem 0.5rem; align-items: center; padding-block: 0.35rem; color: #aab4d8; }
+.faculty-bar a { color: #fff; text-decoration: none; }
+.faculty-bar a:hover { text-decoration: underline; color: #fff; }
+
 /* Header */
 .site-head { background: #fff; border-bottom: 1px solid var(--line); }
 .head-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 0.9rem; }

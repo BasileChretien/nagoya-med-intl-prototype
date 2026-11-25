@@ -1,0 +1,29 @@
+{
+  "site": {
+    "production": "https://www.med.nagoya-u.ac.jp/intlexch/",
+    "prototype": "https://basilechretien.github.io/nagoya-med-intl-prototype/"
+  },
+  "pages": {
+    "home": {
+      "en": "https://www.med.nagoya-u.ac.jp/medical_E/",
+      "ja": "https://www.med.nagoya-u.ac.jp/medical_J/"
+    },
+    "directory": {
+      "en": "https://www.med.nagoya-u.ac.jp/medical_E/laboratory/clinical-med/comprehensive-ambulatory/international-medical-education/",
+      "ja": "https://www.med.nagoya-u.ac.jp/medical_J/laboratory/clinical-med/comprehensive-ambulatory/international-medical-education/"
+    },
+    "units": {
+      "en": "https://www.med.nagoya-u.ac.jp/medical_E/facilities/center/proprietary-units/international-affairs/",
+      "ja": "https://www.med.nagoya-u.ac.jp/medical_J/facilities/center/proprietary-units/international-affairs/"
+    },
+    "international": {
+      "en": "https://www.med.nagoya-u.ac.jp/medical_E/international/",
+      "ja": "https://www.med.nagoya-u.ac.jp/medical_J/international/"
+    }
+  },
+  "liveChecks": {
+    "officeAddress": { "status": "active", "pages": ["directory", "units"] },
+    "linksToSite": { "status": "active", "pages": ["directory", "units"] },
+    "gateway": { "status": "pending", "pages": ["international"] }
+  }
+}

@@ -12,7 +12,7 @@ import { readFeatures, drawFeatures } from './features.mjs';
 
 /** Names of the checks below; feature map entries refer to them in `tests`. */
 const CHECKS = ['pairing', 'programme-references', 'deadlines', 'data-files', 'images', 'internal-links', 'noindex', 'feature-map',
-  'photo-descriptions', 'report-translations'];
+  'photo-descriptions', 'report-translations', 'versions-in-step', 'facts-match', 'translations-current', 'faculty-texts', 'faculty-live'];
 
 // fileURLToPath decodes %20 and non-ASCII characters, so the check runs from any folder.
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
@@ -126,7 +126,7 @@ function webpSize(file) {
 
 // 3. Data files parse, hold lists, and their ids are unique.
 const lists = {};
-for (const name of ['staff', 'contacts', 'partners', 'news', 'stories']) {
+for (const name of ['contacts', 'partners', 'news', 'stories']) {
   const arr = readList(`${name}.json`);
   lists[name] = arr;
   if (!arr) continue;

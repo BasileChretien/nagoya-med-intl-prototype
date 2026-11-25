@@ -58,19 +58,6 @@ const programmes = defineCollection({
   }),
 });
 
-const staff = defineCollection({
-  loader: file('src/data/staff.json'),
-  schema: z.object({
-    name: L,
-    title: L,
-    role: L.optional(),
-    group: z.enum(['head', 'faculty', 'staff']),
-    order: z.number().default(50),
-    sources,
-    toConfirm,
-  }),
-});
-
 const contacts = defineCollection({
   loader: file('src/data/contacts.json'),
   schema: z.object({
@@ -144,6 +131,8 @@ const translations = defineCollection({
   schema: z.object({
     lang: z.enum(['en', 'ja']),
     method: z.literal('machine'),
+    /** Fingerprint of the original this translation was made from (scripts/sync.mjs stamp-report). */
+    sourceFingerprint: z.string().optional(),
     title: z.string().nullable().optional(),
     paragraphs: z.array(z.string()).min(1),
   }),
@@ -153,10 +142,9 @@ const translations = defineCollection({
 const images = defineCollection({
   loader: file('src/data/images.json'),
   schema: z.object({
-    kind: z.enum(['story', 'hero', 'figure', 'portrait']),
+    kind: z.enum(['story', 'hero', 'figure']),
     story: z.string().optional(),
     page: z.string().optional(),
-    staff: z.string().optional(),
     file: z.string(),
     thumb: z.string().optional(),
     thumbWidth: z.number().int().optional(),
@@ -169,4 +157,4 @@ const images = defineCollection({
   }),
 });
 
-export const collections = { pages, programmes, staff, contacts, partners, news, stories, reports, translations, images };
+export const collections = { pages, programmes, contacts, partners, news, stories, reports, translations, images };

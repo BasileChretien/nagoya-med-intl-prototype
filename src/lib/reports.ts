@@ -60,6 +60,3 @@ export async function pageImages(slug: string): Promise<{ hero?: ImageEntry; fig
   return { hero: list.find((i) => i.data.kind === 'hero'), figures: list.filter((i) => i.data.kind === 'figure') };
 }
 
-export async function staffPhoto(staffId: string): Promise<ImageEntry | undefined> {
-  return (await allImages()).find((i) => i.data.kind === 'portrait' && i.data.staff === staffId);
-}

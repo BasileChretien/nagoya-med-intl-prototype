@@ -7,8 +7,8 @@ import Sources from '../../components/Sources.astro';
 import CompareTable from '../../components/CompareTable.astro';
 import ProgrammeCards from '../../components/ProgrammeCards.astro';
 import Photo from '../../components/Photo.astro';
-import { pageImages, staffPhoto } from '../../lib/reports';
-import { asset } from '../../lib/site';
+import { pageImages } from '../../lib/reports';
+import faculty from '../../data/faculty.json';
 import { t, type Lang, type Section } from '../../i18n/ui';
 import { href, pageRef, sectionPages, counterpartExists, programmesIn, type PageEntry, type ProgrammeEntry } from '../../lib/site';
 
@@ -39,17 +39,13 @@ for (const id of d.programmes) {
 }
 const sectionProgrammes = ref.isIndex && section !== 'partnerships' && section !== 'about' ? await programmesIn(section) : [];
 
-const staff = ref.slug === 'about/team' ? (await getCollection('staff')).sort((a, b) => a.data.order - b.data.order) : [];
-const groups = ['head', 'faculty', 'staff'] as const;
 const partners = ref.slug === 'partnerships/agreements' || ref.slug === 'partnerships/game'
   ? (await getCollection('partners')).sort((a, b) => a.data.region.localeCompare(b.data.region) || a.data.name[lang].localeCompare(b.data.name[lang], lang))
   : [];
 const gameMembers = partners.filter((p) => p.data.links.includes('GAME'));
 const regions = [...new Set(partners.map((p) => p.data.region))];
 const contacts = ref.slug === 'about/contact' ? await getCollection('contacts') : [];
-const initials = (name: string) => name.split(/[\s・]+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
 const { hero, figures } = await pageImages(ref.slug);
-const portraits = new Map(await Promise.all(staff.map(async (s) => [s.id, await staffPhoto(s.id)] as const)));
 ---
 <Base lang={lang} title={d.title} description={d.description} slug={ref.slug} hasCounterpart={hasCounterpart} section={section}>
   <div class="wrap">
@@ -110,24 +106,20 @@ const portraits = new Map(await Promise.all(staff.map(async (s) => [s.id, await 
           </section>
         )}
 
-        {staff.length > 0 && groups.map((g) => {
-          const members = staff.filter((s) => s.data.group === g);
-          return members.length > 0 && (
-            <section style="display:grid;gap:0.9rem">
-              <h2>{ui.team[g]}</h2>
-              <div class="people">
-                {members.map((s) => (
-                  <div class="person">
-                    {portraits.get(s.id)
-                      ? <img class="avatar-img" src={asset(portraits.get(s.id)!.data.file)} alt={portraits.get(s.id)!.data.alt[lang]} width="96" height="96" loading="lazy" />
-                      : <span class="avatar" aria-hidden="true">{initials(s.data.name.en)}</span>}
-                    <div><b>{s.data.name[lang]}</b><span>{s.data.title[lang]}</span>{s.data.role && <span>{s.data.role[lang]}</span>}</div>
-                  </div>
-                ))}
-              </div>
-            </section>
-          );
-        })}
+        {ref.slug === 'about' && (
+          <section class="grid cols-2" aria-label={ui.facultyTitle}>
+            <a class="card" href={faculty.pages.directory[lang]} rel="noopener">
+              <span class="kicker">{ui.facultyTitle}</span>
+              <h3>{ui.facultyDirectory}</h3>
+              <p>{ui.facultyDirectoryText}</p>
+            </a>
+            <a class="card" href={faculty.pages.units[lang]} rel="noopener">
+              <span class="kicker">{ui.facultyTitle}</span>
+              <h3>{ui.facultyUnits}</h3>
+              <p>{ui.facultyUnitsText}</p>
+            </a>
+          </section>
+        )}
 
         {ref.slug === 'partnerships/game' && gameMembers.length > 0 && (
           <section style="display:grid;gap:0.9rem">

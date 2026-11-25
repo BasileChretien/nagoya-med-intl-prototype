@@ -1,0 +1,142 @@
+#!/usr/bin/env node
+/**
+ * Tests for the staleness checks: no language version, translation or faculty text may fall behind another.
+ * Each case changes the tree, runs scripts/check-staleness.mjs, compares the outcome and restores the tree.
+ * The faculty comparison is tested on saved copies of the faculty pages (tests/fixtures/faculty/).
+ * Run: node scripts/test-staleness.mjs
+ */
+import { spawnSync } from 'node:child_process';
+import { readFileSync, writeFileSync, rmSync, existsSync, mkdirSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { analyseFacultyPage, evaluateFaculty, loadFacultyConfig } from './faculty-live-lib.mjs';
+
+const ROOT = fileURLToPath(new URL('..', import.meta.url));
+const node = (script, args = []) => spawnSync(process.execPath, [join(ROOT, 'scripts', script), ...args], { cwd: ROOT, encoding: 'utf8' });
+const check = () => node('check-staleness.mjs');
+const read = (p) => readFileSync(join(ROOT, p), 'utf8');
+const SYNC = 'content-sync.json';
+
+let failed = 0;
+const say = (ok, name, why = '') => { process.stdout.write(`${ok ? 'ok  ' : 'FAIL'} ${name}${why && !ok ? ` (${why})` : ''}\n`); if (!ok) failed += 1; };
+
+/** Run fn with files temporarily changed; every touched file (and the sync registry) is restored afterwards. */
+function withChanges(changes, fn) {
+  const saved = new Map();
+  const keep = (p) => { if (!saved.has(p)) saved.set(p, existsSync(join(ROOT, p)) ? read(p) : null); };
+  keep(SYNC);
+  try {
+    for (const [p, change] of changes) {
+      keep(p);
+      const abs = join(ROOT, p);
+      mkdirSync(dirname(abs), { recursive: true });
+      writeFileSync(abs, typeof change === 'function' ? change(read(p)) : change);
+    }
+    return fn();
+  } finally {
+    for (const [p, content] of saved) {
+      const abs = join(ROOT, p);
+      if (content === null) rmSync(abs, { force: true }); else writeFileSync(abs, content);
+    }
+  }
+}
+
+const expectFail = (name, changes, message, before) => withChanges(changes, () => {
+  if (before) before();
+  const r = check();
+  say(r.status === 1 && message.test(r.stderr), name, r.status !== 1 ? `exit ${r.status}` : `missing ${message}: ${r.stderr.slice(0, 300)}`);
+});
+const expectPass = (name, changes, before) => withChanges(changes, () => {
+  if (before) before();
+  const r = check();
+  say(r.status === 0, name, r.stderr.slice(0, 300));
+});
+
+const EN = 'src/content/pages/en/study-in-nagoya/faq.md';
+const JA = 'src/content/pages/ja/study-in-nagoya/faq.md';
+const append = (text) => (old) => `${old.trimEnd()}\n\n${text}\n`;
+
+// Baseline
+{
+  const r = check();
+  if (r.status !== 0) { process.stderr.write(`FAIL baseline: the staleness check must pass on the clean tree\n${r.stderr}\n`); process.exit(1); }
+  say(true, 'baseline: everything is in step');
+}
+
+// Pages: one language changed, both changed, dates only, new pair never confirmed, confirming fixes it
+expectFail('an English page changed alone makes its Japanese page stale', [[EN, append('An extra sentence.')]],
+  /ja\/study-in-nagoya\/faq is stale: en\/study-in-nagoya\/faq changed/);
+expectFail('a Japanese page changed alone makes its English page stale', [[JA, append('追加の文です。')]],
+  /en\/study-in-nagoya\/faq is stale: ja\/study-in-nagoya\/faq changed/);
+expectFail('both pages changed must be confirmed again', [[EN, append('An extra sentence.')], [JA, append('追加の文です。')]],
+  /en\/study-in-nagoya\/faq and ja\/study-in-nagoya\/faq both changed/);
+expectPass('changing only the "updated" date does not count as a change',
+  [[EN, (o) => o.replace(/^updated: .*$/m, 'updated: 2030-01-01')], [JA, (o) => o.replace(/^updated: .*$/m, 'updated: 2030-01-01')]]);
+expectFail('a new page pair must be confirmed once both languages exist', [
+  ['src/content/pages/en/about/zz-test.md', '---\ntitle: Test\ndescription: Test page\nsection: about\n---\nText.\n'],
+  ['src/content/pages/ja/about/zz-test.md', '---\ntitle: テスト\ndescription: テストのページです\nsection: about\n---\n本文です。\n'],
+], /about\/zz-test has never been confirmed in both languages/);
+expectPass('confirming a pair after updating both makes it pass', [[EN, append('An extra sentence.')], [JA, append('追加の文です。')]],
+  () => { const r = node('sync.mjs', ['confirm', 'study-in-nagoya/faq']); if (r.status !== 0) throw new Error(r.stderr); });
+
+// Data: bilingual fields
+const PROG = 'src/data/programmes/clinical-clerkship.json';
+const setField = (lang, value) => (old) => { const d = JSON.parse(old); d.duration[lang] = value; return JSON.stringify(d, null, 2); };
+expectFail('a fact changed in English only makes the Japanese stale', [[PROG, setField('en', '2 to 8 weeks')]],
+  /programmes\/clinical-clerkship\.json#duration: ja is stale/);
+expectFail('a fact changed in Japanese only makes the English stale', [[PROG, setField('ja', '2〜8週間')]],
+  /programmes\/clinical-clerkship\.json#duration: en is stale/);
+expectFail('facts confirmed in both languages must still give the same numbers',
+  [[PROG, (o) => { const d = JSON.parse(o); d.duration = { en: '2 to 8 weeks', ja: '3〜8週間' }; return JSON.stringify(d, null, 2); }]],
+  /programmes\/clinical-clerkship\.json#duration: numbers differ/,
+  () => { const r = node('sync.mjs', ['confirm', 'programmes/clinical-clerkship.json#duration']); if (r.status !== 0) throw new Error(r.stderr); });
+expectPass('the same numbers written differently match (万, million, ordinals, kanji numerals)',
+  [[PROG, (o) => { const d = JSON.parse(o); d.funding = { en: 'Up to JPY 1.5 million for the first three students, 80,000 yen a month', ja: '最初の三人に最大150万円、月額8万円' }; return JSON.stringify(d, null, 2); }]],
+  () => { const r = node('sync.mjs', ['confirm', 'programmes/clinical-clerkship.json#funding']); if (r.status !== 0) throw new Error(r.stderr); });
+expectFail('a photo description changed in one language only is stale', [['src/data/images.json', (o) => o.replace(/"en": "([^"]+)"/, '"en": "$1 Changed."')]],
+  /images\.json#[^:]+\/alt: ja is stale/);
+
+// Reports: the translation records which version of the original it was made from
+{
+  const id = JSON.parse(read('src/data/stories.json'))[0].id;
+  expectFail('changing an original report makes its translation stale',
+    [[`src/data/reports/original/${id}.json`, (o) => { const d = JSON.parse(o); d.paragraphs[0] += ' (edited)'; return JSON.stringify(d, null, 1); }]],
+    new RegExp(`report ${id}: the translation is stale`));
+}
+
+// Faculty texts are generated from the site's data
+expectFail('a faculty text edited by hand is reported as out of date', [['faculty/units-page.en.md', append('Hand edit.')]],
+  /faculty\/units-page\.en\.md is out of date/);
+expectFail('a programme renamed in the data makes the faculty texts out of date',
+  [[PROG, (o) => { const d = JSON.parse(o); d.name.en += ' (renamed)'; d.name.ja += '（改称）'; return JSON.stringify(d, null, 2); }]],
+  /faculty\/international-section\.en\.md is out of date/,
+  () => { const r = node('sync.mjs', ['confirm', 'programmes/clinical-clerkship.json#name']); if (r.status !== 0) throw new Error(r.stderr); });
+
+// The registry may not keep entries for content that no longer exists
+expectFail('a confirmation left for a removed page is reported', [[SYNC, (o) => { const d = JSON.parse(o); d.pages['about/zz-gone'] = { en: 'x', ja: 'y' }; return JSON.stringify(d, null, 1); }]],
+  /content-sync\.json lists about\/zz-gone, which no longer exists/);
+
+// Faculty layer, on saved copies of the live pages
+{
+  const cfg = loadFacultyConfig(ROOT);
+  const fx = (name) => readFileSync(join(ROOT, 'tests', 'fixtures', 'faculty', `${name}.html`), 'utf8');
+  const pages = ['directory-en', 'directory-ja', 'units-en', 'units-ja', 'international-en', 'international-ja'];
+  const run = (overrides = {}) => evaluateFaculty(pages.map((p) => {
+    const [kind, lang] = p.split('-');
+    return analyseFacultyPage(overrides[p] ?? fx(p), { kind, lang }, cfg);
+  }), cfg);
+
+  const live = run();
+  say(live.failures.some((f) => /units \(ja\).*office address/.test(f)), 'the Japanese Units page without the office address is reported', JSON.stringify(live.failures));
+  say(!live.failures.some((f) => /directory/.test(f)), 'the directory entries give the office address and link to the site', JSON.stringify(live.failures));
+  say(live.pending.some((p) => /international \((en|ja)\).*not yet/.test(p)) && !live.failures.some((f) => /^international/.test(f)),
+    'the International section not linking to the site yet is pending, not a failure', JSON.stringify(live.pending));
+  const noLink = run({ 'directory-en': fx('directory-en').replaceAll('/intlexch/', '/somewhere-else/') });
+  say(noLink.failures.some((f) => /directory \(en\).*does not link to the international site/.test(f)), 'a directory entry that stops linking to the site is reported');
+  const wrongMail = run({ 'directory-ja': fx('directory-ja').replaceAll('med-intl◎t.mail.nagoya-u.ac.jp', 'old-office◎med.nagoya-u.ac.jp') });
+  say(wrongMail.failures.some((f) => /directory \(ja\).*office address/.test(f)), 'a directory entry with another contact address is reported');
+}
+
+const total = 21;
+process.stdout.write(`${total - failed}/${total} passed\n`);
+process.exit(failed ? 1 : 0);
