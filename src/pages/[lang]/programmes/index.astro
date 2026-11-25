@@ -16,12 +16,16 @@ const sections: Section[] = ['study-in-nagoya', 'study-abroad', 'degrees'];
 <Base lang={lang} title={ui.programmesTitle} description={ui.programmesLede} slug="programmes">
   <div class="wrap" style="padding-bottom:4rem;display:grid;gap:2.5rem">
     <div>
-      <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href={href(lang)}>{ui.home}</a></li><li aria-current="page">{ui.programmesTitle}</li></ol></nav>
+      <nav class="crumbs" data-pagefind-ignore aria-label="Breadcrumb"><ol><li><a href={href(lang)}>{ui.home}</a></li><li aria-current="page">{ui.programmesTitle}</li></ol></nav>
       <header class="page-head" style="margin-bottom:0"><h1>{ui.programmesTitle}</h1><p class="lede">{ui.programmesLede}</p></header>
     </div>
     <section style="display:grid;gap:1rem">
       <h2>{ui.keyDates}</h2>
       <DeadlineList lang={lang} programmes={all} />
+      <p class="subscribe" style="margin:0">
+        <a href={`${href(lang)}calendar.ics`} type="text/calendar">{ui.calendarFeed}</a>
+        <span>{ui.calendarHelp}</span>
+      </p>
     </section>
     {sections.map((s) => {
       const list = all.filter((p) => p.data.section === s);

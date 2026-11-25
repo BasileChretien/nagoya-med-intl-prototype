@@ -28,6 +28,29 @@ features:
     status: works
     delivered_by: [src/pages/[lang]/programmes/index.astro, src/components/CompareTable.astro]
     tests: [programme-references]
+  - id: dated-facts
+    says: Each programme box and each page says when its facts were last checked against the official pages, and how many details the office is still confirming, with a link to them.
+    stage: Decide
+    status: works
+    delivered_by: [src/components/FactBox.astro, src/pages/[lang]/[...slug].astro, src/pages/[lang]/status/index.astro]
+    tests: [dated-facts]
+    docs: CONTENT_GUIDE.md
+    limits: The date says when the facts were compared with their sources, not when the office confirmed them; all are 25 November 2026 until someone checks again.
+  - id: site-search
+    says: Visitors can search every page, programme, story and news item in their language, from a search link in the header.
+    stage: Find
+    status: works
+    delivered_by: [src/pages/[lang]/search/index.astro, src/components/Header.astro, src/layouts/Base.astro]
+    tests: [search-index]
+    limits: Search needs JavaScript; without it the page points to the menu, the programme list and the stories. Each language searches its own pages.
+  - id: calendar-and-feed
+    says: Visitors can subscribe to a calendar of coming deadlines and events and to a news feed, and add a programme's deadline to their calendar from its box.
+    stage: Decide
+    status: works
+    delivered_by: [src/lib/calendar.ts, src/pages/[lang]/calendar.ics.ts, src/pages/[lang]/deadlines/[id].ics.ts, src/pages/[lang]/news/rss.xml.ts]
+    tests: [feeds]
+    docs: CONTENT_GUIDE.md
+    limits: The calendar is empty until the office records dated deadlines or coming events; no programme has a dated deadline today.
   - id: key-dates
     says: The home page lists deadlines, and never shows a passed deadline as open.
     stage: Decide

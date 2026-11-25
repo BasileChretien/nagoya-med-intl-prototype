@@ -55,6 +55,8 @@ const programmes = defineCollection({
     partners: z.array(z.string()).default([]),
     contact: z.string(),
     page: z.string(),
+    /** The date the facts were last compared with their sources, shown in the fact box. */
+    checked: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
     sources,
     toConfirm,
   }),

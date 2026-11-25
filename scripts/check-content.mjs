@@ -16,7 +16,7 @@ import { urlLang } from '../src/lib/url-lang.mjs';
 /** Names of the checks below; feature map entries refer to them in `tests`. */
 const CHECKS = ['pairing', 'programme-references', 'deadlines', 'data-files', 'images', 'internal-links', 'noindex', 'feature-map',
   'photo-descriptions', 'report-translations', 'versions-in-step', 'facts-match', 'translations-current', 'faculty-texts', 'faculty-live', 'acronyms', 'content-plugin',
-  'structured-data', 'sitemap', 'weekly-check', 'ja-summaries'];
+  'structured-data', 'sitemap', 'weekly-check', 'ja-summaries', 'dated-facts', 'search-index', 'feeds'];
 
 // fileURLToPath decodes %20 and non-ASCII characters, so the check runs from any folder.
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
@@ -27,6 +27,15 @@ const DIST = join(ROOT, 'dist');
 const BASE = '/nagoya-med-intl-prototype';
 const MAX_IMAGE_KB = 300;
 const today = new Date().toISOString().slice(0, 10);
+// Dates written by the office are Japan dates: a fact checked this morning in Nagoya is not "in the future".
+const todayJapan = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Tokyo' }).format(new Date());
+const yearAgo = new Date(Date.now() - 365 * 864e5).toISOString().slice(0, 10);
+/** A real calendar date written YYYY-MM-DD (not 2026-02-30). @param {unknown} s */
+const isDate = (s) => {
+  if (typeof s !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(s)) return false;
+  const time = Date.parse(`${s}T00:00:00Z`);
+  return !Number.isNaN(time) && new Date(time).toISOString().slice(0, 10) === s;
+};
 
 const errors = [];
 const warnings = [];
@@ -88,6 +97,18 @@ for (const f of walk(join(DATA, 'programmes')).filter((x) => x.endsWith('.json')
   const d = p.deadline;
   if (d?.status === 'open' && d.date && d.date < today) fail(`programmes/${id}.json: deadline ${d.date} has passed but status is "open"`);
   if (d?.date && d.date < today && d.status !== 'closed' && d.status !== 'tba') warn(`programmes/${id}.json: deadline ${d.date} has passed`);
+  // The fact box shows when the facts were last compared with their sources.
+  if (!isDate(p.checked) || p.checked > todayJapan) fail(`programmes/${id}.json: "checked" must be the date the facts were last compared with their sources (YYYY-MM-DD, not in the future)`);
+  else if (p.checked < yearAgo) warn(`programmes/${id}.json: facts last checked on ${p.checked}, more than a year ago: compare them with the sources again`);
+}
+// Pages show the date their content was taken from the sources (`updated`).
+for (const lang of ['en', 'ja']) {
+  for (const p of md(lang)) {
+    const updated = frontMatter(join(PAGES, lang, p)).updated;
+    if (!updated) fail(`${lang}/${p}: no "updated" date`);
+    else if (!isDate(updated) || updated > todayJapan) fail(`${lang}/${p}: "updated" must be a date (YYYY-MM-DD, not in the future)`);
+    else if (updated < yearAgo) warn(`${lang}/${p}: content last checked on ${updated}, more than a year ago: compare it with the sources again`);
+  }
 }
 
 /** Parse a JSON file; report a failure instead of crashing. @param {string} file @returns {any} */
@@ -343,6 +364,19 @@ if (process.argv.includes('--dist')) {
     const sm = readFileSync(sitemapFile, 'utf8');
     for (const lang of ['en', 'ja']) if (!sm.includes(`${BASE}/${lang}/</loc>`)) fail(`the sitemap does not list the ${lang} home page`);
     if (/\/status\/<\/loc>/.test(sm)) fail('the sitemap lists the office checklist (status) page');
+  }
+  // The search index covers both languages; the news feed and the calendar exist in both.
+  const entry = join(DIST, 'pagefind', 'pagefind-entry.json');
+  if (!existsSync(entry)) fail('the search index was not built: run `npm run build` (astro build, then pagefind)');
+  else {
+    const languages = Object.keys(JSON.parse(readFileSync(entry, 'utf8')).languages ?? {});
+    for (const lang of ['en', 'ja']) if (!languages.includes(lang)) fail(`the search index has no ${lang} pages`);
+  }
+  for (const lang of ['en', 'ja']) {
+    const feed = join(DIST, lang, 'news', 'rss.xml');
+    if (!existsSync(feed) || !/<rss version="2\.0">[\s\S]*<item>/.test(readFileSync(feed, 'utf8'))) fail(`${lang}/news/rss.xml is missing or has no items`);
+    const cal = join(DIST, lang, 'calendar.ics');
+    if (!existsSync(cal) || !/^BEGIN:VCALENDAR\r\n[\s\S]*END:VCALENDAR\r\n$/.test(readFileSync(cal, 'utf8'))) fail(`${lang}/calendar.ics is missing or not a calendar`);
   }
   const robots = join(DIST, 'robots.txt');
   if (!existsSync(robots)) fail('robots.txt was not built');

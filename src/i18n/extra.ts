@@ -43,6 +43,10 @@ const extra = {
     institutions: 'institutions',
     stillChecking: 'Some details on this page are still being confirmed by the office.',
     seeChecklist: 'See what still needs checking',
+    checkedOn: 'Checked against the official pages on {date}.',
+    confirmOne: '1 detail is still being confirmed by the office',
+    confirmMany: '{n} details are still being confirmed by the office',
+    pageConfirm: 'Some details are still being confirmed',
   },
   ja: {
     officeBox: '国際連携室',
@@ -82,6 +86,10 @@ const extra = {
     institutions: '大学・機関',
     stillChecking: 'このページには、国際連携室が確認中の情報があります。',
     seeChecklist: '確認中の項目を見る',
+    checkedOn: '{date}に公式ページと照合しました。',
+    confirmOne: '国際連携室が確認中の項目が1件あります',
+    confirmMany: '国際連携室が確認中の項目が{n}件あります',
+    pageConfirm: '確認中の項目があります',
   },
 };
 

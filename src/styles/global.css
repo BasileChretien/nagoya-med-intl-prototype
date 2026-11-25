@@ -65,9 +65,9 @@ p { margin: 0; }
 .brand-text { display: grid; line-height: 1.2; }
 .brand-org { font-size: 0.78rem; color: var(--muted); }
 .brand-site { font-family: var(--f-serif); font-size: 1.45rem; color: var(--navy-ink); font-weight: 600; }
-.lang-switch { display: inline-flex; align-items: center; gap: 0.4rem; border: 1px solid var(--line-2); border-radius: 999px; padding: 0.3rem 0.9rem; font-size: 0.9rem; text-decoration: none; color: var(--navy); white-space: nowrap; }
-.lang-switch:hover { background: var(--bg-soft); }
-.lang-switch svg { width: 1rem; height: 1rem; }
+.lang-switch, .search-link { display: inline-flex; align-items: center; gap: 0.4rem; border: 1px solid var(--line-2); border-radius: 999px; padding: 0.3rem 0.9rem; font-size: 0.9rem; text-decoration: none; color: var(--navy); white-space: nowrap; }
+.lang-switch:hover, .search-link:hover { background: var(--bg-soft); }
+.lang-switch svg, .search-link svg { width: 1rem; height: 1rem; }
 .nav { background: var(--navy); }
 .nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; }
 .nav a { display: block; color: #fff; text-decoration: none; padding: 0.8rem 1.05rem; font-size: 0.98rem; font-weight: 500; border-bottom: 3px solid transparent; }
@@ -93,7 +93,9 @@ p { margin: 0; }
 @media (max-width: 560px) {
   .brand-org { display: none; }
   .brand-mark { width: 36px; height: 36px; }
-  .lang-switch { padding: 0.3rem 0.6rem; }
+  .lang-switch, .search-link { padding: 0.3rem 0.6rem; }
+  /* On a phone the magnifier stays; its word is read by screen readers only. */
+  .search-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .head-actions { gap: 0.4rem; }
 }
 
@@ -177,6 +179,12 @@ a.card:hover { border-color: var(--navy); box-shadow: 0 6px 20px rgba(28, 37, 96
 .crumbs a { color: var(--muted); }
 .page-head { padding-block: 1.2rem 1.8rem; display: grid; gap: 0.7rem; border-bottom: 1px solid var(--line); margin-bottom: 2rem; }
 .page-head .lede { font-size: 1.15rem; color: var(--ink-2); max-width: 40em; }
+/* When the content was last compared with its sources, and whether the office is still confirming some of it. */
+.page-meta, .facts-meta { margin: 0; font-size: 0.9rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 0.2rem 0.8rem; }
+.facts-meta { border-top: 1px solid var(--line); padding-top: 0.6rem; font-size: 0.86rem; }
+/* Feeds to subscribe to (news page, programmes page). */
+.subscribe { display: flex; flex-wrap: wrap; gap: 0.3rem 1.2rem; align-items: baseline; margin: -0.8rem 0 1.8rem; font-size: 0.92rem; }
+.subscribe span { color: var(--muted); flex-basis: 100%; }
 .layout { display: grid; gap: 2.5rem; padding-bottom: 4rem; }
 @media (min-width: 960px) { .layout { grid-template-columns: 230px minmax(0, 1fr); } }
 .side-nav { font-size: 0.93rem; align-self: start; }
@@ -287,4 +295,4 @@ a.card:hover { border-color: var(--navy); box-shadow: 0 6px 20px rgba(28, 37, 96
 .foot-note { border-top: 1px solid rgba(255, 255, 255, 0.15); margin-top: 2rem; padding-top: 1rem; font-size: 0.84rem; color: #aab4d8; }
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
-@media print { .proto, .nav, .menu-toggle, .side-nav, .site-foot, .lang-switch { display: none !important; } }
+@media print { .proto, .nav, .menu-toggle, .side-nav, .site-foot, .lang-switch, .search-link { display: none !important; } }

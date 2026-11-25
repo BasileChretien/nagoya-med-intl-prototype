@@ -22,6 +22,10 @@ This site is a prototype. It sets no cookies and uses no analytics or tracking t
 
 The site is hosted on GitHub Pages. GitHub records the IP address of every visit and keeps it for security, whether or not the visitor has a GitHub account. The [GitHub Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement) explains how GitHub handles that data.
 
+## Search on this site
+
+The search works in your browser, with an index stored on this site. It uses no search service from another company.
+
 ## When you write to the office
 
 The email addresses on this site open your own email program. What you send goes to the office's university email address.

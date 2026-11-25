@@ -44,7 +44,7 @@ const labels = {
 ---
 <Base lang={lang} title={ui.stories} description={ui.storiesLede} slug="stories">
   <div class="wrap">
-    <nav class="crumbs" aria-label={ui.breadcrumb}><ol><li><a href={href(lang)}>{ui.home}</a></li><li aria-current="page">{ui.stories}</li></ol></nav>
+    <nav class="crumbs" data-pagefind-ignore aria-label={ui.breadcrumb}><ol><li><a href={href(lang)}>{ui.home}</a></li><li aria-current="page">{ui.stories}</li></ol></nav>
     <header class="page-head"><h1>{ui.stories}</h1><p class="lede">{ui.storiesLede}</p></header>
     <form class="filters" id="story-filters" role="search" onsubmit="return false">
       <label for="f-type">{ui.filterType}

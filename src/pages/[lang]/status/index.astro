@@ -17,20 +17,21 @@ const news = await getCollection('news');
 
 const verified = pages.filter((p) => p.data.status === 'verified').length;
 const drafts = pages.filter((p) => p.data.status === 'draft-translation').length;
-interface Item { where: string; link?: string; items: string[] }
+/** `anchor` lets a fact box or a page link straight to its own card. */
+interface Item { where: string; link?: string; anchor: string; items: string[] }
 const lists: Item[] = [
-  ...pages.filter((p) => p.data.toConfirm.length).map((p) => ({ where: p.data.title, link: href(lang, pageRef(p).slug), items: p.data.toConfirm })),
-  ...programmes.filter((p) => p.data.toConfirm.length).map((p) => ({ where: p.data.name[lang], link: href(lang, p.data.page), items: p.data.toConfirm })),
-  ...contacts.filter((c) => c.data.toConfirm.length).map((c) => ({ where: c.data.label[lang], link: href(lang, 'about/contact'), items: c.data.toConfirm })),
-  ...partners.filter((c) => c.data.toConfirm.length).map((c) => ({ where: c.data.name[lang], link: href(lang, 'partnerships/agreements'), items: c.data.toConfirm })),
-  ...news.filter((n) => n.data.toConfirm.length).map((n) => ({ where: n.data.title[lang], link: href(lang, `news/${n.id}`), items: n.data.toConfirm })),
+  ...pages.filter((p) => p.data.toConfirm.length).map((p) => ({ where: p.data.title, link: href(lang, pageRef(p).slug), anchor: `page-${pageRef(p).slug.replace(/\//g, '--')}`, items: p.data.toConfirm })),
+  ...programmes.filter((p) => p.data.toConfirm.length).map((p) => ({ where: p.data.name[lang], link: href(lang, p.data.page), anchor: `programme-${p.id}`, items: p.data.toConfirm })),
+  ...contacts.filter((c) => c.data.toConfirm.length).map((c) => ({ where: c.data.label[lang], link: href(lang, 'about/contact'), anchor: `contact-${c.id}`, items: c.data.toConfirm })),
+  ...partners.filter((c) => c.data.toConfirm.length).map((c) => ({ where: c.data.name[lang], link: href(lang, 'partnerships/agreements'), anchor: `partner-${c.id}`, items: c.data.toConfirm })),
+  ...news.filter((n) => n.data.toConfirm.length).map((n) => ({ where: n.data.title[lang], link: href(lang, `news/${n.id}`), anchor: `news-${n.id}`, items: n.data.toConfirm })),
 ];
 const totalConfirm = lists.reduce((n, l) => n + l.items.length, 0);
 ---
-<Base lang={lang} title={ui.statusTitle} description={ui.statusLede} slug="status">
+<Base lang={lang} title={ui.statusTitle} description={ui.statusLede} slug="status" searchable={false}>
   <div class="wrap" style="padding-bottom:4rem;display:grid;gap:2.2rem">
     <div>
-      <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href={href(lang)}>{ui.home}</a></li><li aria-current="page">{ui.statusTitle}</li></ol></nav>
+      <nav class="crumbs" data-pagefind-ignore aria-label="Breadcrumb"><ol><li><a href={href(lang)}>{ui.home}</a></li><li aria-current="page">{ui.statusTitle}</li></ol></nav>
       <header class="page-head" style="margin-bottom:0"><h1>{ui.statusTitle}</h1><p class="lede">{ui.statusLede}</p></header>
     </div>
     <div class="numbers">
@@ -47,7 +48,7 @@ const totalConfirm = lists.reduce((n, l) => n + l.items.length, 0);
       <h2>{ui.toConfirmTitle}</h2>
       <div class="grid cols-2">
         {lists.map((l) => (
-          <div class="card">
+          <div class="card" id={l.anchor}>
             <h3>{l.link ? <a href={l.link}>{l.where}</a> : l.where}</h3>
             <ul style="margin:0;padding-left:1.1em;color:var(--ink-2);font-size:0.94rem">{l.items.map((i) => <li>{i}</li>)}</ul>
           </div>
