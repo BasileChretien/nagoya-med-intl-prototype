@@ -34,7 +34,9 @@ After the first phase, the universities met in Tokyo in 2018, agreed to continue
 - mobility of faculty and administrative staff, with financial support;
 - student exchange between member universities.
 
-The old pages show no activity after 2022, and this page does not claim any.
+## Current status
+
+The old pages give MIRAI 2.0 the period 2020 to 2022. The latest event they list is the Digital Research and Innovation Week of June 2021. They show no event, call or seed funding after 2022, and announce no next event. Ask the office whether MIRAI continues and how to take part.
 
 ## Members in MIRAI 2.0
 
@@ -56,4 +58,4 @@ Short courses for PhD students were also held in 2018 and 2019 in Sweden and Jap
 
 ## Contact
 
-Questions about MIRAI at Nagoya go to the Office of International Affairs.
+Questions about MIRAI at Nagoya go to the Office of International Affairs, through the [Contact](../about/contact) page.

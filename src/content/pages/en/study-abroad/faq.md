@@ -5,11 +5,13 @@ section: study-abroad
 order: 80
 summary: Short answers on starting, cost, English, long stays and scholarships.
 status: draft-translation
-toConfirm: []
+toConfirm:
+  - A typical cost range (flights, housing, living costs, fees) for each program or region, from past participants, and the net cost after the Shibahara Fund or JASSO support.
 sources:
   - https://www.med.nagoya-u.ac.jp/intlexch/japanese/faq.html
   - https://www.med.nagoya-u.ac.jp/intlexch/japanese/education/abroad.html
   - https://www.med.nagoya-u.ac.jp/intlexch/japanese/education/abroad/program1.html
+  - https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/meetings.html
 updated: 2026-11-25
 programmes: []
 ---
@@ -20,7 +22,7 @@ Contact the study-abroad adviser at the Office of International Affairs. The per
 
 ## How much money do I need?
 
-It depends a lot on the program and the country. For clinical clerkships abroad, tuition is normally waived under the agreements. Once you know which program you want, ask the office for an estimate.
+It depends a lot on the program and the country. For clinical clerkships abroad, tuition is normally waived under the agreements, and housing depends on the host university. Some programs give a fixed fee, such as the medical English courses in Leicester and Hawaii. See [medical English classes and training](medical-english). The Shibahara Fund and other scholarships can help with the cost. See [scholarships](scholarships). Once you know which program you want, ask the office for an estimate.
 
 ## What programs are there?
 
@@ -33,6 +35,8 @@ Most students who enter already have a solid grounding in basic English. They ha
 ## Which English test do you recommend?
 
 TOEFL and IELTS are widely accepted by universities around the world. If you plan to go to the UK, IELTS is especially recommended.
+
+Requirements differ by program. The Leicester medical English course asks Nagoya students for no score. The Hawaii course, the Cambridge exchange and the short clerkship in the UK name a test or a level, given in each program's box. For the clinical clerkship abroad, the test and the minimum score are set in each year's call. See [clinical electives abroad](clinical-electives).
 
 ## Can I stay abroad for a long time?
 
@@ -49,6 +53,14 @@ Scholarships have financial and academic criteria, and only those who meet them 
 ## Can I receive more than one scholarship?
 
 Often you cannot, and it differs by scholarship. Your financial situation can also reduce the amount or make you ineligible. Ask the office for details.
+
+## Do I need insurance? What happens in an emergency?
+
+Before you leave, the office holds a crisis-management seminar that covers risks abroad and insurance during your stay. Ask the office which insurance your program requires. In an emergency abroad, contact the office. See [safety, insurance and emergencies](safety).
+
+## I am a parent. Where can I find the essentials?
+
+The [safety, insurance and emergencies](safety) page has a summary for parents, with links to programs, costs, scholarships and the contact page.
 
 ## Whom should I ask?
 

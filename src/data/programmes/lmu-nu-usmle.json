@@ -29,5 +29,12 @@
     "Current academic-year schedule, and whether the class still runs every other week with students of LMU and Gifu University."
   ],
   "section": "study-abroad",
-  "contact": "intl-office"
+  "contact": "intl-office",
+  "deadline": {
+    "status": "tba",
+    "text": {
+      "en": "The schedule is announced to Nagoya students on NUCT. Ask the office if you cannot see it.",
+      "ja": "日程は、学内の学生にNUCTで連絡されます。見られない場合は国際連携室に問い合わせてください"
+    }
+  }
 }

@@ -14,7 +14,7 @@ sources:
   - https://www.med.nagoya-u.ac.jp/jdp/en/fee/
   - https://www.med.nagoya-u.ac.jp/medical_J/international/graduate/jdp/outline/
 updated: 2026-11-25
-programmes: [jdp-adelaide, jdp-lund, jdp-freiburg]
+programmes: []
 ---
 
 In a joint degree programme, two universities build one educational programme together. You work on a single research project under two supervisors, one at each university. When you finish, the two universities award one degree in their joint names. You complete it within the usual four-year doctoral course, and a stay of at least 12 months at the partner university is guaranteed.
@@ -43,4 +43,4 @@ Japan allowed joint degrees with foreign universities after the university estab
 
 You pay admission and tuition fees only to Nagoya University, and the partner university's tuition is waived. A travel allowance and a monthly research allowance for the stay abroad are available. The amounts and conditions are on [Admission, fees and support](admission).
 
-Read the pages for [Adelaide](adelaide), [Lund](lund) and [Freiburg](freiburg) for the details of each programme.
+Read the pages for [Adelaide](adelaide), [Lund](lund) and [Freiburg](freiburg) for the details of each programme. To compare places, costs, support and the next call for all three, see the table on [Degree programmes](index).

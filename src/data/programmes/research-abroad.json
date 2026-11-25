@@ -34,8 +34,8 @@
   "deadline": {
     "status": "tba",
     "text": {
-      "en": "No dates are published. Details are announced on TACT.",
-      "ja": "日程は公開されていません。TACTで案内されます"
+      "en": "Next call: not announced. Calls are posted on TACT; ask the office when the next one is expected.",
+      "ja": "次回の募集は未定です。募集はTACTで案内されます。次の募集の時期は国際連携室に確認してください"
     }
   },
   "page": "study-abroad/research-abroad",
@@ -44,7 +44,8 @@
     "https://www.med.nagoya-u.ac.jp/medical_J/international/school/electivebasics/"
   ],
   "toConfirm": [
-    "Host institutions, application period, selection and credit arrangements: the programme page on both old sites says only that it is under construction."
+    "Host institutions, application period, selection and credit arrangements: the programme page on both old sites says only that it is under construction.",
+    "Month the next call is expected, and the TACT course or notice board where it appears."
   ],
   "section": "study-abroad",
   "contact": "intl-office"

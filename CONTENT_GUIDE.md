@@ -1,6 +1,68 @@
 # Content guide
 
-How content is stored and written in this site. Read it before adding or changing a page.
+How content is stored and written in this site. Read it before adding or changing a page. If you have never edited the site, start with "Your first edit" below. The fields and allowed values of every data file are in [docs/data-files.md](docs/data-files.md), with the list of programme ids.
+
+## Start here
+
+### Three ways to edit
+
+**In the browser, with nothing to install.** Open the repository on github.com, open the file, and click the pencil ("Edit this file"). When you are done, click "Commit changes", choose "Create a new branch for this commit and start a pull request", and create the pull request. GitHub explains the steps in [Editing files](https://docs.github.com/en/repositories/working-with-files/managing-files/editing-files). To change several files in one go (a report and its photo, for example), press `.` on the repository page: it opens the [github.dev editor](https://docs.github.com/en/codespaces/the-githubdev-web-based-editor) in the browser.
+
+The browser editors cannot run the commands this guide names (`npm run check`, `npm run sync`, `npm run faculty-texts`). The checks still run on every pull request, and a red check lists what is wrong. A change that needs `npm run sync -- confirm` stays red until someone runs it: ask the technical contact (see "Publishing, review and undo"), or open a [codespace](https://docs.github.com/en/codespaces/about-codespaces/what-are-codespaces), which is the same editor with a terminal.
+
+**On your computer.** Install Node.js 22.23.4 or later (the site's build on GitHub uses Node.js 22), run `npm ci` once in the project folder, then `npm run dev` to see the site at `http://localhost:4321/nagoya-med-intl-prototype/` while you edit. Run `npm run check` before you commit.
+
+**With a content editor, later.** [Pages CMS](https://pagescms.org/) and [Decap CMS](https://decapcms.org/) are free editors that work on top of a GitHub repository. They show forms instead of files, and every save becomes a commit, so the checks and the pull request review stay as they are. Neither is installed. Setting one up means writing a configuration file that describes the pages and the data files, and deciding who runs the `confirm` step, which a form cannot do on its own. Decide this once the office knows who will edit the site and how often.
+
+### Your first edit
+
+Each task below ends with `npm run check`. When the check prints an error, it also prints the command that fixes it.
+
+**Change a deadline**
+
+1. Find the programme's id in the [programme index](docs/data-files.md#programme-ids). Open `src/data/programmes/<id>.json`.
+2. Find `"deadline"`. Change `status`, `date` and `text`, following the deadline rules in section 4. Write the text in both languages. For a dated deadline:
+
+   ```json
+   "deadline": {
+     "status": "open",
+     "date": "YYYY-MM-DD",
+     "text": { "en": "Applications until <date in words>", "ja": "<日付>まで受け付けます" }
+   }
+   ```
+
+3. Add the official page that gives the new date to `sources`, and remove the `toConfirm` line it answers.
+4. Run `npm run check`. It reports `programmes/<id>.json#deadline/text: both languages changed since last confirmed`. Read the two texts once more, then run `npm run sync -- confirm programmes/<id>.json#deadline/text`.
+5. Every page that shows this programme now shows the new deadline. Do not type the date into any page.
+
+**Add a news item**
+
+1. Open `src/data/news.json`. Copy an existing item, paste it after the opening `[`, and add a comma after its closing `}`.
+2. Change every field: a new `id`, the `date`, the `category`, the `title` and `summary` in both languages, the `url` and the `sources`. The allowed values are in [docs/data-files.md](docs/data-files.md#newsjson).
+3. Run `npm run check`, then `npm run sync -- confirm news.json#<id>`.
+
+**Fix a typo in a Japanese page**
+
+1. Open `src/content/pages/ja/<section>/<slug>.md`. The path is the page's address after `/ja/`.
+2. Fix the typo. Open the English page at the same path under `en/` and check that it does not have the same mistake.
+3. Run `npm run check`. It reports `en/<slug> is stale`, because only the Japanese file changed. A typo, spacing or punctuation fix does not change what the page says. When the English page needs no change, the two still say the same thing, so you may confirm: `npm run sync -- confirm <section>/<slug>`.
+4. Check the Japanese style (section 9).
+
+**Add a student report with a photo**
+
+1. Choose an id that follows the ones in use, for example `clerkship-<year>-report<n>` or `research-<year>-<full-name>` (the list is in [docs/data-files.md](docs/data-files.md#storiesjson)), and check that it is not taken in `src/data/stories.json`.
+2. Add the story to `src/data/stories.json` (fields in [docs/data-files.md](docs/data-files.md#storiesjson)). `source` is the address of the report on the official site.
+3. Save the student's text as `src/data/reports/original/<id>.json`, and an automatic translation into the other language as `src/data/reports/translated/<id>.json`, one paragraph for each paragraph (section 8).
+4. Save the photo as WebP under 300 KB, and a smaller copy as its thumbnail, in `public/img/stories/` as `<id>-1.webp` and `<id>-1-t.webp`. Any image editor that saves WebP will do; the free web tool [Squoosh](https://squoosh.app/) works in the browser.
+5. Add the photo to `src/data/images.json` with `"id": "<id>-1"`, `"kind": "story"`, `"story": "<id>"`, the two file paths and a description in both languages (section 7). If you do not know the pixel sizes, enter any numbers: the check names the real ones.
+6. Run `npm run check`, then `npm run sync -- stamp-report <id>` and `npm run sync -- confirm images.json#<id>-1`.
+
+### Publishing, review and undo
+
+- **Review.** Every change goes through a pull request. A second person reads it before it is merged: both languages, the sources, and the `toConfirm` lines added or removed. The checks run on every pull request; do not merge while one is red.
+- **Publishing.** Merging into `main` runs the checks again, builds the site and publishes it (`.github/workflows/deploy.yml`). The "Actions" tab of the repository shows when it has finished. If a check fails there, nothing is published and the previous version stays online.
+- **Undo.** Open the merged pull request and click "Revert". GitHub opens a new pull request that takes the change out; merge it like any other ([Reverting a pull request](https://docs.github.com/en/pull-requests/how-tos/merge-and-close-pull-requests/reverting-a-pull-request)).
+- **Help.** Open an issue in the repository with the page or file, what you changed and the message the check printed. The technical contact answers these issues.
 
 ## 1. Where things live
 
@@ -8,13 +70,14 @@ How content is stored and written in this site. Read it before adding or changin
 | --- | --- | --- |
 | Prose pages | `src/content/pages/en/<section>/<slug>.md` and `src/content/pages/ja/<section>/<slug>.md` | page and language |
 | Programme facts | `src/data/programmes/<id>.json` | programme |
-| Staff | `src/data/staff.json` | the whole team |
 | Contact points | `src/data/contacts.json` | all contacts |
 | Partner universities | `src/data/partners.json` | all partners |
 | News and events | `src/data/news.json` | all items |
-| Student stories | `src/data/stories.json` | all stories |
+| Student stories | `src/data/stories.json`, with the full texts in `src/data/reports/` | all stories |
+| Photos | `src/data/images.json`, with the files in `public/img/` | all photos |
+| Faculty pages and their checks | `src/data/faculty.json` | the whole faculty layer |
 
-A fact is stored once. A page never retypes a deadline, a capacity, a staff title or an email that is already in a data file: the layout shows it from the data. Prose explains; data states.
+A fact is stored once. A page never retypes a deadline, a capacity, a staff title or an email that is already in a data file: the layout shows it from the data. Prose explains; data states. The team (names, titles, research) lives in the faculty's laboratory directory entry, not in this site (section 6).
 
 The English and Japanese files of a page have **the same path** after the language folder, so the site can link them. Every page must exist in both languages.
 
@@ -22,11 +85,13 @@ The English and Japanese files of a page have **the same path** after the langua
 
 | Section | Slugs |
 | --- | --- |
-| `study-in-nagoya` | `index`, `clinical-clerkship`, `research-training`, `living-in-nagoya`, `faq` |
-| `study-abroad` | `index`, `clinical-electives`, `research-abroad`, `short-programmes`, `scholarships`, `honours-programme`, `medical-english`, `faq` |
+| `study-in-nagoya` | `index`, `clinical-clerkship`, `research-training`, `living-in-nagoya`, `visiting-researchers`, `faq` |
+| `study-abroad` | `index`, `clinical-electives`, `research-abroad`, `short-programmes`, `scholarships`, `medical-english`, `safety`, `usmle-and-certificates`, `faq` |
 | `degrees` | `index`, `joint-degree`, `adelaide`, `lund`, `freiburg`, `cuhk-double-degree`, `unc-scholar-exchange`, `admission`, `faq` |
-| `partnerships` | `index`, `game`, `mirai`, `agreements`, `symposia`, `visits` |
-| `about` | `index`, `contact` (team, research and publications live in the faculty's directory entry, linked from `about`) |
+| `partnerships` | `index`, `game`, `mirai`, `agreements`, `symposia`, `visits`, `become-a-partner`, `coordinators`, `companies`, `for-faculty` |
+| `about` | `index`, `contact`, `access`, `support`, `glossary` (team, research and publications live in the faculty's directory entry, linked from `about`) |
+
+The folders under `src/content/pages/` are the final word on which pages exist.
 
 Generated pages (no Markdown file): home, student stories, news, programme comparison, content status.
 
@@ -54,6 +119,8 @@ programmes: [clinical-clerkship]             # programme ids whose fact box appe
 
 ## 4. Programme file (`src/data/programmes/<id>.json`)
 
+The ids, names and pages of all programmes are listed in the [programme index](docs/data-files.md#programme-ids).
+
 ```json
 {
   "section": "study-in-nagoya",
@@ -76,14 +143,16 @@ programmes: [clinical-clerkship]             # programme ids whose fact box appe
 }
 ```
 
-Only `section`, `name`, `audience`, `contact` and `page` are required. Leave a field out rather than guess.
+Only `section`, `name`, `audience`, `contact` and `page` are required. Leave a field out rather than guess. `section` is one of `study-in-nagoya`, `study-abroad` or `degrees`.
 
 **Deadlines.** Never invent a date.
 - A recurring rule from the sources ("6 months before the start") → `"status": "rolling"`.
 - A dated deadline in the future → `"status": "open"` and `"date": "YYYY-MM-DD"`.
 - Only past deadlines are known → `"status": "tba"`, text like "To be announced (last cycle: applications 6–15 January 2025)", and a `toConfirm` entry.
 
-**Contact ids.** `intl-office` (Office of International Affairs, general) and `jdp-office` (joint and double degrees). Others may be added to `contacts.json`.
+The check fails when an `open` deadline's date has passed: change it to `tba` as above.
+
+**Contact ids.** `intl-office` (Office of International Affairs, general) and `jdp-office` (joint degrees, the double degree and the scholar exchange with UNC). Others may be added to `contacts.json`.
 
 ## 5. Keeping every version in step
 
@@ -102,6 +171,23 @@ How to change something:
 4. If a programme, contact or the About summary changed, run `npm run faculty-texts`. Once the new site is live at `/intlexch/`, send the changed files in `faculty/` to the faculty's web team. Before that, do not send them: their links use the new site's addresses, which do not exist yet.
 
 `npm run sync -- status` lists everything out of step, the same list as `npm run check`. Confirming is a statement that both languages now say the same thing: never confirm to silence the check.
+
+A fix in one language only (a typo, spacing, punctuation, a broken link) leaves the meaning of both versions the same. Check that the other language does not need the same fix; if it does not, you may confirm without changing it.
+
+**Which command when**
+
+| You have | Then run |
+| --- | --- |
+| changed a page in both languages, or added a new page pair | `npm run sync -- confirm <section>/<slug>` |
+| fixed a typo in one language only, and checked the other needs no change | `npm run sync -- confirm <section>/<slug>` |
+| changed one field in a data file | `npm run sync -- confirm <file>#<field>`, as the error message writes it (`programmes/sep-unc.json#duration`) |
+| added or changed a whole entry (a news item, a partner, a contact, a photo description) | `npm run sync -- confirm <file>#<id>` (`news.json#2025-06-gdansk-visit`) or, for a programme, `npm run sync -- confirm programmes/<id>.json` |
+| added a report, or changed its original or its translation | `npm run sync -- stamp-report <id>`, after the translation matches the original |
+| deleted or renamed a page, an entry or a field | `npm run sync -- prune`, then confirm the new name |
+| added or removed a programme, or changed a programme's name, audience or page, the office's contact details, or the About page summary | `npm run faculty-texts` |
+| lost track of what is out of step | `npm run sync -- status` |
+
+`npm run sync -- adopt` records everything as in step without looking. It was for the first use only: do not run it.
 
 ## 6. The faculty layer
 
@@ -122,16 +208,19 @@ Every photo is an entry in `src/data/images.json`:
   "caption": { "en": "...", "ja": "..." }, "source": "https://www.med.nagoya-u.ac.jp/..." }
 ```
 
+- `kind` is `hero` (the large photo at the top of a page), `figure` (a photo inside a page) or `story` (a photo of a student report). A `hero` or `figure` names its `page`; a `story` photo names its `story`.
 - `alt` is required in both languages: what the photo shows and why it matters, at most 125 characters in English and 60 in Japanese. Do not start with "Photo of". Do not name people unless the photo or page makes it certain.
 - `caption` is optional and only states facts (event, place, date).
+- `source` is the address of the photo or of the page it was published on.
 - Files are WebP under `public/img/`, at most 300 KB (the check fails above that).
-- `width`/`height` (and `thumbWidth`/`thumbHeight` when there is a `thumb`) are the real pixel sizes of the files; the check reads the WebP headers and fails when they differ, or when a listed file is not WebP. `../tools/photos.py publish` writes them.
+- `width`/`height` (and `thumbWidth`/`thumbHeight` when there is a `thumb`) are the real pixel sizes of the files. The check reads the WebP headers and fails when they differ, or when a listed file is not WebP. Its message gives the real size, so you can copy it. The photos taken from the old sites were sized by the audit's photo script (`photos.py publish`), which is kept with the audit tools outside this repository.
 - Every file under `public/img/` must be listed, whatever its type. Files the operating system writes on its own (`Thumbs.db`, `desktop.ini`, `.DS_Store`, and the `._name` files macOS writes on some drives) are ignored, and are kept out of git by `.gitignore`.
 
 ## 8. Student reports
 
-- `src/data/reports/original/<story id>.json`: the student's own text, `{ "lang", "title", "paragraphs": [...] }`.
-- `src/data/reports/translated/<story id>.json`: the automatic translation into the other language, `{ "lang", "method": "machine", "title", "paragraphs": [...] }`, one paragraph per original paragraph.
+- `src/data/reports/original/<story id>.json`: the student's own text, `{ "id", "lang", "title", "paragraphs": [...] }`.
+- `src/data/reports/translated/<story id>.json`: the automatic translation into the other language, `{ "id", "lang", "method": "machine", "title", "paragraphs": [...] }`, one paragraph per original paragraph. `npm run sync -- stamp-report <story id>` adds the `sourceFingerprint` that records which version of the original it was made from.
+- Every story in `stories.json` needs both files, and every file needs a story: the check fails otherwise.
 - The report page shows the original in its language and the translation in the other, with a visible "Automatic translation" label and a link to the original. When a person has checked a translation, keep the file and record it in the commit message; the label stays until the office decides on a reviewed status.
 
 ## 9. Writing rules
@@ -140,9 +229,37 @@ Both languages:
 - Write for the visitor and their goal: who can apply, when, how, at what cost, whom to ask.
 - Short paragraphs, informative headings (`##`, `###`), lists for documents and steps, tables only for real comparisons.
 - Do not copy errors. The audit register (`report/issues.json` in the project folder) lists typos, contradictions and outdated statements found on the old sites: correct typos; drop COVID-era notices and expired calls; when two sources disagree, use the more authoritative and recent one (lab directory, then faculty site, then the 2021 Japanese exchange site, then the older sites) and add the point to `toConfirm`.
-- No personal email addresses, no phone extensions of individuals, no photos of people. Use the contact ids.
+- No personal email addresses, no phone extensions of individuals, no staff portraits. Use the contact ids. Photos of students come from their published reports (section 7).
 - No marketing filler. No "world-class", "cutting-edge", "unique opportunity".
 
 English: plain British or American spelling consistently (use American: "program" in official programme names as the university writes them, otherwise "programme" is acceptable but be consistent within a page). Address the reader as "you". Avoid em-dash asides and colon-then-reveal sentences.
 
-Japanese: です・ます調. Follow the yomiyasu guide (`C:\Users\Basile\.claude\skill-library\yomiyasu\SKILL.md`, domain `business`): sentences of about 30–45 characters, at most two 読点 per sentence, no em dashes, no colons at the end of a sentence, no emoji, no half-width space between Japanese and English words, no paraphrasing parentheses. Run `python -X utf8 C:\Users\Basile\.claude\skill-library\yomiyasu\scripts\yomiyasu_lint.py <file>` on Japanese files and fix real problems (at most two passes).
+Japanese: です・ます調, in the plain business register of the yomiyasu rules.
+
+- Keep what the sentence says. When you rewrite, keep its point, what it treats as most important, how firmly it states things (a statement stays a statement, a guess stays a guess) and what it does (explains, asks, announces). Do not add facts, examples or conditions the source does not give.
+- Sentences of about 30 to 45 characters, with at most two 読点 each. One topic per paragraph.
+- Say who does what. Do not give feelings or wishes to things (no 「制度が支える」 for a rule). Plain verbs rather than metaphors, and no strings of stiff two-kanji words such as 発生 or 担保 where a simple word will do. Set phrases in everyday use may stay.
+- Check that every connective (ただし, また, そのため) and every これ or それ at the start of a sentence links to what it should. Drop sentences that only announce what follows (「次の点が挙げられます」) and say the point instead.
+- No emoji, no em dash, no colon at the end of a sentence, no brackets that only repeat in other words, and no half-width space between Japanese and English words.
+- Lists only for real lists (documents, steps); otherwise write sentences.
+
+If the yomiyasu lint script is installed on your computer, run `python -X utf8 <yomiyasu folder>/scripts/yomiyasu_lint.py <file>` on each Japanese file you changed and fix real problems, in at most two passes. Its score is advisory: keep a technical term or a needed negative even when it is flagged. Without the script, read the file against the list above.
+
+## 10. Abbreviations
+
+Every abbreviation on the site is explained in `src/data/glossary.json`: what it stands for in both languages and, for an institution, organisation or test, its website.
+
+```json
+{ "term": "CUHK", "kind": "institution", "en": "The Chinese University of Hong Kong", "ja": "香港中文大学",
+  "url": { "en": "https://www.cuhk.edu.hk/english/", "ja": "https://www.cuhk.edu.hk/english/" }, "source": "where the name was confirmed" }
+```
+
+- On every content page, the first use of each abbreviation shows what it stands for when you hover over or tap it, and a box at the end of the page lists them with their websites. The full list is the page `about/glossary`. Nothing to do on the pages themselves: write abbreviations as usual.
+- `npm run check` fails when a page or a programme, contact, partner or news text uses an abbreviation that is not in the glossary. Add the entry, with a source for the full name and a website you have opened (it must answer). Mark `"common": true` for terms everyone knows (UK, PDF), which then stay out of the box at the end of each page, and `"confirmed": false` when the full name is not certain (it then shows "to be confirmed" and belongs in the glossary page's `toConfirm`).
+- Abbreviations in programme boxes, partner names and news are listed on the glossary page but not marked where they appear.
+
+## 11. The office and how to reach it
+
+- The office's building, floor and room (`location`) and its map position (`map`) are in `src/data/contacts.json`, entry `intl-office`. The contact cards and the page `about/access` show them from there.
+- `about/access` gives the walking route from Tsurumai Station in both languages. Its letters A to I match the route map (`public/img/pages/office-route-map.webp`, listed in `images.json`) and the photos of the printable route guides, `public/files/route-map-en.pdf` and `public/files/route-map-ja.pdf`, which are the office's own PDFs.
+- If the office moves or the route changes, update `location` and `map`, the steps on both pages, the map image and the two PDFs together.

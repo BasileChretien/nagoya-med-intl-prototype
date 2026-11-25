@@ -18,6 +18,9 @@ const en = {
   site: 'International',
   skip: 'Skip to content',
   menu: 'Menu',
+  navMain: 'Main sections',
+  navPanel: 'Site menu',
+  breadcrumb: 'Breadcrumb',
   otherLang: '日本語',
   otherLangLabel: 'Read this page in Japanese',
   protoLead: 'Prototype for internal review.',
@@ -28,12 +31,18 @@ const en = {
     'study-in-nagoya': 'For medical students from partner schools abroad',
     'study-abroad': 'For Nagoya University medical students',
     degrees: 'For prospective PhD students',
-    partnerships: 'For partner universities and visitors',
+    partnerships: 'For partner universities, future partners and visitors',
     about: 'Our mission, team, research and contacts',
   },
   heroTitle: 'International medicine at Nagoya University',
   heroLede: 'Clinical clerkships, research training, joint doctoral degrees and partnerships with medical schools around the world, in one place.',
   doorsTitle: 'What brings you here?',
+  moreDoorsTitle: 'Other visitors',
+  audienceCards: {
+    'partnerships/become-a-partner': 'For universities that want to become partners',
+    'partnerships/companies': 'For companies and research institutes',
+    'partnerships/for-faculty': 'For Nagoya faculty and clinicians',
+  } as Record<string, string>,
   keyDates: 'Key dates',
   keyDatesNote: 'Deadlines come from each programme’s fact sheet. When a date is not yet announced, the last known cycle is shown.',
   allProgrammes: 'Compare all programmes',
@@ -46,13 +55,15 @@ const en = {
   numStories: 'student reports published since {year}',
   numPartners: 'partner institutions listed',
   numProgrammes: 'programmes described',
-  numApplicants: 'applicants a year for about 40 clerkship places',
-  deadlineStatus: { open: 'Open', rolling: 'Rolling', tba: 'To be announced', closed: 'Closed' },
+  numApplicants: 'students from universities abroad apply each year for a clinical clerkship in Nagoya',
+  deadlineStatus: { open: 'Open', rolling: 'Rolling', tba: 'Not yet announced', closed: 'Closed' },
   facts: {
     audience: 'Who', duration: 'Duration', capacity: 'Places', cost: 'Cost', funding: 'Support',
     degree: 'Degree', eligibility: 'Eligibility', howToApply: 'How to apply', deadline: 'Deadline', contact: 'Contact',
   },
   factsTitle: 'Key facts',
+  tableCorner: 'Programme',
+  onThisPage: 'On this page',
   toConfirmTitle: 'To be confirmed by the office',
   toConfirmLead: 'The old sites disagree or may be out of date on these points.',
   draftTranslation: 'Draft translation. Not yet checked by a native speaker.',
@@ -68,6 +79,8 @@ const en = {
   },
   filterType: 'Type', filterCountry: 'Country', filterYear: 'Year', filterSearch: 'Search', all: 'All',
   showMore: 'Show more', storiesShown: '{shown} of {total} stories', readStory: 'Read the full report', searchPlaceholder: 'Name, university, department',
+  readStoryLabel: 'Read the full report by {name}',
+  storyDepartments: 'Departments',
   machineLabel: 'Automatic translation',
   machineLead: 'Automatic translation.',
   machineNote: 'This report was translated automatically (AI) from {lang}. It has not been checked by a person and may contain mistakes.',
@@ -113,6 +126,13 @@ const en = {
     'Latin America': 'Latin America', Africa: 'Africa', 'Middle East': 'Middle East',
   } as Record<string, string>,
   contactEmail: 'Email', contactPhone: 'Phone', contactFax: 'Fax', contactAddress: 'Address',
+  phoneAbroad: '',
+  targetLang: { en: '(English)', ja: '(Japanese)' },
+  footerSections: 'Sections',
+  footerMore: 'Stories, news and programmes',
+  footerContact: 'Contact and access',
+  footerAccess: 'Map and directions',
+  footerSupport: 'Support us',
   footerAbout: 'Prototype of a single bilingual website for the international activities of the School of Medicine.',
   footerOfficial: 'Official faculty website',
   footerSource: 'Source code',
@@ -129,6 +149,9 @@ const ja: UI = {
   site: '国際連携室',
   skip: '本文へ移動',
   menu: 'メニュー',
+  navMain: '主なセクション',
+  navPanel: 'サイトのメニュー',
+  breadcrumb: 'パンくずリスト',
   otherLang: 'English',
   otherLangLabel: 'このページを英語で読む',
   protoLead: '内部検討用の試作版です。',
@@ -139,12 +162,18 @@ const ja: UI = {
     'study-in-nagoya': '海外の協定校の医学生の方へ',
     'study-abroad': '名古屋大学医学部の学生の方へ',
     degrees: '博士課程への進学を考えている方へ',
-    partnerships: '協定校と訪問を希望する大学の方へ',
+    partnerships: '協定校、協定を希望する大学、訪問を希望する方へ',
     about: '理念、スタッフ、研究、連絡先',
   },
   heroTitle: '名古屋大学医学部の国際交流',
   heroLede: '臨床実習、研究留学、国際共同学位、世界の医学部との連携をひとつのサイトで紹介します。',
   doorsTitle: '目的から探す',
+  moreDoorsTitle: 'そのほかの方へ',
+  audienceCards: {
+    'partnerships/become-a-partner': '協定校になりたい大学の方へ',
+    'partnerships/companies': '企業・研究機関の方へ',
+    'partnerships/for-faculty': '教職員・医師の方へ',
+  },
   keyDates: '主な締切',
   keyDatesNote: '締切は各プログラムの概要から表示します。日程が未発表の場合は、前回の日程を示します。',
   allProgrammes: 'すべてのプログラムを比べる',
@@ -157,13 +186,15 @@ const ja: UI = {
   numStories: '{year}年以降に公開した体験記',
   numPartners: '掲載している連携先',
   numProgrammes: '紹介しているプログラム',
-  numApplicants: '約40名の臨床実習枠への年間応募者',
-  deadlineStatus: { open: '受付中', rolling: '随時', tba: '未定', closed: '締切' },
+  numApplicants: '海外の大学から名古屋での臨床実習に毎年集まる応募者の数です',
+  deadlineStatus: { open: '受付中', rolling: '随時', tba: '未発表', closed: '締切' },
   facts: {
     audience: '対象', duration: '期間', capacity: '定員', cost: '費用', funding: '支援',
     degree: '学位', eligibility: '応募資格', howToApply: '応募方法', deadline: '締切', contact: '問い合わせ先',
   },
   factsTitle: '概要',
+  tableCorner: 'プログラム',
+  onThisPage: 'このページの内容',
   toConfirmTitle: '国際連携室による確認が必要な項目',
   toConfirmLead: '旧サイトの記載が食い違っているか、古い可能性がある項目です。',
   draftTranslation: '翻訳の下書きです。日本語を母語とする人の確認はまだ済んでいません。',
@@ -179,6 +210,8 @@ const ja: UI = {
   },
   filterType: '種類', filterCountry: '国・地域', filterYear: '年', filterSearch: '検索', all: 'すべて',
   showMore: 'さらに表示', storiesShown: '{total}件中{shown}件を表示', readStory: '体験記の全文を読む', searchPlaceholder: '名前、大学、診療科',
+  readStoryLabel: '{name}の体験記の全文を読む',
+  storyDepartments: '診療科・分野',
   machineLabel: '自動翻訳',
   machineLead: '自動翻訳です。',
   machineNote: 'この体験記は{lang}の原文をAIで自動翻訳したものです。人による確認はしていないため、誤りを含む場合があります。',
@@ -224,6 +257,13 @@ const ja: UI = {
     'Latin America': '中南米', Africa: 'アフリカ', 'Middle East': '中東',
   },
   contactEmail: 'メール', contactPhone: '電話', contactFax: 'FAX', contactAddress: '所在地',
+  phoneAbroad: '海外からは{intl}',
+  targetLang: { en: '（英語）', ja: '（日本語）' },
+  footerSections: 'セクション',
+  footerMore: '体験記・お知らせ・プログラム',
+  footerContact: 'お問い合わせ・アクセス',
+  footerAccess: '地図と道順',
+  footerSupport: 'ご支援',
   footerAbout: '医学部の国際活動をひとつにまとめた、日英2言語サイトの試作版です。',
   footerOfficial: '医学系研究科の公式サイト',
   footerSource: 'ソースコード',
@@ -237,6 +277,38 @@ export const ui: Record<Lang, UI> = { en, ja };
 
 export function t(lang: Lang): UI {
   return ui[lang];
+}
+
+/** Language of an official page, read from its address; null when the address does not say. */
+export function urlLang(url: string): Lang | null {
+  let u: URL;
+  try { u = new URL(url); } catch { return null; }
+  const p = u.pathname.toLowerCase();
+  if (/\/(medical_j|japanese|ja|jp)(\/|\.|$)/.test(p)) return 'ja';
+  // The old exchange site's English pages live under /intlexch/english/ and /intlexch/japan/ ("Clinical Exchange in Japan").
+  if (/\/(medical_e|english|en)(\/|\.|$)/.test(p) || /^\/intlexch\/japan\//.test(p)) return 'en';
+  if (u.hostname === 'www.med.nagoya-u.ac.jp' && /^\/jdp\//.test(p)) return 'ja';
+  return null;
+}
+
+/** Language of a short text from the data (names, universities, departments): Japanese if it holds kana or kanji. */
+export function textLang(text: string): Lang {
+  return /[\u3040-\u30ff\u3400-\u9fff]/.test(text) ? 'ja' : 'en';
+}
+
+/** Marker for a link whose target is in the other language, e.g. "(Japanese)" on an English page; empty otherwise. */
+export function targetMarker(url: string, lang: Lang): { text: string; hreflang?: Lang } {
+  const target = urlLang(url);
+  if (!target) return { text: '' };
+  return { text: target === lang ? '' : ui[lang].targetLang[target], hreflang: target };
+}
+
+const REGION_JA = new Intl.DisplayNames(['ja'], { type: 'region', style: 'short' });
+
+/** Country name in the page language: the English name from the data, or the Japanese name from its ISO code. */
+export function countryName(name: string, code: string | undefined, lang: Lang): string {
+  if (lang === 'en' || !code) return name;
+  return REGION_JA.of(code) ?? name;
 }
 
 export function fill(template: string, values: Record<string, string | number>): string {

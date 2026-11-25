@@ -12,7 +12,7 @@ import { readFeatures, drawFeatures } from './features.mjs';
 
 /** Names of the checks below; feature map entries refer to them in `tests`. */
 const CHECKS = ['pairing', 'programme-references', 'deadlines', 'data-files', 'images', 'internal-links', 'noindex', 'feature-map',
-  'photo-descriptions', 'report-translations', 'versions-in-step', 'facts-match', 'translations-current', 'faculty-texts', 'faculty-live'];
+  'photo-descriptions', 'report-translations', 'versions-in-step', 'facts-match', 'translations-current', 'faculty-texts', 'faculty-live', 'acronyms'];
 
 // fileURLToPath decodes %20 and non-ASCII characters, so the check runs from any folder.
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
@@ -201,6 +201,54 @@ if (stories) {
       const id = name.replace(/\.json$/, '');
       if (!ids.has(id)) fail(`reports/${dir}/${id}.json has no story in stories.json`);
     }
+  }
+}
+
+// 3d. Every acronym in the pages and in the programme, contact, partner and news texts is explained in
+//     glossary.json, which the pages use to say what each one stands for (src/lib/rehype-abbr.mjs).
+const glossary = readList('glossary.json');
+if (glossary) {
+  const known = new Set();
+  for (const g of glossary) {
+    if (typeof g.term !== 'string' || !g.term) { fail('glossary.json: an entry has no "term"'); continue; }
+    if (known.has(g.term)) fail(`glossary.json: ${g.term} is listed twice`);
+    known.add(g.term);
+    for (const l of ['en', 'ja']) if (typeof g[l] !== 'string' || !g[l].trim()) fail(`glossary.json ${g.term}: no ${l} text`);
+    for (const l of ['en', 'ja']) if (g.url?.[l] !== undefined && !/^https:\/\//.test(g.url[l])) fail(`glossary.json ${g.term}: url.${l} must start with https://`);
+  }
+  // Currency codes, Roman numerals and words written in capitals that are not abbreviations.
+  const NOT_ACRONYMS = new Set(['JPY', 'USD', 'GBP', 'EUR', 'FAX', 'II', 'III', 'IV', 'HK', 'JAPAN', 'OK']);
+  /** Words of letters (split at digits and signs, so PhD4GAME gives PhD and GAME) with two capitals or more, at least half capitals. */
+  const acronymsIn = (text) => {
+    const clean = text.replace(/https?:\/\/\S+/g, ' ').replace(/`[^`]*`/g, ' ').replace(/\]\([^)]*\)/g, ']').replace(/<[^>]+>/g, ' ');
+    const found = new Set();
+    for (const word of clean.match(/[A-Za-z]+/g) ?? []) {
+      const caps = (word.match(/[A-Z]/g) ?? []).length;
+      if (caps >= 2 && caps * 2 >= word.length && !NOT_ACRONYMS.has(word)) found.add(word);
+    }
+    return found;
+  };
+  const report = (where, text) => { for (const a of acronymsIn(text)) if (!known.has(a)) fail(`${where}: "${a}" is not in src/data/glossary.json: add what it stands for (and the website, for an institution)`); };
+  for (const lang of ['en', 'ja']) for (const p of md(lang)) report(`${lang}/${p}`, readFileSync(join(PAGES, lang, p), 'utf8'));
+  // Visible texts of the data files: skip keys that hold ids, codes, tags or addresses.
+  const SKIP_KEYS = new Set(['id', 'sources', 'source', 'page', 'contact', 'section', 'url', 'status', 'date', 'category', 'countryCode', 'region', 'links', 'email', 'phone', 'fax', 'file', 'thumb', 'story', 'kind', 'programmes', 'partners', 'map']);
+  const texts = (value, key = '') => {
+    if (SKIP_KEYS.has(key)) return [];
+    if (typeof value === 'string') return [value];
+    if (Array.isArray(value)) return value.flatMap((v) => texts(v));
+    if (value && typeof value === 'object') return Object.entries(value).flatMap(([k, v]) => texts(v, k));
+    return [];
+  };
+  const dataFiles = [
+    ...walk(join(DATA, 'programmes')).filter((f) => f.endsWith('.json')).map((f) => `programmes/${basename(f)}`),
+    'contacts.json', 'partners.json', 'news.json',
+  ];
+  for (const name of dataFiles) {
+    const f = join(DATA, name);
+    if (!existsSync(f)) continue;
+    let data;
+    try { data = JSON.parse(readFileSync(f, 'utf8')); } catch { continue; } // reported above
+    report(name, texts(data).join('\n'));
   }
 }
 

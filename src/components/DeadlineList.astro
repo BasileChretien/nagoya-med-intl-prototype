@@ -20,7 +20,7 @@ const shown = limit ? withDeadline.slice(0, limit) : withDeadline;
     return (
       <li>
         <a href={href(lang, p.data.page)}>{(p.data.short ?? p.data.name)[lang]}</a>
-        <span class={`pill ${d.status}`}>{ui.deadlineStatus[d.status]}</span>
+        <span class={`pill ${d.status}`}><span class="visually-hidden">{ui.facts.deadline}: </span>{ui.deadlineStatus[d.status]}</span>
         <span class="when">{d.date ? `${formatDate(d.date, lang)} · ` : ''}{d.text[lang]}</span>
       </li>
     );

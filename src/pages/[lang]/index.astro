@@ -16,7 +16,9 @@ const ui = t(lang);
 const programmes = await programmesIn();
 const stories = await getCollection('stories');
 const partners = await getCollection('partners');
-const news = (await getCollection('news')).sort((a, b) => b.data.date.localeCompare(a.data.date)).slice(0, 5);
+const news = (await getCollection('news'))
+  .sort((a, b) => b.data.date.localeCompare(a.data.date))
+  .slice(0, 5);
 const latestYear = Math.max(...stories.map((s) => s.data.year));
 const featured = stories
   .filter((s) => s.data.year >= latestYear - 1)
@@ -24,6 +26,8 @@ const featured = stories
   .filter((s, i, arr) => arr.findIndex((x) => x.data.type === s.data.type) === i || i < 2)
   .slice(0, 3);
 const doors = SECTIONS.filter((s) => s !== 'about');
+// Visitors that the section doors do not name: future partners, companies and research institutes, Nagoya staff.
+const moreDoors = ['partnerships/become-a-partner', 'partnerships/companies', 'partnerships/for-faculty'];
 const doorPhotos: Partial<Record<(typeof doors)[number], ImageEntry>> = {};
 for (const s of doors) {
   const { hero } = await pageImages(s);
@@ -56,6 +60,12 @@ for (const s of doors) {
           </a>
         ))}
       </div>
+      <h3 class="band-sub" id="more-doors">{ui.moreDoorsTitle}</h3>
+      <ul class="grid cols-3 plain-list" aria-labelledby="more-doors">
+        {moreDoors.map((path) => (
+          <li><a class="card door-more" href={href(lang, path)}><span class="door-more-title">{ui.audienceCards[path]}</span></a></li>
+        ))}
+      </ul>
     </div>
   </section>
 
@@ -88,7 +98,7 @@ for (const s of doors) {
         <div class="number"><b>{stories.length}</b><span>{fill(ui.numStories, { year: Math.min(...stories.map((s) => s.data.year)) })}</span></div>
         <div class="number"><b>{partners.length}</b><span>{ui.numPartners}</span></div>
         <div class="number"><b>{programmes.length}</b><span>{ui.numProgrammes}</span></div>
-        <div class="number"><b>300+</b><span>{ui.numApplicants}</span></div>
+        <div class="number"><b>300+</b><span><a href={href(lang, 'study-in-nagoya/clinical-clerkship')}>{ui.numApplicants}</a></span></div>
       </div>
     </div>
   </section>
@@ -105,7 +115,7 @@ for (const s of doors) {
             <time datetime={n.data.date}>{formatDate(n.data.date, lang)}</time>
             <div>
               <span class="cat">{ui.newsCategory[n.data.category]}</span>
-              {n.data.url ? <a href={n.data.url} rel="noopener">{n.data.title[lang]}</a> : <span>{n.data.title[lang]}</span>}
+              <a href={href(lang, `news/${n.id}`)}>{n.data.title[lang]}</a>
             </div>
           </li>
         ))}

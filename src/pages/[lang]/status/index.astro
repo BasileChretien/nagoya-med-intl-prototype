@@ -13,6 +13,7 @@ const pages = (await pagesFor(lang)).sort((a, b) => a.id.localeCompare(b.id));
 const programmes = await getCollection('programmes');
 const contacts = await getCollection('contacts');
 const partners = await getCollection('partners');
+const news = await getCollection('news');
 
 const verified = pages.filter((p) => p.data.status === 'verified').length;
 const drafts = pages.filter((p) => p.data.status === 'draft-translation').length;
@@ -22,6 +23,7 @@ const lists: Item[] = [
   ...programmes.filter((p) => p.data.toConfirm.length).map((p) => ({ where: p.data.name[lang], link: href(lang, p.data.page), items: p.data.toConfirm })),
   ...contacts.filter((c) => c.data.toConfirm.length).map((c) => ({ where: c.data.label[lang], link: href(lang, 'about/contact'), items: c.data.toConfirm })),
   ...partners.filter((c) => c.data.toConfirm.length).map((c) => ({ where: c.data.name[lang], link: href(lang, 'partnerships/agreements'), items: c.data.toConfirm })),
+  ...news.filter((n) => n.data.toConfirm.length).map((n) => ({ where: n.data.title[lang], link: href(lang, `news/${n.id}`), items: n.data.toConfirm })),
 ];
 const totalConfirm = lists.reduce((n, l) => n + l.items.length, 0);
 ---

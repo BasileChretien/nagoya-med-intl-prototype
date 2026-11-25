@@ -11,7 +11,11 @@
       "en": "Nine reports from visiting clinical clerkship students and 24 reports from Nagoya University students on exchange were added to the exchange site.",
       "ja": "臨床実習で来日した学生の体験談9件と、本学学生の交換留学体験談24件を交換留学サイトに追加しました。"
     },
-    "url": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/index.html",
+    "body": {
+      "en": "The exchange site added 9 Experience Reports from students who came to Nagoya for a clinical clerkship, and 24 reports from Nagoya University students who went abroad on exchange.\n\nThis site gathers the students' reports on the student stories page, where you can filter them by type, country and year.",
+      "ja": "交換留学サイトに、臨床実習で名古屋に来た学生の体験談9件を追加しました。あわせて、交換留学に行った本学学生の体験談24件も追加しました。\n\nこのサイトでは、学生の体験談を体験記のページにまとめています。種類、国・地域、年で絞り込めます。"
+    },
+    "page": "stories",
     "sources": [
       "https://www.med.nagoya-u.ac.jp/intlexch/japanese/index.html"
     ]
@@ -28,7 +32,14 @@
       "en": "A hybrid lecture in the international medical education course on mathematical modelling and simulation in medicine, with three clinical examples.",
       "ja": "国際医学教育学の基盤医学特論として、ハイブリッド形式の特別講義を行いました。数理モデルとコンピュータ・シミュレーションを医学に応用する3つの例が紹介されました。"
     },
+    "body": {
+      "en": "On 5 February 2026, Winthrop Professor Karol Miller of the Intelligent Systems for Medicine Laboratory at The University of Western Australia gave a special lecture in Nagoya. It was held in a hybrid format, as a lecture of the special course in basic medical science of the Department of International Medical Education.\n\nThe lecture was titled \"Now You Will See the Engineer: Diseases That Medicine Cannot Cure but Engineers Might\". It presented ways to understand and solve medical problems from the viewpoint of biomedical engineering and computational science.\n\nThe lecture centred on why mathematical modelling and computer simulation should be extended to medicine. Professor Miller gave three examples, on risk assessment of abdominal aortic aneurysms, on the physiological significance of coronary artery stenosis, and on locating the zone where epileptic seizures start. The discussion covered how engineering concepts can affect clinical decisions and the quality and cost of care.",
+      "ja": "2026年2月5日、西オーストラリア大学のKarol Miller教授が来訪し、特別講義を行いました。教授はIntelligent Systems for Medicine Laboratoryに所属しています。講義は国際医学教育学の基盤医学特論として、ハイブリッド形式で行いました。\n\n講義の題は「Now You Will See the Engineer: Diseases That Medicine Cannot Cure but Engineers Might」です。医工学と計算科学の視点から、医療の課題を理解して解決する方法が紹介されました。\n\n講義の軸は、数理モデルとコンピュータ・シミュレーションを医学に広げることの大切さです。教授は3つの例を示しました。腹部大動脈瘤のリスク評価、冠動脈狭窄の生理学的な意義の評価、てんかん発作が始まる部位の推定です。工学の考え方が臨床判断や医療の質とコストに与える影響についても議論しました。"
+    },
     "url": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html",
+    "partners": [
+      "uwa"
+    ],
     "sources": [
       "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html"
     ]
@@ -45,7 +56,12 @@
       "en": "Two faculty members of Mayo Clinic Florida met the Dean and faculty to discuss research and education exchange, including a possible internship for Nagoya students.",
       "ja": "Mayo Clinic Florida の教員2名が来訪し、研究科長や教員と研究と教育の交流を話し合いました。本学学生が参加できるインターンシップの可能性も話題になりました。"
     },
+    "body": {
+      "en": "Two faculty members of Mayo Clinic Florida visited the Graduate School of Medicine on 27 November 2025. One is an assistant professor and program director. The other is the professor who directs the Molecular Neurotherapeutics Laboratory. They came for a courtesy visit and talks on future research and education links.\n\nThe visit began when a sixth-year Nagoya medical student met the program director while abroad and introduced Nagoya's study-abroad and international education programmes. The program director spoke well of the level of research at Nagoya and of the students' presentations, and proposed to consider receiving Nagoya students through the Mayo Clinic Florida Biomedical Sciences & Biotechnology Internship Program, once a support scheme is in place.\n\nDuring the day the visitors met the Dean and faculty, held talks in neurology and at the Research Institute of Environmental Medicine, and met students and faculty. The talks focused on research and personnel exchange in neurodegenerative diseases and neuroimmunology.",
+      "ja": "2025年11月27日、Mayo Clinic Floridaの教員2名が医学系研究科を訪問しました。1名はAssistant ProfessorでProgram Directorを務める教員です。もう1名はMolecular Neurotherapeutics Laboratoryを率いる教授です。表敬訪問と懇談を通じて、研究と教育の連携の可能性を話し合いました。\n\nきっかけは、本学医学部の6年生が海外でProgram Directorの教員と出会い、本学の留学と国際教育のプログラムを紹介したことです。この教員は、本学の研究水準と学生の発表を評価しました。そのうえで、支援制度が整えば本学学生の受け入れを検討したいと提案しました。受け入れには、Biomedical Sciences & Biotechnology Internship Programを使う案です。\n\n当日は研究科長や教員と意見を交わし、神経内科学と環境医学研究所でも懇談しました。学生や教員との意見交換会も行いました。神経変性疾患と神経免疫学を中心に、研究交流と人材交流の具体化を話し合いました。"
+    },
     "url": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html",
+    "page": "partnerships/visits",
     "sources": [
       "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html"
     ]
@@ -62,7 +78,15 @@
       "en": "A delegation from the partner school visited both campuses. It marked about 30 years of exchange since the 1995 agreement.",
       "ja": "協定校の代表団が東山キャンパスと鶴舞キャンパスを訪れました。1995年の協定締結から約30年の交流を確認しました。"
     },
+    "body": {
+      "en": "On 26 June 2025, a delegation of the Medical University of Gdansk, a partner school, visited Nagoya University. The Rector cancelled the trip for health reasons, and Vice Rector for Clinical Affairs Michał Hoffmann led the delegation. Vice rectors, clinical and research professors and heads of the international office took part.\n\nIn the morning, at Higashiyama campus, the delegation paid a courtesy visit to the university President and a Vice President. They confirmed the long cooperation and discussed future plans. Over lunch they went on to discuss concrete ways to work together.\n\nIn the afternoon, at Tsurumai campus, the delegation met the Dean, the vice deans and faculty. The visitors presented their university and hospital, and both sides discussed joint research and education exchange. The visitors also met Gdansk students on placement in Nagoya and people who had taken part in past exchanges, and toured the hospital. The Graduate School of Medicine hosted a dinner in the evening.\n\nThe exchange began with the academic exchange agreement of 1995 and has continued for about 30 years, for students and researchers. Since 2024, Nagoya has again received Gdansk students, through NUPACE and other schemes. The visit was part of a trip to Japan linked to Expo 2025 in Osaka. The talks moved toward joint clinical and basic research, exchange of young researchers and jointly hosted symposia.",
+      "ja": "2025年6月26日、協定校のグダンスク医科大学の代表団が名古屋大学を訪問しました。学長は健康上の理由で来日を取りやめました。代表は臨床担当副学長のMichał Hoffmann氏が務めました。副学長陣、臨床と研究の教授、国際化担当部局の責任者らが参加しました。\n\n午前は東山キャンパスで総長と副総長を表敬訪問しました。長年の協力関係を確認し、今後の連携の方針を話し合いました。昼食懇談でも、具体的な連携の方法について意見を交わしました。\n\n午後は鶴舞キャンパスで、研究科長、副研究科長、関係教員と懇談しました。先方は大学と病院の取り組みを紹介し、双方で共同研究と教育交流の可能性を話し合いました。本学で実習中のグダンスク医科大学の学生や、過去の交流関係者とも意見を交わしました。病院見学も行いました。夕方には医学系研究科主催の夕食懇談会を開きました。\n\n両校の交流は1995年の学術交流協定から約30年続き、学生交流と研究交流を重ねてきました。2024年からは、NUPACEなどを通じてグダンスク医科大学の学生の受け入れを再開しています。今回の訪問は、大阪・関西万博に関連した来日の一環です。臨床と研究の分野での共同研究、若手研究者の交流、シンポジウムの共催に向けて議論が進みました。"
+    },
     "url": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html",
+    "page": "partnerships/visits",
+    "partners": [
+      "gdansk"
+    ],
     "sources": [
       "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html"
     ]
@@ -79,7 +103,15 @@
       "en": "The visit covered the summer programme, researcher exchange and the training programme in the CIBoG field.",
       "ja": "サマープログラム、研究者交流、CIBoG研修などについて懇談しました。"
     },
+    "body": {
+      "en": "On 19 May 2025, Heather Ward, Associate Provost for Global Affairs of the University of North Carolina at Chapel Hill, a partner university, visited Tsurumai campus. She came for a courtesy visit and talks on closer cooperation.\n\nAfter a tour of Nagoya University Hospital, she met the Dean of the Graduate School of Medicine and representatives of geriatrics, cell physiology, international affairs, CIBoG and the offices for industry and government partnerships. They reviewed the history of exchange with UNC and discussed future research cooperation and education exchange.\n\nShe then met faculty of the Office of International Affairs. Building on current activities, such as the summer programme, researcher exchange and CIBoG training, they discussed concrete ways to work together.\n\nNagoya and UNC have exchanged students and researchers for many years, and the summer programme now runs in both directions. Talks on closer links in several fields, including geriatrics, will continue.",
+      "ja": "2025年5月19日、交流校のノースカロライナ大学チャペルヒル校から、Heather Ward氏が鶴舞キャンパスを訪問しました。Ward氏は国際担当のAssociate Provostです。表敬訪問と、連携強化に向けた懇談が目的です。\n\n名古屋大学医学部附属病院を見学したあと、医学系研究科長と面談しました。老年内科学、細胞生理学、国際連携、CIBoG、産学官連携の部署の関係者も出席しました。これまでの交流の経緯を確認し、研究連携と教育交流の今後を話し合いました。\n\n続いて国際連携室の教員と懇談しました。サマープログラム、研究者交流、CIBoG研修など、進行中の取り組みをもとに具体的な協力を話し合いました。\n\n本学とノースカロライナ大学チャペルヒル校は、長年にわたり学生と研究者の交流を続けてきました。近年はサマープログラムで双方向の交流も進んでいます。老年医学を含め、さまざまな分野で連携を強める協議を続けます。"
+    },
     "url": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html",
+    "page": "partnerships/visits",
+    "partners": [
+      "unc"
+    ],
     "sources": [
       "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html"
     ]
@@ -96,9 +128,20 @@
       "en": "Two staff of the international office visited to confirm the exchange. Students have exchanged in both directions for clerkships since the 2005 agreement.",
       "ja": "国際部の2名が来訪し、交流を確認しました。2005年の協定以来、臨床実習で学生の相互派遣が続いています。"
     },
+    "body": {
+      "en": "On 3 April 2025, Hofrat Dr. Human Salemi and Mrs. Birgit Hanak-Sommerer, two international relations staff of the Medical University of Vienna, visited Nagoya University. Vienna is a partner school. The visitors reviewed the long academic and student exchange and discussed closer cooperation.\n\nAt Nagoya University Hospital, the visitors first met the vice dean, faculty and staff of the Office of International Affairs. They discussed the current exchange, sending and receiving students, and researcher exchange. A meeting with the Dean followed, on how to deepen the cooperation over the medium and long term. The visitors then toured the medical history archive.\n\nDr. Salemi had worked for the exchange for many years and was to retire that academic year, so the visit was also a farewell. His successor in the international office, Mrs. Hanak-Sommerer, came with him to take over.\n\nThe exchange rests on an academic exchange agreement and a memorandum on student exchange, both signed in 2005. In 2012 a Nagoya associate professor visited Vienna. On 28 January 2013 the two schools held a joint symposium in Vienna on neurological diseases and tumours. For clinical clerkships, Nagoya has received 28 Vienna students and sent 25 Nagoya students. Departments also exchange directly, most actively in thoracic surgery.\n\nNagoya aims to build on student exchange toward visits of researchers and young staff, joint research, and joint seminars and symposia.",
+      "ja": "2025年4月3日、協定校のウィーン医科大学から、国際交流担当の2名が名古屋大学を訪問しました。Hofrat Dr. Human Salemi氏とBirgit Hanak-Sommerer氏です。長年の学術交流と学生交流を確認し、連携の強化について意見を交わしました。\n\n2名は名古屋大学医学部附属病院で、まず副研究科長、教員、国際連携室の職員と面談しました。交流の現状、学生の受け入れと派遣、研究者交流の方向性を話し合いました。続いて研究科長と面談し、中長期的に協力を深める方法を話し合いました。面談のあとは医学史料館を見学しました。\n\nSalemi氏は長年交流に尽力し、今年度で退官する予定でした。そのため、今回の訪問は退官のあいさつも兼ねていました。後任となる国際部のHanak-Sommerer氏も同行し、引き継ぎを行いました。\n\n両校の交流は、2005年に結んだ学術交流協定と学生交流の覚書にもとづいています。2012年には本学の准教授がウィーン医科大学を訪問しました。2013年1月28日には、神経疾患と腫瘍を中心とした合同シンポジウムをウィーンで開きました。臨床実習での学生交流は、これまでに受け入れ28名、派遣25名です。診療科どうしの交流もあり、特に呼吸器外科で活発です。\n\n本学は学生交流をもとに、連携をさらに広げる考えです。研究者や若手の相互訪問、共同研究、合同セミナーやシンポジウムの開催を目指しています。"
+    },
     "url": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html",
+    "page": "partnerships/visits",
+    "partners": [
+      "vienna"
+    ],
     "sources": [
       "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html"
+    ],
+    "toConfirm": [
+      "Clerkship exchange with Vienna: 28 students received and 25 sent, as of April 2025. Confirm the figures before they are reused elsewhere."
     ]
   },
   {
@@ -113,7 +156,11 @@
       "en": "Nine reports from visiting clinical clerkship students and 15 reports from Nagoya University students on exchange were added.",
       "ja": "臨床実習で来日した学生の体験談9件と、本学学生の交換留学体験談15件を追加しました。"
     },
-    "url": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/index.html",
+    "body": {
+      "en": "The exchange site added 9 Experience Reports from students who came to Nagoya for a clinical clerkship, and 15 reports from Nagoya University students who went abroad on exchange.\n\nThis site gathers the students' reports on the student stories page, where you can filter them by type, country and year.",
+      "ja": "交換留学サイトに、臨床実習で名古屋に来た学生の体験談9件を追加しました。あわせて、交換留学に行った本学学生の体験談15件も追加しました。\n\nこのサイトでは、学生の体験談を体験記のページにまとめています。種類、国・地域、年で絞り込めます。"
+    },
+    "page": "stories",
     "sources": [
       "https://www.med.nagoya-u.ac.jp/intlexch/japanese/index.html"
     ]
@@ -130,7 +177,12 @@
       "en": "The director of the university's bioinformatics research centre met faculty to discuss data-driven life science and possible cooperation.",
       "ja": "バイオインフォマティクス研究センターの所長が来訪し、データ駆動型生命科学を中心に今後の連携を話し合いました。"
     },
+    "body": {
+      "en": "On 9 January 2025, Professor Fred A. Wright of North Carolina State University visited Nagoya University. He directs the Bioinformatics Research Center and is Goodnight Innovation Distinguished Professor of statistics and biological sciences.\n\nAfter a welcome at Nagoya University Hospital, he met a professor of systems biology at the Graduate School of Medicine. They discussed research that uses data-driven life science, mathematical and statistical modelling and machine learning to understand living systems and analyse disease. They also discussed possible cooperation.\n\nHe then met an associate professor of international medical education at the Office of International Affairs. They exchanged information on Nagoya's international activities and on possible research and education exchange. The visit confirmed that exchange and cooperation in bioinformatics and data science are possible.",
+      "ja": "2025年1月9日、米国ノースカロライナ州立大学のFred A. Wright教授が名古屋大学を訪問しました。教授はBioinformatics Research Centerのディレクターです。統計学と生物科学のGoodnight Innovation Distinguished Professorも務めています。\n\n名古屋大学病院で関係者が出迎えたあと、医学系研究科のシステム生物学の教授と面談しました。データ駆動型生命科学、数理・統計モデリング、機械学習を使った研究について話し合いました。生命現象の理解と疾患の解析に向けた研究です。今後の連携の可能性についても意見を交わしました。\n\n続いて国際連携室で、国際医療教育の准教授と面談しました。本学の国際連携の取り組みと、研究と教育の交流の可能性について情報を交換しました。この訪問で、バイオインフォマティクスとデータサイエンスの分野で交流と協力を進められることを確認しました。"
+    },
     "url": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html",
+    "page": "partnerships/visits",
     "sources": [
       "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html"
     ]
@@ -147,7 +199,12 @@
       "en": "A delegation led by the vice president for medical AI discussed cooperation between their institute for medical AI and Nagoya teams.",
       "ja": "医療AI研究所を率いる副学長ら3名が来訪し、医療AIの分野で本学のチームとの連携を話し合いました。"
     },
+    "body": {
+      "en": "On 10 December 2024, a delegation of three from the University of Reims Champagne-Ardenne, a partner university, visited Nagoya University. It was led by Vice President Vincent Vuiblet, who directs the university's institute for medical AI. After talks with the Graduate School of Environmental Studies at Higashiyama campus, the delegation paid a courtesy visit to a Vice President at the university headquarters. In the afternoon it met the School of Medicine at Tsurumai campus.\n\nAt the School of Medicine, the Dean and faculty attended. The visitors presented their university and its institute for medical AI in about 15 minutes. Nagoya presented its programme that trains medical AI specialists and puts AI into practice.\n\nThe University of Reims Champagne-Ardenne is a public university founded in 1971 and the main higher education institution of the Champagne region. Reims is a sister city of Nagoya. The two universities signed a department-level agreement through the Graduate School of Mathematics in 2017, which became a university-wide agreement in 2019. When its President visited in February 2024, a link with the School of Medicine came up in talks with Nagoya's leaders. This led to the visit.\n\nThe main aim was to discuss concrete cooperation between the institute for medical AI and Nagoya's medical AI teams. Vice President Vuiblet is a nephrologist who leads research on medical data and AI and puts it into practice. He showed strong interest in Nagoya's use of AI in health care. Later in the visit, the delegation also met a faculty member and a French international student. Joint research themes and a framework for exchange of people, centred on the institute and Nagoya's medical AI programme, are expected to follow.",
+      "ja": "2024年12月10日、協定校のランス・シャンパーニュ・アルデンヌ大学から、代表団3名が名古屋大学を訪問しました。団長は、同大学の医療AI研究所の所長を務めるVincent Vuiblet副学長です。東山キャンパスで環境学研究科と懇談したあと、本部で副総長を表敬訪問しました。午後は鶴舞キャンパスで医学部と意見を交換しました。\n\n医学部での懇談には研究科長と教員が出席し、先方は大学と医療AI研究所を約15分で紹介しました。本学からは、医療AIの人材育成と社会実装を進める本学のプログラムを紹介しました。\n\nランス・シャンパーニュ・アルデンヌ大学は1971年に設立された公立の総合大学です。シャンパーニュ地方の中心となる教育機関で、ランス市は名古屋市の姉妹友好都市でもあります。本学とは2017年に多元数理科学研究科との部局間協定を結び、2019年に全学協定へ広げました。2024年2月に学長が来訪した際、総長や副総長との懇談で医学部との連携が話題になりました。これが今回の訪問につながりました。\n\n訪問の主な目的は、医療AI研究所と本学の医療AI関係のチームとの連携を具体的に話し合うことです。Vuiblet副学長は腎臓内科医で、医療データとAIを使った研究と社会実装を進めています。本学のヘルスケア分野でのAI活用にも強い関心を示しました。訪問の後半には、教員やフランス人留学生とも懇談しました。今後は医療AI研究所と本学の医療AIのプログラムを中心に、共同研究のテーマ探しと人材交流の枠組みづくりが進むことが期待されます。"
+    },
     "url": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html",
+    "page": "partnerships/visits",
     "sources": [
       "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html"
     ]
@@ -164,7 +221,40 @@
       "en": "Three visitors toured the hospital, met the vice dean for international affairs and gave a special lecture centred on neurosurgery.",
       "ja": "3名が附属病院を見学し、国際担当の副研究科長と面談しました。脳神経外科を中心にした特別講義も行われました。"
     },
+    "body": {
+      "en": "On 13 September 2024, Prof. Dr. Jürgen Beck, Dr. Katharina Wolf and Dr. Amir El Rahal of the University of Freiburg visited Nagoya University. After a tour of Nagoya University Hospital, they met the vice dean for international affairs. They discussed the direction of cooperation between the two institutions.\n\nThey then met the professor of neurosurgery and colleagues at the Graduate School of Medicine. Professor Beck gave a special lecture that shared research and clinical findings, centred on neurosurgery. The lecture was a chance to start concrete talks on future joint research and exchange of people.",
+      "ja": "2024年9月13日、フライブルク大学の3名が名古屋大学を訪問しました。Prof. Dr. Jürgen Beck、Dr. Katharina Wolf、Dr. Amir El Rahalです。名古屋大学医学部附属病院を見学したあと、国際担当の副研究科長と面談しました。両機関の連携の方向性について意見を交わしました。\n\n続いて、医学系研究科の脳神経外科学の教授らと面談しました。その後、Beck教授が特別講義を行い、脳神経外科を中心とした研究と臨床の知見を紹介しました。この講義は、共同研究や人材交流に向けた具体的な議論につながる機会になりました。"
+    },
     "url": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html",
+    "page": "degrees/freiburg",
+    "partners": [
+      "freiburg"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html"
+    ]
+  },
+  {
+    "id": "2024-09-unc-dementia",
+    "date": "2024-09-12",
+    "category": "event",
+    "title": {
+      "en": "Visit from UNC-Chapel Hill on dementia-capable communities",
+      "ja": "ノースカロライナ大学チャペルヒル校から認知症支援の研究者が来訪"
+    },
+    "summary": {
+      "en": "Talks on joint research in the health and welfare of older people and dementia support, including a meeting at the School of Health Sciences.",
+      "ja": "高齢者の健康と福祉、認知症支援の分野で共同研究を話し合いました。保健学科での面談も行いました。"
+    },
+    "body": {
+      "en": "On 12 September 2024, Assistant Professor Dr. Ryan Lavalley and a graduate student of the University of North Carolina at Chapel Hill visited Nagoya University. They came to explore academic links and joint research in health care, especially the health and welfare of older people and dementia support.\n\nAt Nagoya University Hospital, the visitors paid a courtesy visit to the Dean and a professor of the Office of International Affairs. They toured the hospital, mainly its rehabilitation services, and met the professor of public health. In the afternoon they went to Daiko campus to meet occupational therapy faculty of the School of Health Sciences. They then held talks with the professor of geriatrics.\n\nThe visit followed a meeting at UNC between the Nagoya professor of geriatrics and the two visitors. Dr. Lavalley also came to Japan to give a keynote lecture at an occupational science conference. At UNC, an associate dean of the health professions school is said to be interested in working with Nagoya, and talks will continue through Dr. Lavalley.\n\nThe talks centred on the Dementia Capable Community work that Dr. Lavalley presented. They covered links with Japanese research and local needs, a framework for joint research, and possible education programmes such as student and faculty exchange and clinical and research training.",
+      "ja": "2024年9月12日、ノースカロライナ大学チャペルヒル校のAssistant ProfessorであるDr. Ryan Lavalleyと、大学院生1名が名古屋大学を訪問しました。保健医療分野での学術連携と共同研究の可能性を探ることが目的です。特に高齢者の健康と福祉、認知症支援の分野です。\n\n一行は名古屋大学医学部附属病院で、研究科長と国際連携室の教授を表敬訪問しました。その後、リハビリテーション関連を中心に病院を見学し、公衆衛生学の教授を訪ねました。午後は大幸キャンパスに移り、保健学科の作業療法の教員と面談しました。続いて老年内科学の教授と協議しました。\n\n訪問のきっかけは、本学の老年内科学の教授が先方を訪問した際に2名と会ったことです。Lavalley氏が作業科学の学会で基調講演を行うために来日したことも契機になりました。先方では、保健医療学部の副学部長が本学との連携に強い関心を示しているとされます。今後はLavalley氏を通じて協議を進める予定です。\n\n協議では、Lavalley氏が紹介したDementia Capable Communityの取り組みを軸に話し合いました。日本の研究や地域の課題との接点、共同研究の枠組みについて意見を交わしました。学生と教員の交流や、臨床と研究の研修などの教育プログラムへの展開も話し合いました。"
+    },
+    "url": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html",
+    "page": "partnerships/visits",
+    "partners": [
+      "unc"
+    ],
     "sources": [
       "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html"
     ]
@@ -181,9 +271,20 @@
       "en": "The visit included a special lecture. The joint degree agreement was under renewal talks, and student exchange continued.",
       "ja": "特別講演が行われました。ジョイント・ディグリーの協定は更新に向けた協議中で、学生交流は続いています。"
     },
+    "body": {
+      "en": "On 28 March 2024, Prof. Christoph Peters of the University of Freiburg, a partner school, visited Nagoya University. After a courtesy visit to the School of Medicine, he paid a courtesy visit to the university President and a Vice President at Higashiyama campus. He then held talks at the Office of International Affairs and gave a special lecture.\n\nThe School of Medicine and Freiburg have worked together since the academic exchange and student exchange agreement of 2000. With Professor Peters's help, the two universities set up the Nagoya-Freiburg joint degree programme in 2018.\n\nAt the time of the visit, the joint degree agreement was under renewal talks, and the two sides were working toward a new framework based on Freiburg's proposal. Student exchange continued, with two Freiburg students received in 2023 and two students planned in each direction for 2024. The visit was a step toward closer links in joint research and the joint degree programme, as well as student exchange.",
+      "ja": "2024年3月28日、協定校のフライブルク大学からProf. Christoph Petersが名古屋大学を訪問しました。医学部を表敬訪問したあと、東山キャンパスで総長と副総長を表敬訪問しました。その後、国際連携室で意見を交わし、特別講演を行いました。\n\n本学医学部とフライブルク大学は、2000年の学術交流と学生交換の協定をもとに交流を続けています。Peters教授の尽力で、2018年に名古屋大学・フライブルク大学国際連携総合医学専攻を設立しました。\n\n訪問の時点では、この専攻の協定は更新に向けた協議中でした。先方の提案をふまえて、新しい枠組みに向けた調整を進めていました。学生交流は続いており、2023年は受け入れ2名、2024年は双方2名ずつの予定でした。今回の訪問を機に、学生交流に加えて共同研究と専攻の発展に向けた連携を強めます。"
+    },
     "url": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html",
+    "page": "degrees/freiburg",
+    "partners": [
+      "freiburg"
+    ],
     "sources": [
       "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html"
+    ],
+    "toConfirm": [
+      "The old visit report says the joint degree programme was set up in 2018, while partners.json dates the joint degree agreement 2017-11-22. Confirm the wording, and say whether the renewal talks mentioned in 2024 have ended."
     ]
   },
   {
@@ -198,7 +299,15 @@
       "en": "A delegation of seven led by the President and Vice-Chancellor met university and medical school leaders about education and research cooperation.",
       "ja": "総長を団長とする7名が来訪し、大学と医学部の関係者と教育と研究の連携を話し合いました。"
     },
+    "body": {
+      "en": "On 15 March 2024, a delegation of seven from the University of Nottingham in the United Kingdom, led by President and Vice-Chancellor Shearer West, visited Nagoya University. It included the Director of Global Engagement of the Faculty of Medicine and Health Sciences, the Associate Director of Global Engagement, the Director of Global Engagement of the Faculty of Social Sciences and the Chief of Staff. Two engineering professors of the University of Nottingham Ningbo China also took part.\n\nIn the morning, at Higashiyama campus, the delegation met the university President, a Vice President and other leaders. They discussed the direction of international cooperation and wider exchange. After lunch, the delegation moved to the School of Medicine at Tsurumai campus. It held strategic talks on medical education and research with the vice dean for international affairs, faculty and the Office of International Affairs.\n\nTwo members also held research meetings with clinical departments, in fields such as precision medicine, respiratory medicine, gastroenterology and hepatology, and intensive care and emergency medicine. The delegation visited the Osu district in the afternoon, and five members joined a reception in the evening.\n\nThe visit confirmed possible exchange in research and education centred on the School of Medicine, in addition to the university-level partnership.",
+      "ja": "2024年3月15日、英国ノッティンガム大学のShearer West総長を団長とする7名が名古屋大学を訪問しました。一行には、医学・健康科学部の国際展開の責任者、グローバル戦略の担当者、社会科学部の国際連携の責任者、総長補佐が含まれます。ノッティンガム大学寧波校の工学分野の教授2名も加わりました。\n\n午前は東山キャンパスで、総長、副総長らと懇談しました。両大学の国際連携の方向性と交流の拡大について意見を交わしました。昼食会のあと、一行は鶴舞キャンパスの医学部に移動しました。国際担当の副研究科長、教員、国際連携室と、医学教育と研究の連携について戦略的な協議を行いました。\n\n一行のうち2名は、関連する診療科と個別の研究ミーティングも行いました。分野は精密医療、呼吸器、消化器・肝臓、集中治療・救急などです。午後には大須地区も訪れ、夕方には5名が懇親会に参加しました。\n\n今回の訪問で、全学レベルの連携に加え、医学部を中心とした研究と教育の交流の可能性を確認しました。"
+    },
     "url": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html",
+    "page": "partnerships/visits",
+    "partners": [
+      "nottingham"
+    ],
     "sources": [
       "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html"
     ]
@@ -215,7 +324,15 @@
       "en": "Held at Nagoya University Hospital with a visiting professor from Monash University, including student presentations and discussion.",
       "ja": "名古屋大学医学部附属病院でモナシュ大学の教授を迎えて開催しました。学生発表と討論も行われました。"
     },
+    "body": {
+      "en": "On 7 March 2024, Nagoya held a mini-symposium with Prof. James Whisstock of Monash University, Australia. It started at 10:30 in the 7th-floor meeting room of Central Clinical Building A at Nagoya University Hospital.\n\nThree Nagoya professors presented the school's education, research and the international activities of its students. Professor Whisstock presented education at Monash. Students then gave five-minute presentations, followed by a 15-minute discussion on mutual understanding and future exchange.\n\nProfessor Whisstock is a deputy dean for research in the Faculty of Medicine, Nursing and Health Sciences at Monash, with a background in bioinformatics and structural biology. His research covers the structure and function of proteins involved in immunity and development, and proteases involved in blood clotting and wound healing.",
+      "ja": "2024年3月7日、オーストラリアのモナシュ大学からProf. James Whisstockを迎え、ミニシンポジウムを開きました。会場は名古屋大学医学部附属病院中央診療棟Aの7階会議室で、10時30分に始まりました。\n\n本学からは3名の教授が、本学の教育と研究、学生の国際的な活動を紹介しました。Whisstock教授は、モナシュ大学の教育を紹介しました。続いて学生が5分ずつ発表し、15分の討論で互いの理解を深めました。今後の交流についても意見を交わしました。\n\nWhisstock教授は、Faculty of Medicine, Nursing and Health Sciencesで研究担当の副学部長を務めています。専門はバイオインフォマティクスと構造生物学です。免疫や発生に関わるタンパク質の構造と機能、血液凝固や創傷治癒に関わるプロテアーゼを研究しています。"
+    },
     "url": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html",
+    "page": "partnerships/visits",
+    "partners": [
+      "monash"
+    ],
     "sources": [
       "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html"
     ]
@@ -232,9 +349,39 @@
       "en": "Seven reports from visiting clinical clerkship students and 13 reports from Nagoya University students on exchange were added.",
       "ja": "臨床実習で来日した学生の体験談7件と、本学学生の交換留学体験談13件を追加しました。"
     },
-    "url": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/index.html",
+    "body": {
+      "en": "The exchange site added 7 Experience Reports from students who came to Nagoya for a clinical clerkship, and 13 reports from Nagoya University students who went abroad on exchange.\n\nThis site gathers the students' reports on the student stories page, where you can filter them by type, country and year.",
+      "ja": "交換留学サイトに、臨床実習で名古屋に来た学生の体験談7件を追加しました。あわせて、交換留学に行った本学学生の体験談13件も追加しました。\n\nこのサイトでは、学生の体験談を体験記のページにまとめています。種類、国・地域、年で絞り込めます。"
+    },
+    "page": "stories",
     "sources": [
       "https://www.med.nagoya-u.ac.jp/intlexch/japanese/index.html"
+    ]
+  },
+  {
+    "id": "2024-02-unc-geriatrics",
+    "date": "2024-02-27",
+    "category": "event",
+    "title": {
+      "en": "Visit from a geriatrics researcher of UNC-Chapel Hill",
+      "ja": "ノースカロライナ大学チャペルヒル校の老年医学研究者が来訪"
+    },
+    "summary": {
+      "en": "Four days of meetings in geriatrics and public health, and a session for medical students on the US residency system.",
+      "ja": "老年医学と公衆衛生学の教員と4日間面談し、医学生に米国のレジデンシー制度を紹介しました。"
+    },
+    "body": {
+      "en": "From 27 February to 1 March 2024, Dr. John A. Batsis, Associate Professor of geriatric medicine at the University of North Carolina at Chapel Hill, visited Nagoya University. He mainly met faculty and researchers in geriatrics and public health to discuss research and education links.\n\nOn 27 February he presented his research to the Department of Geriatrics and discussed research with its staff and graduate students. In the evening he met the professor of geriatrics and gave a lecture on geriatric medicine. On 28 February he met the Dean and the vice dean at the Office of International Affairs, exchanged views with endocrinology and diabetes, and attended a welcome dinner. On 29 February he discussed future cooperation with the professor of public health over lunch and gave a short talk. On 1 March he gave medical students a guidance session on the US residency system and the field of geriatric medicine, with questions and answers.\n\nThe visit confirmed a base for exchange across several departments, around research themes such as geriatrics, nutrition, frailty and sarcopenia. It was also a career education opportunity for students.",
+      "ja": "2024年2月27日から3月1日まで、ノースカロライナ大学チャペルヒル校のDr. John A. Batsis准教授が名古屋大学を訪問しました。専門は老年医学です。老年内科学と公衆衛生学の教員や研究者と面談し、研究交流と教育連携の可能性を話し合いました。\n\n2月27日は老年内科学で研究を紹介し、医局員や大学院生と研究について議論しました。夕方には老年内科学の教授と面談し、老年医学の講義を行いました。2月28日は国際連携室で研究科長と副研究科長と面談しました。内分泌・糖尿病内科とも意見を交わし、夜は歓迎の夕食会に参加しました。2月29日は公衆衛生学の教授と昼食をとりながら今後の連携を話し合い、ショートトークを行いました。3月1日は本学の医学生に、米国のレジデンシー制度と老年医学が担う領域を説明しました。質疑応答を通じて学生の理解を深めました。\n\nこの訪問では、老年医学、栄養、フレイルやサルコペニアなどの研究テーマを軸に、複数の部局にわたる交流の基盤を確認しました。学生のキャリア教育の機会にもなりました。"
+    },
+    "url": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html",
+    "page": "partnerships/visits",
+    "partners": [
+      "unc"
+    ],
+    "until": "2024-03-01",
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html"
     ]
   },
   {
@@ -246,12 +393,15 @@
       "ja": "コロラド大学との合同アントレプレナーシッププログラム参加者募集"
     },
     "summary": {
-      "en": "A programme on the theme of an ageing society, with online work in March and an on-campus phase in May 2025. The application deadline was 31 January 2025. The old page is dated 10 February 2024.",
-      "ja": "高齢化社会をテーマに、2025年3月のオンラインと5月の対面で行うプログラムです。申込期限は2025年1月31日でした。旧ページの日付は2024年2月10日です。"
+      "en": "A programme on the theme of an ageing society, with online work in March and an on-campus phase in May 2025. The application deadline was 31 January 2025.",
+      "ja": "高齢化社会をテーマに、2025年3月のオンラインと5月の対面で行うプログラムです。申込期限は2025年1月31日でした。"
     },
     "url": "https://www.med.nagoya-u.ac.jp/medical_J/international/news/events/post_6.html",
     "sources": [
       "https://www.med.nagoya-u.ac.jp/medical_J/international/news/events/post_6.html"
+    ],
+    "toConfirm": [
+      "The old page is dated 10 February 2024, but the call is for a programme in 2025 with a deadline of 31 January 2025. Confirm the date of the announcement."
     ]
   },
   {
@@ -272,6 +422,35 @@
     ]
   },
   {
+    "id": "2024-01-uwa-visit",
+    "date": "2024-01-23",
+    "category": "event",
+    "title": {
+      "en": "Visit from the Senior Deputy Vice-Chancellor of The University of Western Australia",
+      "ja": "西オーストラリア大学の副学長が医学部長を表敬訪問"
+    },
+    "summary": {
+      "en": "Tim Colmer met the Dean of the School of Medicine. The two medical schools have exchanged clerkship students since 2016.",
+      "ja": "Tim Colmer副学長が医学部長を表敬訪問しました。両校の医学部は2016年から臨床実習の学生交換を続けています。"
+    },
+    "body": {
+      "en": "On 23 January 2024, Tim Colmer, Senior Deputy Vice-Chancellor of The University of Western Australia, a partner university, visited Nagoya and paid a courtesy visit to the Dean of the School of Medicine.\n\nIn 2015 the two universities signed a university-level academic exchange agreement and a memorandum on student exchange, mainly for exchange of faculty, scientists, researchers and students. In 2016 the two medical schools signed a student exchange agreement for clinical clerkships, in which students train at the host university's hospital. By academic year 2023, six Nagoya students had gone to Western Australia and 16 of its students had come to Nagoya.\n\nThe visit discussed continuing the exchange and possible joint research. Both sides agreed to keep working together.",
+      "ja": "2024年1月23日、協定校の西オーストラリア大学からTim Colmer副学長が来訪し、医学部長を表敬訪問しました。\n\n両大学は2015年に、大学間学術交流協定と学生交換の覚書を結びました。主な目的は、教員、科学者、研究者、学生の交流です。2016年には両校の医学部が、臨床実習のための学生交換協定を結びました。学生は受け入れ先の大学の病院で臨床実習を行います。2023年度までに、本学から6名が西オーストラリア大学に留学しました。西オーストラリア大学からは16名が本学に来ています。\n\n今回の訪問では、交流の継続と共同研究の可能性を話し合いました。今後も協力関係を続けることで一致しました。"
+    },
+    "url": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html",
+    "page": "partnerships/visits",
+    "partners": [
+      "uwa"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html"
+    ],
+    "toConfirm": [
+      "The old page lists this visit under 2023 and calls 23 January 2024 a Wednesday, but it was a Tuesday. The date 23 January 2024 is used here.",
+      "Clerkship exchange with Western Australia: 6 Nagoya students sent and 16 received by academic year 2023. Confirm and give a current figure if one exists."
+    ]
+  },
+  {
     "id": "2024-01-jdp-call",
     "date": "2024-01-04",
     "category": "call",
@@ -284,8 +463,59 @@
       "ja": "2025年4月入学の募集案内として旧ニュースページに掲載されました。詳細ページは残っていません。"
     },
     "url": "https://www.med.nagoya-u.ac.jp/medical_J/international/news/events/",
+    "page": "degrees/joint-degree",
     "sources": [
       "https://www.med.nagoya-u.ac.jp/medical_J/international/news/events/"
+    ]
+  },
+  {
+    "id": "2023-12-unc-delegation",
+    "date": "2023-12-12",
+    "category": "event",
+    "title": {
+      "en": "Delegation from UNC-Chapel Hill led by its Vice Provost for Global Affairs",
+      "ja": "ノースカロライナ大学チャペルヒル校の国際担当副学長の一行が来訪"
+    },
+    "summary": {
+      "en": "The delegation met university and medical school leaders to find research fields where the two universities can work together.",
+      "ja": "大学の執行部と医学部の関係者と協議し、両大学が研究協力を進められる分野を話し合いました。"
+    },
+    "body": {
+      "en": "On 12 December 2023, a delegation from the University of North Carolina at Chapel Hill, a partner university, visited Nagoya University. It was led by the Vice Provost for Global Affairs and included an assistant to the chancellor for research, the head of a project run by UNC, a professor of bioengineering and a member of the global affairs office.\n\nThe visitors wanted to find fields where the two universities could combine their strengths in research. The talks centred on climate change, ageing populations, care and support of older people, pandemic preparedness, cancer and neurology, drug discovery using ribonucleic acid, and translational research in Japan.\n\nIn the morning, at Higashiyama campus, the delegation met the university President, a Vice President and other leaders. Over a working lunch they discussed the future of cooperation at university level. In the afternoon, at the School of Medicine, the Dean and professors presented their research and discussed possible joint research. The two sides also discussed continuing the visiting researcher programme for young researchers and postdoctoral fellows, and visits of Nagoya staff to UNC. They agreed to keep working together.",
+      "ja": "2023年12月12日、協定校のノースカロライナ大学チャペルヒル校から、国際担当副学長の一行が本学を訪問しました。一行には、研究担当の学長補佐、同大学が進める事業の代表、バイオエンジニアリングの教授、国際担当の職員が加わりました。\n\n訪問の目的は、双方の強みを生かして研究協力を進められる分野を見つけることです。主な分野は気候変動、人口の高齢化、高齢者の医療とケアです。パンデミックへの備え、がんと神経学、リボ核酸を使った創薬、日本のトランスレーショナルリサーチも取り上げました。\n\n午前は東山キャンパスで総長、副総長らと懇談しました。昼食会を兼ねて、全学レベルの今後の協力を話し合いました。午後は医学部で研究科長と各科の教授が研究を紹介し、共同研究の可能性を話し合いました。若手研究者と博士研究員のための客員研究員プログラムを続けることも話し合いました。本学の職員が先方を訪問することについても情報を交換し、今後も協力を続けることで一致しました。"
+    },
+    "url": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html",
+    "page": "partnerships/visits",
+    "partners": [
+      "unc"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html"
+    ]
+  },
+  {
+    "id": "2023-11-nz-embassy",
+    "date": "2023-11-17",
+    "category": "event",
+    "title": {
+      "en": "Visit from the trade section of the Embassy of New Zealand",
+      "ja": "ニュージーランド大使館商務部が医学部長を表敬訪問"
+    },
+    "summary": {
+      "en": "A first exchange of information on possible joint research with research institutions in New Zealand.",
+      "ja": "ニュージーランドの研究機関との共同研究の可能性について、初めて情報を交換しました。"
+    },
+    "body": {
+      "en": "On 17 November 2023, Zea Rose of the trade section of the Embassy of New Zealand paid a courtesy visit to the Dean of the School of Medicine. A Nagoya faculty member had introduced the visit, which aimed to discuss possible joint research with research institutions in New Zealand.\n\nThe Dean and faculty exchanged information with the visitor. They discussed possible joint research with New Zealand initiatives such as Auckland UniServices and the Brain Bank. Nagoya and New Zealand had had little exchange so far, and this was the first exchange of information. Nagoya intends to continue talks to build the relationship.",
+      "ja": "2023年11月17日、ニュージーランド大使館商務部のZea Rose氏が医学部長を表敬訪問しました。本学教員の紹介による訪問です。ニュージーランドの研究機関との共同研究の可能性を話し合うことが目的です。\n\n医学部長らと情報を交換し、同国が進める事業との共同研究の可能性を話し合いました。Auckland UniServicesやBrain Bankなどの事業です。本学とニュージーランドはこれまで交流が少なく、今回が初めての情報交換です。関係を築くため、本学も協議を続ける考えです。"
+    },
+    "url": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html",
+    "page": "partnerships/visits",
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html"
+    ],
+    "toConfirm": [
+      "The old page calls 17 November 2023 a Thursday, but it was a Friday. The date 17 November 2023 is used here."
     ]
   },
   {
@@ -301,6 +531,7 @@
       "ja": "2022年11月3日と4日に名古屋大学が主催しました。3年ぶりの対面開催で、各校から20名を超える代表者が集まりました。"
     },
     "url": "https://www.med.nagoya-u.ac.jp/medical_J/international/global/symposium/6global_alliance_medical_excellencegame20221134.html",
+    "page": "partnerships/game",
     "sources": [
       "https://www.med.nagoya-u.ac.jp/medical_J/international/global/symposium/6global_alliance_medical_excellencegame20221134.html"
     ]
@@ -318,6 +549,7 @@
       "ja": "2022年5月28日の午前10時からZoomで開催しました。日本語での説明です。"
     },
     "url": "https://www.med.nagoya-u.ac.jp/medical_J/international/news/news/post_2.html",
+    "page": "degrees/joint-degree",
     "sources": [
       "https://www.med.nagoya-u.ac.jp/medical_J/international/news/news/post_2.html"
     ]
@@ -335,6 +567,7 @@
       "ja": "本学医学部生に向けた募集で、詳細は学内の学習システムに掲載されました。"
     },
     "url": "https://www.med.nagoya-u.ac.jp/medical_J/international/news/events/2022.html",
+    "page": "study-abroad/clinical-electives",
     "sources": [
       "https://www.med.nagoya-u.ac.jp/medical_J/international/news/events/2022.html"
     ]
@@ -369,6 +602,7 @@
       "ja": "2021年10月15日に全国医学部国際交流協議会の分科会として、日本語でオンライン開催しました。文部科学省と4大学の登壇者が現状を報告しました。"
     },
     "url": "https://www.med.nagoya-u.ac.jp/medical_J/international/news/news/post_3.html",
+    "page": "degrees/joint-degree",
     "sources": [
       "https://www.med.nagoya-u.ac.jp/medical_J/international/news/news/post_3.html"
     ]
@@ -403,6 +637,7 @@
       "ja": "2021年8月17日から21日にオンラインで開催しました。対象は5年生と6年生で、応募期限は7月2日でした。"
     },
     "url": "https://www.med.nagoya-u.ac.jp/medical_J/international/news/events/post_1.html",
+    "page": "study-abroad/medical-english",
     "sources": [
       "https://www.med.nagoya-u.ac.jp/medical_J/international/news/events/post_1.html"
     ]
@@ -420,6 +655,9 @@
       "ja": "2021年7月26日から29日に英語でZoom開催し、本学の学生にも参加を募りました。"
     },
     "url": "https://www.med.nagoya-u.ac.jp/medical_J/international/news/events/tei.html",
+    "partners": [
+      "monash"
+    ],
     "sources": [
       "https://www.med.nagoya-u.ac.jp/medical_J/international/news/events/tei.html"
     ]
@@ -454,6 +692,7 @@
       "ja": "2021年6月23日と24日に名古屋大学が主幹としてオンライン開催しました。テーマは患者安全、医学と情報学、高齢化です。"
     },
     "url": "https://www.med.nagoya-u.ac.jp/medical_J/international/news/news/mirai_20_digital_research_and_innovation_week.html",
+    "page": "partnerships/mirai",
     "sources": [
       "https://www.med.nagoya-u.ac.jp/medical_J/international/news/news/mirai_20_digital_research_and_innovation_week.html"
     ]
@@ -471,6 +710,10 @@
       "ja": "2021年6月7日から11日にオンラインで開催しました。主催はヨーテボリ大学です。"
     },
     "url": "https://www.med.nagoya-u.ac.jp/medical_J/international/news/news/mirai_20_digital_research_and_innovation_week.html",
+    "page": "partnerships/mirai",
+    "partners": [
+      "gothenburg"
+    ],
     "sources": [
       "https://www.med.nagoya-u.ac.jp/medical_J/international/news/news/mirai_20_digital_research_and_innovation_week.html"
     ]
@@ -488,6 +731,7 @@
       "ja": "2021年5月25日から6月29日まで毎週火曜日に開催しました。6大学から23名の学生が参加しました。"
     },
     "url": "https://www.med.nagoya-u.ac.jp/medical_E/international/international/occd/",
+    "page": "partnerships/game",
     "sources": [
       "https://www.med.nagoya-u.ac.jp/medical_E/international/international/occd/"
     ]
@@ -505,6 +749,9 @@
       "ja": "2021年3月13日と14日にオンラインで2日間開催しました。複数の国の学生が参加し、日本時間では深夜の開催でした。"
     },
     "url": "https://www.med.nagoya-u.ac.jp/medical_J/international/news/events/lmu_international_clinical_case_discussion.html",
+    "partners": [
+      "lmu-munich"
+    ],
     "sources": [
       "https://www.med.nagoya-u.ac.jp/medical_J/international/news/events/lmu_international_clinical_case_discussion.html"
     ]
@@ -522,6 +769,10 @@
       "ja": "2021年3月6日から22日まで夜に6回開催しました。本学医学部生が対象で、規定の日数に参加するとレスター大学の修了証が出ました。"
     },
     "url": "https://www.med.nagoya-u.ac.jp/medical_J/international/news/events/2.html",
+    "page": "study-abroad/medical-english",
+    "partners": [
+      "leicester"
+    ],
     "sources": [
       "https://www.med.nagoya-u.ac.jp/medical_J/international/news/events/2.html"
     ]
@@ -539,6 +790,7 @@
       "ja": "2021年2月27日から7月3日まで土曜日に5回、Zoomで開催しました。東海国立大学機構として名古屋大学の学生も参加できました。"
     },
     "url": "https://www.med.nagoya-u.ac.jp/medical_J/international/news/events/2021.html",
+    "page": "study-abroad/medical-english",
     "sources": [
       "https://www.med.nagoya-u.ac.jp/medical_J/international/news/events/2021.html"
     ]
@@ -556,6 +808,12 @@
       "ja": "2020年11月3日と17日、12月1日と15日に4回開催しました。高麗大学、香港中文大学、ミュンヘン大学と合同で、4大学から16名が参加しました。"
     },
     "url": "https://www.med.nagoya-u.ac.jp/medical_J/international/international/occd/",
+    "page": "partnerships/game",
+    "partners": [
+      "korea-university",
+      "cuhk",
+      "lmu-munich"
+    ],
     "sources": [
       "https://www.med.nagoya-u.ac.jp/medical_J/international/international/occd/"
     ]
@@ -573,8 +831,193 @@
       "ja": "2020年10月7日と8日に、名古屋大学とヨーテボリ大学がMIRAI 2.0の開始に合わせて開催しました。"
     },
     "url": "https://www.med.nagoya-u.ac.jp/medical_J/international/global/mirai/event/",
+    "page": "partnerships/mirai",
+    "partners": [
+      "gothenburg"
+    ],
     "sources": [
       "https://www.med.nagoya-u.ac.jp/medical_J/international/global/mirai/event/"
+    ]
+  },
+  {
+    "id": "2019-10-yangming-visit",
+    "date": "2019-10-28",
+    "category": "event",
+    "title": {
+      "en": "Visit from the hospital of National Yang-Ming University, Taiwan",
+      "ja": "台湾の国立陽明大学附属病院の関係者が来訪"
+    },
+    "summary": {
+      "en": "Seventeen doctors and nurses toured the new Central Clinical Building B and its intensive care unit.",
+      "ja": "医師と看護師17名が、新しい中央診療棟Bとその集中治療室を見学しました。"
+    },
+    "body": {
+      "en": "On 28 October 2019, seventeen doctors and nurses from the hospital of National Yang-Ming University in Taiwan, including the hospital director and deputy director, visited Nagoya University Hospital. They were interested in the newly completed Central Clinical Building B and in intensive care in Japan. They toured the building's intensive care unit and exchanged information.\n\nThe two universities had no academic exchange agreement, but some departments already exchanged in research, and the two sides discussed further exchange. Both agreed to keep working together, in the view that cooperation within Asia matters for the future of medicine.",
+      "ja": "2019年10月28日、台湾の国立陽明大学附属病院から医師と看護師17名が本学附属病院を訪問しました。一行には院長と副院長も含まれます。新しく完成した中央診療棟Bと、日本の集中治療に関心があるとのことでした。そこで同診療棟の集中治療室を見学し、情報を交換しました。\n\n両大学は学術交流協定を結んでいませんが、一部の診療科では研究の交流がすでにあります。今後の交流に向けた話し合いも行いました。アジアで連携することが医療の発展に大切だという認識のもと、連携を続けることで合意しました。"
+    },
+    "url": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html",
+    "page": "partnerships/visits",
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html"
+    ],
+    "toConfirm": [
+      "The old page names the visitors' hospital as 台湾国立陽明大学附属病院. Confirm its official English name."
+    ]
+  },
+  {
+    "id": "2019-10-edinburgh-visit",
+    "date": "2019-10-21",
+    "category": "event",
+    "title": {
+      "en": "Visit from the University of Edinburgh",
+      "ja": "英国エジンバラ大学の教授が来訪"
+    },
+    "summary": {
+      "en": "Talks on starting student exchange with the University of Edinburgh.",
+      "ja": "エジンバラ大学との学生交換の実現に向けて話し合いました。"
+    },
+    "body": {
+      "en": "On 21 October 2019, Professor Stewart Mercer of the University of Edinburgh medical school visited Nagoya. He had long worked on joint research with an emeritus professor of general medicine at Nagoya University Hospital, and had visited Nagoya several times before.\n\nThis time the two sides discussed starting student exchange with the University of Edinburgh and the way forward.",
+      "ja": "2019年10月21日、エジンバラ大学医学部のStewart Mercer教授が本学を訪問しました。Mercer教授は、本学附属病院総合診療科の名誉教授と長年共同研究を行ってきました。これまでにも何度か来訪しています。\n\n今回は、エジンバラ大学との学生交換の実現に向けて話し合い、今後の方針を協議しました。"
+    },
+    "url": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html",
+    "page": "partnerships/visits",
+    "partners": [
+      "edinburgh"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html"
+    ]
+  },
+  {
+    "id": "2019-08-ustc-visit",
+    "date": "2019-08-07",
+    "category": "event",
+    "title": {
+      "en": "Visit from the University of Science and Technology of China",
+      "ja": "中国科学技術大学の関係者が来訪"
+    },
+    "summary": {
+      "en": "Four visitors discussed exchange in life science and medicine, after a visit to their university by the Nagoya University President.",
+      "ja": "4名が来訪し、生命科学と医学の交流を話し合いました。本学総長の先方訪問を受けた協議です。"
+    },
+    "body": {
+      "en": "On 7 August 2019, four visitors from the University of Science and Technology of China came to Nagoya. They included Professor Qu Kun, director of international cooperation and exchange and professor in the School of Life Sciences. They discussed possible exchange in life science and medicine.\n\nThe university had newly set up a medical school and a hospital, and was promoting international exchange and cooperation. The Nagoya University President had visited the university earlier to discuss cooperation. This visit followed up at working level, at the School of Medicine. Both sides agreed to continue talks toward exchange.",
+      "ja": "2019年8月7日、中国科学技術大学から4名が来訪しました。一行には、国際合作与交流部部長で生命科学学院教授のQu Kun教授が含まれます。生命科学と医学の交流の可能性を話し合いました。\n\n同大学は医学部と附属病院を新しく設け、国際交流と国際連携を進めています。本学の総長も先に同大学を訪問し、今後の協力を話し合っていました。今回はそれを受けた実務者レベルの協議で、一行は医学部を直接訪れました。両機関は、交流の実施に向けて協議を続けることで合意しました。"
+    },
+    "url": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html",
+    "page": "partnerships/visits",
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html"
+    ],
+    "toConfirm": [
+      "The old page writes 中国科技大学. This site reads it as the University of Science and Technology of China (中国科学技術大学). Confirm."
+    ]
+  },
+  {
+    "id": "2019-07-korea-university-visit",
+    "date": "2019-07-18",
+    "category": "event",
+    "title": {
+      "en": "Mini-symposium with Korea University College of Medicine",
+      "ja": "高麗大学校医学部とのミニシンポジウム"
+    },
+    "summary": {
+      "en": "The Dean and professors of Korea University College of Medicine came for a mini-symposium on joint research.",
+      "ja": "高麗大学校医学部の学部長と教授らが来訪し、共同研究に向けたミニシンポジウムを開きました。"
+    },
+    "body": {
+      "en": "On 18 July 2019, Dean Hong Sik Lee and several professors of Korea University College of Medicine visited Nagoya. Both schools belong to the Global Alliance of Medical Excellence (GAME), an international alliance for medical education.\n\nResearchers of the two schools held a mini-symposium to start new joint research, with presentations from both sides and active discussion. A dinner and sightseeing gave further chances to get to know each other.",
+      "ja": "2019年7月18日、高麗大学校医学部のHong Sik Lee学部長と複数の教授が本学を訪問しました。両校は、医学教育の国際アライアンスであるGAMEにともに参加しています。\n\n両校の研究者が集まり、新しい共同研究を進めるためのミニシンポジウムを開きました。双方が研究内容を発表し、活発に意見を交わしました。夕食会や観光もあり、互いの理解を深める機会になりました。"
+    },
+    "url": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html",
+    "page": "partnerships/game",
+    "partners": [
+      "korea-university"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html"
+    ]
+  },
+  {
+    "id": "2019-05-bangkok-hospital-visit",
+    "date": "2019-05-23",
+    "category": "event",
+    "title": {
+      "en": "Visit from Bangkok Hospital, Thailand",
+      "ja": "タイのバンコク国際病院の関係者が来訪"
+    },
+    "summary": {
+      "en": "Twelve visitors, including two deputy hospital directors, exchanged information on clinical work and toured the hospital.",
+      "ja": "副病院長2名を含む12名が来訪し、臨床業務の情報を交換して病院を見学しました。"
+    },
+    "body": {
+      "en": "On 23 May 2019, twelve visitors from Bangkok Hospital in Thailand, including two deputy hospital directors, came to Nagoya. They paid a courtesy visit to the new director of Nagoya University Hospital and exchanged information on improving clinical work.\n\nAfter the meeting, the visitors heard about the hospital's systems. They toured many of its facilities, including rehabilitation, the pharmacy, the obstetric ward, radiology and the operating rooms. The visitors were the heads who oversee nurses and other health staff in their hospital, and the visit was part of their training. Some Nagoya staff had trained at Bangkok Hospital, so the exchange ran in both directions.",
+      "ja": "2019年5月23日、タイのバンコク国際病院から副病院長2名を含む12名が来訪しました。新しく就任した附属病院長を表敬訪問し、臨床業務をよりよくするための情報を交換しました。\n\n面談のあと、本学附属病院のシステムについて説明を受けました。続いてリハビリテーション部、薬剤部、産科病棟、放射線部、手術室など、多くの施設を見学しました。参加者は病院で看護師や医療従事者を統括する責任者で、今回の見学は研修の一環です。本学の職員にもバンコク国際病院での研修に参加した人がおり、双方向の交流になりました。"
+    },
+    "url": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html",
+    "page": "partnerships/visits",
+    "partners": [
+      "bangkok-hospital"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html"
+    ],
+    "toConfirm": [
+      "The 2019 visit report writes バンコク病院, while partners.json uses バンコク国際病院. This item uses the partners.json name."
+    ]
+  },
+  {
+    "id": "2019-05-snuh-visit",
+    "date": "2019-05-20",
+    "category": "event",
+    "title": {
+      "en": "Visit from Seoul National University Hospital",
+      "ja": "ソウル国立大学校病院の病院長らが来訪"
+    },
+    "summary": {
+      "en": "Ten visitors toured the simulation centre while preparing a new simulation education facility in Seoul.",
+      "ja": "10名が来訪し、新しいシミュレーション教育施設の準備のため、本学のシミュレーション施設を見学しました。"
+    },
+    "body": {
+      "en": "On 20 May 2019, ten visitors from Seoul National University Hospital came to Nagoya, including the hospital director, Dr. Yon Su Kim, and Dr. Han-Suk Kim, professor of paediatrics. Dr. Yon Su Kim is a nephrologist and had worked with the Nagoya University President in the same field.\n\nSeoul National University was preparing a new simulation education facility, so the visitors toured Nagoya's simulation centre. The head of the centre introduced it, and the director of nursing explained the simulation education of the nursing department. The visitors also met the professor of nephrology and paid a courtesy visit to the President.\n\nExchange with Seoul National University has long been active, and both sides hope it will grow further.",
+      "ja": "2019年5月20日、ソウル国立大学校病院から10名が本学を訪問しました。一行には、病院長のYon Su Kim氏と小児科教授のHan-Suk Kim氏が含まれます。Yon Su Kim氏の専門は腎臓内科学で、同じ分野の本学総長と協力関係を築いてきました。\n\nソウル国立大学で新しいシミュレーション教育施設をつくる計画があり、一行は本学のシミュレーション施設を見学しました。施設の責任者が施設を紹介し、看護部長が看護部のシミュレーション教育を説明しました。腎臓内科学の教授らとの意見交換と、総長への表敬訪問も行いました。\n\nソウル国立大学と本学の交流は、これまでも活発に続いています。今後のさらなる発展が期待されます。"
+    },
+    "url": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html",
+    "page": "partnerships/visits",
+    "partners": [
+      "snuh"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html"
+    ]
+  },
+  {
+    "id": "2019-01-mnums-visit",
+    "date": "2019-01-28",
+    "category": "event",
+    "title": {
+      "en": "Visit from the President of the Mongolian National University of Medical Sciences",
+      "ja": "モンゴル国立医療科学大学の学長が来訪"
+    },
+    "summary": {
+      "en": "The presidents of the two universities discussed future exchange.",
+      "ja": "両大学の学長が、今後の交流について直接話し合いました。"
+    },
+    "body": {
+      "en": "On 28 January 2019, President Tsolmon Jadamba and Professor Amarsaikhan Bazar of the Mongolian National University of Medical Sciences visited Nagoya University and met the university President.\n\nThe two universities have an academic exchange agreement. Exchange has been led by the Young Leaders Program in healthcare administration. The two presidents discussed future exchange directly.",
+      "ja": "2019年1月28日、モンゴル国立医療科学大学のTsolmon Jadamba学長とAmarsaikhan Bazar教授が本学を訪問し、総長と面談しました。\n\n両大学は学術交流協定を結んでいます。これまでは医療行政学のヤングリーダーズプログラムを中心に交流を進めてきました。今回は両大学の学長が、今後の交流について直接話し合いました。"
+    },
+    "url": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html",
+    "page": "partnerships/visits",
+    "partners": [
+      "mnums"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html"
+    ],
+    "toConfirm": [
+      "The 2019 visit report writes モンゴル国立医科大学, while partners.json uses モンゴル国立医療科学大学. This item uses the partners.json name."
     ]
   },
   {
@@ -590,6 +1033,10 @@
       "ja": "JDPのサイトに、フライブルク大学との専攻のページを追加しました。JDPのお知らせ一覧にある唯一の記事です。"
     },
     "url": "https://www.med.nagoya-u.ac.jp/jdp/en/news/detail.php?no=15",
+    "page": "degrees/freiburg",
+    "partners": [
+      "freiburg"
+    ],
     "sources": [
       "https://www.med.nagoya-u.ac.jp/jdp/en/news/detail.php?no=15"
     ]

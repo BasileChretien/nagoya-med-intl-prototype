@@ -35,7 +35,7 @@ features:
     delivered_by: [src/components/DeadlineList.astro, src/pages/[lang]/index.astro]
     tests: [deadlines]
   - id: story-library
-    says: Visitors can filter student stories by type, country and year, and open the full report.
+    says: Visitors can filter student stories by type, country and year, share or link a filtered list by its address, and open the full report; the Japanese list opens on Nagoya students abroad.
     stage: Explore
     status: works
     delivered_by: [src/pages/[lang]/stories/index.astro, src/components/StoryCard.astro, src/data/stories.json]
@@ -54,10 +54,10 @@ features:
     delivered_by: [src/components/Photo.astro, src/data/images.json]
     tests: [photo-descriptions, images]
   - id: news
-    says: News and events are listed by year, with past items marked as archive.
+    says: Every news item has its own page in both languages; the list can be filtered by type and partner, and past events and closed calls are labelled.
     stage: Explore
     status: works
-    delivered_by: [src/pages/[lang]/news/index.astro, src/data/news.json]
+    delivered_by: [src/pages/[lang]/news/index.astro, src/pages/[lang]/news/[id].astro, src/pages/[lang]/news/_news.ts, src/data/news.json]
     tests: [data-files]
   - id: partners-contacts
     says: Partner universities and contact points come from data files and stay consistent everywhere.
@@ -65,6 +65,19 @@ features:
     status: works
     delivered_by: [src/pages/[lang]/[...slug].astro, src/data/partners.json, src/data/contacts.json]
     tests: [data-files]
+  - id: office-access
+    says: Visitors find the office's building, floor and room, step-by-step directions from Tsurumai Station, a route map and the printable route guide.
+    stage: Contact
+    status: works
+    delivered_by: [src/content/pages/en/about/access.md, src/content/pages/ja/about/access.md, public/files/route-map-en.pdf, public/files/route-map-ja.pdf, src/data/contacts.json]
+    tests: [pairing, images, internal-links]
+  - id: acronyms-explained
+    says: Every abbreviation says what it stands for where it is first used on a page, with a list at the end of the page, links to the institutions, and a full list of abbreviations.
+    stage: Explore
+    status: works
+    delivered_by: [src/lib/rehype-abbr.mjs, src/data/glossary.json, src/content/pages/en/about/glossary.md, src/content/pages/ja/about/glossary.md]
+    tests: [acronyms]
+    limits: Abbreviations in texts drawn from the data files (programme boxes, partner names, news) are listed on the abbreviations page but not marked where they appear.
   - id: faculty-links
     says: The site shows where it sits in the faculty website and sends visitors to the faculty's directory entry for the team, research and publications.
     stage: Contact
@@ -85,7 +98,7 @@ features:
     tests: [faculty-texts, faculty-live]
     limits: The International section rule stays pending until the faculty's web team publishes the gateway texts. Problems the faculty has not fixed yet are listed as known gaps (faculty.json knownGaps) until they are.
   - id: content-status
-    says: Editors see every fact that still needs confirming, on each page and on one checklist page.
+    says: Editors see every fact that still needs confirming on one checklist page; public pages show only a one-line pointer to it.
     stage: Maintain
     status: works
     delivered_by: [src/components/PageNotes.astro, src/pages/[lang]/status/index.astro]

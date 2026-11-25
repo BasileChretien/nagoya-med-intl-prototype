@@ -9,8 +9,10 @@ import ProgrammeCards from '../../components/ProgrammeCards.astro';
 import Photo from '../../components/Photo.astro';
 import { pageImages } from '../../lib/reports';
 import faculty from '../../data/faculty.json';
+import glossary from '../../data/glossary.json';
 import { t, type Lang, type Section } from '../../i18n/ui';
-import { href, pageRef, sectionPages, counterpartExists, programmesIn, type PageEntry, type ProgrammeEntry } from '../../lib/site';
+import { tx } from '../../i18n/extra';
+import { href, asset, pageRef, sectionPages, counterpartExists, programmesIn, type PageEntry, type ProgrammeEntry } from '../../lib/site';
 
 export async function getStaticPaths() {
   const pages = await getCollection('pages');
@@ -26,6 +28,7 @@ const ref = pageRef(entry);
 const lang: Lang = ref.lang;
 const section: Section = ref.section;
 const ui = t(lang);
+const x = tx(lang);
 const { Content } = await render(entry);
 const d = entry.data;
 const hasCounterpart = await counterpartExists(lang, ref.slug);
@@ -44,7 +47,14 @@ const partners = ref.slug === 'partnerships/agreements' || ref.slug === 'partner
   : [];
 const gameMembers = partners.filter((p) => p.data.links.includes('GAME'));
 const regions = [...new Set(partners.map((p) => p.data.region))];
-const contacts = ref.slug === 'about/contact' ? await getCollection('contacts') : [];
+const CONTACT_ORDER = ['intl-office', 'jdp-office', 'donations'];
+const allContacts = (await getCollection('contacts')).sort((a, b) => (CONTACT_ORDER.indexOf(a.id) + 1 || 99) - (CONTACT_ORDER.indexOf(b.id) + 1 || 99));
+const contacts = ref.slug === 'about/contact' ? allContacts : ref.slug === 'about/support' ? allContacts.filter((c) => c.id === 'donations') : [];
+const office = ref.slug === 'about/access' ? await getEntry('contacts', 'intl-office') : undefined;
+const terms = ref.slug === 'about/glossary' ? glossary : [];
+/** "tel:" link and, on Japanese pages, the domestic form of an international number (+81-52-... -> 052-...). */
+const tel = (phone: string) => `tel:${phone.replace(/[^+\d]/g, '')}`;
+const phoneText = (phone: string) => (lang === 'ja' ? phone.replace(/^\+81-?/, '0') : phone);
 const { hero, figures } = await pageImages(ref.slug);
 ---
 <Base lang={lang} title={d.title} description={d.description} slug={ref.slug} hasCounterpart={hasCounterpart} section={section}>
@@ -132,24 +142,72 @@ const { hero, figures } = await pageImages(ref.slug);
           </section>
         )}
 
-        {ref.slug === 'partnerships/agreements' && regions.map((r) => (
-          <section style="display:grid;gap:0.8rem">
-            <h2>{ui.regions[r] ?? r}</h2>
-            <div class="compare-wrap">
-              <table class="compare">
-                <tbody>
-                  {partners.filter((p) => p.data.region === r).map((p) => (
+        {ref.slug === 'partnerships/agreements' && (
+          <p class="tag-legend"><b>{x.tagLegend}:</b> {Object.values(x.tags).map((tag) => <span><span class="badge">{tag.label}</span> {tag.title}</span>)}</p>
+        )}
+        {ref.slug === 'partnerships/agreements' && regions.map((r) => {
+          const rows = partners.filter((p) => p.data.region === r);
+          const withYear = rows.some((p) => p.data.since);
+          return (
+            <section style="display:grid;gap:0.8rem">
+              <h2 id={`region-${r.toLowerCase().replace(/\s+/g, '-')}`}>{ui.regions[r] ?? r}</h2>
+              <div class="compare-wrap" role="region" tabindex="0" aria-labelledby={`region-${r.toLowerCase().replace(/\s+/g, '-')}`}>
+                <table class="compare">
+                  <caption class="visually-hidden">{ui.regions[r] ?? r}</caption>
+                  <thead>
                     <tr>
-                      <th scope="row">{p.data.url ? <a href={p.data.url} rel="noopener">{p.data.name[lang]}</a> : p.data.name[lang]}</th>
-                      <td>{p.data.country[lang]}</td>
-                      <td>{p.data.links.map((l) => <span class="badge">{l}</span>)}</td>
+                      <th scope="col">{x.institution}</th>
+                      <th scope="col">{x.country}</th>
+                      {withYear && <th scope="col">{x.since}</th>}
+                      <th scope="col">{x.links}</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody>
+                    {rows.map((p) => (
+                      <tr>
+                        <th scope="row">{p.data.url ? <a href={p.data.url} rel="noopener">{p.data.name[lang]}</a> : p.data.name[lang]}</th>
+                        <td>{p.data.country[lang]}</td>
+                        {withYear && <td>{p.data.since ?? ''}</td>}
+                        <td>{p.data.links.map((l) => <span class="badge" title={x.tags[l]?.title}>{x.tags[l]?.label ?? l}</span>)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          );
+        })}
+
+        {office && (
+          <section class="contact-card office-box" aria-labelledby="office-box-heading">
+            <h2 id="office-box-heading">{x.officeBox}</h2>
+            <dl>
+              {office.data.location && <><dt>{x.location}</dt><dd>{office.data.location[lang]}</dd></>}
+              {office.data.address && <><dt>{x.address}</dt><dd>{office.data.address[lang]}</dd></>}
+              <dt>{ui.contactEmail}</dt><dd><a href={`mailto:${office.data.email}`}>{office.data.email}</a></dd>
+              {office.data.phone && <><dt>{ui.contactPhone}</dt><dd><a href={tel(office.data.phone)}>{phoneText(office.data.phone)}</a></dd></>}
+            </dl>
+            <ul class="link-list">
+              <li><a href={asset(`files/route-map-${lang}.pdf`)} type="application/pdf">{x.routeGuide}</a></li>
+              <li><a href={asset(`files/route-map-${lang === 'ja' ? 'en' : 'ja'}.pdf`)} type="application/pdf" hreflang={lang === 'ja' ? 'en' : 'ja'}>{x.routeGuideOther}</a></li>
+              {office.data.map && <li><a href={`https://www.openstreetmap.org/?mlat=${office.data.map.lat}&mlon=${office.data.map.lng}#map=18/${office.data.map.lat}/${office.data.map.lng}`} rel="noopener">{x.openMap}</a></li>}
+            </ul>
           </section>
-        ))}
+        )}
+
+        {terms.length > 0 && (
+          <dl class="glossary">
+            {terms.map((g) => (
+              <div id={`term-${g.term.toLowerCase()}`}>
+                <dt><abbr title={g[lang]}>{g.term}</abbr></dt>
+                <dd>
+                  {g[lang]}{g.confirmed === false && ` (${x.unconfirmed})`}
+                  {g.url && <> · <a href={g.url[lang] ?? g.url.en} rel="noopener">{x.website}</a></>}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        )}
 
         {contacts.length > 0 && (
           <section class="grid cols-2">
@@ -158,10 +216,11 @@ const { hero, figures } = await pageImages(ref.slug);
                 <h3>{c.data.label[lang]}</h3>
                 <p style="color:var(--muted);font-size:0.94rem">{c.data.audience[lang]}</p>
                 <dl>
-                  <dt>{ui.contactEmail}</dt><dd>{c.data.email}</dd>
-                  {c.data.phone && <><dt>{ui.contactPhone}</dt><dd>{c.data.phone}</dd></>}
+                  <dt>{ui.contactEmail}</dt><dd><a href={`mailto:${c.data.email}`}>{c.data.email}</a></dd>
+                  {c.data.phone && <><dt>{ui.contactPhone}</dt><dd><a href={tel(c.data.phone)}>{phoneText(c.data.phone)}</a></dd></>}
                   {c.data.fax && <><dt>{ui.contactFax}</dt><dd>{c.data.fax}</dd></>}
                   {c.data.address && <><dt>{ui.contactAddress}</dt><dd>{c.data.address[lang]}</dd></>}
+                  {c.data.location && <><dt>{x.location}</dt><dd>{c.data.location[lang]} · <a href={href(lang, 'about/access')}>{x.howToReach}</a></dd></>}
                 </dl>
               </div>
             ))}
@@ -174,3 +233,22 @@ const { hero, figures } = await pageImages(ref.slug);
     </div>
   </div>
 </Base>
+
+<style is:global>
+  /* Acronyms (rehype-abbr), the abbreviations list, the access box and the agreements legend. */
+  abbr[title] { text-decoration: underline dotted; text-underline-offset: 0.18em; cursor: help; }
+  .abbrevs { margin-top: 2rem; padding: 1rem 1.2rem; border: 1px solid var(--line, #d9dee5); border-radius: 10px; background: var(--paper-2, #f6f8fa); }
+  .abbrevs h2 { font-size: 1rem; margin: 0 0 0.6rem; }
+  .abbrevs dl, dl.glossary { display: grid; gap: 0.35rem; margin: 0; }
+  .abbrevs dl > div, dl.glossary > div { display: grid; grid-template-columns: 6.5rem 1fr; gap: 0.8rem; }
+  .abbrevs dt, dl.glossary dt { font-weight: 700; }
+  .abbrevs dd, dl.glossary dd { margin: 0; }
+  .abbrevs p { margin: 0.7rem 0 0; font-size: 0.94rem; }
+  dl.glossary > div { padding: 0.45rem 0; border-bottom: 1px solid var(--line, #d9dee5); }
+  .office-box h2 { font-size: 1.1rem; margin: 0 0 0.6rem; }
+  .link-list { margin: 0.8rem 0 0; padding-left: 1.1rem; display: grid; gap: 0.3rem; }
+  .tag-legend { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; font-size: 0.92rem; color: var(--muted); }
+  .tag-legend .badge { margin-right: 0.25rem; }
+  .notice.checking { font-size: 0.92rem; }
+  @media (max-width: 560px) { .abbrevs dl > div, dl.glossary > div { grid-template-columns: 1fr; gap: 0.1rem; } }
+</style>

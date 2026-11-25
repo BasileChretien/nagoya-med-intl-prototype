@@ -6,8 +6,8 @@
   },
   "short": { "en": "Research training", "ja": "研究研修" },
   "audience": {
-    "en": "Undergraduate and graduate students from abroad",
-    "ja": "海外の学部学生・大学院生"
+    "en": "Enrolled undergraduate and graduate students from abroad",
+    "ja": "在籍中の海外の学部学生・大学院生"
   },
   "duration": {
     "en": "1 to 4 weeks (ask about longer stays); 91 days to 1 year through NUPACE",
@@ -22,29 +22,32 @@
     "ja": "91日から1年間のNUPACE経由の学生はJASSO奨学金（月額8万円と来日後の一時金8万円）に応募可能。枠はごくわずか"
   },
   "eligibility": {
-    "en": "Enrolled undergraduate or graduate student of a fully accredited school, in good standing, with a letter of approval from the Dean, fluent in Japanese or English.",
-    "ja": "正規の学部学生または大学院生で、成績が良好であり、学部長の承認書があり、日本語か英語が堪能な方。"
+    "en": "Enrolled undergraduate or graduate student of a fully accredited school, in good standing, with a letter of approval from the Dean, fluent in Japanese or English. Graduates, postdocs and researchers apply through a host laboratory instead.",
+    "ja": "正規の学部学生または大学院生で、成績が良好であり、学部長の承認書があり、日本語か英語が堪能な方。卒業生、ポスドク、研究者は受入れ研究室を通じて申請します。"
   },
   "howToApply": {
-    "en": "Contact the Office of International Affairs to confirm availability, then send the application documents. NUPACE applicants send them with the NUPACE application.",
-    "ja": "国際連携室に連絡して受入れ可否を確認し、その後に申請書類を送ります。NUPACE経由の学生はNUPACEの申請書類に添えて提出します。"
+    "en": "Contact the Office of International Affairs to confirm availability, then send the application form (PDF on the programme page) and the other documents. NUPACE applicants send them with the NUPACE application.",
+    "ja": "国際連携室に連絡して受入れ可否を確認し、その後に申請書（プログラムのページにあるPDF）とほかの書類を送ります。NUPACE経由の学生はNUPACEの申請書類に添えて提出します。"
   },
   "deadline": {
     "status": "rolling",
     "text": {
-      "en": "6 months before the start of the program (NUPACE applicants follow the date on the NUPACE website)",
-      "ja": "プログラム開始の6か月前まで（NUPACE経由の学生はNUPACEのウェブサイトに示された日まで）"
+      "en": "Applications accepted all year: complete documents 6 months before the start of the program (NUPACE applicants follow the date on the NUPACE website)",
+      "ja": "1年を通じて受付。書類一式はプログラム開始の6か月前まで（NUPACE経由の学生はNUPACEのウェブサイトに示された日まで）"
     }
   },
   "contact": "intl-office",
   "page": "study-in-nagoya/research-training",
   "sources": [
     "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/intres.html",
-    "https://www.med.nagoya-u.ac.jp/medical_E/international/school/information/overseas_clinical/"
+    "https://www.med.nagoya-u.ac.jp/medical_E/international/school/information/overseas_clinical/",
+    "https://www.med.nagoya-u.ac.jp/medical_E/international/pdf/ApplicationforInternationalResearchStudents.pdf",
+    "https://nupace.iee.nagoya-u.ac.jp/en/index.shtml"
   ],
   "toConfirm": [
     "Whether the programme is currently open and whether it is limited to partner schools",
     "How a laboratory is chosen or assigned",
-    "Eligibility (undergraduate and graduate students) versus the recommendation letter wording (senior student)"
+    "Eligibility (undergraduate and graduate students) versus the recommendation letter wording (senior student)",
+    "Whether the application form linked on the page is the current version"
   ]
 }

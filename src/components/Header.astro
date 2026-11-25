@@ -48,14 +48,14 @@ const otherHref = href(other, hasCounterpart ? slug : '');
       </a>
       <details class="menu-toggle">
         <summary>{ui.menu}</summary>
-        <nav class="menu-panel" aria-label={ui.menu}>
-          <a href={href(lang)}>{ui.home}</a>
-          {SECTIONS.map((s) => <a href={href(lang, s)} aria-current={section === s ? 'page' : undefined}>{ui.sections[s]}</a>)}
+        <nav class="menu-panel" aria-label={ui.navPanel}>
+          <a href={href(lang)} aria-current={slug === '' ? 'page' : undefined}>{ui.home}</a>
+          {SECTIONS.map((s) => <a href={href(lang, s)} aria-current={slug === s ? 'page' : undefined} class={section === s ? 'is-active' : undefined}>{ui.sections[s]}</a>)}
         </nav>
       </details>
     </div>
   </div>
-  <nav class="nav" aria-label={ui.menu}>
+  <nav class="nav" aria-label={ui.navMain}>
     <div class="wrap">
       <ul>
         {SECTIONS.map((s) => (

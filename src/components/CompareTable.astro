@@ -9,12 +9,12 @@ type Key = 'audience' | 'duration' | 'capacity' | 'degree' | 'cost' | 'funding';
 const keys: Key[] = ['audience', 'duration', 'capacity', 'degree', 'cost', 'funding'];
 const usedKeys = keys.filter((k) => programmes.some((p) => p.data[k]));
 ---
-<div class="compare-wrap">
+<div class="compare-wrap" role="region" aria-label={caption} tabindex="0">
   <table class="compare">
     <caption class="visually-hidden">{caption}</caption>
     <thead>
       <tr>
-        <th scope="col"></th>
+        <th scope="col"><span class="visually-hidden">{ui.tableCorner}</span></th>
         {programmes.map((p) => <th scope="col"><a href={href(lang, p.data.page)}>{(p.data.short ?? p.data.name)[lang]}</a></th>)}
       </tr>
     </thead>

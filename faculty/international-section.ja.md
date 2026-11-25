@@ -9,7 +9,7 @@
 | プログラム | 対象 |
 | --- | --- |
 | [海外の医学生のための臨床実習](https://www.med.nagoya-u.ac.jp/intlexch/ja/study-in-nagoya/clinical-clerkship/) | 協定校の医学部最終学年の学生 |
-| [海外からの研究学生プログラム](https://www.med.nagoya-u.ac.jp/intlexch/ja/study-in-nagoya/research-training/) | 海外の学部学生・大学院生 |
+| [海外からの研究学生プログラム](https://www.med.nagoya-u.ac.jp/intlexch/ja/study-in-nagoya/research-training/) | 在籍中の海外の学部学生・大学院生 |
 
 ## [海外で学ぶ](https://www.med.nagoya-u.ac.jp/intlexch/ja/study-abroad/)
 

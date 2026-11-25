@@ -1,0 +1,16 @@
+---
+import { t, fill, type Lang } from '../i18n/ui';
+
+/**
+ * A telephone number as a tel: link. `phone` is the international form stored in contacts.json (e.g. +81-52-744-2507).
+ * Japanese pages show the domestic form (052-744-2507) first and the international form after it.
+ */
+interface Props { phone: string; lang: Lang }
+const { phone, lang } = Astro.props;
+const ui = t(lang);
+const tel = `tel:+${phone.replace(/\D/g, '')}`;
+const domestic = phone.startsWith('+81-') ? `0${phone.slice(4)}` : null;
+---
+{lang === 'ja' && domestic
+  ? <span class="phone"><a href={tel} class="contact-link">{domestic}</a><span class="phone-intl">（{fill(ui.phoneAbroad, { intl: phone })}）</span></span>
+  : <a href={tel} class="contact-link">{phone}</a>}

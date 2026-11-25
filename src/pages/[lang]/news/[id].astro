@@ -1,0 +1,70 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import Sources from '../../../components/Sources.astro';
+import { t, LANGS, type Lang } from '../../../i18n/ui';
+import { href, formatDate, pagesFor, pageRef } from '../../../lib/site';
+import { newsItems, originalLabel, LABELS, type NewsItem } from './_news';
+
+export async function getStaticPaths() {
+  const items = await newsItems();
+  return LANGS.flatMap((lang) => items.map((item) => ({ params: { lang, id: item.id }, props: { item } })));
+}
+
+interface Props { item: NewsItem }
+const { item } = Astro.props;
+const lang = Astro.params.lang as Lang;
+const ui = t(lang);
+const L = LABELS[lang];
+const n = item.entry.data;
+const title = n.title[lang];
+const description = n.summary?.[lang] ?? title;
+const paragraphs = item.body ? item.body[lang].split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean) : [];
+const partnerMap = new Map((await getCollection('partners')).map((p) => [p.id, p.data]));
+const partners = item.partners.map((id) => partnerMap.get(id)).filter((p) => p !== undefined);
+const related = item.page ? (await pagesFor(lang)).find((p) => pageRef(p).slug === item.page) : undefined;
+const relatedTitle = item.page === 'stories' ? ui.stories : related?.data.title;
+const pastLabel = item.past && n.category !== 'news' ? L.past[n.category] : undefined;
+const dateText = item.until !== n.date
+  ? `${formatDate(n.date, lang)}${lang === 'ja' ? '〜' : ' to '}${formatDate(item.until, lang)}`
+  : formatDate(n.date, lang);
+---
+<Base lang={lang} title={title} description={description} slug={`news/${item.id}`}>
+  <div class="wrap" style="padding-bottom:4rem">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <ol><li><a href={href(lang)}>{ui.home}</a></li><li><a href={href(lang, 'news')}>{ui.news}</a></li><li aria-current="page">{title}</li></ol>
+    </nav>
+    <header class="page-head">
+      <p class="news-kicker">
+        <span>{ui.newsCategory[n.category]}</span>
+        <time datetime={n.date}>{dateText}</time>
+        {pastLabel && <span class="news-past">{pastLabel}</span>}
+      </p>
+      <h1>{title}</h1>
+      {n.summary && <p class="lede">{n.summary[lang]}</p>}
+    </header>
+    <article class="content">
+      {paragraphs.length > 0 && <div class="prose">{paragraphs.map((p) => <p>{p}</p>)}</div>}
+      {partners.length > 0 && (
+        <p class="news-tags"><span class="news-tags-label">{L.partners}</span>{partners.map((p) => <span class="badge">{p.name[lang]}</span>)}</p>
+      )}
+      <ul class="news-links">
+        {relatedTitle && item.page && <li>{L.related}: <a href={href(lang, item.page)}>{relatedTitle}</a></li>}
+        {n.url && (
+          <li><a href={n.url} rel="noopener" hreflang={item.urlLang}>{originalLabel(lang, item.urlLang)} ↗</a></li>
+        )}
+      </ul>
+      <Sources lang={lang} sources={n.sources} />
+      <p><a class="btn ghost" href={href(lang, 'news')}>← {L.back}</a></p>
+    </article>
+  </div>
+</Base>
+
+<style>
+  .news-kicker { display: flex; flex-wrap: wrap; gap: 0.2rem 0.8rem; font-size: 0.86rem; color: var(--teal-ink); font-weight: 600; margin-bottom: 0.4rem; }
+  .news-kicker time { color: var(--muted); font-weight: 500; }
+  .news-past { color: var(--muted); border: 1px solid var(--line-2); border-radius: 4px; padding: 0 0.4rem; font-weight: 600; }
+  .news-tags { margin: 1.2rem 0 0.6rem; }
+  .news-tags-label { font-size: 0.82rem; color: var(--muted); font-weight: 600; margin-right: 0.5rem; }
+  .news-links { list-style: none; padding: 0; margin: 0.8rem 0 1.4rem; display: grid; gap: 0.4rem; }
+</style>

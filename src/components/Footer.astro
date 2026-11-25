@@ -3,6 +3,8 @@ import { getCollection } from 'astro:content';
 import { t, SECTIONS, OFFICIAL_URL, REPO_URL, type Lang } from '../i18n/ui';
 import { href } from '../lib/site';
 import faculty from '../data/faculty.json';
+import EmailLink from './EmailLink.astro';
+import PhoneLink from './PhoneLink.astro';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -17,20 +19,26 @@ const office = contacts.find((c) => c.id === 'intl-office');
         <h2>{ui.site}</h2>
         <p>{ui.org}</p>
         {office && (
-          <p style="margin-top:0.6rem">
-            {office.data.address && <span>{office.data.address[lang]}<br /></span>}
-            <span>{office.data.email}</span>
+          <p class="foot-contact">
+            {office.data.address && <span>{office.data.address[lang]}</span>}
+            <span><span class="visually-hidden">{ui.contactEmail}: </span><EmailLink email={office.data.email} /></span>
+            {office.data.phone && <span><span class="visually-hidden">{ui.contactPhone}: </span><PhoneLink phone={office.data.phone} lang={lang} /></span>}
           </p>
         )}
+        <ul class="foot-links">
+          <li><a href={href(lang, 'about/contact')}>{ui.footerContact}</a></li>
+          <li><a href={href(lang, 'about/access')}>{ui.footerAccess}</a></li>
+          <li><a href={href(lang, 'about/support')}>{ui.footerSupport}</a></li>
+        </ul>
       </div>
       <div>
-        <h2>{ui.menu}</h2>
+        <h2>{ui.footerSections}</h2>
         <ul>
           {SECTIONS.map((s) => <li><a href={href(lang, s)}>{ui.sections[s]}</a></li>)}
         </ul>
       </div>
       <div>
-        <h2>{ui.stories}</h2>
+        <h2>{ui.footerMore}</h2>
         <ul>
           <li><a href={href(lang, 'stories')}>{ui.stories}</a></li>
           <li><a href={href(lang, 'news')}>{ui.news}</a></li>

@@ -1,0 +1,586 @@
+[
+  {
+    "term": "AAMC",
+    "kind": "organisation",
+    "en": "Association of American Medical Colleges",
+    "ja": "米国医科大学協会（AAMC）",
+    "url": {
+      "en": "https://www.aamc.org/",
+      "ja": "https://www.aamc.org/"
+    },
+    "source": "aamc.org; old faculty page medical_J/international/application/license/ (data/crawl/text/71e4bcb4263f.txt)"
+  },
+  {
+    "term": "AI",
+    "kind": "term",
+    "en": "Artificial intelligence",
+    "ja": "人工知能（AI）",
+    "common": true,
+    "source": "standard term; context en/partnerships/mirai.md (MIRAI 2.0 theme)"
+  },
+  {
+    "term": "ASEAN",
+    "kind": "organisation",
+    "en": "Association of Southeast Asian Nations",
+    "ja": "東南アジア諸国連合（ASEAN）",
+    "source": "standard expansion; appears only inside the partner name 'ASEAN Institute for Health Development, Mahidol University' (partners.json). asean.org answers curl only with 307 redirect loops, so no URL kept"
+  },
+  {
+    "term": "CBT",
+    "kind": "term",
+    "en": "Computer-based test (former TOEFL format)",
+    "ja": "コンピュータ版試験（TOEFL CBT、現在は実施されていない形式）",
+    "source": "ja/degrees/lund.md note: TOEFL PBT and CBT scores are no longer offered"
+  },
+  {
+    "term": "CEFR",
+    "kind": "term",
+    "en": "Common European Framework of Reference for Languages",
+    "ja": "ヨーロッパ言語共通参照枠（CEFR）",
+    "url": {
+      "en": "https://www.coe.int/en/web/common-european-framework-reference-languages",
+      "ja": "https://www.coe.int/en/web/common-european-framework-reference-languages"
+    },
+    "source": "Council of Europe page (no Japanese page); used as 'CEFR B2' in UNC requirements (programmes/sep-unc.json)"
+  },
+  {
+    "term": "CIBoG",
+    "kind": "programme",
+    "en": "Convolution of Informatics and Biomedical Sciences on Glocal Alliances (Nagoya University WISE doctoral programme)",
+    "ja": "情報・生命医科学コンボリューション on グローカルアライアンス卓越大学院（CIBoG）",
+    "url": {
+      "en": "https://cibog.med.nagoya-u.ac.jp/en/",
+      "ja": "https://cibog.med.nagoya-u.ac.jp/"
+    },
+    "source": "cibog.med.nagoya-u.ac.jp application guideline; crawl text 'CIBoG卓越大学院'"
+  },
+  {
+    "term": "CK",
+    "kind": "term",
+    "en": "Clinical Knowledge (USMLE Step 2 CK)",
+    "ja": "臨床知識（USMLE Step 2 CK）",
+    "url": {
+      "en": "https://www.usmle.org/step-exams/step-2-ck",
+      "ja": "https://www.usmle.org/step-exams/step-2-ck"
+    },
+    "source": "usmle.org Step 2 CK page; context en/study-abroad/medical-english.md"
+  },
+  {
+    "term": "COVID",
+    "kind": "term",
+    "en": "Coronavirus disease (COVID-19)",
+    "ja": "新型コロナウイルス感染症（COVID-19）",
+    "url": {
+      "en": "https://www.who.int/health-topics/coronavirus",
+      "ja": "https://www.who.int/health-topics/coronavirus"
+    },
+    "source": "standard term (WHO page)"
+  },
+  {
+    "term": "CUHK",
+    "kind": "institution",
+    "en": "The Chinese University of Hong Kong",
+    "ja": "香港中文大学",
+    "url": {
+      "en": "https://www.cuhk.edu.hk/english/",
+      "ja": "https://www.cuhk.edu.hk/english/"
+    },
+    "source": "site itself: partners.json and en/partnerships/game.md; cuhk.edu.hk (no Japanese page; ja URL is the Chinese-language site)"
+  },
+  {
+    "term": "CV",
+    "kind": "term",
+    "en": "Curriculum vitae",
+    "ja": "履歴書（CV）",
+    "common": true,
+    "source": "standard term; en/degrees/admission.md"
+  },
+  {
+    "term": "DD",
+    "kind": "term",
+    "en": "Double degree (partner-list label)",
+    "ja": "ダブル・ディグリー",
+    "source": "defined on en/partnerships/agreements.md: 'The partner offers a double degree with Nagoya'"
+  },
+  {
+    "term": "DMAT",
+    "kind": "test",
+    "en": "An English test accepted for the CUHK double degree (minimum score 21); expansion not identified",
+    "ja": "香港中文大学ダブル・ディグリーで認められる英語試験の一つ（正式名称は未確認）",
+    "confirmed": false,
+    "source": "old site text 'IELTS 6.5 or TOEFL 79 points or DMAT 21 points' (crawl); no expansion in the crawl or on CUHK admission pages found by search. Office should confirm the test name"
+  },
+  {
+    "term": "ECFMG",
+    "kind": "organisation",
+    "en": "Educational Commission for Foreign Medical Graduates, which certifies doctors trained outside the United States",
+    "ja": "米国外国医学部卒業生教育委員会（ECFMG）。米国外で医学を学んだ医師を認定する機関",
+    "source": "old faculty page medical_J/international/application/license/ (data/crawl/text/71e4bcb4263f.txt); ecfmg.org did not answer from the build machine, so no link is given"
+  },
+  {
+    "term": "ECTS",
+    "kind": "term",
+    "en": "European Credit Transfer and Accumulation System",
+    "ja": "欧州単位互換評価制度（ECTS）",
+    "url": {
+      "en": "https://education.ec.europa.eu/education-levels/higher-education/inclusive-and-connected-higher-education/european-credit-transfer-and-accumulation-system",
+      "ja": "https://education.ec.europa.eu/education-levels/higher-education/inclusive-and-connected-higher-education/european-credit-transfer-and-accumulation-system"
+    },
+    "source": "European Commission page; en/degrees/lund.md (1 Nagoya credit = 1.5 ECTS)"
+  },
+  {
+    "term": "EMSWP",
+    "kind": "term",
+    "en": "ECFMG Medical School Web Portal, where medical schools confirm their students' and graduates' status",
+    "ja": "ECFMGの医学部向けウェブ登録サイト（EMSWP）",
+    "source": "old faculty page medical_J/international/application/license/ (data/crawl/text/71e4bcb4263f.txt)"
+  },
+  {
+    "term": "ERAS",
+    "kind": "term",
+    "en": "Electronic Residency Application Service, used to apply to residency programmes in the United States",
+    "ja": "米国の研修プログラムへの応募システム（ERAS）",
+    "url": {
+      "en": "https://students-residents.aamc.org/applying-residencies-eras/applying-residency-eras",
+      "ja": "https://students-residents.aamc.org/applying-residencies-eras/applying-residency-eras"
+    },
+    "source": "AAMC ERAS page; old faculty page medical_J/international/application/license/ (data/crawl/text/71e4bcb4263f.txt)"
+  },
+  {
+    "term": "EU",
+    "kind": "organisation",
+    "en": "European Union",
+    "ja": "欧州連合（EU）",
+    "url": {
+      "en": "https://european-union.europa.eu/index_en",
+      "ja": "https://www.eeas.europa.eu/delegations/japan_ja"
+    },
+    "common": true,
+    "source": "standard; ja URL is the Japanese page of the EU Delegation to Japan"
+  },
+  {
+    "term": "FAN",
+    "kind": "network",
+    "en": "Freiburg-Adelaide-Nagoya (symposium series of the three joint-degree universities)",
+    "ja": "フライブルク大学・アデレード大学・名古屋大学の合同シンポジウム（FAN）",
+    "source": "crawl text: 'FAN Symposium(Freiburg大学、Adelaide大学、Nagoya大学合同シンポジウム)'"
+  },
+  {
+    "term": "FAQ",
+    "kind": "term",
+    "en": "Frequently asked questions",
+    "ja": "よくある質問",
+    "common": true,
+    "source": "standard term"
+  },
+  {
+    "term": "FLAN",
+    "kind": "network",
+    "en": "Freiburg-Lund-Adelaide-Nagoya, the academic alliance of the four joint-degree partner universities",
+    "ja": "フライブルク大学・ルンド大学・アデレード大学・名古屋大学の4大学アライアンス（FLAN）",
+    "source": "crawl text: 'University of Freiburg, Lund University, The University of Adelaide and Nagoya University (FLAN)'"
+  },
+  {
+    "term": "FSA",
+    "kind": "organisation",
+    "en": "Foreign Students Association (international students' association)",
+    "ja": "留学生会（FSA）",
+    "source": "site itself: en/study-in-nagoya/living-in-nagoya.md; crawl '留学生会（FSA）'. No website found"
+  },
+  {
+    "term": "GAME",
+    "kind": "network",
+    "en": "Global Alliance of Medical Excellence",
+    "ja": "国際医学教育アライアンス GAME（Global Alliance of Medical Excellence）",
+    "url": {
+      "en": "https://www.game-med.net/",
+      "ja": "https://www.game-med.net/"
+    },
+    "source": "en/partnerships/game.md; crawl; game-med.net (English only)"
+  },
+  {
+    "term": "GPA",
+    "kind": "term",
+    "en": "Grade point average",
+    "ja": "成績平均値（GPA）",
+    "source": "standard term; programmes/cambridge-exchange.json"
+  },
+  {
+    "term": "HRH",
+    "kind": "term",
+    "en": "Her Royal Highness (part of the name HRH Princess Chulabhorn College of Medical Science)",
+    "ja": "王女殿下（校名の一部。日本語名はチュラポーン医科大学）",
+    "source": "partners.json name; standard honorific"
+  },
+  {
+    "term": "HTIC",
+    "kind": "institution",
+    "en": "Hawaii Tokai International College",
+    "ja": "ハワイ東海インターナショナルカレッジ",
+    "url": {
+      "en": "https://www.htic.edu/",
+      "ja": "https://www.htic.edu/"
+    },
+    "source": "crawl text 'Hawaii Tokai International College（HTIC）'; htic.edu (English only)"
+  },
+  {
+    "term": "iBT",
+    "kind": "term",
+    "en": "Internet-based test (TOEFL iBT)",
+    "ja": "インターネット版試験（TOEFL iBT）",
+    "url": {
+      "en": "https://www.ets.org/toefl/test-takers/ibt/about.html",
+      "ja": "https://www.toefl-ibt.jp/test_takers/toefl_ibt/"
+    },
+    "source": "ets.org TOEFL iBT page; ETS Japan page"
+  },
+  {
+    "term": "ID",
+    "kind": "term",
+    "en": "Identification (student ID card)",
+    "ja": "身分証明書（学生証）",
+    "common": true,
+    "source": "context 'a copy of your student ID' (en/study-in-nagoya/clinical-clerkship.md)"
+  },
+  {
+    "term": "IELTS",
+    "kind": "test",
+    "en": "International English Language Testing System",
+    "ja": "IELTS（アイエルツ）",
+    "url": {
+      "en": "https://ielts.org/",
+      "ja": "https://www.eiken.or.jp/ielts/"
+    },
+    "source": "ielts.org; ja URL is the Eiken Foundation of Japan's official IELTS page"
+  },
+  {
+    "term": "IOBER",
+    "kind": "programme",
+    "en": "International Online Barrett's Esophagus Registry (GAME project led by the University of Bologna)",
+    "ja": "International Online Barrett's Esophagus Registry（バレット食道の国際オンライン登録、ボローニャ大学主導）",
+    "source": "site itself: en/ja partnerships/game.md table; crawl"
+  },
+  {
+    "term": "ITP",
+    "kind": "test",
+    "en": "Institutional Testing Program (TOEFL ITP)",
+    "ja": "TOEFL ITP（団体向けテストプログラム）",
+    "url": {
+      "en": "https://www.ets.org/toefl/itp.html",
+      "ja": "https://www.toefl-ibt.jp/toefl-itp/"
+    },
+    "source": "ets.org TOEFL ITP page; programmes/cambridge-exchange.json"
+  },
+  {
+    "term": "JASSO",
+    "kind": "organisation",
+    "en": "Japan Student Services Organization",
+    "ja": "独立行政法人日本学生支援機構（JASSO）",
+    "url": {
+      "en": "https://www.jasso.go.jp/en/",
+      "ja": "https://www.jasso.go.jp/"
+    },
+    "source": "site itself (ja pages use 日本学生支援機構); jasso.go.jp"
+  },
+  {
+    "term": "JDP",
+    "kind": "term",
+    "en": "Joint degree programme",
+    "ja": "ジョイント・ディグリー・プログラム",
+    "source": "site itself: en/degrees/adelaide.md ('Nagoya = Adelaide JDP ... joint degree programme'); crawl 'Joint Degree Program (JDP)'"
+  },
+  {
+    "term": "JR",
+    "kind": "organisation",
+    "en": "Japan Railways (the JR Chuo Line through Tsurumai is run by JR Central)",
+    "ja": "JR（旧国鉄から分かれた鉄道会社。鶴舞を通る中央本線はJR東海が運行）",
+    "url": {
+      "en": "https://global.jr-central.co.jp/en/",
+      "ja": "https://jr-central.co.jp/"
+    },
+    "source": "JR Central websites; route guide https://www.med.nagoya-u.ac.jp/intlexch/japanese/pdf/access.pdf (JR中央本線 鶴舞駅)"
+  },
+  {
+    "term": "LMU",
+    "kind": "institution",
+    "en": "Ludwig Maximilian University of Munich (LMU Munich)",
+    "ja": "ミュンヘン大学",
+    "url": {
+      "en": "https://www.lmu.de/en/",
+      "ja": "https://www.lmu.de/en/"
+    },
+    "source": "partners.json (ja name ミュンヘン大学); lmu.de (no Japanese page; ja URL is the German site, the English one may suit Japanese readers better)"
+  },
+  {
+    "term": "MDEC",
+    "kind": "organisation",
+    "en": "MeiDai Exchange Club (student circle that welcomes international students)",
+    "ja": "MeiDai Exchange Club（留学生を迎える学生サークル）",
+    "source": "site itself: en/study-in-nagoya/living-in-nagoya.md 'MDEC (MeiDai Exchange Club)'. No website found"
+  },
+  {
+    "term": "MEXT",
+    "kind": "organisation",
+    "en": "Ministry of Education, Culture, Sports, Science and Technology (Japan)",
+    "ja": "文部科学省",
+    "url": {
+      "en": "https://www.mext.go.jp/en/",
+      "ja": "https://www.mext.go.jp/"
+    },
+    "source": "site itself: en/degrees/joint-degree.md; mext.go.jp"
+  },
+  {
+    "term": "MIRAI",
+    "kind": "network",
+    "en": "MIRAI, the Sweden-Japan Academic Consortium",
+    "ja": "MIRAI（日本・スウェーデン大学間連携コンソーシアム）",
+    "url": {
+      "en": "https://www.mirai.nu/",
+      "ja": "https://www.mirai.nu/"
+    },
+    "source": "en/partnerships/mirai.md; crawl; mirai.nu named as the official site by member universities (English only). A name rather than an initialism ('mirai' = future)"
+  },
+  {
+    "term": "MRI",
+    "kind": "term",
+    "en": "Magnetic resonance imaging",
+    "ja": "磁気共鳴画像（MRI）",
+    "source": "site itself: ja/partnerships/game.md '磁気共鳴画像（MRI）'"
+  },
+  {
+    "term": "MSPE",
+    "kind": "term",
+    "en": "Medical Student Performance Evaluation, the school's evaluation of a student for residency applications",
+    "ja": "医学生の成績評価書（MSPE）。研修プログラムへの応募に必要な書類",
+    "url": {
+      "en": "https://www.aamc.org/about-us/mission-areas/medical-education/medical-student-performance-evaluation",
+      "ja": "https://www.aamc.org/about-us/mission-areas/medical-education/medical-student-performance-evaluation"
+    },
+    "source": "AAMC MSPE page; old faculty page medical_J/international/application/license/ (data/crawl/text/71e4bcb4263f.txt) (MSPE（Medical Student Performance Evaluation）)"
+  },
+  {
+    "term": "NU",
+    "kind": "institution",
+    "en": "Nagoya University (as in 'LMU-NU USMLE review')",
+    "ja": "名古屋大学",
+    "url": {
+      "en": "https://en.nagoya-u.ac.jp/",
+      "ja": "https://www.nagoya-u.ac.jp/"
+    },
+    "source": "context programmes/lmu-nu-usmle.json; nagoya-u.ac.jp (www.nagoya-u.ac.jp/en/ redirects to en.nagoya-u.ac.jp)"
+  },
+  {
+    "term": "NUCT",
+    "kind": "term",
+    "en": "Nagoya University Collaboration and course Tools, the former online course system (replaced by TACT in April 2023)",
+    "ja": "名古屋大学の旧授業支援システム（NUCT。2023年4月にTACTへ移行）",
+    "source": "Nagoya University notice https://mado.adm.nagoya-u.ac.jp/wp-content/uploads/2023/03/to-studentsEn_NUCT-to-TACT.pdf. Pages that still say NUCT may need updating to TACT"
+  },
+  {
+    "term": "NUPACE",
+    "kind": "programme",
+    "en": "Nagoya University Program for Academic Exchange",
+    "ja": "NUPACE（名古屋大学の全学交換留学プログラム）",
+    "url": {
+      "en": "https://nupace.iee.nagoya-u.ac.jp/en/",
+      "ja": "https://en.nagoya-u.ac.jp/admissions/exchange/nupace/"
+    },
+    "source": "nupace.iee.nagoya-u.ac.jp ('Nagoya University Program for Academic Exchange (NUPACE)'). No Japanese NUPACE page answered 200; ja URL is the university's own NUPACE page (English). Official Japanese name not found, so ja text is descriptive"
+  },
+  {
+    "term": "OASIS",
+    "kind": "term",
+    "en": "ECFMG's online applicant system, used to apply for the USMLE",
+    "ja": "ECFMGのオンライン申請システム（OASIS）。USMLEの受験申請に使う",
+    "source": "old faculty page medical_J/international/application/license/ (data/crawl/text/71e4bcb4263f.txt) (OASISを通じてECFMGへの受験申請)"
+  },
+  {
+    "term": "OPI",
+    "kind": "test",
+    "en": "ACTFL Oral Proficiency Interview",
+    "ja": "ACTFL口頭能力測定（OPI）",
+    "url": {
+      "en": "https://www.actfl.org/assessments/postsecondary-assessments/opi",
+      "ja": "https://www.actfl.org/assessments/postsecondary-assessments/opi"
+    },
+    "source": "actfl.org OPI page; 'Intermediate Mid' is an ACTFL rating (programmes/sep-unc.json)"
+  },
+  {
+    "term": "PALS",
+    "kind": "programme",
+    "en": "Pediatric Advanced Life Support (American Heart Association course)",
+    "ja": "小児二次救命処置（PALS）",
+    "url": {
+      "en": "https://cpr.heart.org/en/cpr-courses-and-kits/healthcare-professional/pediatric-advanced-life-support-pals",
+      "ja": "https://cpr.heart.org/en/cpr-courses-and-kits/healthcare-professional/pediatric-advanced-life-support-pals"
+    },
+    "source": "context: paediatric emergency simulation (en/study-abroad/medical-english.md); AHA PALS page (200 with a browser user agent, 403 to bare curl)"
+  },
+  {
+    "term": "PBT",
+    "kind": "term",
+    "en": "Paper-based test (former TOEFL format)",
+    "ja": "紙版試験（TOEFL PBT）",
+    "source": "ja/degrees/lund.md note"
+  },
+  {
+    "term": "PDF",
+    "kind": "term",
+    "en": "Portable Document Format",
+    "ja": "PDFファイル",
+    "common": true,
+    "source": "standard term"
+  },
+  {
+    "term": "PhD",
+    "kind": "term",
+    "en": "Doctor of Philosophy (doctoral degree)",
+    "ja": "博士号（PhD）",
+    "common": true,
+    "source": "standard term; en/partnerships/game.md (PhD4GAME, PhD training)"
+  },
+  {
+    "term": "RENKEI",
+    "kind": "network",
+    "en": "RENKEI, the Japan-UK university partnership run by the British Council (Research and Education Network for Knowledge Economy Initiatives)",
+    "ja": "RENKEI 日英大学間連携プログラム",
+    "url": {
+      "en": "https://opportunities-insight.britishcouncil.org/short-articles/reports/british-council-japans-renkei-programme",
+      "ja": "https://opportunities-insight.britishcouncil.org/short-articles/reports/british-council-japans-renkei-programme"
+    },
+    "source": "crawl 'RENKEI 日英大学間連携プログラム'; British Council and member-university pages. Sources differ on the expansion (Knowledge Economy vs Knowledge Exchange Initiatives); no dedicated RENKEI website found, URL is a British Council article (English)"
+  },
+  {
+    "term": "SAHMRI",
+    "kind": "institution",
+    "en": "South Australian Health and Medical Research Institute",
+    "ja": "南オーストラリア健康医療研究所（SAHMRI）",
+    "url": {
+      "en": "https://sahmri.org.au/",
+      "ja": "https://sahmri.org.au/"
+    },
+    "source": "site itself: en/degrees/adelaide.md; sahmri.org.au"
+  },
+  {
+    "term": "SEP",
+    "kind": "programme",
+    "en": "Scholar Exchange Program (Nagoya University and UNC)",
+    "ja": "スカラー交流プログラム（客員研究員交換プログラム）",
+    "source": "site itself: en/degrees/unc-scholar-exchange.md 'The Scholar Exchange Program (SEP)'"
+  },
+  {
+    "term": "STINT",
+    "kind": "organisation",
+    "en": "The Swedish Foundation for International Cooperation in Research and Higher Education",
+    "ja": "スウェーデン研究・高等教育国際協力財団（STINT）",
+    "url": {
+      "en": "https://www.stint.se/en/",
+      "ja": "https://www.stint.se/"
+    },
+    "source": "site itself: en/partnerships/mirai.md; stint.se"
+  },
+  {
+    "term": "TACT",
+    "kind": "term",
+    "en": "Tokai Academic Combination Tools, the online course system of Nagoya University and THERS",
+    "ja": "TACT（東海国立大学機構の授業支援システム）",
+    "url": {
+      "en": "https://tact.ac.thers.ac.jp/",
+      "ja": "https://tact.ac.thers.ac.jp/"
+    },
+    "source": "Nagoya University notice 'NUCT to TACT' (April 2023). URL is the login portal (redirects to /portal/)"
+  },
+  {
+    "term": "TB",
+    "kind": "term",
+    "en": "Tuberculosis",
+    "ja": "結核",
+    "source": "context 'negative TB screening' (en/study-in-nagoya/clinical-clerkship.md)"
+  },
+  {
+    "term": "TEI",
+    "kind": "programme",
+    "en": "Transnational Educational Initiative (GAME project led by Korea University)",
+    "ja": "Transnational Educational Initiative（TEI、高麗大学主導のGAMEプロジェクト）",
+    "source": "en/partnerships/game.md; crawl (one old page says 'Translational Educational Initiatives')"
+  },
+  {
+    "term": "THERS",
+    "kind": "organisation",
+    "en": "Tokai National Higher Education and Research System",
+    "ja": "東海国立大学機構",
+    "url": {
+      "en": "https://www.thers.ac.jp/en/",
+      "ja": "https://www.thers.ac.jp/"
+    },
+    "source": "crawl 'Tokai National Higher Education and Research System ... THERS Make New Standards Program'; ja/degrees/admission.md uses 東海国立大学機構; thers.ac.jp"
+  },
+  {
+    "term": "TOEFL",
+    "kind": "test",
+    "en": "Test of English as a Foreign Language",
+    "ja": "TOEFL（トーフル）",
+    "url": {
+      "en": "https://www.ets.org/toefl.html",
+      "ja": "https://www.toefl-ibt.jp/"
+    },
+    "source": "ets.org; ja URL is ETS Japan's TOEFL site"
+  },
+  {
+    "term": "TOEIC",
+    "kind": "test",
+    "en": "Test of English for International Communication",
+    "ja": "TOEIC（トーイック）",
+    "url": {
+      "en": "https://www.ets.org/toeic.html",
+      "ja": "https://www.iibc-global.org/toeic.html"
+    },
+    "source": "ets.org; ja URL is IIBC, the TOEIC administrator in Japan"
+  },
+  {
+    "term": "TV",
+    "kind": "term",
+    "en": "Television (video conference, TV会議)",
+    "ja": "テレビ会議",
+    "common": true,
+    "source": "ja/degrees/freiburg.md 'TV会議'"
+  },
+  {
+    "term": "UK",
+    "kind": "term",
+    "en": "United Kingdom",
+    "ja": "イギリス（英国）",
+    "common": true,
+    "source": "standard"
+  },
+  {
+    "term": "UNC",
+    "kind": "institution",
+    "en": "University of North Carolina at Chapel Hill",
+    "ja": "ノースカロライナ大学チャペルヒル校",
+    "url": {
+      "en": "https://www.unc.edu/",
+      "ja": "https://www.unc.edu/"
+    },
+    "source": "partners.json; ja/degrees/unc-scholar-exchange.md; unc.edu (English only; School of Medicine https://www.med.unc.edu/ also answers 200)"
+  },
+  {
+    "term": "US",
+    "kind": "term",
+    "en": "United States",
+    "ja": "アメリカ合衆国",
+    "common": true,
+    "source": "standard"
+  },
+  {
+    "term": "USMLE",
+    "kind": "exam",
+    "en": "United States Medical Licensing Examination",
+    "ja": "米国医師国家試験（USMLE）",
+    "url": {
+      "en": "https://www.usmle.org/",
+      "ja": "https://www.usmle.org/"
+    },
+    "source": "site itself: 'US medical licensing exam (USMLE)' en/study-abroad/medical-english.md; usmle.org"
+  }
+]

@@ -9,7 +9,7 @@ The Office of International Affairs runs the international programmes of the Sch
 | Programme | Who it is for |
 | --- | --- |
 | [Clinical clerkship for overseas students](https://www.med.nagoya-u.ac.jp/intlexch/en/study-in-nagoya/clinical-clerkship/) | Senior medical students of partner schools |
-| [Program for International Research Students](https://www.med.nagoya-u.ac.jp/intlexch/en/study-in-nagoya/research-training/) | Undergraduate and graduate students from abroad |
+| [Program for International Research Students](https://www.med.nagoya-u.ac.jp/intlexch/en/study-in-nagoya/research-training/) | Enrolled undergraduate and graduate students from abroad |
 
 ## [Study abroad](https://www.med.nagoya-u.ac.jp/intlexch/en/study-abroad/)
 

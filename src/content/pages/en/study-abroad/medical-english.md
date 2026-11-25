@@ -40,7 +40,7 @@ You can learn medicine in English before you go abroad, both at Nagoya and in jo
 
 These classes use questions from the US medical licensing exam (USMLE) and are for upper-year students. A foreign faculty member teaches them every other Friday at 3 pm. USMLE Step 2 CK classes began in July 2016 for fourth- and fifth-year students, and since November 2020 students of the University of Munich and Gifu University have joined.
 
-Nagoya students are informed of the schedule through NUCT. If you are an undergraduate who wants to join, contact the office.
+Nagoya students are informed of the schedule through NUCT. If you are an undergraduate who wants to join, contact the office. For status verification with ECFMG and the MSPE, see [USMLE and certificates](usmle-and-certificates).
 
 ### GAME online clinical case discussion
 
@@ -53,6 +53,8 @@ Three editions have been held. The first was in November and December 2020, with
 This online course focuses on medical interviews. Leicester's English teaching unit runs it, and in the last session you interview a simulated patient in English. Seven students took part in November 2020 and 14 in March 2021. Future editions are not set.
 
 ## English courses abroad
+
+Before you leave for a course abroad, read [safety, insurance and emergencies](safety).
 
 ### Medical English at the University of Leicester
 

@@ -8,7 +8,6 @@ status: to-confirm
 toConfirm:
   - Host institutions, application period, selection method and credit arrangements. The program pages on both old sites are still under construction.
   - Number of funded students in the basic medical seminar. The fund page says 2 a year, but the 2024 list shows 4 names.
-  - Programs for graduate students and young researchers are described only briefly here and are covered on other pages.
 sources:
   - https://www.med.nagoya-u.ac.jp/medical_J/international/scholarship/fundprogram/
   - https://www.med.nagoya-u.ac.jp/medical_J/international/scholarship/fundprogram/2024.html
@@ -18,7 +17,7 @@ updated: 2026-11-25
 programmes: [research-abroad, basic-medical-seminar]
 ---
 
-If you are interested in research, two programs let you learn basic medical science at a university or research institute abroad. Both are supported by the Keiichi Shibahara Fund. The old sites have no detailed page for either program, so this page covers only what the fund page says.
+If you are interested in research, two programs let you learn basic medical science at a university or research institute abroad. Both are supported by the Keiichi Shibahara Fund.
 
 ## Basic medical seminar abroad
 
@@ -38,6 +37,6 @@ Details are announced on TACT, and briefings are held from time to time. No date
 
 ## Graduate students and young researchers
 
-Doctoral students and young researchers have a separate route. The visiting researcher program at the University of North Carolina at Chapel Hill lasts up to one year and has 2 places planned. Graduate students receive up to JPY 200,000 for preparation and up to JPY 200,000 a month for living costs. See the section on degree programs for details.
+Doctoral students and young researchers have a separate route. The scholar exchange with the University of North Carolina at Chapel Hill offers a research stay of up to one year. Eligibility, places, funding and how to apply are on [scholar exchange with UNC](../degrees/unc-scholar-exchange). Other options for doctoral students are listed on the [study abroad overview](index).
 
-The [scholarships](scholarships) page describes the Shibahara Fund as a whole.
+The [scholarships](scholarships) page describes the Shibahara Fund as a whole. Before you leave, read [safety, insurance and emergencies](safety).

@@ -7166,5 +7166,25 @@
    "ja": "顕微鏡やモニターが並ぶ広い実験室"
   },
   "source": "https://www.med.nagoya-u.ac.jp/medical_E/international/images/rep_104-2.jpg"
+ },
+ {
+  "id": "page-office-route-map-about-access",
+  "kind": "hero",
+  "page": "about/access",
+  "file": "img/pages/office-route-map.webp",
+  "thumb": "img/pages/office-route-map-t.webp",
+  "thumbWidth": 560,
+  "thumbHeight": 422,
+  "width": 1280,
+  "height": 965,
+  "alt": {
+   "en": "Route map from Tsurumai Station along the JR line, past the hospital, to the Basic Medical Research Building (points A to I)",
+   "ja": "鶴舞駅からJR線沿いに歩き、病院の前を通って基礎研究棟に着くまでの道順の地図（AからI）"
+  },
+  "caption": {
+   "en": "Route from Tsurumai Station to the office. Map from the office's route guide (PDF).",
+   "ja": "鶴舞駅から国際連携室までの道順。国際連携室の案内図（PDF）から"
+  },
+  "source": "https://www.med.nagoya-u.ac.jp/intlexch/english/about/access.pdf"
  }
 ]

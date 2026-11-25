@@ -1,0 +1,6 @@
+---
+/** An email address as a mailto: link. */
+interface Props { email: string }
+const { email } = Astro.props;
+---
+<a href={`mailto:${email}`} class="contact-link">{email}</a>

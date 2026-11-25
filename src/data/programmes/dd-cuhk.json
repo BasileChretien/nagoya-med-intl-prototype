@@ -4,7 +4,10 @@
     "en": "Double (Dual) Degree Program between Nagoya University Graduate School of Medicine and The Chinese University of Hong Kong, School of Medicine",
     "ja": "名古屋大学医学系研究科と香港中文大学医学部のダブル（デュアル）・ディグリー・プログラム"
   },
-  "short": { "en": "Double degree with CUHK", "ja": "香港中文大学ダブル・ディグリー" },
+  "short": {
+    "en": "Double degree with CUHK",
+    "ja": "香港中文大学ダブル・ディグリー"
+  },
   "audience": {
     "en": "Doctoral students of the Graduate School of Medicine, Nagoya University, who are enrolled or about to enrol",
     "ja": "名古屋大学大学院医学系研究科の博士課程に入学予定の人または在学中の人"
@@ -23,7 +26,7 @@
   },
   "funding": {
     "en": "CUHK scholarship of HK$224,700 a year (about JPY 4.26 million) while at CUHK. This is the 2024-2025 amount and changes by year.",
-    "ja": "香港中文大学滞在中は奨学金を年間HK$224,700（約426万円）受けられる。2024-2025年の金額で、年により変更あり"
+    "ja": "香港中文大学滞在中は奨学金を年間HK$224,700（約426万円）受けられる。2024-2025年の金額で、年により変わる"
   },
   "degree": {
     "en": "A doctoral degree from each university, with two dissertations of different content",
@@ -34,17 +37,19 @@
     "ja": "学術優秀で品行方正であること。受験から2年以内のIELTS 6.5、TOEFL 79点またはDMAT 21"
   },
   "howToApply": {
-    "en": "Contact the Office of International Affairs. The old pages give no application procedure.",
-    "ja": "国際連携室に問い合わせます。旧サイトには出願手続きの記載がありません"
+    "en": "Contact the joint degree programmes office before you apply.",
+    "ja": "出願の前に、ジョイント・ディグリー・プログラムの担当窓口に問い合わせます"
   },
   "deadline": {
     "status": "tba",
     "text": {
-      "en": "To be announced. No application period is given on the old pages.",
-      "ja": "未定。旧サイトには応募時期の記載がありません"
+      "en": "Not announced (checked 25 November 2026). Ask the joint degree programmes office for the next application period.",
+      "ja": "未定（2026年11月25日確認）。次の応募時期は、ジョイント・ディグリー・プログラムの担当窓口に問い合わせてください"
     }
   },
-  "partners": ["cuhk"],
+  "partners": [
+    "cuhk"
+  ],
   "contact": "jdp-office",
   "page": "degrees/cuhk-double-degree",
   "sources": [
@@ -52,8 +57,9 @@
     "https://www.med.nagoya-u.ac.jp/jdp/cu/"
   ],
   "toConfirm": [
-    "Application period and procedure",
+    "Application period and procedure: no page gives them",
     "Tuition (HK$42,100) and scholarship (HK$224,700) are 2024-2025 amounts; confirm current amounts",
+    "CUHK entrance examination fee (HK$300) carries no year",
     "Yen equivalents are approximate"
   ]
 }

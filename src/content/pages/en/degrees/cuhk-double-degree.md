@@ -8,6 +8,7 @@ status: to-confirm
 toConfirm:
   - No application period is given on any page; confirm when and how applications are accepted.
   - Tuition (HK$42,100 a year) and scholarship (HK$224,700 a year) are the 2024-2025 amounts and change by year; confirm the current amounts.
+  - The CUHK entrance examination fee (HK$300) carries no year; confirm it is current.
   - The yen equivalents of the Hong Kong dollar amounts are approximate and depend on the exchange rate.
 sources:
   - https://www.med.nagoya-u.ac.jp/jdp/en/cu/
@@ -35,9 +36,7 @@ CUHK is a public university founded in 1963. Exchanges with Nagoya University be
 - You make a course plan when you enrol, and submit an annual progress report to each university.
 - If you withdraw from Nagoya, you are also withdrawn from CUHK.
 
-## Capacity and eligibility
-
-Two participants from each university each year.
+## Eligibility
 
 You must be enrolled, or about to enrol, in the doctoral programme of the Graduate School of Medicine at Nagoya University (general medicine course). You must be academically excellent and of good conduct. You must also meet one of these language requirements at the time of application, with the test taken in the last two years: IELTS 6.5, TOEFL 79 or DMAT 21.
 
@@ -49,4 +48,4 @@ While you are at CUHK you pay tuition of HK$42,100 a year (about JPY 800,000) an
 
 ## How to apply
 
-Contact the Office of International Affairs before applying. For the difference between joint and double degrees, see [Joint degree programmes](joint-degree). For the other programmes, see [Degree programmes](index).
+Contact the joint degree programmes office through the [contact page](../about/contact) before applying. To compare this programme with the joint degrees and the scholar exchange, see the table on [Degree programmes](index). For the difference between joint and double degrees, see [Joint degree programmes](joint-degree).
