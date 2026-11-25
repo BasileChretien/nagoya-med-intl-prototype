@@ -159,6 +159,8 @@ const images = defineCollection({
     staff: z.string().optional(),
     file: z.string(),
     thumb: z.string().optional(),
+    thumbWidth: z.number().int().optional(),
+    thumbHeight: z.number().int().optional(),
     width: z.number().int(),
     height: z.number().int(),
     alt: L,

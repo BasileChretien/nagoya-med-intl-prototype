@@ -91,7 +91,7 @@ Every photo is an entry in `src/data/images.json`:
 
 ```json
 { "id": "...", "kind": "hero | figure | story | portrait", "page": "degrees/lund", "story": "<story id>", "staff": "<staff id>",
-  "file": "img/pages/x.webp", "thumb": "img/pages/x-t.webp", "width": 1280, "height": 853,
+  "file": "img/pages/x.webp", "thumb": "img/pages/x-t.webp", "thumbWidth": 560, "thumbHeight": 373, "width": 1280, "height": 853,
   "alt": { "en": "Students and faculty at the joint symposium in Lund.", "ja": "ルンドでの合同シンポジウムに集まった学生と教員" },
   "caption": { "en": "...", "ja": "..." }, "source": "https://www.med.nagoya-u.ac.jp/..." }
 ```
@@ -99,6 +99,8 @@ Every photo is an entry in `src/data/images.json`:
 - `alt` is required in both languages: what the photo shows and why it matters, at most 125 characters in English and 60 in Japanese. Do not start with "Photo of". Do not name people unless the photo or page makes it certain.
 - `caption` is optional and only states facts (event, place, date).
 - Files are WebP under `public/img/`, at most 300 KB (the check fails above that).
+- `width`/`height` (and `thumbWidth`/`thumbHeight` when there is a `thumb`) are the real pixel sizes of the files; the check reads the WebP headers and fails when they differ. `../tools/photos.py publish` writes them.
+- Every file under `public/img/` must be listed, whatever its type. Files the operating system writes on its own (`Thumbs.db`, `desktop.ini`, `.DS_Store`) are ignored, and are kept out of git by `.gitignore`.
 
 ## 6. Student reports
 

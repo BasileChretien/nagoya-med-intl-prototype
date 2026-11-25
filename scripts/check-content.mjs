@@ -5,15 +5,17 @@
  *   node scripts/check-content.mjs --dist   also checks every internal link in the built site (run after `astro build`)
  * Exits with code 1 when a check fails, so the deploy stops.
  */
-import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
-import { join, relative, sep } from 'node:path';
+import { readFileSync, readdirSync, statSync, existsSync, openSync, readSync, closeSync } from 'node:fs';
+import { join, relative, sep, basename } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { readFeatures, drawFeatures } from './features.mjs';
 
 /** Names of the checks below; feature map entries refer to them in `tests`. */
 const CHECKS = ['pairing', 'programme-references', 'deadlines', 'data-files', 'images', 'internal-links', 'noindex', 'feature-map',
   'photo-descriptions', 'report-translations'];
 
-const ROOT = new URL('..', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
+// fileURLToPath decodes %20 and non-ASCII characters, so the check runs from any folder.
+const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const PAGES = join(ROOT, 'src', 'content', 'pages');
 const DATA = join(ROOT, 'src', 'data');
 const PUBLIC = join(ROOT, 'public');
@@ -66,58 +68,107 @@ for (const lang of ['en', 'ja']) {
 const slugs = new Set([...en].map((p) => p.replace(/\.md$/, '').replace(/\/index$/, '')));
 
 // 2. Programmes: valid JSON, known contact, existing page, no passed deadline shown as open.
-const contacts = existsSync(join(DATA, 'contacts.json')) ? JSON.parse(readFileSync(join(DATA, 'contacts.json'), 'utf8')) : [];
-const contactIds = new Set(contacts.map((c) => c.id));
+// contacts.json problems are reported once, by section 3; here an unusable file only skips the contact check.
+let contactIds = null;
+try {
+  const c = JSON.parse(readFileSync(join(DATA, 'contacts.json'), 'utf8'));
+  if (Array.isArray(c)) contactIds = new Set(c.filter((x) => x && typeof x === 'object').map((x) => x.id));
+} catch { /* reported by section 3 */ }
 for (const f of walk(join(DATA, 'programmes')).filter((x) => x.endsWith('.json'))) {
   const id = f.split(sep).pop().replace(/\.json$/, '');
   let p;
   try { p = JSON.parse(readFileSync(f, 'utf8')); } catch (e) { fail(`programmes/${id}.json: invalid JSON (${e.message})`); continue; }
-  if (!contactIds.has(p.contact)) fail(`programmes/${id}.json: unknown contact "${p.contact}"`);
+  if (!p || typeof p !== 'object' || Array.isArray(p)) { fail(`programmes/${id}.json: must be an object`); continue; }
+  if (contactIds && !contactIds.has(p.contact)) fail(`programmes/${id}.json: unknown contact "${p.contact}"`);
   if (!slugs.has(p.page)) fail(`programmes/${id}.json: page "${p.page}" does not exist`);
   const d = p.deadline;
   if (d?.status === 'open' && d.date && d.date < today) fail(`programmes/${id}.json: deadline ${d.date} has passed but status is "open"`);
   if (d?.date && d.date < today && d.status !== 'closed' && d.status !== 'tba') warn(`programmes/${id}.json: deadline ${d.date} has passed`);
 }
 
-// 3. Data files parse and ids are unique.
-for (const name of ['staff', 'contacts', 'partners', 'news', 'stories']) {
-  const f = join(DATA, `${name}.json`);
-  if (!existsSync(f)) { fail(`${name}.json is missing`); continue; }
-  try {
-    const arr = JSON.parse(readFileSync(f, 'utf8'));
-    const ids = arr.map((x) => x.id);
-    const dup = ids.filter((x, i) => ids.indexOf(x) !== i);
-    if (dup.length) fail(`${name}.json: duplicate ids ${[...new Set(dup)].join(', ')}`);
-  } catch (e) { fail(`${name}.json: invalid JSON (${e.message})`); }
-}
-
 /** Parse a JSON file; report a failure instead of crashing. @param {string} file @returns {any} */
 function readJson(file) {
-  try { return JSON.parse(readFileSync(file, 'utf8')); } catch (e) { fail(`${relative(ROOT, file)}: invalid JSON (${e.message})`); return null; }
+  try { return JSON.parse(readFileSync(file, 'utf8')); } catch (e) { fail(`${relative(ROOT, file).split(sep).join('/')}: invalid JSON (${e.message})`); return null; }
 }
 
-// 3b. Every photo has a description in both languages, its files exist, and no photo file is left unlisted.
-const imagesFile = join(DATA, 'images.json');
-const imgs = existsSync(imagesFile) ? readJson(imagesFile) ?? [] : [];
-const listed = new Set();
-for (const im of imgs) {
-  for (const l of ['en', 'ja']) if (!im.alt?.[l]?.trim()) fail(`images.json ${im.id}: no ${l} description`);
-  for (const f of [im.file, im.thumb].filter(Boolean)) {
-    listed.add(f);
-    if (!existsSync(join(PUBLIC, f))) fail(`images.json ${im.id}: missing file public/${f}`);
-  }
+/**
+ * Read a data file that must hold a list of objects. Returns the objects, or null when the file cannot be
+ * used at all (missing, unparsable, not a list), in which case the checks that depend on it are skipped
+ * so that one broken file gives one error instead of hundreds.
+ * @param {string} name file name under src/data @returns {Record<string, any>[] | null}
+ */
+function readList(name) {
+  const f = join(DATA, name);
+  if (!existsSync(f)) { fail(`${name} is missing`); return null; }
+  const data = readJson(f);
+  if (data === null) return null;
+  if (!Array.isArray(data)) { fail(`${name}: must be a list (a JSON array)`); return null; }
+  const ok = [];
+  data.forEach((x, i) => {
+    if (x && typeof x === 'object' && !Array.isArray(x)) ok.push(x);
+    else fail(`${name}: entry ${i} is not an object`);
+  });
+  return ok;
 }
-// Every file under public/img, whatever its type, must be listed with a description. Only the home page's
-// campus photo is exempt: it is decorative (alt="") behind the title.
-for (const f of walk(join(PUBLIC, 'img'))) {
-  const rel = relative(PUBLIC, f).split(sep).join('/');
-  if (!/^img\/campus-\d+\.webp$/.test(rel) && !listed.has(rel)) fail(`public/${rel} is not in images.json, so it has no description`);
+
+/** Width and height of a WebP file, read from its header; null if it is not a WebP. @param {string} file */
+function webpSize(file) {
+  const b = Buffer.alloc(30);
+  const fd = openSync(file, 'r');
+  try { readSync(fd, b, 0, 30, 0); } finally { closeSync(fd); }
+  if (b.toString('ascii', 0, 4) !== 'RIFF' || b.toString('ascii', 8, 12) !== 'WEBP') return null;
+  const chunk = b.toString('ascii', 12, 16);
+  if (chunk === 'VP8 ') return { w: b.readUInt16LE(26) & 0x3fff, h: b.readUInt16LE(28) & 0x3fff };
+  if (chunk === 'VP8L') { const v = b.readUInt32LE(21); return { w: (v & 0x3fff) + 1, h: ((v >>> 14) & 0x3fff) + 1 }; }
+  if (chunk === 'VP8X') return { w: b.readUIntLE(24, 3) + 1, h: b.readUIntLE(27, 3) + 1 };
+  return null;
+}
+
+// 3. Data files parse, hold lists, and their ids are unique.
+const lists = {};
+for (const name of ['staff', 'contacts', 'partners', 'news', 'stories']) {
+  const arr = readList(`${name}.json`);
+  lists[name] = arr;
+  if (!arr) continue;
+  const ids = arr.map((x) => x.id);
+  const dup = ids.filter((x, i) => ids.indexOf(x) !== i);
+  if (dup.length) fail(`${name}.json: duplicate ids ${[...new Set(dup)].join(', ')}`);
+}
+
+// 3b. Every photo has a description in both languages, its files exist with the recorded sizes,
+//     and no photo file is left unlisted.
+const imgs = readList('images.json');
+if (imgs) {
+  const listed = new Set();
+  for (const im of imgs) {
+    for (const l of ['en', 'ja']) if (!im.alt?.[l]?.trim()) fail(`images.json ${im.id}: no ${l} description`);
+    if (im.thumb && (!Number.isInteger(im.thumbWidth) || !Number.isInteger(im.thumbHeight))) {
+      fail(`images.json ${im.id}: a photo with a thumbnail needs thumbWidth and thumbHeight`);
+    }
+    for (const [f, w, h] of [[im.file, im.width, im.height], [im.thumb, im.thumbWidth, im.thumbHeight]]) {
+      if (!f) continue;
+      listed.add(f);
+      const path = join(PUBLIC, f);
+      if (!existsSync(path)) { fail(`images.json ${im.id}: missing file public/${f}`); continue; }
+      const size = webpSize(path);
+      if (size && Number.isInteger(w) && Number.isInteger(h) && (size.w !== w || size.h !== h)) {
+        fail(`images.json ${im.id}: recorded size ${w}x${h} does not match public/${f} (${size.w}x${size.h}); the sizes do not match the file`);
+      }
+    }
+  }
+  // Every file under public/img, whatever its type, must be listed with a description. Exempt: the home page's
+  // campus photo (decorative, alt="", behind the title) and files the operating system writes on its own.
+  const OS_FILES = /^(thumbs\.db|desktop\.ini|\.ds_store|\._.*)$/i;
+  for (const f of walk(join(PUBLIC, 'img'))) {
+    const rel = relative(PUBLIC, f).split(sep).join('/');
+    if (OS_FILES.test(basename(f)) || /^img\/campus-\d+\.webp$/.test(rel)) continue;
+    if (!listed.has(rel)) fail(`public/${rel} is not in images.json: add it there with a description in both languages, or delete it`);
+  }
 }
 
 // 3c. Every student report exists in its original language and as an automatic translation, paragraph for paragraph.
-const storiesFile = join(DATA, 'stories.json');
-if (existsSync(storiesFile)) {
-  const stories = readJson(storiesFile) ?? [];
+const stories = lists.stories;
+if (stories) {
   const ids = new Set(stories.map((s) => s.id));
   let missingTr = 0;
   for (const s of stories) {
@@ -136,9 +187,12 @@ if (existsSync(storiesFile)) {
     if (td.paragraphs.some((p) => typeof p !== 'string' || !p.trim())) fail(`report ${s.id}: empty translated paragraph`);
   }
   if (missingTr) fail(`${missingTr} reports have no translation`);
+  // Only the files directly in each folder, as the content loaders read them (glob "*.json", not subfolders).
   for (const dir of ['original', 'translated']) {
-    for (const f of walk(join(DATA, 'reports', dir)).filter((x) => x.endsWith('.json'))) {
-      const id = f.split(sep).pop().replace(/\.json$/, '');
+    const folder = join(DATA, 'reports', dir);
+    if (!existsSync(folder)) continue;
+    for (const name of readdirSync(folder).filter((n) => n.endsWith('.json') && statSync(join(folder, n)).isFile())) {
+      const id = name.replace(/\.json$/, '');
       if (!ids.has(id)) fail(`reports/${dir}/${id}.json has no story in stories.json`);
     }
   }
