@@ -159,5 +159,8 @@ const ROOM = ISSUE_LIMIT - 2000; // the workflow adds a link to the run
 function capReport(md) {
   if (md.length <= ROOM) return md;
   const note = '\n\n… The report was cut here because it is too long for an issue. The run summary has it in full.\n';
-  return md.slice(0, ROOM - note.length).replace(/\n[^\n]*$/, '') + note;
+  const cut = md.slice(0, ROOM - note.length - 4).replace(/\n[^\n]*$/, '');
+  // A cut inside a fenced block would leave the note, and everything after it, shown as code: close it first.
+  const insideFence = ((cut.match(/^```/gm) ?? []).length % 2) === 1;
+  return `${cut}${insideFence ? '\n```' : ''}${note}`;
 }
