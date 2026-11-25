@@ -31,9 +31,10 @@ const cases = [
   { name: 'an upper-case extension is reported', plant: ['public/img/pages/zz-test.GIF', 'GIF89a'], expect: 'fail', message: /public\/img\/pages\/zz-test\.GIF is not in images\.json/ },
   { name: 'a file with no extension is reported', plant: ['public/img/pages/zz-test', 'x'], expect: 'fail', message: /public\/img\/pages\/zz-test is not in images\.json/ },
   { name: 'only campus-N.webp is exempt, not campus-N.gif', plant: ['public/img/campus-1.gif', 'GIF89a'], expect: 'fail', message: /public\/img\/campus-1\.gif is not in images\.json/ },
-  // Operating-system files are not photos (round 3).
-  { name: 'Thumbs.db written by Windows Explorer is ignored', plant: ['public/img/pages/Thumbs.db', 'x'], expect: 'pass' },
-  { name: '.DS_Store written by macOS is ignored', plant: ['public/img/stories/.DS_Store', 'x'], expect: 'pass' },
+  // Operating-system files are not photos (round 3). Planted in a folder the test creates, so a real
+  // Thumbs.db or .DS_Store written by the OS elsewhere can neither block nor be touched by the test.
+  { name: 'Thumbs.db written by Windows Explorer is ignored', plant: ['public/img/zz-test-os/Thumbs.db', 'x'], expect: 'pass' },
+  { name: '.DS_Store written by macOS is ignored', plant: ['public/img/zz-test-os/.DS_Store', 'x'], expect: 'pass' },
   // Wrong-shaped data is reported, not a crash, and does not flood the output (round 1, pass 2).
   {
     name: 'images.json holding an object instead of a list is reported without a crash or a flood',
@@ -66,7 +67,7 @@ const cases = [
     also: (r) => (crashed(r) ? 'the check crashed' : null),
   },
   // The orphan scan reads the same files as the site: not subfolders (round 1, pass 2).
-  { name: 'a JSON file in a subfolder of reports/original is not reported as an orphan', plant: ['src/data/reports/original/old/zz-test.json', '{}'], expect: 'pass' },
+  { name: 'a JSON file in a subfolder of reports/original is not reported as an orphan', plant: ['src/data/reports/original/zz-test-subfolder/zz-test.json', '{}'], expect: 'pass' },
   // Recorded photo sizes must match the files (round 1, pass 2: thumbnail width of tall photos).
   {
     name: 'a recorded photo width that does not match the file is reported',
@@ -91,10 +92,20 @@ for (const c of cases) {
   let undo = () => {};
   if (c.plant) {
     const path = join(ROOT, c.plant[0]);
-    if (existsSync(path)) throw new Error(`${c.plant[0]} already exists; refusing to overwrite`);
+    if (existsSync(path)) {
+      say(false, c.name, `${c.plant[0]} already exists; remove it and run the tests again`);
+      continue;
+    }
+    // Remember the highest folder this case creates, so the undo removes only what the test made
+    // and never a folder (or its files) that was already there.
+    let created = null;
+    for (let d = dirname(path); d.length > ROOT.length && !existsSync(d); d = dirname(d)) created = d;
     mkdirSync(dirname(path), { recursive: true });
     writeFileSync(path, c.plant[1]);
-    undo = () => { rmSync(path, { force: true }); if (c.plant[0].includes('/old/')) rmSync(dirname(path), { recursive: true, force: true }); };
+    undo = () => {
+      rmSync(path, { force: true });
+      if (created) rmSync(created, { recursive: true, force: true });
+    };
   } else if (c.edit) {
     const path = join(ROOT, c.edit[0]);
     const original = readFileSync(path, 'utf8');
