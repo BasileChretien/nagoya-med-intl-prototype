@@ -128,4 +128,43 @@ const stories = defineCollection({
   }),
 });
 
-export const collections = { pages, programmes, staff, contacts, partners, news, stories };
+/** Full text of each student report in its original language. */
+const reports = defineCollection({
+  loader: glob({ pattern: '*.json', base: './src/data/reports/original' }),
+  schema: z.object({
+    lang: z.enum(['en', 'ja']),
+    title: z.string().nullable().optional(),
+    paragraphs: z.array(z.string()).min(1),
+  }),
+});
+
+/** Automatic (AI) translation of each report into the other language, paragraph for paragraph. */
+const translations = defineCollection({
+  loader: glob({ pattern: '*.json', base: './src/data/reports/translated' }),
+  schema: z.object({
+    lang: z.enum(['en', 'ja']),
+    method: z.literal('machine'),
+    title: z.string().nullable().optional(),
+    paragraphs: z.array(z.string()).min(1),
+  }),
+});
+
+/** Photos, each with a description in both languages for screen readers. */
+const images = defineCollection({
+  loader: file('src/data/images.json'),
+  schema: z.object({
+    kind: z.enum(['story', 'hero', 'figure', 'portrait']),
+    story: z.string().optional(),
+    page: z.string().optional(),
+    staff: z.string().optional(),
+    file: z.string(),
+    thumb: z.string().optional(),
+    width: z.number().int(),
+    height: z.number().int(),
+    alt: L,
+    caption: L.optional(),
+    source: z.string().url(),
+  }),
+});
+
+export const collections = { pages, programmes, staff, contacts, partners, news, stories, reports, translations, images };

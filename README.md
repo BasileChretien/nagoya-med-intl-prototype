@@ -11,7 +11,8 @@ Live prototype: https://basilechretien.github.io/nagoya-med-intl-prototype/
 - **One site, organised by audience**: Study in Nagoya, Study abroad, Joint & double degrees, Partnerships, About us.
 - **Every fact stored once**: programmes, deadlines, staff, partners and contacts live in data files (`src/data/`) and appear wherever they are needed, in both languages.
 - **Paired languages**: every page exists in English and Japanese, linked to each other.
-- **A searchable library of student stories** built from the reports already published.
+- **A searchable library of student stories** built from the reports already published, with a page for every report in both languages. The version that is not the original is an automatic (AI) translation and says so.
+- **Photos with descriptions**: every photo has a text description in English and Japanese for screen readers.
 - **Honest status**: facts that the old sites contradict are listed on each page and on the *Content status* page, for the office to confirm.
 - **Automatic checks** on every change (`scripts/check-content.mjs`): missing translations, passed deadlines shown as open, oversized images, broken internal links.
 - **Light and fast**: static pages, system fonts plus one small web font, images under 300 KB.
@@ -46,4 +47,4 @@ The site is plain HTML, CSS and a few lines of JavaScript. To serve it from `www
 
 ## Rights
 
-Texts and the campus photograph come from the official websites of Nagoya University Graduate School of Medicine and remain the university's. No photographs of people are reused. Student stories show a short excerpt and link to the full report on the official site.
+Texts and photographs come from the official websites of Nagoya University Graduate School of Medicine, are reused with the department's authorisation, and remain the university's. Each report page links to the report on the official site. Translations of student reports are automatic and labelled as such.

@@ -85,7 +85,28 @@ Only `section`, `name`, `audience`, `contact` and `page` are required. Leave a f
 
 **Contact ids.** `intl-office` (Office of International Affairs, general) and `jdp-office` (joint and double degrees). Others may be added to `contacts.json`.
 
-## 5. Writing rules
+## 5. Photos
+
+Every photo is an entry in `src/data/images.json`:
+
+```json
+{ "id": "...", "kind": "hero | figure | story | portrait", "page": "degrees/lund", "story": "<story id>", "staff": "<staff id>",
+  "file": "img/pages/x.webp", "thumb": "img/pages/x-t.webp", "width": 1280, "height": 853,
+  "alt": { "en": "Students and faculty at the joint symposium in Lund.", "ja": "ルンドでの合同シンポジウムに集まった学生と教員" },
+  "caption": { "en": "...", "ja": "..." }, "source": "https://www.med.nagoya-u.ac.jp/..." }
+```
+
+- `alt` is required in both languages: what the photo shows and why it matters, at most 125 characters in English and 60 in Japanese. Do not start with "Photo of". Do not name people unless the photo or page makes it certain.
+- `caption` is optional and only states facts (event, place, date).
+- Files are WebP under `public/img/`, at most 300 KB (the check fails above that).
+
+## 6. Student reports
+
+- `src/data/reports/original/<story id>.json`: the student's own text, `{ "lang", "title", "paragraphs": [...] }`.
+- `src/data/reports/translated/<story id>.json`: the automatic translation into the other language, `{ "lang", "method": "machine", "title", "paragraphs": [...] }`, one paragraph per original paragraph.
+- The report page shows the original in its language and the translation in the other, with a visible "Automatic translation" label and a link to the original. When a person has checked a translation, keep the file and record it in the commit message; the label stays until the office decides on a reviewed status.
+
+## 7. Writing rules
 
 Both languages:
 - Write for the visitor and their goal: who can apply, when, how, at what cost, whom to ask.

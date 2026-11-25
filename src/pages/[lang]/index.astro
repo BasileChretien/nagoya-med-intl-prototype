@@ -5,6 +5,7 @@ import DeadlineList from '../../components/DeadlineList.astro';
 import StoryCard from '../../components/StoryCard.astro';
 import { t, fill, SECTIONS, type Lang } from '../../i18n/ui';
 import { href, asset, langPaths, programmesIn, formatDate } from '../../lib/site';
+import { pageImages, type ImageEntry } from '../../lib/reports';
 
 export function getStaticPaths() {
   return langPaths();
@@ -23,6 +24,11 @@ const featured = stories
   .filter((s, i, arr) => arr.findIndex((x) => x.data.type === s.data.type) === i || i < 2)
   .slice(0, 3);
 const doors = SECTIONS.filter((s) => s !== 'about');
+const doorPhotos: Partial<Record<(typeof doors)[number], ImageEntry>> = {};
+for (const s of doors) {
+  const { hero } = await pageImages(s);
+  if (hero) doorPhotos[s] = hero;
+}
 ---
 <Base lang={lang} title={ui.heroTitle} description={ui.heroLede} slug="">
   <section class="hero">
@@ -42,6 +48,9 @@ const doors = SECTIONS.filter((s) => s !== 'about');
       <div class="grid cols-4">
         {doors.map((s) => (
           <a class="card door" href={href(lang, s)}>
+            {doorPhotos[s] && (
+              <span class="card-img"><img src={asset(doorPhotos[s]!.data.thumb ?? doorPhotos[s]!.data.file)} alt={doorPhotos[s]!.data.alt[lang]} width="560" height="315" loading="lazy" decoding="async" /></span>
+            )}
             <span class="kicker">{ui.sectionWho[s]}</span>
             <h3>{ui.sections[s]}</h3>
           </a>

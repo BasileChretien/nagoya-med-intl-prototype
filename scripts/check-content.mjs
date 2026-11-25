@@ -10,7 +10,8 @@ import { join, relative, sep } from 'node:path';
 import { readFeatures, drawFeatures } from './features.mjs';
 
 /** Names of the checks below; feature map entries refer to them in `tests`. */
-const CHECKS = ['pairing', 'programme-references', 'deadlines', 'data-files', 'images', 'internal-links', 'noindex', 'feature-map'];
+const CHECKS = ['pairing', 'programme-references', 'deadlines', 'data-files', 'images', 'internal-links', 'noindex', 'feature-map',
+  'photo-descriptions', 'report-translations'];
 
 const ROOT = new URL('..', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1');
 const PAGES = join(ROOT, 'src', 'content', 'pages');
@@ -88,6 +89,36 @@ for (const name of ['staff', 'contacts', 'partners', 'news', 'stories']) {
     const dup = ids.filter((x, i) => ids.indexOf(x) !== i);
     if (dup.length) fail(`${name}.json: duplicate ids ${[...new Set(dup)].join(', ')}`);
   } catch (e) { fail(`${name}.json: invalid JSON (${e.message})`); }
+}
+
+// 3b. Every photo has a description in both languages and its file exists.
+const imagesFile = join(DATA, 'images.json');
+if (existsSync(imagesFile)) {
+  const imgs = JSON.parse(readFileSync(imagesFile, 'utf8'));
+  for (const im of imgs) {
+    for (const l of ['en', 'ja']) if (!im.alt?.[l]?.trim()) fail(`images.json ${im.id}: no ${l} description`);
+    for (const f of [im.file, im.thumb].filter(Boolean)) if (!existsSync(join(PUBLIC, f))) fail(`images.json ${im.id}: missing file public/${f}`);
+  }
+}
+
+// 3c. Every student report exists in its original language and as an automatic translation, paragraph for paragraph.
+const storiesFile = join(DATA, 'stories.json');
+if (existsSync(storiesFile)) {
+  const stories = JSON.parse(readFileSync(storiesFile, 'utf8'));
+  let missingTr = 0;
+  for (const s of stories) {
+    const o = join(DATA, 'reports', 'original', `${s.id}.json`);
+    const tr = join(DATA, 'reports', 'translated', `${s.id}.json`);
+    if (!existsSync(o)) { fail(`report ${s.id}: no original text`); continue; }
+    if (!existsSync(tr)) { missingTr += 1; continue; }
+    const od = JSON.parse(readFileSync(o, 'utf8'));
+    const td = JSON.parse(readFileSync(tr, 'utf8'));
+    if (td.lang === od.lang) fail(`report ${s.id}: translation is in the same language as the original`);
+    if (td.method !== 'machine') fail(`report ${s.id}: translation must be labelled "machine"`);
+    if (td.paragraphs.length !== od.paragraphs.length) fail(`report ${s.id}: ${td.paragraphs.length} translated paragraphs for ${od.paragraphs.length} original ones`);
+    if (td.paragraphs.some((p) => !p.trim())) fail(`report ${s.id}: empty translated paragraph`);
+  }
+  if (missingTr) fail(`${missingTr} reports have no translation`);
 }
 
 // 4. Images stay small.
