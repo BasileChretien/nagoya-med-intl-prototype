@@ -12,8 +12,8 @@ The browser editors cannot run commands, and they do not need to. The checks run
 
 1. Read the English and the Japanese once more and make sure they say the same thing.
 2. In the repository, open the **Actions** tab, choose **Confirm both languages**, and click **Run workflow**.
-3. Choose your branch (the one your pull request was created on), paste the keys the check printed (for example `study-in-nagoya/faq programmes/sep-unc.json#duration`, separated by spaces), add the story ids if you updated a report translation, tick "I have read both languages", and run it.
-4. The workflow records the confirmation, regenerates the faculty texts, commits to your branch and runs the checks. When it is green, merge the pull request.
+3. Under "Use workflow from", choose your branch (the one your pull request was created on; the workflow refuses `main`), paste the keys the check printed (for example `study-in-nagoya/faq programmes/sep-unc.json#duration`, separated by spaces), add the story ids if you updated a report translation, tick "I have read both languages", and run it.
+4. The workflow records the confirmation, regenerates the faculty texts, commits to your branch and runs the checks. GitHub does not start the pull request's own checks again for a commit made by a workflow, so the pull request shows none for that commit: the workflow's run is the check. When it is green, merge the pull request.
 
 The workflow will not run unless the box is ticked: confirming is a statement that both languages say the same thing, never a way to silence the check. A [codespace](https://docs.github.com/en/codespaces/about-codespaces/what-are-codespaces), the same editor with a terminal, also works.
 

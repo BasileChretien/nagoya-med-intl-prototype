@@ -26,7 +26,7 @@ updated: 2026-11-25
 
 ## Can I apply if my school is not a partner?
 
-For clinical clerkships, not at present. The office accepts applications from students of partner medical schools only and will update the website if this changes. Check [Agreements and partner institutions](../partnerships/agreements?tag=Clerkship) to see whether your school is a partner, and write to the Office of International Affairs if you are still unsure.
+For clinical clerkships, not at present. The office accepts applications from students of partner medical schools only and will update the website if this changes. Check [Agreements and partner institutions](../partnerships/agreements) to see whether your school is a partner, and write to the Office of International Affairs if you are still unsure.
 
 ## Who can do a clinical clerkship?
 

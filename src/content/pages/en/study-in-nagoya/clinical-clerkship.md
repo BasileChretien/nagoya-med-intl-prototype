@@ -33,7 +33,7 @@ updated: 2026-11-25
 programmes: [clinical-clerkship]
 ---
 
-Nagoya University School of Medicine accepts a limited number of international students in the clinical clerkships (rotations) of its senior students. At present only students of partner schools are accepted. To find out whether your school is one, see [Agreements and partner institutions](../partnerships/agreements?tag=Clerkship). Please do not contact departments or faculty members directly. All enquiries go through the Office of International Affairs.
+Nagoya University School of Medicine accepts a limited number of international students in the clinical clerkships (rotations) of its senior students. At present only students of partner schools are accepted. To find out whether your school is one, see [Agreements and partner institutions](../partnerships/agreements). Please do not contact departments or faculty members directly. All enquiries go through the Office of International Affairs.
 
 ## When to apply
 

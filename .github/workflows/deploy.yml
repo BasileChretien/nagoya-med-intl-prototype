@@ -33,6 +33,8 @@ jobs:
         run: node scripts/check-staleness.mjs
       - name: Test the staleness checks
         run: node scripts/test-staleness.mjs
+      - name: Test the content-page plugin
+        run: node scripts/test-content-plugin.mjs
       - name: Type check
         run: npx astro check
       - run: npm run build
