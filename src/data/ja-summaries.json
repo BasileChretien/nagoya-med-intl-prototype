@@ -1,0 +1,58 @@
+[
+  {
+    "url": "https://www.med.nagoya-u.ac.jp/medical_J/admission/doctral/admissions/international/",
+    "en": "The graduate school's call page for the joint degree doctoral programmes (国際連携総合医学専攻). It gives the application period of each call and links the application guidelines (PDF), the sets of forms (ZIP) and the form for the eligibility pre-screening (事前資格審査). Lund applicants also need Lund's own application form.",
+    "checked": "2026-11-25",
+    "method": "machine",
+    "evidence": ["国際連携総合医学専攻 単願者用.zip", "募集要項.pdf", "事前資格審査の所定様式は", "Application Form（ルンド大学所定様式）"]
+  },
+  {
+    "url": "https://www.med.nagoya-u.ac.jp/medical_J/company/",
+    "en": "The faculty's index page for companies. It holds links only: joint research, contracted research, contracted projects, academic consulting, donations and endowed chairs, the university's industry-academia collaboration office (産学連携推進本部), 先端医療開発部, and the disclosure of company activities involving medical institutions. The forms and model contracts for joint research are on the joint research page.",
+    "checked": "2026-11-25",
+    "method": "machine",
+    "evidence": ["企業の方へ", "共同研究", "受託研究", "受託事業", "学術コンサルティング", "寄附金", "寄附講座", "産学連携推進本部", "先端医療開発部", "医療機関等に関わる企業活動の情報公開について"]
+  },
+  {
+    "url": "https://www.med.nagoya-u.ac.jp/medical_J/company/iagc/collabo/",
+    "en": "How companies set up joint research with Nagoya University researchers. After consulting the faculty member who will lead the research, send the application (共同研究申請書) and a draft contract as electronic files to the Research Support Section (経営企画課研究支援係). Clinical research needs the approval of the university's ethics committee first. The page also sets the indirect costs (30%) and the fee for company researchers who work on site.",
+    "checked": "2026-11-25",
+    "method": "machine",
+    "evidence": ["本学の研究代表者である教員と事前相談の上で", "共同研究申請書および共同研究契約書（案）", "電子ファイルで下記問い合わせ先・担当係へ", "本学の倫理委員会の承認を得ている必要があります", "直接経費の３０％相当額", "６か月を超える場合は440,000円", "経営企画課研究支援係"]
+  },
+  {
+    "url": "https://www.med.nagoya-u.ac.jp/medical_J/company/iagc/donation/",
+    "en": "The faculty's page on gifts to Nagoya University from companies, organisations and individuals. To give, send the donation application form (寄附申込書, Form 1) to the Research Support Section of the Management Planning Division (経営企画課研究支援係). Once the gift is accepted, you receive a payment request, then a receipt about a month after payment. A set share of each gift pays for administration.",
+    "checked": "2026-11-25",
+    "method": "machine",
+    "evidence": ["民間企業，団体，個人等から", "寄附申込書（様式1号）", "経営企画課研究支援係", "礼状および納入依頼書を送付いたします", "入金日の翌月（入金日の１か月ほど後）に領収書", "一定割合を運営管理経費に充てさせていただきます"]
+  },
+  {
+    "url": "https://www.med.nagoya-u.ac.jp/medical_J/international/application/license/",
+    "en": "Instructions for students and graduates seeking a US medical license. For a USMLE status verification, email the Graduate Section of the Student Affairs Division (学務課大学院係); the address is on the page. For an MSPE, apply and pay online, then email a draft with evidence. The last date is the end of May of that year (当年５月末日), and issuing takes at least one month.",
+    "checked": "2026-11-25",
+    "method": "machine",
+    "evidence": ["米国医師免許取得に関する手続き", "学籍照会を希望する", "名古屋大学大学院医学系研究科学務課大学院係", "オンライン申請と発行手数料支払い", "同年の最終期限 当年５月末日", "１ヶ月以上 を要します"]
+  },
+  {
+    "url": "https://www.med.nagoya-u.ac.jp/medical_J/international/pdf/d032ef90b26c98f53f28064d6cc5a41f4fd67f6b.pdf",
+    "en": "A six-page sample MSPE titled as a draft (（案）MSPE書式), based on the AAMC 2016 template, with instructions in Japanese and example text in English. It marks the parts the applicant drafts (Noteworthy Characteristics, up to three items of two sentences each; Preclinical Coursework; Clerkships; Summary) and the parts the university writes (Academic History, Professional Performance, Medical School Information).",
+    "checked": "2026-11-25",
+    "method": "machine",
+    "evidence": ["AAMC 2016 MSPE Templateより引用", "最大3つ挙げ、それぞれを箇条書きで示してください", "各特徴は2文以内で説明してください", "Preclinical Coursework（要申請者下書き）", "⑤ SUMMARY (申請者記載)", "③ ACADEMIC HISTORY 大学が記載", "Professional Performance (大学記載)", "MEDICAL SCHOOL INFORMATION (大学記載)"]
+  },
+  {
+    "url": "https://www.med.nagoya-u.ac.jp/medical_J/others/media/",
+    "en": "The faculty's page for the press. To interview or film faculty members, apply with the online press and filming request form (報道取材・撮影許可願). The page also offers a Word template of the letter asking for a staff member's outside work (兼業依頼状). The General Affairs Section of the General Affairs Division (総務課 総務係) handles requests.",
+    "checked": "2026-11-25",
+    "method": "machine",
+    "evidence": ["取材等を申し込まれる際は", "報道取材・撮影許可願", "フォームより申請してください", "兼業依頼状（兼業許可申請書・許可書）", "担当部署", "総務課 総務係"]
+  },
+  {
+    "url": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/association.html",
+    "en": "A page on the Office of International Affairs' own exchange site, with two topics. It introduces the Frontier Association (フロンティア会), an alumni group run by students who trained abroad, founded in 1998; its representative teaches students preparing to go abroad how to examine patients and write records in English. It also explains how to request a courtesy visit and lists past visits.",
+    "checked": "2026-11-25",
+    "method": "machine",
+    "evidence": ["留学者同窓会組織「フロンティア会」", "1998年に設立されました", "学生主体の同窓会組織", "英語による診察方法や、カルテ記載方法などの講義", "留学予定者向けに行っています", "表敬訪問申込手続き"]
+  }
+]

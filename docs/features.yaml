@@ -78,6 +78,14 @@ features:
     delivered_by: [src/lib/rehype-abbr.mjs, src/data/glossary.json, src/content/pages/en/about/glossary.md, src/content/pages/ja/about/glossary.md]
     tests: [acronyms, content-plugin]
     limits: Abbreviations in texts drawn from the data files (programme boxes, partner names, news) are listed on the abbreviations page but not marked where they appear.
+  - id: japanese-only-summaries
+    says: When an English page links to a page that exists only in Japanese, an English summary of that page, marked as written automatically, opens under the link.
+    stage: Explore
+    status: works
+    delivered_by: [src/lib/rehype-abbr.mjs, src/data/ja-summaries.json]
+    tests: [ja-summaries, content-plugin]
+    docs: CONTENT_GUIDE.md
+    limits: Summaries are checked against the page on the date they were written; the weekly check reports a broken link but not a changed page. PDF files are not required to have one.
   - id: faculty-links
     says: The site shows where it sits in the faculty website and sends visitors to the faculty's directory entry for the team, research and publications.
     stage: Contact

@@ -11,11 +11,12 @@ import { fileURLToPath } from 'node:url';
 import { readFeatures, drawFeatures } from './features.mjs';
 import { structuredData } from './structured-lib.mjs';
 import { PROTOTYPE } from '../src/lib/launch.mjs';
+import { urlLang } from '../src/lib/url-lang.mjs';
 
 /** Names of the checks below; feature map entries refer to them in `tests`. */
 const CHECKS = ['pairing', 'programme-references', 'deadlines', 'data-files', 'images', 'internal-links', 'noindex', 'feature-map',
   'photo-descriptions', 'report-translations', 'versions-in-step', 'facts-match', 'translations-current', 'faculty-texts', 'faculty-live', 'acronyms', 'content-plugin',
-  'structured-data', 'sitemap', 'weekly-check'];
+  'structured-data', 'sitemap', 'weekly-check', 'ja-summaries'];
 
 // fileURLToPath decodes %20 and non-ASCII characters, so the check runs from any folder.
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
@@ -254,6 +255,37 @@ if (glossary) {
     try { data = JSON.parse(readFileSync(f, 'utf8')); } catch { continue; } // reported above
     report(name, texts(data).join('\n'));
   }
+}
+
+// 3e. Summaries of Japanese-only pages (src/data/ja-summaries.json, shown by src/lib/rehype-abbr.mjs): each is
+//     marked as written automatically, dated, short, and used by an English page; and every link from an English
+//     page to a page in Japanese has one. PDF files are not required: their folder does not tell their language.
+const summaries = readList('ja-summaries.json');
+if (summaries) {
+  const summarised = new Set();
+  for (const s of summaries) {
+    if (typeof s.url !== 'string' || !/^https:\/\//.test(s.url)) { fail('ja-summaries.json: an entry has no https "url"'); continue; }
+    if (summarised.has(s.url)) fail(`ja-summaries.json: ${s.url} is listed twice`);
+    summarised.add(s.url);
+    if (typeof s.en !== 'string' || !s.en.trim()) fail(`ja-summaries.json ${s.url}: no "en" summary`);
+    else if (s.en.trim().split(/\s+/).length > 70) fail(`ja-summaries.json ${s.url}: summary longer than 70 words`);
+    if (s.method !== 'machine') fail(`ja-summaries.json ${s.url}: "method" must be "machine": the summaries are written automatically and the page says so`);
+    if (typeof s.checked !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(s.checked) || s.checked > today) fail(`ja-summaries.json ${s.url}: "checked" must be the date it was written (YYYY-MM-DD, not in the future)`);
+  }
+  const linkedFromEnglish = new Set();
+  for (const p of md('en')) {
+    const body = readFileSync(join(PAGES, 'en', p), 'utf8').replace(/^---\r?\n[\s\S]*?\r?\n---/, '');
+    for (const m of body.matchAll(/\]\((https?:\/\/[^)\s]+)\)/g)) {
+      const url = m[1].split('#')[0];
+      linkedFromEnglish.add(url);
+      let pathname = '';
+      try { pathname = new URL(url).pathname; } catch { continue; }
+      if (!/\.pdf$/i.test(pathname) && urlLang(url) === 'ja' && !summarised.has(url)) {
+        fail(`en/${p} links to a page in Japanese with no English summary: add ${url} to src/data/ja-summaries.json, or link its English version`);
+      }
+    }
+  }
+  for (const u of summarised) if (!linkedFromEnglish.has(u)) fail(`ja-summaries.json: no English page links to ${u}`);
 }
 
 // 4. Images stay small.

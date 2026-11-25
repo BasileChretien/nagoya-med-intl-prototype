@@ -29,6 +29,7 @@ sources:
   - https://life.gmc.nagoya-u.ac.jp/ja/life-in-japan/health/
   - https://www.nic-nagoya.or.jp/en/living-in-nagoya/nagoya-living-guide/
   - https://jled.lec.nagoya-u.ac.jp/ja/nustep/
+  - https://jled.lec.nagoya-u.ac.jp/en/nustep/about/index.html
 updated: 2026-11-25
 ---
 
@@ -84,7 +85,7 @@ NUPACEで参加する学生は、国民健康保険の保険料を毎月納め�
 - 初級と中級のコース　毎週木曜日の9時から10時30分まで。
 - 中級と上級のコース　毎週月曜日の9時から10時30分まで。
 
-講座は、医学研究棟1階の101セミナー室で開かれます。申し込みは、学生支援部の留学生担当へ連絡してください。連絡先がわからない場合は、国際連携室にお尋ねください。大学は[短期の日本語プログラム](https://jled.lec.nagoya-u.ac.jp/ja/nustep/)も開いています。
+講座は、医学研究棟1階の101セミナー室で開かれます。申し込みは、学生支援部の留学生担当へ連絡してください。連絡先がわからない場合は、国際連携室にお尋ねください。名古屋大学と学術交流協定を結ぶ大学の学生は、在籍する大学を通じて、名古屋大学の[短期の日本語プログラム](https://jled.lec.nagoya-u.ac.jp/ja/nustep/)に応募することもできます。
 
 ## 生活のためのガイド
 
@@ -93,7 +94,7 @@ NUPACEで参加する学生は、国民健康保険の保険料を毎月納め�
 - [家族](https://life.gmc.nagoya-u.ac.jp/ja/life-in-japan/family/)（生活ガイド）
 - [医療と健康](https://life.gmc.nagoya-u.ac.jp/ja/life-in-japan/health/)（生活ガイド）
 - [名古屋生活ガイド](https://www.nic-nagoya.or.jp/en/living-in-nagoya/nagoya-living-guide/)（名古屋国際センター、英語）
-- [短期の日本語プログラム](https://jled.lec.nagoya-u.ac.jp/ja/nustep/)（日本語）
+- [短期の日本語プログラム](https://jled.lec.nagoya-u.ac.jp/ja/nustep/)（学術交流協定校の学生向け）
 
 ## キャンパスへのアクセス
 

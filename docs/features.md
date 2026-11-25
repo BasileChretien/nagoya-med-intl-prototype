@@ -25,6 +25,7 @@ flowchart LR
   S3 --- partners_contacts("partners-contacts")
   S3 --- office_access("office-access")
   S2 --- acronyms_explained("acronyms-explained")
+  S2 --- japanese_only_summaries("japanese-only-summaries")
   S3 --- faculty_links("faculty-links")
   S4 --- versions_in_step("versions-in-step")
   S4 --- faculty_layer("faculty-layer")
@@ -52,6 +53,7 @@ flowchart LR
 | Contact | `partners-contacts` | Partner universities and contact points come from data files and stay consistent everywhere; the partner list can be searched and filtered by region and link, with counts, and opened on one filter from another page. | works | data-files |
 | Contact | `office-access` | Visitors find the office's building, floor and room, step-by-step directions from Tsurumai Station, a route map and the printable route guide. | works | pairing, images, internal-links |
 | Explore | `acronyms-explained` | Every abbreviation says what it stands for where it is first used on a page, with a list at the end of the page, links to the institutions, and a full list of abbreviations; links to pages in the other language or to PDFs say so. *Limit: Abbreviations in texts drawn from the data files (programme boxes, partner names, news) are listed on the abbreviations page but not marked where they appear.* | works | acronyms, content-plugin |
+| Explore | `japanese-only-summaries` | When an English page links to a page that exists only in Japanese, an English summary of that page, marked as written automatically, opens under the link. *Limit: Summaries are checked against the page on the date they were written; the weekly check reports a broken link but not a changed page. PDF files are not required to have one.* | works | ja-summaries, content-plugin |
 | Contact | `faculty-links` | The site shows where it sits in the faculty website and sends visitors to the faculty's directory entry for the team, research and publications. | works | internal-links, faculty-texts |
 | Maintain | `versions-in-step` | No English or Japanese version of a page, fact, photo description or report translation can fall behind the other without the check failing. | works | versions-in-step, facts-match, translations-current |
 | Maintain | `faculty-layer` | The texts for the faculty website are generated from the site's data, and a weekly check compares the live faculty pages with the site. *Limit: The International section rule stays pending until the faculty's web team publishes the gateway texts. Problems the faculty has not fixed yet are listed as known gaps (faculty.json knownGaps) until they are.* | works | faculty-texts, faculty-live |
