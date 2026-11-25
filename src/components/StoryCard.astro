@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { t, type Lang } from '../i18n/ui';
-import { href, asset } from '../lib/site';
+import { href, cardImage } from '../lib/site';
 import { reportFor, storyImages, excerptOf } from '../lib/reports';
 
 interface Props { story: CollectionEntry<'stories'>; lang: Lang }
@@ -12,12 +12,13 @@ const report = await reportFor(story.id, lang);
 const machine = report !== null && !report.original;
 const excerpt = report ? excerptOf(report.paragraphs) : s.excerpt;
 const [photo] = await storyImages(story.id);
+const img = photo ? cardImage(photo.data) : null;
 const link = href(lang, `stories/${story.id}`);
 ---
 <article class="card story">
-  {photo && (
+  {photo && img && (
     <div class="card-img">
-      <img src={asset(photo.data.thumb ?? photo.data.file)} alt={photo.data.alt[lang]} width={photo.data.thumbWidth ?? photo.data.width} height={photo.data.thumbHeight ?? photo.data.height} loading="lazy" decoding="async" />
+      <img src={img.src} alt={photo.data.alt[lang]} width={img.width} height={img.height} loading="lazy" decoding="async" />
     </div>
   )}
   <div class="meta"><span>{ui.storyTypes[s.type]}</span><span>{s.year}</span><span>{s.country}</span></div>

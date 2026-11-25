@@ -106,6 +106,14 @@ expectPass('a shared 万 in a range, kanji 千, "billion" and month abbreviation
     ['10 million yen', 'en', '10000000'], ['20 to 30 million yen', 'en', '20000000, 30000000'], ['thousands of students', 'en', ''],
     ['1.5 million', 'en', '1500000'], ['Scholar Exchange Program (SEP)', 'en', ''],
     ['500,000 to 1 million yen', 'en', '500000, 1000000'], ['900,000 - 1.2 million', 'en', '900000, 1200000'], ['50〜100万円', 'ja', '500000, 1000000'], ['500000〜100万円', 'ja', '500000, 1000000'],
+    // Recorded on #6: compound amounts, 数 ending a noun, ranges written high to low or with equal ends.
+    ['1万5千円', 'ja', '15000'], ['1千5百万円', 'ja', '15000000'], ['3千5百円', 'ja', '3500'], ['1億2千万円', 'ja', '120000000'],
+    ['1.5万円', 'ja', '15000'], ['1.1万円', 'ja', '11000'], ['IELTS 6.5以上', 'ja', '6.5'], ['定員数二十名', 'ja', '20'], ['数十名', 'ja', ''], ['数万人', 'ja', ''],
+    ['30 to 20 million yen', 'en', '20000000, 30000000'], ['3 to 3 million', 'en', '3000000'], ['3000万〜2000万円', 'ja', '20000000, 30000000'],
+    // Round 1 of #7: a full first amount keeps its own scale; kanji amounts with 万 or 億 are read; a kanji numeral
+    // after a digit is not part of the digit's amount.
+    ['500 to 1 million yen', 'en', '500, 1000000'], ['1,000 to 1 million yen', 'en', '1000, 1000000'], ['500〜100万円', 'ja', '500, 1000000'],
+    ['100〜1万円', 'ja', '100, 10000'], ['約三万部', 'ja', '30000'], ['三千万ドル', 'ja', '30000000'], ['二億の予算', 'ja', '200000000'], ['第2四半期', 'ja', '2'],
   ];
   const wrong = readings.filter(([text, lang, want]) => numbersOf(text, lang) !== want).map(([text, lang, want]) => `${text} -> "${numbersOf(text, lang)}", not "${want}"`);
   say(wrong.length === 0, 'numbers are read the same way in both languages (千 after a digit, 数千, ranges)', wrong.join('; '));
@@ -197,9 +205,22 @@ expectFail('a confirmation left for a removed page is reported', [[SYNC, (o) => 
   const gwMsg = gw.pending.find((p) => /^international \(en\)/.test(p)) ?? '';
   say(/does not yet link to the site's home page \(pending\)$/.test(gwMsg), 'the gateway rule names only what is missing', gwMsg);
   // Relative, protocol-relative and www-less links to the site's home count (#3, round 2).
-  const relMisses = ['/intlexch/', '//www.med.nagoya-u.ac.jp/intlexch/', 'https://med.nagoya-u.ac.jp/intlexch/', '../../../../../intlexch/']
+  const relMisses = ['/intlexch/', '//www.med.nagoya-u.ac.jp/intlexch/', '../../../../../intlexch/']
     .filter((h) => run({ 'units-en': fx('units-en').replace(/href="[^"]*\/intlexch\/"/g, `href="${h}"`) }).failures.some((f) => /units \(en\).*does not link/.test(f)));
-  say(relMisses.length === 0, 'relative and www-less links to the site\'s home count', JSON.stringify(relMisses));
+  say(relMisses.length === 0, 'relative and protocol-relative links to the site\'s home count', JSON.stringify(relMisses));
+  // The bare host med.nagoya-u.ac.jp does not serve the site (recorded on #5), nor does another port: such a link is broken.
+  const otherHosts = ['https://med.nagoya-u.ac.jp/intlexch/', 'https://www.med.nagoya-u.ac.jp:8443/intlexch/']
+    .filter((h) => !run({ 'units-en': fx('units-en').replace(/href="[^"]*\/intlexch\/"/g, `href="${h}"`) }).failures.some((f) => /units \(en\).*does not link/.test(f)));
+  say(otherHosts.length === 0, 'a link to another host or port does not count as a link to the site', JSON.stringify(otherHosts));
+  // Relative links resolve as a browser would: against the address actually fetched (after redirects) and the page's <base href>.
+  const unitsEn = (html, fetched) => analyseFacultyPage(html, { kind: 'units', lang: 'en' }, cfg, fetched).linksToSite;
+  const resolved = {
+    afterRedirect: unitsEn('<a href="../intlexch/">x</a>', 'https://www.med.nagoya-u.ac.jp/medical_E/'),
+    dataHrefFirst: unitsEn('<a data-href="#x" href="https://www.med.nagoya-u.ac.jp/intlexch/">x</a>'),
+    baseElsewhere: unitsEn('<head><base href="/medical_E/x/"></head><a href="intlexch/">x</a>'),
+    baseAtRoot: unitsEn('<head><base href="https://www.med.nagoya-u.ac.jp/"></head><a href="intlexch/">x</a>'),
+  };
+  say(resolved.afterRedirect && resolved.dataHrefFirst && !resolved.baseElsewhere && resolved.baseAtRoot, 'relative links resolve against the fetched address and <base href>', JSON.stringify(resolved));
   say(!live.failures.some((f) => /directory/.test(f)), 'the directory entries give the office address and link to the site', JSON.stringify(live.failures));
   say(live.pending.some((p) => /international \((en|ja)\).*not yet/.test(p)) && !live.failures.some((f) => /^international/.test(f)),
     'the International section not linking to the site yet is pending, not a failure', JSON.stringify(live.pending));
@@ -220,6 +241,6 @@ expectFail('a confirmation left for a removed page is reported', [[SYNC, (o) => 
     'a link to any old or new home of the site counts', JSON.stringify({ oldHome: oldHome.failures, homeMisses }));
 }
 
-const total = 37;
+const total = 39;
 process.stdout.write(`${total - failed}/${total} passed\n`);
 process.exit(failed ? 1 : 0);

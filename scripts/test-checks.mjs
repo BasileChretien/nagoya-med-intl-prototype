@@ -86,6 +86,14 @@ const cases = [
     message: /images\.json \S+: "file" must be a path/, also: (r) => (crashed(r) ? 'the check crashed' : null),
   },
   {
+    name: 'a photo with an empty file path is reported',
+    edit: ['src/data/images.json', (old) => old.replace(/"file": "[^"]+"/, '"file": ""')], expect: 'fail', message: /images\.json \S+: "file" must be a path/,
+  },
+  {
+    name: 'a photo with an empty thumbnail path is reported',
+    edit: ['src/data/images.json', (old) => old.replace(/"thumb": "[^"]+"/, '"thumb": ""')], expect: 'fail', message: /images\.json \S+: "thumb" must be a path/,
+  },
+  {
     name: 'a photo description that is not text is reported without a crash',
     edit: ['src/data/images.json', (old) => old.replace(/"alt": \{\s*"en": "[^"]*"/, '"alt": { "en": 5')], expect: 'fail',
     message: /images\.json \S+: no en description/, also: (r) => (crashed(r) ? 'the check crashed' : null),

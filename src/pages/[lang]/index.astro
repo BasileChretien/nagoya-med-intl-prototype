@@ -4,7 +4,7 @@ import Base from '../../layouts/Base.astro';
 import DeadlineList from '../../components/DeadlineList.astro';
 import StoryCard from '../../components/StoryCard.astro';
 import { t, fill, SECTIONS, type Lang } from '../../i18n/ui';
-import { href, asset, langPaths, programmesIn, formatDate } from '../../lib/site';
+import { href, asset, cardImage, langPaths, programmesIn, formatDate } from '../../lib/site';
 import { pageImages, type ImageEntry } from '../../lib/reports';
 
 export function getStaticPaths() {
@@ -49,7 +49,7 @@ for (const s of doors) {
         {doors.map((s) => (
           <a class="card door" href={href(lang, s)}>
             {doorPhotos[s] && (
-              <span class="card-img"><img src={asset(doorPhotos[s]!.data.thumb ?? doorPhotos[s]!.data.file)} alt={doorPhotos[s]!.data.alt[lang]} width={(doorPhotos[s]!.data.thumb && doorPhotos[s]!.data.thumbWidth) || doorPhotos[s]!.data.width} height={(doorPhotos[s]!.data.thumb && doorPhotos[s]!.data.thumbHeight) || doorPhotos[s]!.data.height} loading="lazy" decoding="async" /></span>
+              <span class="card-img"><img {...cardImage(doorPhotos[s]!.data)} alt={doorPhotos[s]!.data.alt[lang]} loading="lazy" decoding="async" /></span>
             )}
             <span class="kicker">{ui.sectionWho[s]}</span>
             <h3>{ui.sections[s]}</h3>
