@@ -105,6 +105,7 @@ expectPass('a shared 万 in a range, kanji 千, "billion" and month abbreviation
     ['数百人', 'ja', ''], ['三千人', 'ja', '3000'], ['二百五十名', 'ja', '250'], ['2〜3万円', 'ja', '20000, 30000'], ['150万円', 'ja', '1500000'],
     ['10 million yen', 'en', '10000000'], ['20 to 30 million yen', 'en', '20000000, 30000000'], ['thousands of students', 'en', ''],
     ['1.5 million', 'en', '1500000'], ['Scholar Exchange Program (SEP)', 'en', ''],
+    ['500,000 to 1 million yen', 'en', '500000, 1000000'], ['900,000 - 1.2 million', 'en', '900000, 1200000'], ['50〜100万円', 'ja', '500000, 1000000'], ['500000〜100万円', 'ja', '500000, 1000000'],
   ];
   const wrong = readings.filter(([text, lang, want]) => numbersOf(text, lang) !== want).map(([text, lang, want]) => `${text} -> "${numbersOf(text, lang)}", not "${want}"`);
   say(wrong.length === 0, 'numbers are read the same way in both languages (千 after a digit, 数千, ranges)', wrong.join('; '));

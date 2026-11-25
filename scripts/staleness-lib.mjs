@@ -137,11 +137,20 @@ function kanjiNumber(s) {
  * many ways to compare.
  * @param {string} text @param {'en'|'ja'} lang @returns {string}
  */
+/**
+ * Whether the first number of a range shares the unit written after the second. A range goes up, so it does when
+ * the first is the smaller as written ("20 to 30 million", 2〜3万), and does not when the first is already a full
+ * amount ("500,000 to 1 million", 500000〜100万).
+ * @param {string} a @param {string} b
+ */
+const sharesUnit = (a, b) => parseFloat(a) < parseFloat(b);
+
 export function numbersOf(text, lang) {
   let s = text.normalize('NFKC').replace(/(\d),(?=\d{3}\b)/g, '$1');
   if (lang === 'en') {
-    // A range sharing one unit: "20 to 30 million" is "20 million to 30 million".
-    s = s.replace(/(\d+(?:\.\d+)?)\s*(to|-|–|—)\s*(\d+(?:\.\d+)?)\s*(billion|million|thousand)/gi, (_, a, sepr, b, unit) => `${a} ${unit} ${sepr} ${b} ${unit}`);
+    // A range sharing one unit: "20 to 30 million" is "20 million to 30 million" (see sharesUnit).
+    s = s.replace(/(\d+(?:\.\d+)?)\s*(to|-|–|—)\s*(\d+(?:\.\d+)?)\s*(billion|million|thousand)/gi,
+      (m, a, sepr, b, unit) => (sharesUnit(a, b) ? `${a} ${unit} ${sepr} ${b} ${unit}` : m));
     s = s.replace(/(\d+(?:\.\d+)?)\s*billion/gi, (_, n) => String(Math.round(parseFloat(n) * 1e9)));
     s = s.replace(/(\d+(?:\.\d+)?)\s*million/gi, (_, n) => String(Math.round(parseFloat(n) * 1e6)));
     s = s.replace(/(\d+(?:\.\d+)?)\s*thousand/gi, (_, n) => String(Math.round(parseFloat(n) * 1e3)));
@@ -149,7 +158,8 @@ export function numbersOf(text, lang) {
     s = s.replace(/[A-Za-z]+/g, (w) => String((/^[A-Z][a-z]+$/.test(w) ? MONTHS[w.toLowerCase()] : undefined) ?? WORDS[w.toLowerCase()] ?? w));
   } else {
     // A range sharing one unit: 2〜3万 is 2万〜3万, and 2〜3千万 is 2千万〜3千万.
-    s = s.replace(/(\d+(?:\.\d+)?)\s*(〜|~|-|–|―|から)\s*(\d+(?:\.\d+)?)([千百十]?[万億]|[千百])/g, (_, a, sepr, b, unit) => `${a}${unit}${sepr}${b}${unit}`);
+    s = s.replace(/(\d+(?:\.\d+)?)\s*(〜|~|-|–|―|から)\s*(\d+(?:\.\d+)?)([千百十]?[万億]|[千百])/g,
+      (m, a, sepr, b, unit) => (sharesUnit(a, b) ? `${a}${unit}${sepr}${b}${unit}` : m));
     // A digit before 千, 百 or 十 multiplies it: 5千 = 5000, 1千万 = 1000万.
     s = s.replace(/(\d+(?:\.\d+)?)([千百十])/g, (_, n, unit) => String(Math.round(parseFloat(n) * KANJI_UNITS[unit])));
     // Kanji numerals before a counter, but not after a digit (handled above) nor after 数 ("several": 数千 is no number).
