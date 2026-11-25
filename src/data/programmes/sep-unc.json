@@ -1,0 +1,59 @@
+{
+  "section": "degrees",
+  "name": {
+    "en": "Scholar Exchange Program (SEP) between Nagoya University Graduate School of Medicine and the University of North Carolina at Chapel Hill, School of Medicine",
+    "ja": "名古屋大学医学系研究科とノースカロライナ大学チャペルヒル校医学部との客員研究員交換プログラム（Scholar Exchange Program）"
+  },
+  "short": { "en": "Scholar exchange with UNC", "ja": "UNC客員研究員交換" },
+  "audience": {
+    "en": "Medical doctoral students, and lecturers, assistant professors and paid researchers aged 39 or younger, who intend to continue research after returning",
+    "ja": "帰国後も研究を続ける意思のある、医学博士課程の大学院生と、39歳以下の講師・助教・有給の研究員"
+  },
+  "duration": {
+    "en": "Within one year (six months or more preferable); funded period 3 months to 1 year",
+    "ja": "1年以内（6か月以上が望ましい）。助成対象期間は3か月以上1年以内"
+  },
+  "capacity": {
+    "en": "2 participants from each university a year",
+    "ja": "各大学から年2名"
+  },
+  "cost": {
+    "en": "No tuition is payable at UNC.",
+    "ja": "UNCへの授業料の支払いは不要"
+  },
+  "funding": {
+    "en": "Doctoral students: up to JPY 200,000 for travel and return, and up to JPY 250,000 a month for accommodation. Faculty and researchers keep their Nagoya salary.",
+    "ja": "大学院生は渡航・帰国費が上限20万円、滞在費が月額上限25万円。教員・研究員は名古屋大学の給与を受けながら渡航できる"
+  },
+  "degree": {
+    "en": "No UNC degree. A certificate of completion and an evaluation are issued; results can be used in the doctoral dissertation at Nagoya.",
+    "ja": "UNCの学位は出ない。評価書と修了証が発行され、成果は名古屋大学の博士論文の一部にできる"
+  },
+  "eligibility": {
+    "en": "TOEFL iBT 65, IELTS 6, CEFR B2, OPI Intermediate Mid or TOEIC 650, taken within the last two years. Age is counted on 1 April of the fiscal year. Faculty members are sent only to promote joint research.",
+    "ja": "受験から2年以内のTOEFL iBT 65点、IELTS 6、CEFR B2、OPI Intermediate MidまたはTOEIC 650点。年齢は各年度4月1日時点。教員の派遣は共同研究の推進に限る"
+  },
+  "howToApply": {
+    "en": "Contact the Office of International Affairs. The old pages give no application procedure.",
+    "ja": "国際連携室に問い合わせます。旧サイトには出願手続きの記載がありません"
+  },
+  "deadline": {
+    "status": "tba",
+    "text": {
+      "en": "To be announced. No application period is given on the old pages.",
+      "ja": "未定。旧サイトには応募時期の記載がありません"
+    }
+  },
+  "partners": ["unc"],
+  "contact": "intl-office",
+  "page": "degrees/unc-scholar-exchange",
+  "sources": [
+    "https://www.med.nagoya-u.ac.jp/jdp/en/unc/",
+    "https://www.med.nagoya-u.ac.jp/jdp/unc/"
+  ],
+  "toConfirm": [
+    "Application period and procedure",
+    "Support amounts carry no year; confirm they are current",
+    "Minimum funded period (3 months) versus preferred stay (6 months or more)"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "name": "nagoya-med-intl-prototype",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Prototype of a single bilingual international website for Nagoya University Graduate School of Medicine. Not an official site.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "node scripts/check-content.mjs",
+    "typecheck": "astro check"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@fontsource-variable/source-serif-4": "5.3.1",
+    "astro": "7.4.10"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.12",
+    "typescript": "6.0.3"
+  }
+}

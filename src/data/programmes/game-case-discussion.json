@@ -1,0 +1,54 @@
+{
+  "name": {
+    "en": "GAME online joint clinical case discussion",
+    "ja": "GAMEオンライン合同クリニカルケースディスカッション"
+  },
+  "short": {
+    "en": "Online case discussion",
+    "ja": "オンライン症例検討"
+  },
+  "audience": {
+    "en": "Senior medical students who are motivated",
+    "ja": "意欲のある上級生"
+  },
+  "duration": {
+    "en": "Past editions: 4 sessions of 60 minutes (2020); 6 sessions of 120 minutes (2021); 7 sessions of 100 minutes (2022)",
+    "ja": "過去の開催は、2020年が60分を4回、2021年が120分を6回、2022年が100分を7回"
+  },
+  "capacity": {
+    "en": "About 4 students from each university",
+    "ja": "各大学から4名ほど"
+  },
+  "cost": {
+    "en": "Free",
+    "ja": "無料"
+  },
+  "degree": {
+    "en": "Certificate of participation; no credit",
+    "ja": "参加証明書を授与（単位はなし）"
+  },
+  "howToApply": {
+    "en": "Ask the office.",
+    "ja": "国際連携室に問い合わせてください"
+  },
+  "deadline": {
+    "status": "tba",
+    "text": {
+      "en": "No current edition is announced.",
+      "ja": "現在の開催は案内されていません"
+    }
+  },
+  "page": "study-abroad/medical-english",
+  "sources": [
+    "https://www.med.nagoya-u.ac.jp/medical_J/international/international/occd/",
+    "https://www.med.nagoya-u.ac.jp/medical_E/international/international/occd/",
+    "https://www.med.nagoya-u.ac.jp/intlexch/japanese/education/international.html"
+  ],
+  "toConfirm": [
+    "Whether a new edition is planned; the last one on the old sites is the third edition in 2022.",
+    "2021 closing date: the Japanese table says 25 June, the English table and text say 29 June (29 June used).",
+    "Universities in the first edition: the page heading names three, the introduction names four with Munich."
+  ],
+  "section": "study-abroad",
+  "contact": "intl-office"
+}

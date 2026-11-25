@@ -1,0 +1,52 @@
+{
+  "name": {
+    "en": "Basic medical seminar overseas dispatch program",
+    "ja": "基礎医学セミナー海外派遣留学プログラム"
+  },
+  "short": {
+    "en": "Basic medical seminar abroad",
+    "ja": "基礎医学セミナー海外派遣"
+  },
+  "audience": {
+    "en": "Third-year medical students",
+    "ja": "3年生"
+  },
+  "duration": {
+    "en": "Up to 6 months",
+    "ja": "最長6か月"
+  },
+  "capacity": {
+    "en": "Stated as 2 funded students a year",
+    "ja": "支援は年2名とされています"
+  },
+  "funding": {
+    "en": "Shibahara Fund support of up to JPY 3 million, adjusted by destination and period.",
+    "ja": "柴原慶一基金から最大300万円（派遣先と期間により調整）"
+  },
+  "eligibility": {
+    "en": "Third-year medical students who want to learn basic medical research at a university or research institute abroad.",
+    "ja": "海外の大学や研究機関で基礎医学を学びたい3年生"
+  },
+  "howToApply": {
+    "en": "Details are announced on TACT, and briefings are held from time to time. Ask the office.",
+    "ja": "詳細はTACTで案内します。説明会も随時あります。国際連携室に問い合わせてください"
+  },
+  "deadline": {
+    "status": "tba",
+    "text": {
+      "en": "No dates are published. Details are announced on TACT.",
+      "ja": "日程は公開されていません。TACTで案内されます"
+    }
+  },
+  "page": "study-abroad/research-abroad",
+  "sources": [
+    "https://www.med.nagoya-u.ac.jp/medical_J/international/scholarship/fundprogram/",
+    "https://www.med.nagoya-u.ac.jp/medical_J/international/scholarship/fundprogram/2024.html"
+  ],
+  "toConfirm": [
+    "Number of funded students: the fund page says 2 a year, but the 2024 list under this programme shows 4 names.",
+    "The programme page on both old sites says only that it is under construction."
+  ],
+  "section": "study-abroad",
+  "contact": "intl-office"
+}

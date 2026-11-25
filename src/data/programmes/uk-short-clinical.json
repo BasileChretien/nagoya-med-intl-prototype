@@ -1,0 +1,42 @@
+{
+  "name": {
+    "en": "Short clinical clerkship at UK medical schools (Medical Education Promotion Foundation)",
+    "ja": "英国大学医学部における臨床実習のための短期留学"
+  },
+  "short": {
+    "en": "Short clerkship in the UK",
+    "ja": "英国短期臨床実習"
+  },
+  "audience": {
+    "en": "Students entering the final year (currently fifth-year) who have taken the IELTS Academic module and have completed about one year of clinical clerkship",
+    "ja": "最終学年に進む学生（現在の5年生）。IELTS Academic Moduleを受験済みで、原則として約1年間の臨床実習を終えている人"
+  },
+  "duration": {
+    "en": "4 weeks",
+    "ja": "4週間"
+  },
+  "capacity": {
+    "en": "Nagoya plans to recommend 2 students. Places by destination: Newcastle 4, St George's London 4, Oxford 2, Glasgow 4, Dundee 2, Leeds 3.",
+    "ja": "本学から2名を推薦する予定です。派遣先ごとの人数は、ニューキャッスル4名、ロンドン大学セントジョージ校4名、オックスフォード2名、グラスゴー4名、ダンディー2名、リーズ3名"
+  },
+  "howToApply": {
+    "en": "The foundation runs the call. See its website for details and ask the office.",
+    "ja": "公益財団法人医学教育振興財団が募集します。詳細は財団のウェブサイトで確認し、国際連携室にも相談してください"
+  },
+  "deadline": {
+    "status": "tba",
+    "text": {
+      "en": "No current dates are published.",
+      "ja": "現在の日程は公開されていません"
+    }
+  },
+  "page": "study-abroad/short-programmes",
+  "sources": [
+    "https://www.med.nagoya-u.ac.jp/intlexch/japanese/education/abroad/program2.html"
+  ],
+  "toConfirm": [
+    "Academic year, deadline and current quotas: the old page gives none. Nagoya recipients were one student each in 2019, 2020, 2023 and 2024."
+  ],
+  "section": "study-abroad",
+  "contact": "intl-office"
+}

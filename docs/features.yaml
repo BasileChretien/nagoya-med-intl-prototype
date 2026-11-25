@@ -1,0 +1,73 @@
+# Feature map: one entry per promise to the visitor or the editor.
+# Redraw the picture with: node scripts/draw-features.mjs  (writes docs/features.md)
+features:
+  - id: audience-sections
+    says: Visitors find content by what they want to do, in five sections.
+    stage: Find
+    status: works
+    delivered_by: [src/components/Header.astro, src/pages/[lang]/[...slug].astro]
+    tests: [pairing]
+    docs: CONTENT_GUIDE.md
+  - id: bilingual-pairs
+    says: Every page exists in English and Japanese, and the language switch opens the same page in the other language.
+    stage: Find
+    status: works
+    delivered_by: [src/layouts/Base.astro, src/components/Header.astro]
+    tests: [pairing]
+    docs: CONTENT_GUIDE.md
+  - id: programme-facts
+    says: Each programme's key facts appear in a box on its page, from one data file.
+    stage: Decide
+    status: works
+    delivered_by: [src/components/FactBox.astro, src/data/programmes]
+    tests: [programme-references]
+    docs: CONTENT_GUIDE.md
+  - id: compare-programmes
+    says: Visitors can compare programmes side by side.
+    stage: Decide
+    status: works
+    delivered_by: [src/pages/[lang]/programmes/index.astro, src/components/CompareTable.astro]
+    tests: [programme-references]
+  - id: key-dates
+    says: The home page lists deadlines, and never shows a passed deadline as open.
+    stage: Decide
+    status: works
+    delivered_by: [src/components/DeadlineList.astro, src/pages/[lang]/index.astro]
+    tests: [deadlines]
+  - id: story-library
+    says: Visitors can filter student stories by type, country and year, and open the full report.
+    stage: Explore
+    status: works
+    delivered_by: [src/pages/[lang]/stories/index.astro, src/components/StoryCard.astro, src/data/stories.json]
+    tests: [data-files]
+  - id: news
+    says: News and events are listed by year, with past items marked as archive.
+    stage: Explore
+    status: works
+    delivered_by: [src/pages/[lang]/news/index.astro, src/data/news.json]
+    tests: [data-files]
+  - id: team-partners-contacts
+    says: Team, partner universities and contact points come from data files and stay consistent everywhere.
+    stage: Contact
+    status: works
+    delivered_by: [src/pages/[lang]/[...slug].astro, src/data/staff.json, src/data/partners.json, src/data/contacts.json]
+    tests: [data-files]
+  - id: content-status
+    says: Editors see every fact that still needs confirming, on each page and on one checklist page.
+    stage: Maintain
+    status: works
+    delivered_by: [src/components/PageNotes.astro, src/pages/[lang]/status/index.astro]
+    tests: [data-files]
+  - id: automatic-checks
+    says: Every change is checked for missing translations, passed deadlines, large images and broken internal links before it is published.
+    stage: Maintain
+    status: works
+    delivered_by: [scripts/check-content.mjs, .github/workflows/deploy.yml]
+    tests: [pairing, deadlines, images, internal-links]
+  - id: search-hidden
+    says: The prototype stays out of search engines so it never competes with the official sites.
+    stage: Maintain
+    status: works
+    delivered_by: [src/layouts/Base.astro]
+    tests: [noindex]
+    limits: Remove before moving to production.

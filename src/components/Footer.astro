@@ -1,0 +1,51 @@
+---
+import { getCollection } from 'astro:content';
+import { t, SECTIONS, OFFICIAL_URL, REPO_URL, type Lang } from '../i18n/ui';
+import { href } from '../lib/site';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const ui = t(lang);
+const contacts = await getCollection('contacts');
+const office = contacts.find((c) => c.id === 'intl-office');
+---
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h2>{ui.site}</h2>
+        <p>{ui.org}</p>
+        {office && (
+          <p style="margin-top:0.6rem">
+            {office.data.address && <span>{office.data.address[lang]}<br /></span>}
+            <span>{office.data.email}</span>
+          </p>
+        )}
+      </div>
+      <div>
+        <h2>{ui.menu}</h2>
+        <ul>
+          {SECTIONS.map((s) => <li><a href={href(lang, s)}>{ui.sections[s]}</a></li>)}
+        </ul>
+      </div>
+      <div>
+        <h2>{ui.stories}</h2>
+        <ul>
+          <li><a href={href(lang, 'stories')}>{ui.stories}</a></li>
+          <li><a href={href(lang, 'news')}>{ui.news}</a></li>
+          <li><a href={href(lang, 'programmes')}>{ui.programmesTitle}</a></li>
+          <li><a href={href(lang, 'status')}>{ui.footerStatus}</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>{ui.protoLead}</h2>
+        <p>{ui.footerAbout}</p>
+        <ul style="margin-top:0.6rem">
+          <li><a href={OFFICIAL_URL[lang]} rel="noopener">{ui.footerOfficial}</a></li>
+          <li><a href={REPO_URL} rel="noopener">{ui.footerSource}</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="foot-note">{ui.protoText}</p>
+  </div>
+</footer>

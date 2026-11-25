@@ -1,0 +1,36 @@
+---
+import Base from '../../../layouts/Base.astro';
+import CompareTable from '../../../components/CompareTable.astro';
+import DeadlineList from '../../../components/DeadlineList.astro';
+import { t, type Lang, type Section } from '../../../i18n/ui';
+import { href, langPaths, programmesIn } from '../../../lib/site';
+
+export function getStaticPaths() {
+  return langPaths();
+}
+const lang = Astro.params.lang as Lang;
+const ui = t(lang);
+const all = await programmesIn();
+const sections: Section[] = ['study-in-nagoya', 'study-abroad', 'degrees'];
+---
+<Base lang={lang} title={ui.programmesTitle} description={ui.programmesLede} slug="programmes">
+  <div class="wrap" style="padding-bottom:4rem;display:grid;gap:2.5rem">
+    <div>
+      <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href={href(lang)}>{ui.home}</a></li><li aria-current="page">{ui.programmesTitle}</li></ol></nav>
+      <header class="page-head" style="margin-bottom:0"><h1>{ui.programmesTitle}</h1><p class="lede">{ui.programmesLede}</p></header>
+    </div>
+    <section style="display:grid;gap:1rem">
+      <h2>{ui.keyDates}</h2>
+      <DeadlineList lang={lang} programmes={all} />
+    </section>
+    {sections.map((s) => {
+      const list = all.filter((p) => p.data.section === s);
+      return list.length > 0 && (
+        <section style="display:grid;gap:1rem">
+          <h2><a href={href(lang, s)} style="text-decoration:none">{ui.sections[s]}</a></h2>
+          <CompareTable lang={lang} programmes={list} caption={ui.sections[s]} />
+        </section>
+      );
+    })}
+  </div>
+</Base>

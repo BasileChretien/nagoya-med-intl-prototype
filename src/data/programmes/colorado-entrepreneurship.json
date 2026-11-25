@@ -1,0 +1,52 @@
+{
+  "name": {
+    "en": "International entrepreneurship education program with the University of Colorado Boulder",
+    "ja": "コロラド大学ボルダー校との国際アントレプレナーシップ教育プログラム"
+  },
+  "short": {
+    "en": "Entrepreneurship program with Colorado",
+    "ja": "コロラド大学との起業家養成"
+  },
+  "audience": {
+    "en": "Nagoya University undergraduate and graduate students of any faculty (the 2025 call also asked for sufficient English)",
+    "ja": "名古屋大学の学部生と大学院生（学部・専攻は不問。2025年の募集では十分な英語力も条件）"
+  },
+  "duration": {
+    "en": "Online course in March, then an in-person course in May at Nagoya University",
+    "ja": "3月にオンライン、5月に名古屋大学で対面"
+  },
+  "capacity": {
+    "en": "20 students, with selection",
+    "ja": "20名（選考あり）"
+  },
+  "cost": {
+    "en": "Free of charge. Support for travel and stay is available.",
+    "ja": "参加費は無料。渡航費や滞在費の支援制度があります"
+  },
+  "degree": {
+    "en": "No credit; a certificate of completion is awarded.",
+    "ja": "単位はなし。修了証を授与します"
+  },
+  "howToApply": {
+    "en": "Contact the Office of International Affairs.",
+    "ja": "国際連携室に問い合わせてください"
+  },
+  "deadline": {
+    "status": "tba",
+    "text": {
+      "en": "To be announced. Last cycle: applications until 31 January 2025, online course 5 to 20 March 2025, in-person course 17 to 24 May 2025.",
+      "ja": "未定です。直近は2025年で、申込は1月31日まで、オンラインは3月5日から20日、対面は5月17日から24日でした"
+    }
+  },
+  "page": "study-abroad/short-programmes",
+  "sources": [
+    "https://www.med.nagoya-u.ac.jp/intlexch/japanese/education/international.html",
+    "https://www.med.nagoya-u.ac.jp/medical_J/international/news/events/post_6.html"
+  ],
+  "toConfirm": [
+    "Whether the program runs again in 2027, with its dates and deadline.",
+    "In the 2025 call the in-person course was mainly a study tour for the US students, and participation by Nagoya students was optional."
+  ],
+  "section": "study-abroad",
+  "contact": "intl-office"
+}

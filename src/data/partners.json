@@ -1,0 +1,1445 @@
+[
+  {
+    "id": "nus-medicine",
+    "name": {
+      "en": "National University of Singapore, Yong Loo Lin School of Medicine",
+      "ja": "シンガポール国立大学医学部"
+    },
+    "country": {
+      "en": "Singapore",
+      "ja": "シンガポール"
+    },
+    "countryCode": "SG",
+    "region": "Asia",
+    "links": [
+      "Agreement",
+      "Clerkship"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/overseas.html"
+    ],
+    "toConfirm": []
+  },
+  {
+    "id": "nus-nursing",
+    "name": {
+      "en": "Alice Lee Centre for Nursing Studies, National University of Singapore",
+      "ja": "シンガポール国立大学医学部看護学科"
+    },
+    "country": {
+      "en": "Singapore",
+      "ja": "シンガポール"
+    },
+    "countryCode": "SG",
+    "region": "Asia",
+    "links": [
+      "Agreement"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/"
+    ],
+    "toConfirm": []
+  },
+  {
+    "id": "nuh-singapore",
+    "name": {
+      "en": "National University Hospital (Singapore)",
+      "ja": "シンガポール国立大学病院"
+    },
+    "country": {
+      "en": "Singapore",
+      "ja": "シンガポール"
+    },
+    "countryCode": "SG",
+    "region": "Asia",
+    "links": [
+      "Agreement"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/"
+    ],
+    "toConfirm": []
+  },
+  {
+    "id": "chulabhorn",
+    "name": {
+      "en": "HRH Princess Chulabhorn College of Medical Science",
+      "ja": "チュラポーン医科大学"
+    },
+    "country": {
+      "en": "Thailand",
+      "ja": "タイ"
+    },
+    "countryCode": "TH",
+    "region": "Asia",
+    "links": [
+      "Agreement",
+      "Clerkship"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/overseas.html"
+    ],
+    "toConfirm": []
+  },
+  {
+    "id": "chulalongkorn",
+    "name": {
+      "en": "Chulalongkorn University",
+      "ja": "チュラロンコン大学"
+    },
+    "country": {
+      "en": "Thailand",
+      "ja": "タイ"
+    },
+    "countryCode": "TH",
+    "region": "Asia",
+    "links": [
+      "Agreement",
+      "Clerkship"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/overseas.html"
+    ],
+    "toConfirm": [
+      "The Japanese agreements table lists an agreement dated 2015-03-06. The English table does not list Chulalongkorn, although the clerkship partner list does."
+    ]
+  },
+  {
+    "id": "mahidol-asean",
+    "name": {
+      "en": "ASEAN Institute for Health Development, Mahidol University",
+      "ja": "マヒドン大学アセアン保健開発研究所"
+    },
+    "country": {
+      "en": "Thailand",
+      "ja": "タイ"
+    },
+    "countryCode": "TH",
+    "region": "Asia",
+    "links": [
+      "Agreement"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/"
+    ],
+    "toConfirm": []
+  },
+  {
+    "id": "mahidol-ramathibodi",
+    "name": {
+      "en": "Faculty of Medicine Ramathibodi Hospital, Mahidol University",
+      "ja": "マヒドン大学ラマティボディ病院・医学部"
+    },
+    "country": {
+      "en": "Thailand",
+      "ja": "タイ"
+    },
+    "countryCode": "TH",
+    "region": "Asia",
+    "links": [
+      "Agreement"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/"
+    ],
+    "toConfirm": [
+      "The clerkship partner list names only Mahidol University, without a faculty, so the Clerkship tag is not set on either Mahidol entry."
+    ]
+  },
+  {
+    "id": "pku",
+    "name": {
+      "en": "Peking University Health Science Center",
+      "ja": "北京大学医学部"
+    },
+    "country": {
+      "en": "China",
+      "ja": "中国"
+    },
+    "countryCode": "CN",
+    "region": "Asia",
+    "links": [
+      "Agreement",
+      "Clerkship"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/overseas.html"
+    ],
+    "toConfirm": []
+  },
+  {
+    "id": "sjtu",
+    "name": {
+      "en": "Shanghai Jiao Tong University School of Medicine",
+      "ja": "上海交通大学医学部"
+    },
+    "country": {
+      "en": "China",
+      "ja": "中国"
+    },
+    "countryCode": "CN",
+    "region": "Asia",
+    "links": [
+      "Agreement",
+      "Clerkship"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/overseas.html"
+    ],
+    "toConfirm": []
+  },
+  {
+    "id": "cjfh",
+    "name": {
+      "en": "China-Japan Friendship Hospital",
+      "ja": "中国衛生部中日友好病院"
+    },
+    "country": {
+      "en": "China",
+      "ja": "中国"
+    },
+    "countryCode": "CN",
+    "region": "Asia",
+    "links": [
+      "Agreement"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/"
+    ],
+    "toConfirm": []
+  },
+  {
+    "id": "cuhk",
+    "name": {
+      "en": "The Chinese University of Hong Kong",
+      "ja": "香港中文大学"
+    },
+    "country": {
+      "en": "Hong Kong",
+      "ja": "香港"
+    },
+    "countryCode": "HK",
+    "region": "Asia",
+    "links": [
+      "GAME",
+      "DD",
+      "Agreement",
+      "Clerkship"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/game/outline/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/game/outline/",
+      "https://www.med.nagoya-u.ac.jp/jdp/en/cu/",
+      "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/overseas.html"
+    ],
+    "toConfirm": [
+      "The English GAME member list names The University of Hong Kong, while the GAME projects, TEI and case-discussion pages and the Japanese pages name The Chinese University of Hong Kong (CUHK). CUHK is used here."
+    ]
+  },
+  {
+    "id": "ntu",
+    "name": {
+      "en": "National Taiwan University College of Medicine",
+      "ja": "国立台湾大学医学部"
+    },
+    "country": {
+      "en": "Taiwan",
+      "ja": "台湾"
+    },
+    "countryCode": "TW",
+    "region": "Asia",
+    "links": [
+      "Agreement",
+      "Clerkship"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/overseas.html"
+    ],
+    "toConfirm": []
+  },
+  {
+    "id": "up-manila-nursing",
+    "name": {
+      "en": "College of Nursing, University of the Philippines Manila",
+      "ja": "フィリピン大学マニラ校看護学部・看護系研究科"
+    },
+    "country": {
+      "en": "Philippines",
+      "ja": "フィリピン"
+    },
+    "countryCode": "PH",
+    "region": "Asia",
+    "links": [
+      "Agreement"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/"
+    ],
+    "toConfirm": [
+      "The old English table writes the country as Philippine. It is corrected to Philippines."
+    ]
+  },
+  {
+    "id": "hue",
+    "name": {
+      "en": "Hue University of Medicine and Pharmacy",
+      "ja": "フエ医科薬科大学"
+    },
+    "country": {
+      "en": "Vietnam",
+      "ja": "ベトナム"
+    },
+    "countryCode": "VN",
+    "region": "Asia",
+    "links": [
+      "Agreement",
+      "Clerkship"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/overseas.html"
+    ],
+    "toConfirm": []
+  },
+  {
+    "id": "hcmc-umc",
+    "name": {
+      "en": "University Medical Center, Ho Chi Minh City",
+      "ja": "ホーチミン医科薬科大学医療センター"
+    },
+    "country": {
+      "en": "Vietnam",
+      "ja": "ベトナム"
+    },
+    "countryCode": "VN",
+    "region": "Asia",
+    "links": [
+      "Agreement"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/"
+    ],
+    "toConfirm": []
+  },
+  {
+    "id": "yangon-um1",
+    "name": {
+      "en": "University of Medicine 1, Yangon",
+      "ja": "ヤンゴン第一医科大学"
+    },
+    "country": {
+      "en": "Myanmar",
+      "ja": "ミャンマー"
+    },
+    "countryCode": "MM",
+    "region": "Asia",
+    "links": [
+      "Agreement"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/"
+    ],
+    "toConfirm": []
+  },
+  {
+    "id": "mnums",
+    "name": {
+      "en": "Mongolian National University of Medical Sciences",
+      "ja": "モンゴル国立医療科学大学"
+    },
+    "country": {
+      "en": "Mongolia",
+      "ja": "モンゴル"
+    },
+    "countryCode": "MN",
+    "region": "Asia",
+    "links": [
+      "Agreement",
+      "Clerkship"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/overseas.html"
+    ],
+    "toConfirm": []
+  },
+  {
+    "id": "mongolia-moh",
+    "name": {
+      "en": "Ministry of Health and Sports, Mongolia",
+      "ja": "モンゴル保健・スポーツ省"
+    },
+    "country": {
+      "en": "Mongolia",
+      "ja": "モンゴル"
+    },
+    "countryCode": "MN",
+    "region": "Asia",
+    "links": [
+      "Agreement"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/"
+    ],
+    "toConfirm": []
+  },
+  {
+    "id": "snu-medicine",
+    "name": {
+      "en": "Seoul National University College of Medicine",
+      "ja": "ソウル国立大学校医学部"
+    },
+    "country": {
+      "en": "South Korea",
+      "ja": "韓国"
+    },
+    "countryCode": "KR",
+    "region": "Asia",
+    "links": [
+      "Agreement",
+      "Clerkship"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/overseas.html"
+    ],
+    "toConfirm": []
+  },
+  {
+    "id": "korea-university",
+    "name": {
+      "en": "Korea University College of Medicine",
+      "ja": "高麗大学校医学部"
+    },
+    "country": {
+      "en": "South Korea",
+      "ja": "韓国"
+    },
+    "countryCode": "KR",
+    "region": "Asia",
+    "links": [
+      "GAME",
+      "Agreement",
+      "Clerkship"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/game/outline/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/game/outline/",
+      "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/overseas.html"
+    ],
+    "toConfirm": []
+  },
+  {
+    "id": "asan",
+    "name": {
+      "en": "Asan Medical Center",
+      "ja": "アサンメディカルセンター"
+    },
+    "country": {
+      "en": "South Korea",
+      "ja": "韓国"
+    },
+    "countryCode": "KR",
+    "region": "Asia",
+    "links": [
+      "Agreement"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/"
+    ],
+    "toConfirm": []
+  },
+  {
+    "id": "snuh",
+    "name": {
+      "en": "Seoul National University Hospital",
+      "ja": "ソウル国立大学校病院"
+    },
+    "country": {
+      "en": "South Korea",
+      "ja": "韓国"
+    },
+    "countryCode": "KR",
+    "region": "Asia",
+    "links": [
+      "Agreement"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/"
+    ],
+    "toConfirm": []
+  },
+  {
+    "id": "uwa",
+    "name": {
+      "en": "The University of Western Australia, Faculty of Medicine, Dentistry and Health Sciences",
+      "ja": "西オーストラリア大学医学部"
+    },
+    "country": {
+      "en": "Australia",
+      "ja": "オーストラリア"
+    },
+    "countryCode": "AU",
+    "region": "Oceania",
+    "links": [
+      "Agreement",
+      "Clerkship"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/overseas.html"
+    ],
+    "toConfirm": []
+  },
+  {
+    "id": "adelaide",
+    "name": {
+      "en": "Adelaide University, College of Health",
+      "ja": "アデレード大学"
+    },
+    "country": {
+      "en": "Australia",
+      "ja": "オーストラリア"
+    },
+    "countryCode": "AU",
+    "region": "Oceania",
+    "links": [
+      "JDP",
+      "Agreement",
+      "Clerkship"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/jdp/en/",
+      "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/overseas.html"
+    ],
+    "toConfirm": [
+      "The English agreements table says Adelaide University, while the clerkship list and older pages say The University of Adelaide. The Japanese pages vary between 健康学科, 健康学部 and 健康科学部."
+    ]
+  },
+  {
+    "id": "monash",
+    "name": {
+      "en": "Monash University",
+      "ja": "モナシュ大学"
+    },
+    "country": {
+      "en": "Australia",
+      "ja": "オーストラリア"
+    },
+    "countryCode": "AU",
+    "region": "Oceania",
+    "links": [
+      "GAME"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/game/outline/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/game/outline/"
+    ],
+    "toConfirm": [
+      "Not in the agreements tables. The old Japanese pages write モナッシュ and モナシュ; モナシュ is used here, as the audit proposes."
+    ]
+  },
+  {
+    "id": "jhu",
+    "name": {
+      "en": "Johns Hopkins University School of Medicine",
+      "ja": "ジョンズホプキンス大学医学部"
+    },
+    "country": {
+      "en": "United States",
+      "ja": "アメリカ"
+    },
+    "countryCode": "US",
+    "region": "North America",
+    "links": [
+      "Agreement",
+      "Clerkship"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/overseas.html"
+    ],
+    "toConfirm": []
+  },
+  {
+    "id": "tulane",
+    "name": {
+      "en": "Tulane University School of Medicine",
+      "ja": "チューレン大学医学部"
+    },
+    "country": {
+      "en": "United States",
+      "ja": "アメリカ"
+    },
+    "countryCode": "US",
+    "region": "North America",
+    "links": [
+      "Agreement",
+      "Clerkship"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/overseas.html"
+    ],
+    "toConfirm": []
+  },
+  {
+    "id": "duke",
+    "name": {
+      "en": "Duke University School of Medicine",
+      "ja": "デューク大学医学部"
+    },
+    "country": {
+      "en": "United States",
+      "ja": "アメリカ"
+    },
+    "countryCode": "US",
+    "region": "North America",
+    "links": [
+      "Agreement",
+      "Clerkship"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/overseas.html"
+    ],
+    "toConfirm": []
+  },
+  {
+    "id": "unc",
+    "name": {
+      "en": "University of North Carolina at Chapel Hill, School of Medicine",
+      "ja": "ノースカロライナ大学チャペルヒル校医学部"
+    },
+    "country": {
+      "en": "United States",
+      "ja": "アメリカ"
+    },
+    "countryCode": "US",
+    "region": "North America",
+    "links": [
+      "SEP",
+      "Agreement",
+      "Clerkship"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/jdp/en/unc/",
+      "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/overseas.html"
+    ],
+    "toConfirm": []
+  },
+  {
+    "id": "harvard",
+    "name": {
+      "en": "Harvard Medical School",
+      "ja": "ハーバード大学医学部"
+    },
+    "country": {
+      "en": "United States",
+      "ja": "アメリカ"
+    },
+    "countryCode": "US",
+    "region": "North America",
+    "links": [
+      "Agreement",
+      "Clerkship"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/overseas.html"
+    ],
+    "toConfirm": [
+      "The English agreements table says Harvard University Medical School, the clerkship list says Harvard Medical School."
+    ]
+  },
+  {
+    "id": "upenn",
+    "name": {
+      "en": "University of Pennsylvania, School of Medicine",
+      "ja": "ペンシルベニア大学医学部"
+    },
+    "country": {
+      "en": "United States",
+      "ja": "アメリカ"
+    },
+    "countryCode": "US",
+    "region": "North America",
+    "links": [
+      "Agreement",
+      "Clerkship"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/overseas.html"
+    ],
+    "toConfirm": []
+  },
+  {
+    "id": "alberta",
+    "name": {
+      "en": "University of Alberta",
+      "ja": "アルバータ大学"
+    },
+    "country": {
+      "en": "Canada",
+      "ja": "カナダ"
+    },
+    "countryCode": "CA",
+    "region": "North America",
+    "links": [
+      "Agreement"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/game/outline/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/game/outline/"
+    ],
+    "toConfirm": [
+      "Listed in the English agreements table (2015-02-23) but not in the Japanese table. It left GAME in 2020, so the GAME tag is not set."
+    ]
+  },
+  {
+    "id": "glasgow",
+    "name": {
+      "en": "University of Glasgow",
+      "ja": "グラスゴー大学"
+    },
+    "country": {
+      "en": "United Kingdom",
+      "ja": "イギリス"
+    },
+    "countryCode": "GB",
+    "region": "Europe",
+    "links": [
+      "Agreement",
+      "Clerkship"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/overseas.html"
+    ],
+    "toConfirm": []
+  },
+  {
+    "id": "leicester",
+    "name": {
+      "en": "University of Leicester",
+      "ja": "レスター大学医学部"
+    },
+    "country": {
+      "en": "United Kingdom",
+      "ja": "イギリス"
+    },
+    "countryCode": "GB",
+    "region": "Europe",
+    "links": [
+      "Agreement"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/"
+    ],
+    "toConfirm": []
+  },
+  {
+    "id": "edinburgh",
+    "name": {
+      "en": "The University of Edinburgh",
+      "ja": "エジンバラ大学"
+    },
+    "country": {
+      "en": "United Kingdom",
+      "ja": "イギリス"
+    },
+    "countryCode": "GB",
+    "region": "Europe",
+    "links": [
+      "Agreement",
+      "Clerkship"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/intlexch/japanese/strategy/agreements.html",
+      "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/overseas.html"
+    ],
+    "toConfirm": [
+      "Listed as an agreement partner on the exchange site and as a clerkship partner, but not in the faculty-site agreements table."
+    ]
+  },
+  {
+    "id": "nottingham",
+    "name": {
+      "en": "University of Nottingham",
+      "ja": "ノッティンガム大学"
+    },
+    "country": {
+      "en": "United Kingdom",
+      "ja": "イギリス"
+    },
+    "countryCode": "GB",
+    "region": "Europe",
+    "links": [
+      "GAME"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/game/outline/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/game/outline/"
+    ],
+    "toConfirm": []
+  },
+  {
+    "id": "vienna",
+    "name": {
+      "en": "Medical University of Vienna",
+      "ja": "ウィーン医科大学"
+    },
+    "country": {
+      "en": "Austria",
+      "ja": "オーストリア"
+    },
+    "countryCode": "AT",
+    "region": "Europe",
+    "links": [
+      "Agreement"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/"
+    ],
+    "toConfirm": []
+  },
+  {
+    "id": "lund",
+    "name": {
+      "en": "Lund University, Faculty of Medicine",
+      "ja": "ルンド大学医学部"
+    },
+    "country": {
+      "en": "Sweden",
+      "ja": "スウェーデン"
+    },
+    "countryCode": "SE",
+    "region": "Europe",
+    "links": [
+      "JDP",
+      "MIRAI",
+      "Agreement",
+      "Clerkship"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/jdp/en/",
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/mirai/outline/",
+      "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/overseas.html"
+    ],
+    "toConfirm": [
+      "The joint degree agreement is dated 2016-01-20 in the table, while the symposium report places the signing ceremony on 19 January 2016. The general agreement is dated 2014-03-19."
+    ]
+  },
+  {
+    "id": "freiburg",
+    "name": {
+      "en": "University of Freiburg, Faculty of Medicine",
+      "ja": "フライブルク大学医学部"
+    },
+    "country": {
+      "en": "Germany",
+      "ja": "ドイツ"
+    },
+    "countryCode": "DE",
+    "region": "Europe",
+    "links": [
+      "JDP",
+      "Agreement",
+      "Clerkship"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/jdp/en/",
+      "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/overseas.html"
+    ],
+    "toConfirm": [
+      "The joint degree agreement is dated 2017-11-22 and the general agreement 2000-04-05."
+    ]
+  },
+  {
+    "id": "lmu-munich",
+    "name": {
+      "en": "Ludwig Maximilian University of Munich",
+      "ja": "ミュンヘン大学"
+    },
+    "country": {
+      "en": "Germany",
+      "ja": "ドイツ"
+    },
+    "countryCode": "DE",
+    "region": "Europe",
+    "links": [
+      "GAME",
+      "Agreement",
+      "Clerkship"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/game/outline/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/game/outline/",
+      "https://www.med.nagoya-u.ac.jp/intlexch/japanese/strategy/agreements.html",
+      "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/overseas.html"
+    ],
+    "toConfirm": [
+      "Listed as an agreement partner on the exchange site, but not in the faculty-site agreements table. The English GAME page misspells the name as Ludwing."
+    ]
+  },
+  {
+    "id": "ntnu",
+    "name": {
+      "en": "Norwegian University of Science and Technology, Faculty of Medicine and Health Sciences",
+      "ja": "ノルウェー科学技術大学医学健康科学部"
+    },
+    "country": {
+      "en": "Norway",
+      "ja": "ノルウェー"
+    },
+    "countryCode": "NO",
+    "region": "Europe",
+    "links": [
+      "Agreement",
+      "Clerkship"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/overseas.html"
+    ],
+    "toConfirm": []
+  },
+  {
+    "id": "gdansk",
+    "name": {
+      "en": "Medical University of Gdansk",
+      "ja": "グダンスク医科大学"
+    },
+    "country": {
+      "en": "Poland",
+      "ja": "ポーランド"
+    },
+    "countryCode": "PL",
+    "region": "Europe",
+    "links": [
+      "Agreement",
+      "Clerkship"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/agreements/",
+      "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/overseas.html"
+    ],
+    "toConfirm": [
+      "The old Japanese pages write the name three ways (グダニスク医科系大学医学部, グダニスク大学, グダンスク医科大学). グダンスク医科大学 is used here."
+    ]
+  },
+  {
+    "id": "bologna",
+    "name": {
+      "en": "University of Bologna",
+      "ja": "ボローニャ大学"
+    },
+    "country": {
+      "en": "Italy",
+      "ja": "イタリア"
+    },
+    "countryCode": "IT",
+    "region": "Europe",
+    "links": [
+      "GAME",
+      "Agreement",
+      "Clerkship"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/game/outline/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/game/outline/",
+      "https://www.med.nagoya-u.ac.jp/intlexch/japanese/strategy/agreements.html",
+      "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/overseas.html"
+    ],
+    "toConfirm": [
+      "Listed as an agreement partner on the exchange site, but not in the faculty-site agreements table."
+    ]
+  },
+  {
+    "id": "erasmus-mc",
+    "name": {
+      "en": "Erasmus University Medical Center",
+      "ja": "エラスムス・ロッテルダム大学"
+    },
+    "country": {
+      "en": "Netherlands",
+      "ja": "オランダ"
+    },
+    "countryCode": "NL",
+    "region": "Europe",
+    "links": [
+      "GAME"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/game/outline/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/game/outline/"
+    ],
+    "toConfirm": [
+      "The English pages say Erasmus University Medical Center and the Japanese member list says Erasmus University Rotterdam."
+    ]
+  },
+  {
+    "id": "bangkok-hospital",
+    "name": {
+      "en": "Bangkok Hospital (Bangkok Dusit Medical Services group)",
+      "ja": "バンコク国際病院"
+    },
+    "country": {
+      "en": "Thailand",
+      "ja": "タイ"
+    },
+    "countryCode": "TH",
+    "region": "Asia",
+    "links": [],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/intlexch/japanese/strategy/index.html"
+    ],
+    "toConfirm": [
+      "The exchange site describes a hospital partnership but gives no agreement date, and the hospital is not in the agreements tables."
+    ]
+  },
+  {
+    "id": "gothenburg",
+    "name": {
+      "en": "University of Gothenburg",
+      "ja": "ヨーテボリ大学"
+    },
+    "country": {
+      "en": "Sweden",
+      "ja": "スウェーデン"
+    },
+    "countryCode": "SE",
+    "region": "Europe",
+    "links": [
+      "MIRAI"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/mirai/outline/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/mirai/outline/"
+    ],
+    "toConfirm": [
+      "Membership is listed for MIRAI 2.0 (2020 to 2022). The sources do not show the current membership.",
+      "Coordinating university on the Swedish side."
+    ]
+  },
+  {
+    "id": "linkoping",
+    "name": {
+      "en": "Linköping University",
+      "ja": "リンショーピン大学"
+    },
+    "country": {
+      "en": "Sweden",
+      "ja": "スウェーデン"
+    },
+    "countryCode": "SE",
+    "region": "Europe",
+    "links": [
+      "MIRAI"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/mirai/outline/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/mirai/outline/"
+    ],
+    "toConfirm": [
+      "Membership is listed for MIRAI 2.0 (2020 to 2022). The sources do not show the current membership."
+    ]
+  },
+  {
+    "id": "uppsala",
+    "name": {
+      "en": "Uppsala University",
+      "ja": "ウプサラ大学"
+    },
+    "country": {
+      "en": "Sweden",
+      "ja": "スウェーデン"
+    },
+    "countryCode": "SE",
+    "region": "Europe",
+    "links": [
+      "MIRAI"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/mirai/outline/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/mirai/outline/"
+    ],
+    "toConfirm": [
+      "Membership is listed for MIRAI 2.0 (2020 to 2022). The sources do not show the current membership."
+    ]
+  },
+  {
+    "id": "umea",
+    "name": {
+      "en": "Umeå University",
+      "ja": "ウーメオ大学"
+    },
+    "country": {
+      "en": "Sweden",
+      "ja": "スウェーデン"
+    },
+    "countryCode": "SE",
+    "region": "Europe",
+    "links": [
+      "MIRAI"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/mirai/outline/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/mirai/outline/"
+    ],
+    "toConfirm": [
+      "Membership is listed for MIRAI 2.0 (2020 to 2022). The sources do not show the current membership."
+    ]
+  },
+  {
+    "id": "linnaeus",
+    "name": {
+      "en": "Linnaeus University",
+      "ja": "リンネ大学"
+    },
+    "country": {
+      "en": "Sweden",
+      "ja": "スウェーデン"
+    },
+    "countryCode": "SE",
+    "region": "Europe",
+    "links": [
+      "MIRAI"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/mirai/outline/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/mirai/outline/"
+    ],
+    "toConfirm": [
+      "Membership is listed for MIRAI 2.0 (2020 to 2022). The sources do not show the current membership."
+    ]
+  },
+  {
+    "id": "karlstad",
+    "name": {
+      "en": "Karlstad University",
+      "ja": "カールスタード大学"
+    },
+    "country": {
+      "en": "Sweden",
+      "ja": "スウェーデン"
+    },
+    "countryCode": "SE",
+    "region": "Europe",
+    "links": [
+      "MIRAI"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/mirai/outline/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/mirai/outline/"
+    ],
+    "toConfirm": [
+      "Membership is listed for MIRAI 2.0 (2020 to 2022). The sources do not show the current membership."
+    ]
+  },
+  {
+    "id": "orebro",
+    "name": {
+      "en": "Örebro University",
+      "ja": "オーレブロ大学"
+    },
+    "country": {
+      "en": "Sweden",
+      "ja": "スウェーデン"
+    },
+    "countryCode": "SE",
+    "region": "Europe",
+    "links": [
+      "MIRAI"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/mirai/outline/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/mirai/outline/"
+    ],
+    "toConfirm": [
+      "Membership is listed for MIRAI 2.0 (2020 to 2022). The sources do not show the current membership.",
+      "The old Japanese page writes エレブルー大学. オーレブロ大学 is the spelling proposed by the audit."
+    ]
+  },
+  {
+    "id": "jonkoping",
+    "name": {
+      "en": "Jönköping University",
+      "ja": "ヨンショーピン大学"
+    },
+    "country": {
+      "en": "Sweden",
+      "ja": "スウェーデン"
+    },
+    "countryCode": "SE",
+    "region": "Europe",
+    "links": [
+      "MIRAI"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/mirai/outline/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/mirai/outline/"
+    ],
+    "toConfirm": [
+      "Membership is listed for MIRAI 2.0 (2020 to 2022). The sources do not show the current membership."
+    ]
+  },
+  {
+    "id": "lulea",
+    "name": {
+      "en": "Luleå University of Technology",
+      "ja": "ルレオ工科大学"
+    },
+    "country": {
+      "en": "Sweden",
+      "ja": "スウェーデン"
+    },
+    "countryCode": "SE",
+    "region": "Europe",
+    "links": [
+      "MIRAI"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/mirai/outline/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/mirai/outline/"
+    ],
+    "toConfirm": [
+      "Membership is listed for MIRAI 2.0 (2020 to 2022). The sources do not show the current membership."
+    ]
+  },
+  {
+    "id": "sse",
+    "name": {
+      "en": "Stockholm School of Economics",
+      "ja": "ストックホルム商科大学"
+    },
+    "country": {
+      "en": "Sweden",
+      "ja": "スウェーデン"
+    },
+    "countryCode": "SE",
+    "region": "Europe",
+    "links": [
+      "MIRAI"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/mirai/outline/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/mirai/outline/"
+    ],
+    "toConfirm": [
+      "Membership is listed for MIRAI 2.0 (2020 to 2022). The sources do not show the current membership.",
+      "Associate member in MIRAI 2.0."
+    ]
+  },
+  {
+    "id": "hiroshima",
+    "name": {
+      "en": "Hiroshima University",
+      "ja": "広島大学"
+    },
+    "country": {
+      "en": "Japan",
+      "ja": "日本"
+    },
+    "countryCode": "JP",
+    "region": "Asia",
+    "links": [
+      "MIRAI"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/mirai/outline/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/mirai/outline/"
+    ],
+    "toConfirm": [
+      "Membership is listed for MIRAI 2.0 (2020 to 2022). The sources do not show the current membership."
+    ]
+  },
+  {
+    "id": "hokkaido",
+    "name": {
+      "en": "Hokkaido University",
+      "ja": "北海道大学"
+    },
+    "country": {
+      "en": "Japan",
+      "ja": "日本"
+    },
+    "countryCode": "JP",
+    "region": "Asia",
+    "links": [
+      "MIRAI"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/mirai/outline/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/mirai/outline/"
+    ],
+    "toConfirm": [
+      "Membership is listed for MIRAI 2.0 (2020 to 2022). The sources do not show the current membership."
+    ]
+  },
+  {
+    "id": "sophia",
+    "name": {
+      "en": "Sophia University",
+      "ja": "上智大学"
+    },
+    "country": {
+      "en": "Japan",
+      "ja": "日本"
+    },
+    "countryCode": "JP",
+    "region": "Asia",
+    "links": [
+      "MIRAI"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/mirai/outline/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/mirai/outline/"
+    ],
+    "toConfirm": [
+      "Membership is listed for MIRAI 2.0 (2020 to 2022). The sources do not show the current membership."
+    ]
+  },
+  {
+    "id": "kyushu",
+    "name": {
+      "en": "Kyushu University",
+      "ja": "九州大学"
+    },
+    "country": {
+      "en": "Japan",
+      "ja": "日本"
+    },
+    "countryCode": "JP",
+    "region": "Asia",
+    "links": [
+      "MIRAI"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/mirai/outline/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/mirai/outline/"
+    ],
+    "toConfirm": [
+      "Membership is listed for MIRAI 2.0 (2020 to 2022). The sources do not show the current membership."
+    ]
+  },
+  {
+    "id": "utokyo",
+    "name": {
+      "en": "The University of Tokyo",
+      "ja": "東京大学"
+    },
+    "country": {
+      "en": "Japan",
+      "ja": "日本"
+    },
+    "countryCode": "JP",
+    "region": "Asia",
+    "links": [
+      "MIRAI"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/mirai/outline/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/mirai/outline/"
+    ],
+    "toConfirm": [
+      "Membership is listed for MIRAI 2.0 (2020 to 2022). The sources do not show the current membership."
+    ]
+  },
+  {
+    "id": "tohoku",
+    "name": {
+      "en": "Tohoku University",
+      "ja": "東北大学"
+    },
+    "country": {
+      "en": "Japan",
+      "ja": "日本"
+    },
+    "countryCode": "JP",
+    "region": "Asia",
+    "links": [
+      "MIRAI"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/mirai/outline/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/mirai/outline/"
+    ],
+    "toConfirm": [
+      "Membership is listed for MIRAI 2.0 (2020 to 2022). The sources do not show the current membership."
+    ]
+  },
+  {
+    "id": "waseda",
+    "name": {
+      "en": "Waseda University",
+      "ja": "早稲田大学"
+    },
+    "country": {
+      "en": "Japan",
+      "ja": "日本"
+    },
+    "countryCode": "JP",
+    "region": "Asia",
+    "links": [
+      "MIRAI"
+    ],
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/international/global/mirai/outline/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/international/global/mirai/outline/"
+    ],
+    "toConfirm": [
+      "Membership is listed for MIRAI 2.0 (2020 to 2022). The sources do not show the current membership."
+    ]
+  }
+]

@@ -1,0 +1,41 @@
+{
+  "name": {
+    "en": "GAME TEI Summer Camp",
+    "ja": "GAME TEIサマーキャンプ"
+  },
+  "short": {
+    "en": "TEI Summer Camp",
+    "ja": "TEIサマーキャンプ"
+  },
+  "audience": {
+    "en": "Medical students of GAME partner universities",
+    "ja": "GAME加盟大学の医学部生"
+  },
+  "duration": {
+    "en": "Past editions: 5 days in 2019 (Nagoya); 4 evenings online in July 2021 (hosted by Monash)",
+    "ja": "過去の例は、2019年の名古屋開催が5日間、2021年7月のモナシュ大学主催がオンラインの4日間（夜間）"
+  },
+  "howToApply": {
+    "en": "Contact the Office of International Affairs. The last call on the old site (third camp, 2021) closed on 16 June.",
+    "ja": "国際連携室に直接連絡します。旧サイトの直近の募集（2021年の第3回）の締切は6月16日でした"
+  },
+  "deadline": {
+    "status": "tba",
+    "text": {
+      "en": "To be announced. Last call: third camp, 2021, applications until 16 June.",
+      "ja": "未定です。直近の募集は2021年の第3回で、締切は6月16日でした"
+    }
+  },
+  "page": "study-abroad/short-programmes",
+  "sources": [
+    "https://www.med.nagoya-u.ac.jp/medical_J/international/summerprogram/tei/",
+    "https://www.med.nagoya-u.ac.jp/medical_E/international/summerprogram/tei/",
+    "https://www.med.nagoya-u.ac.jp/medical_J/international/news/events/tei.html"
+  ],
+  "toConfirm": [
+    "Whether a TEI summer camp is planned for 2027, with dates, eligibility, fee and deadline.",
+    "The 2020 (Bologna) and 2021 (Monash) camp reports have headings but no text."
+  ],
+  "section": "study-abroad",
+  "contact": "intl-office"
+}

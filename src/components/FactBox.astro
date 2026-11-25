@@ -1,0 +1,42 @@
+---
+import { getEntry } from 'astro:content';
+import { t, type Lang } from '../i18n/ui';
+import type { ProgrammeEntry } from '../lib/site';
+import { formatDate } from '../lib/site';
+
+interface Props { programme: ProgrammeEntry; lang: Lang; showTitle?: boolean }
+const { programme, lang, showTitle = true } = Astro.props;
+const ui = t(lang);
+const d = programme.data;
+const contact = await getEntry('contacts', d.contact);
+type Key = 'audience' | 'duration' | 'capacity' | 'cost' | 'funding' | 'degree' | 'eligibility' | 'howToApply';
+const rows: Key[] = ['audience', 'duration', 'capacity', 'degree', 'cost', 'funding', 'eligibility', 'howToApply'];
+---
+<section class="facts" aria-label={`${ui.factsTitle}: ${d.name[lang]}`}>
+  {showTitle && (
+    <h2>
+      <span>{d.name[lang]}</span>
+      {d.deadline && <span class={`pill ${d.deadline.status}`}>{ui.deadlineStatus[d.deadline.status]}</span>}
+    </h2>
+  )}
+  <dl>
+    {rows.filter((k) => d[k]).map((k) => (
+      <>
+        <dt>{ui.facts[k]}</dt>
+        <dd>{d[k]![lang]}</dd>
+      </>
+    ))}
+    {d.deadline && (
+      <>
+        <dt>{ui.facts.deadline}</dt>
+        <dd>{d.deadline.date ? `${formatDate(d.deadline.date, lang)} · ` : ''}{d.deadline.text[lang]}</dd>
+      </>
+    )}
+    {contact && (
+      <>
+        <dt>{ui.facts.contact}</dt>
+        <dd>{contact.data.label[lang]} · <span>{contact.data.email}</span></dd>
+      </>
+    )}
+  </dl>
+</section>

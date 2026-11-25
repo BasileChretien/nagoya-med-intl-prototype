@@ -1,0 +1,22 @@
+---
+import { href } from '../lib/site';
+const en = href('en');
+const ja = href('ja');
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>International | Nagoya University Graduate School of Medicine (prototype)</title>
+    <script is:inline define:vars={{ en, ja }}>
+      var wantsJa = (navigator.languages || [navigator.language || '']).some(function (l) { return /^ja\b/i.test(l); });
+      location.replace(wantsJa ? ja : en);
+    </script>
+    <meta http-equiv="refresh" content={`2; url=${en}`} />
+  </head>
+  <body>
+    <p><a href={en}>English</a> · <a href={ja} lang="ja">日本語</a></p>
+  </body>
+</html>

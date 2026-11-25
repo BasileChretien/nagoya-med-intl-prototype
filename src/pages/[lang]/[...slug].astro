@@ -1,0 +1,171 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import FactBox from '../../components/FactBox.astro';
+import PageNotes from '../../components/PageNotes.astro';
+import Sources from '../../components/Sources.astro';
+import CompareTable from '../../components/CompareTable.astro';
+import ProgrammeCards from '../../components/ProgrammeCards.astro';
+import { t, type Lang, type Section } from '../../i18n/ui';
+import { href, pageRef, sectionPages, counterpartExists, programmesIn, type PageEntry, type ProgrammeEntry } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('pages');
+  return pages.map((entry) => {
+    const ref = pageRef(entry);
+    return { params: { lang: ref.lang, slug: ref.slug }, props: { entry } };
+  });
+}
+
+interface Props { entry: PageEntry }
+const { entry } = Astro.props;
+const ref = pageRef(entry);
+const lang: Lang = ref.lang;
+const section: Section = ref.section;
+const ui = t(lang);
+const { Content } = await render(entry);
+const d = entry.data;
+const hasCounterpart = await counterpartExists(lang, ref.slug);
+const siblings = await sectionPages(lang, section);
+const sectionIndexHref = href(lang, section);
+
+const linked: ProgrammeEntry[] = [];
+for (const id of d.programmes) {
+  const p = await getEntry('programmes', id);
+  if (p) linked.push(p);
+}
+const sectionProgrammes = ref.isIndex && section !== 'partnerships' && section !== 'about' ? await programmesIn(section) : [];
+
+const staff = ref.slug === 'about/team' ? (await getCollection('staff')).sort((a, b) => a.data.order - b.data.order) : [];
+const groups = ['head', 'faculty', 'staff'] as const;
+const partners = ref.slug === 'partnerships/agreements' || ref.slug === 'partnerships/game'
+  ? (await getCollection('partners')).sort((a, b) => a.data.region.localeCompare(b.data.region) || a.data.name[lang].localeCompare(b.data.name[lang], lang))
+  : [];
+const gameMembers = partners.filter((p) => p.data.links.includes('GAME'));
+const regions = [...new Set(partners.map((p) => p.data.region))];
+const contacts = ref.slug === 'about/contact' ? await getCollection('contacts') : [];
+const initials = (name: string) => name.split(/[\s・]+/).filter(Boolean).slice(0, 2).map((w) => w[0]).join('').toUpperCase();
+---
+<Base lang={lang} title={d.title} description={d.description} slug={ref.slug} hasCounterpart={hasCounterpart} section={section}>
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <ol>
+        <li><a href={href(lang)}>{ui.home}</a></li>
+        {!ref.isIndex && <li><a href={sectionIndexHref}>{ui.sections[section]}</a></li>}
+        <li aria-current="page">{d.title}</li>
+      </ol>
+    </nav>
+    <header class="page-head">
+      <h1>{d.title}</h1>
+      {d.summary && <p class="lede">{d.summary}</p>}
+    </header>
+    <div class="layout">
+      <nav class="side-nav" aria-label={ui.inSection}>
+        <h2>{ui.sections[section]}</h2>
+        <ul>
+          <li><a href={sectionIndexHref} aria-current={ref.isIndex ? 'page' : undefined}>{ui.sectionWho[section]}</a></li>
+          {siblings.map((p) => {
+            const r = pageRef(p);
+            return <li><a href={href(lang, r.slug)} aria-current={r.slug === ref.slug ? 'page' : undefined}>{p.data.title}</a></li>;
+          })}
+        </ul>
+      </nav>
+      <div class="content">
+        <PageNotes lang={lang} status={d.status} toConfirm={d.toConfirm} place="top" />
+        {!ref.isIndex && linked.map((p) => <FactBox programme={p} lang={lang} />)}
+        <div class="prose"><Content /></div>
+
+        {ref.isIndex && siblings.length > 0 && (
+          <section class="grid cols-2" aria-label={ui.inSection}>
+            {siblings.map((p) => (
+              <a class="card" href={href(lang, pageRef(p).slug)}>
+                <h3>{p.data.title}</h3>
+                {p.data.summary && <p>{p.data.summary}</p>}
+              </a>
+            ))}
+          </section>
+        )}
+
+        {section === 'degrees' && ref.isIndex && sectionProgrammes.length > 0 && (
+          <section>
+            <h2 style="margin-bottom:1rem">{ui.programmesTitle}</h2>
+            <CompareTable lang={lang} programmes={sectionProgrammes} caption={ui.programmesTitle} />
+          </section>
+        )}
+        {section !== 'degrees' && ref.isIndex && sectionProgrammes.length > 0 && (
+          <section style="display:grid;gap:1rem">
+            <h2>{ui.programmesTitle}</h2>
+            <ProgrammeCards lang={lang} programmes={sectionProgrammes} />
+          </section>
+        )}
+
+        {staff.length > 0 && groups.map((g) => {
+          const members = staff.filter((s) => s.data.group === g);
+          return members.length > 0 && (
+            <section style="display:grid;gap:0.9rem">
+              <h2>{ui.team[g]}</h2>
+              <div class="people">
+                {members.map((s) => (
+                  <div class="person">
+                    <span class="avatar" aria-hidden="true">{initials(s.data.name.en)}</span>
+                    <div><b>{s.data.name[lang]}</b><span>{s.data.title[lang]}</span>{s.data.role && <span>{s.data.role[lang]}</span>}</div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          );
+        })}
+
+        {ref.slug === 'partnerships/game' && gameMembers.length > 0 && (
+          <section style="display:grid;gap:0.9rem">
+            <h2>GAME</h2>
+            <div class="people">
+              {gameMembers.map((p) => (
+                <div class="person"><span class="avatar" aria-hidden="true">{p.data.countryCode}</span><div><b>{p.data.name[lang]}</b><span>{p.data.country[lang]}</span></div></div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {ref.slug === 'partnerships/agreements' && regions.map((r) => (
+          <section style="display:grid;gap:0.8rem">
+            <h2>{ui.regions[r] ?? r}</h2>
+            <div class="compare-wrap">
+              <table class="compare">
+                <tbody>
+                  {partners.filter((p) => p.data.region === r).map((p) => (
+                    <tr>
+                      <th scope="row">{p.data.url ? <a href={p.data.url} rel="noopener">{p.data.name[lang]}</a> : p.data.name[lang]}</th>
+                      <td>{p.data.country[lang]}</td>
+                      <td>{p.data.links.map((l) => <span class="badge">{l}</span>)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        ))}
+
+        {contacts.length > 0 && (
+          <section class="grid cols-2">
+            {contacts.map((c) => (
+              <div class="contact-card">
+                <h3>{c.data.label[lang]}</h3>
+                <p style="color:var(--muted);font-size:0.94rem">{c.data.audience[lang]}</p>
+                <dl>
+                  <dt>{ui.contactEmail}</dt><dd>{c.data.email}</dd>
+                  {c.data.phone && <><dt>{ui.contactPhone}</dt><dd>{c.data.phone}</dd></>}
+                  {c.data.fax && <><dt>{ui.contactFax}</dt><dd>{c.data.fax}</dd></>}
+                  {c.data.address && <><dt>{ui.contactAddress}</dt><dd>{c.data.address[lang]}</dd></>}
+                </dl>
+              </div>
+            ))}
+          </section>
+        )}
+
+        <PageNotes lang={lang} status={d.status} toConfirm={d.toConfirm} place="bottom" />
+        <Sources lang={lang} sources={d.sources} updated={d.updated} />
+      </div>
+    </div>
+  </div>
+</Base>

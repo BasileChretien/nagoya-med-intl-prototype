@@ -1,0 +1,85 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import StoryCard from '../../../components/StoryCard.astro';
+import { t, fill, type Lang } from '../../../i18n/ui';
+import { href, langPaths } from '../../../lib/site';
+
+export function getStaticPaths() {
+  return langPaths();
+}
+const lang = Astro.params.lang as Lang;
+const ui = t(lang);
+const stories = (await getCollection('stories')).sort((a, b) => b.data.year - a.data.year || a.data.name.localeCompare(b.data.name));
+const types = Object.keys(ui.storyTypes) as (keyof typeof ui.storyTypes)[];
+const countries = [...new Set(stories.map((s) => s.data.country))].sort();
+const years = [...new Set(stories.map((s) => s.data.year))].sort((a, b) => b - a);
+const PAGE = 24;
+// All stories as compact JSON; the first PAGE are also rendered as HTML so the page works without JavaScript.
+const data = stories.map(({ data: s }) => ({
+  t: s.type, n: s.name, u: s.university === 'Not stated' ? '' : s.university, c: s.country, y: s.year,
+  d: s.departments.slice(0, 4), l: s.lang, x: s.excerpt, s: s.source,
+}));
+const json = JSON.stringify(data).replace(/</g, '\\u003c');
+const labels = { types: ui.storyTypes, read: ui.readStory, shown: ui.storiesShown };
+---
+<Base lang={lang} title={ui.stories} description={ui.storiesLede} slug="stories">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href={href(lang)}>{ui.home}</a></li><li aria-current="page">{ui.stories}</li></ol></nav>
+    <header class="page-head"><h1>{ui.stories}</h1><p class="lede">{ui.storiesLede}</p></header>
+    <form class="filters" id="story-filters" role="search" onsubmit="return false">
+      <label for="f-type">{ui.filterType}
+        <select id="f-type"><option value="">{ui.all}</option>{types.map((ty) => <option value={ty}>{ui.storyTypes[ty]}</option>)}</select>
+      </label>
+      <label for="f-country">{ui.filterCountry}
+        <select id="f-country"><option value="">{ui.all}</option>{countries.map((c) => <option value={c}>{c}</option>)}</select>
+      </label>
+      <label for="f-year">{ui.filterYear}
+        <select id="f-year"><option value="">{ui.all}</option>{years.map((y) => <option value={y}>{y}</option>)}</select>
+      </label>
+      <label for="f-q">{ui.filterSearch}
+        <input id="f-q" type="search" placeholder={ui.searchPlaceholder} />
+      </label>
+    </form>
+    <p class="count" id="story-count" aria-live="polite">{fill(ui.storiesShown, { shown: Math.min(PAGE, stories.length), total: stories.length })}</p>
+    <h2 class="visually-hidden">{ui.stories}</h2>
+    <div class="grid cols-3" id="story-grid">
+      {stories.slice(0, PAGE).map((s) => <StoryCard story={s} lang={lang} />)}
+    </div>
+    <p style="margin:1.5rem 0 4rem"><button class="btn ghost" type="button" id="story-more" hidden={stories.length <= PAGE}>{ui.showMore}</button></p>
+  </div>
+  <script type="application/json" id="story-data" set:html={json}></script>
+</Base>
+
+<script is:inline define:vars={{ PAGE, labels }}>
+  (function () {
+    var all = JSON.parse(document.getElementById('story-data').textContent);
+    var grid = document.getElementById('story-grid');
+    var countEl = document.getElementById('story-count');
+    var more = document.getElementById('story-more');
+    var f = { type: document.getElementById('f-type'), country: document.getElementById('f-country'), year: document.getElementById('f-year'), q: document.getElementById('f-q') };
+    var limit = PAGE;
+    function esc(v) { return String(v).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+    function card(s) {
+      return '<article class="card story"><div class="meta"><span>' + esc(labels.types[s.t]) + '</span><span>' + s.y + '</span><span>' + esc(s.c) + '</span></div>' +
+        '<h3>' + esc(s.n) + '</h3>' + (s.u ? '<span class="uni">' + esc(s.u) + '</span>' : '') +
+        (s.d.length ? '<div>' + s.d.map(function (d) { return '<span class="badge">' + esc(d) + '</span>'; }).join('') + '</div>' : '') +
+        '<blockquote lang="' + s.l + '">' + esc(s.x) + '</blockquote>' +
+        '<a class="read" href="' + esc(s.s) + '" rel="noopener">' + esc(labels.read) + ' ↗</a></article>';
+    }
+    function apply() {
+      var q = f.q.value.trim().toLowerCase();
+      var rows = all.filter(function (s) {
+        return (!f.type.value || s.t === f.type.value) && (!f.country.value || s.c === f.country.value) &&
+          (!f.year.value || String(s.y) === f.year.value) &&
+          (!q || (s.n + ' ' + s.u + ' ' + s.c + ' ' + s.d.join(' ')).toLowerCase().indexOf(q) >= 0);
+      });
+      grid.innerHTML = rows.slice(0, limit).map(card).join('');
+      countEl.textContent = labels.shown.replace('{shown}', Math.min(rows.length, limit)).replace('{total}', rows.length);
+      more.hidden = rows.length <= limit;
+    }
+    [f.type, f.country, f.year].forEach(function (el) { el.addEventListener('change', function () { limit = PAGE; apply(); }); });
+    f.q.addEventListener('input', function () { limit = PAGE; apply(); });
+    more.addEventListener('click', function () { limit += PAGE * 2; apply(); });
+  })();
+</script>

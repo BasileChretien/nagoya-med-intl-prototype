@@ -1,0 +1,38 @@
+{
+  "name": {
+    "en": "Intensive summer medical English course in Hawaii (HTIC)",
+    "ja": "ハワイ大学短期研修留学プログラム 医学部夏期集中医学英語研修"
+  },
+  "short": {
+    "en": "Hawaii medical English",
+    "ja": "ハワイ医学英語研修"
+  },
+  "audience": {
+    "en": "Fifth- and sixth-year medical students with about TOEFL iBT 80 (TOEIC 730)",
+    "ja": "医学部5〜6年生でTOEFL iBT 80点（TOEIC 730点）程度の英語力がある人"
+  },
+  "cost": {
+    "en": "About USD 1,350 (lodging, tuition, local transport and weekday breakfast and lunch). Flights and airport transfer are extra.",
+    "ja": "およそ1,350ドル（宿泊費、授業料、研修中の交通費、平日の朝食と昼食を含む）。往復の渡航費と空港からの交通費は含まない"
+  },
+  "howToApply": {
+    "en": "Submit the application documents and a CV to the office.",
+    "ja": "応募書類と履歴書を国際連携室に提出します"
+  },
+  "deadline": {
+    "status": "tba",
+    "text": {
+      "en": "To be announced.",
+      "ja": "未定です"
+    }
+  },
+  "page": "study-abroad/medical-english",
+  "sources": [
+    "https://www.med.nagoya-u.ac.jp/intlexch/japanese/education/abroad/program4.html"
+  ],
+  "toConfirm": [
+    "Period and deadline are not set; the last Nagoya participant listed is from 2023."
+  ],
+  "section": "study-abroad",
+  "contact": "intl-office"
+}

@@ -1,0 +1,23 @@
+---
+import { t, type Lang } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  status: 'verified' | 'to-confirm' | 'draft-translation';
+  toConfirm: string[];
+  /** "top": the translation note; "bottom": the list of facts to confirm. */
+  place: 'top' | 'bottom';
+}
+const { lang, status, toConfirm, place } = Astro.props;
+const ui = t(lang);
+---
+{place === 'top' && status === 'draft-translation' && (
+  <p class="notice translation" role="note">{ui.draftTranslation}</p>
+)}
+{place === 'bottom' && toConfirm.length > 0 && (
+  <aside class="notice" aria-label={ui.toConfirmTitle}>
+    <h2>{ui.toConfirmTitle}</h2>
+    <p>{ui.toConfirmLead}</p>
+    <ul>{toConfirm.map((item) => <li>{item}</li>)}</ul>
+  </aside>
+)}

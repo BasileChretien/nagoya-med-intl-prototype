@@ -1,0 +1,42 @@
+{
+  "name": {
+    "en": "Medical English summer school at the University of Leicester",
+    "ja": "レスター大学医学英語留学プログラム"
+  },
+  "short": {
+    "en": "Leicester medical English",
+    "ja": "レスター大学医学英語"
+  },
+  "audience": {
+    "en": "Medical students of all years; no English score required for Nagoya students",
+    "ja": "全学年の医学生。名古屋大学の学生は英語基準なし"
+  },
+  "duration": {
+    "en": "3 weeks",
+    "ja": "3週間"
+  },
+  "cost": {
+    "en": "GBP 1,800 for tuition and dormitory, plus travel",
+    "ja": "1,800ポンド（授業料と寮費）。渡航費は別"
+  },
+  "howToApply": {
+    "en": "Contact the office for the required procedure.",
+    "ja": "必要な手続きは国際連携室に問い合わせてください"
+  },
+  "deadline": {
+    "status": "tba",
+    "text": {
+      "en": "To be announced.",
+      "ja": "未定です"
+    }
+  },
+  "page": "study-abroad/medical-english",
+  "sources": [
+    "https://www.med.nagoya-u.ac.jp/intlexch/japanese/education/abroad/program3.html"
+  ],
+  "toConfirm": [
+    "Period, internal deadline and whether the course is currently offered; the last Nagoya participants listed are from March 2020."
+  ],
+  "section": "study-abroad",
+  "contact": "intl-office"
+}

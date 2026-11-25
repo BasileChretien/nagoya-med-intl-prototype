@@ -1,0 +1,49 @@
+{
+  "name": {
+    "en": "Keiichi Shibahara Fund overseas study support program for medical students",
+    "ja": "柴原慶一基金医学部学生海外留学支援プログラム"
+  },
+  "short": {
+    "en": "Shibahara Fund",
+    "ja": "柴原慶一基金"
+  },
+  "audience": {
+    "en": "Nagoya University medical students in four overseas programs",
+    "ja": "四つの海外プログラムに参加する医学部の学生"
+  },
+  "duration": {
+    "en": "Up to 6 months (basic medical seminar), up to 3 months (the two elective clerkships); entrepreneurship: short or long",
+    "ja": "基礎医学セミナーは最長6か月、二つの選択臨床実習は最長3か月。起業家養成は短期と長期"
+  },
+  "capacity": {
+    "en": "Basic medical seminar 2, basic-science placement 2, clinical clerkship 12, entrepreneurship 4 students a year (as stated)",
+    "ja": "基礎医学セミナー2名、基礎系配属2名、海外臨床実習12名、起業家養成4名（年間、旧サイトの記載）"
+  },
+  "funding": {
+    "en": "JPY 3 million, 1.5 million and 1.5 million for the first three programs; up to 3 million (short) or 8 million (long) for entrepreneurship. Adjusted by destination and period.",
+    "ja": "最初の三つは300万円、150万円、150万円。起業家養成は短期最大300万円、長期最大800万円。派遣先と期間により調整"
+  },
+  "howToApply": {
+    "en": "Details are announced on TACT, and briefings are held from time to time. Contact the study-abroad program staff of the office.",
+    "ja": "詳細はTACTで案内します。説明会も随時あります。国際連携室の海外留学プログラム担当に問い合わせてください"
+  },
+  "deadline": {
+    "status": "tba",
+    "text": {
+      "en": "No dates are published. Details are announced on TACT.",
+      "ja": "日程は公開されていません。TACTで案内されます"
+    }
+  },
+  "page": "study-abroad/scholarships",
+  "sources": [
+    "https://www.med.nagoya-u.ac.jp/medical_J/international/scholarship/fundprogram/",
+    "https://www.med.nagoya-u.ac.jp/medical_J/international/scholarship/fundprogram/2024.html",
+    "https://www.med.nagoya-u.ac.jp/medical_J/international/scholarship/fundprogram/2025.html"
+  ],
+  "toConfirm": [
+    "Number of recipients for the basic medical seminar: 2 a year on the fund page, 4 names in the 2024 list.",
+    "Application period and eligibility details for each of the four programmes."
+  ],
+  "section": "study-abroad",
+  "contact": "intl-office"
+}

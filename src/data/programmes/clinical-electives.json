@@ -1,0 +1,62 @@
+{
+  "name": {
+    "en": "Overseas clinical clerkship dispatch program",
+    "ja": "海外臨床実習派遣留学プログラム"
+  },
+  "short": {
+    "en": "Clinical electives abroad",
+    "ja": "海外臨床実習"
+  },
+  "audience": {
+    "en": "Nagoya University medical students who apply in the fifth year and train abroad during Clinical Clerkship II",
+    "ja": "5年次に応募し、臨床実習Ⅱの期間に海外で実習する医学科の学生"
+  },
+  "duration": {
+    "en": "Up to 3 months in total; 4 to 12 weeks at each partner university",
+    "ja": "最大3か月。協定大学ごとに4〜12週間"
+  },
+  "capacity": {
+    "en": "1 or 2 students per partner university (2025 plan: 19 universities)",
+    "ja": "協定大学ごとに1〜2名（2025年度以降の計画では19大学）"
+  },
+  "cost": {
+    "en": "Tuition is normally waived under the agreements, but some universities charge it. Housing varies: a university dormitory in some places, private housing elsewhere.",
+    "ja": "授業料は協定により原則不要ですが、支払いが必要な大学もあります。宿舎は学内寮がある大学と、自分で探す大学があります"
+  },
+  "funding": {
+    "en": "Shibahara Fund support of up to JPY 1.5 million for up to 12 students a year, adjusted by destination and period. Other scholarships may apply.",
+    "ja": "柴原慶一基金から最大150万円（年12名、派遣先と期間により調整）。ほかの奨学金も利用できる場合があります"
+  },
+  "degree": {
+    "en": "Credit is recognized at Nagoya University; no additional clerkship is needed.",
+    "ja": "名古屋大学で単位が認定され、追加の実習は不要"
+  },
+  "eligibility": {
+    "en": "Medical students of Nagoya University. Destinations are partner universities; a few students may go to non-partner universities.",
+    "ja": "名古屋大学医学科の学生。派遣先は協定大学で、希望者の一部は協定大学以外にも行けます"
+  },
+  "howToApply": {
+    "en": "Calls are announced on TACT and the notice board. Selection is internal. Ask the study-abroad adviser of the office early.",
+    "ja": "募集はTACTと掲示板で案内します。学内選考があります。早めに国際連携室の留学担当教員に相談してください"
+  },
+  "deadline": {
+    "status": "rolling",
+    "text": {
+      "en": "Calls open around May to June of the fifth year, for dispatch from January of the fifth year to April of the sixth year.",
+      "ja": "5年次の5〜6月ごろに募集します。派遣は5年次の1月から6年次の4月までです"
+    }
+  },
+  "page": "study-abroad/clinical-electives",
+  "sources": [
+    "https://www.med.nagoya-u.ac.jp/intlexch/japanese/education/abroad/program1.html",
+    "https://www.med.nagoya-u.ac.jp/medical_J/international/school/elective/",
+    "https://www.med.nagoya-u.ac.jp/medical_J/international/scholarship/fundprogram/"
+  ],
+  "toConfirm": [
+    "Application documents, English score required and selection method (the old pages only say that details are on TACT).",
+    "Destination list for the current year: the 2022 faculty table lists Leicester and Adelaide, which the 2025 table does not; the 2025 table adds Munich, Edinburgh and Bologna.",
+    "The audit flagged three rows (US 9 weeks, Sweden 8, Austria 12) as having no university name in one saved copy; the full saved text names Johns Hopkins, Lund and the Medical University of Vienna."
+  ],
+  "section": "study-abroad",
+  "contact": "intl-office"
+}

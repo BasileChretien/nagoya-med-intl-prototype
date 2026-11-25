@@ -1,0 +1,46 @@
+{
+  "name": {
+    "en": "Short student exchange with St John's College, University of Cambridge",
+    "ja": "ケンブリッジ大学セント・ジョンズ・カレッジ短期学生交流プログラム"
+  },
+  "short": {
+    "en": "Cambridge exchange",
+    "ja": "ケンブリッジ大学交流"
+  },
+  "audience": {
+    "en": "Undergraduate or graduate students enrolled in a regular course",
+    "ja": "正規課程に在籍する学部生または大学院生"
+  },
+  "duration": {
+    "en": "2 weeks, no credit",
+    "ja": "2週間（単位付与なし）"
+  },
+  "capacity": {
+    "en": "Up to 6 students, with internal selection",
+    "ja": "6名以内（学内選考あり）"
+  },
+  "eligibility": {
+    "en": "Interest in international exchange; able to follow lectures and join discussions in English (IELTS 6.5, TOEFL iBT 80, TOEFL ITP 550 or TOEIC 800 or higher is desirable); cumulative GPA of 3.7 or higher; able to help organize cultural events when Cambridge students visit Nagoya, at own expense.",
+    "ja": "国際交流に関心があること。英語で聴講し、討論や発表ができること（IELTS 6.5、TOEFL iBT 80、TOEFL ITP 550、TOEIC 800点以上が望ましい）。累積GPA 3.7以上。ケンブリッジ大学の学生が来日する際に、文化交流行事の企画に協力できること（諸費用は自己負担）"
+  },
+  "howToApply": {
+    "en": "Ask the office for details.",
+    "ja": "詳細は国際連携室に問い合わせてください"
+  },
+  "deadline": {
+    "status": "tba",
+    "text": {
+      "en": "The travel period is undecided.",
+      "ja": "渡航期間は未定です"
+    }
+  },
+  "page": "study-abroad/short-programmes",
+  "sources": [
+    "https://www.med.nagoya-u.ac.jp/intlexch/japanese/education/abroad/program5.html"
+  ],
+  "toConfirm": [
+    "Travel period, deadline and whether the program is currently offered."
+  ],
+  "section": "study-abroad",
+  "contact": "intl-office"
+}

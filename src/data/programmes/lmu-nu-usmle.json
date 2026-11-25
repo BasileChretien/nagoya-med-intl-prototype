@@ -1,0 +1,33 @@
+{
+  "name": {
+    "en": "LMU-NU collaborative online USMLE review classes",
+    "ja": "LMU-NUオンラインUSMLE合同講義"
+  },
+  "short": {
+    "en": "USMLE review classes",
+    "ja": "USMLE講義"
+  },
+  "audience": {
+    "en": "Upper-year medical students (the classes began in 2016 for fourth- and fifth-year students)",
+    "ja": "高学年の医学生（2016年に4年生と5年生を対象に開始）"
+  },
+  "duration": {
+    "en": "Every other Friday at 3 pm",
+    "ja": "隔週金曜日の午後3時"
+  },
+  "howToApply": {
+    "en": "The schedule is announced on NUCT. Undergraduates who wish to join contact the office.",
+    "ja": "日程はNUCTで案内します。参加を希望する学部生は国際連携室に連絡してください"
+  },
+  "page": "study-abroad/medical-english",
+  "sources": [
+    "https://www.med.nagoya-u.ac.jp/medical_J/international/international/lmunu/",
+    "https://www.med.nagoya-u.ac.jp/medical_E/international/international/lmunu/",
+    "https://www.med.nagoya-u.ac.jp/intlexch/japanese/education/international.html"
+  ],
+  "toConfirm": [
+    "Current academic-year schedule, and whether the class still runs every other week with students of LMU and Gifu University."
+  ],
+  "section": "study-abroad",
+  "contact": "intl-office"
+}

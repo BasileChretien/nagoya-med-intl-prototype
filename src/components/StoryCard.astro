@@ -1,0 +1,17 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { t, type Lang } from '../i18n/ui';
+
+interface Props { story: CollectionEntry<'stories'>; lang: Lang }
+const { story, lang } = Astro.props;
+const ui = t(lang);
+const s = story.data;
+---
+<article class="card story">
+  <div class="meta"><span>{ui.storyTypes[s.type]}</span><span>{s.year}</span><span>{s.country}</span></div>
+  <h3>{s.name}</h3>
+  {s.university && s.university !== 'Not stated' && <span class="uni">{s.university}</span>}
+  {s.departments.length > 0 && <div>{s.departments.slice(0, 4).map((d) => <span class="badge">{d}</span>)}</div>}
+  <blockquote lang={s.lang}>{s.excerpt}</blockquote>
+  <a class="read" href={s.source} rel="noopener">{ui.readStory} ↗</a>
+</article>

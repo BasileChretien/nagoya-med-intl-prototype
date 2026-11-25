@@ -1,0 +1,58 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import { t, type Lang } from '../../../i18n/ui';
+import { href, langPaths, pagesFor, pageRef } from '../../../lib/site';
+
+export function getStaticPaths() {
+  return langPaths();
+}
+const lang = Astro.params.lang as Lang;
+const ui = t(lang);
+const pages = (await pagesFor(lang)).sort((a, b) => a.id.localeCompare(b.id));
+const programmes = await getCollection('programmes');
+const staff = await getCollection('staff');
+const contacts = await getCollection('contacts');
+const partners = await getCollection('partners');
+
+const verified = pages.filter((p) => p.data.status === 'verified').length;
+const drafts = pages.filter((p) => p.data.status === 'draft-translation').length;
+interface Item { where: string; link?: string; items: string[] }
+const lists: Item[] = [
+  ...pages.filter((p) => p.data.toConfirm.length).map((p) => ({ where: p.data.title, link: href(lang, pageRef(p).slug), items: p.data.toConfirm })),
+  ...programmes.filter((p) => p.data.toConfirm.length).map((p) => ({ where: p.data.name[lang], link: href(lang, p.data.page), items: p.data.toConfirm })),
+  ...staff.filter((s) => s.data.toConfirm.length).map((s) => ({ where: s.data.name[lang], link: href(lang, 'about/team'), items: s.data.toConfirm })),
+  ...contacts.filter((c) => c.data.toConfirm.length).map((c) => ({ where: c.data.label[lang], link: href(lang, 'about/contact'), items: c.data.toConfirm })),
+  ...partners.filter((c) => c.data.toConfirm.length).map((c) => ({ where: c.data.name[lang], link: href(lang, 'partnerships/agreements'), items: c.data.toConfirm })),
+];
+const totalConfirm = lists.reduce((n, l) => n + l.items.length, 0);
+---
+<Base lang={lang} title={ui.statusTitle} description={ui.statusLede} slug="status">
+  <div class="wrap" style="padding-bottom:4rem;display:grid;gap:2.2rem">
+    <div>
+      <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href={href(lang)}>{ui.home}</a></li><li aria-current="page">{ui.statusTitle}</li></ol></nav>
+      <header class="page-head" style="margin-bottom:0"><h1>{ui.statusTitle}</h1><p class="lede">{ui.statusLede}</p></header>
+    </div>
+    <div class="numbers">
+      <div class="number"><b>{pages.length}</b><span>{ui.statusPages}</span></div>
+      <div class="number"><b>{verified}</b><span>{ui.statusVerified}</span></div>
+      <div class="number"><b>{drafts}</b><span>{ui.statusDraft}</span></div>
+      <div class="number"><b>{totalConfirm}</b><span>{ui.statusConfirm}</span></div>
+    </div>
+    <section style="display:grid;gap:0.8rem">
+      <h2>{ui.statusChecks}</h2>
+      <ul class="prose">{ui.statusChecksList.map((c) => <li>{c}</li>)}</ul>
+    </section>
+    <section style="display:grid;gap:1rem">
+      <h2>{ui.toConfirmTitle}</h2>
+      <div class="grid cols-2">
+        {lists.map((l) => (
+          <div class="card">
+            <h3>{l.link ? <a href={l.link}>{l.where}</a> : l.where}</h3>
+            <ul style="margin:0;padding-left:1.1em;color:var(--ink-2);font-size:0.94rem">{l.items.map((i) => <li>{i}</li>)}</ul>
+          </div>
+        ))}
+      </div>
+    </section>
+  </div>
+</Base>

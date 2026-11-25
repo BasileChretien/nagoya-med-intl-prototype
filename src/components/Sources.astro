@@ -1,0 +1,20 @@
+---
+import { t, type Lang } from '../i18n/ui';
+import { formatDate } from '../lib/site';
+
+interface Props { lang: Lang; sources: string[]; updated?: string }
+const { lang, sources, updated } = Astro.props;
+const ui = t(lang);
+const short = (u: string) => u.replace(/^https?:\/\/(www\.)?/, '');
+---
+{(sources.length > 0 || updated) && (
+  <footer class="sources">
+    {sources.length > 0 && (
+      <>
+        <span>{ui.sourcesTitle}</span>
+        <ul>{sources.map((s) => <li><a href={s} rel="noopener">{short(s)}</a></li>)}</ul>
+      </>
+    )}
+    {updated && <span>{ui.takenOn}: {formatDate(updated, lang)}</span>}
+  </footer>
+)}

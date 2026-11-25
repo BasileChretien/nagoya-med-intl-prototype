@@ -1,0 +1,51 @@
+{
+  "name": {
+    "en": "Overseas entrepreneurship dispatch program (Shibahara Fund)",
+    "ja": "起業家養成海外派遣留学プログラム（柴原慶一基金）"
+  },
+  "short": {
+    "en": "Entrepreneurship abroad",
+    "ja": "起業家養成海外派遣"
+  },
+  "audience": {
+    "en": "Nagoya University medical students",
+    "ja": "名古屋大学医学部の学生"
+  },
+  "duration": {
+    "en": "Short: about 1 month in a vacation. Long: consecutive terms, up to 1 year, on leave of absence.",
+    "ja": "短期は夏季休暇などを使う約1か月。長期は前期・後期にまたがる休学を前提とした最長1年"
+  },
+  "capacity": {
+    "en": "4 students a year (3 short, 1 long)",
+    "ja": "年4名（短期3名、長期1名）"
+  },
+  "funding": {
+    "en": "Shibahara Fund: up to JPY 3 million for a short stay, up to JPY 8 million for a long stay, adjusted by destination and period.",
+    "ja": "柴原慶一基金から、短期は1名最大300万円、長期は1名最大800万円（派遣先と期間により調整）"
+  },
+  "eligibility": {
+    "en": "Students who want to join an entrepreneurship program at a university or institution abroad, or an internship at a company abroad.",
+    "ja": "海外の大学や機関の起業家養成プログラム、または海外企業のインターンシップに参加したい学生"
+  },
+  "howToApply": {
+    "en": "Details are announced on TACT, and briefings are held from time to time. Ask the office.",
+    "ja": "詳細はTACTで案内します。説明会も随時あります。国際連携室に問い合わせてください"
+  },
+  "deadline": {
+    "status": "tba",
+    "text": {
+      "en": "No dates are published. Details are announced on TACT.",
+      "ja": "日程は公開されていません。TACTで案内されます"
+    }
+  },
+  "page": "study-abroad/short-programmes",
+  "sources": [
+    "https://www.med.nagoya-u.ac.jp/medical_J/international/scholarship/fundprogram/",
+    "https://www.med.nagoya-u.ac.jp/medical_J/international/summerprogram/overseas/"
+  ],
+  "toConfirm": [
+    "The programme's own page on both old sites is under construction, so destinations and selection are unknown."
+  ],
+  "section": "study-abroad",
+  "contact": "intl-office"
+}

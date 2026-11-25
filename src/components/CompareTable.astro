@@ -1,0 +1,36 @@
+---
+import { t, type Lang } from '../i18n/ui';
+import { href, type ProgrammeEntry } from '../lib/site';
+
+interface Props { lang: Lang; programmes: ProgrammeEntry[]; caption: string }
+const { lang, programmes, caption } = Astro.props;
+const ui = t(lang);
+type Key = 'audience' | 'duration' | 'capacity' | 'degree' | 'cost' | 'funding';
+const keys: Key[] = ['audience', 'duration', 'capacity', 'degree', 'cost', 'funding'];
+const usedKeys = keys.filter((k) => programmes.some((p) => p.data[k]));
+---
+<div class="compare-wrap">
+  <table class="compare">
+    <caption class="visually-hidden">{caption}</caption>
+    <thead>
+      <tr>
+        <th scope="col"></th>
+        {programmes.map((p) => <th scope="col"><a href={href(lang, p.data.page)}>{(p.data.short ?? p.data.name)[lang]}</a></th>)}
+      </tr>
+    </thead>
+    <tbody>
+      {usedKeys.map((k) => (
+        <tr>
+          <th scope="row">{ui.facts[k]}</th>
+          {programmes.map((p) => <td>{p.data[k]?.[lang] ?? '—'}</td>)}
+        </tr>
+      ))}
+      <tr>
+        <th scope="row">{ui.facts.deadline}</th>
+        {programmes.map((p) => (
+          <td>{p.data.deadline ? <><span class={`pill ${p.data.deadline.status}`}>{ui.deadlineStatus[p.data.deadline.status]}</span><br />{p.data.deadline.text[lang]}</> : '—'}</td>
+        ))}
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import { t } from '../i18n/ui';
+import { href } from '../lib/site';
+const ui = t('en');
+const ja = t('ja');
+---
+<Base lang="en" title={ui.notFound} description={ui.notFoundText} slug="" hasCounterpart={false}>
+  <div class="wrap" style="padding-block:4rem;display:grid;gap:1rem">
+    <h1>{ui.notFound}</h1>
+    <p>{ui.notFoundText}</p>
+    <p lang="ja">{ja.notFoundText}</p>
+    <p><a class="btn" href={href('en')}>{ui.backHome}</a> <a class="btn ghost" href={href('ja')} lang="ja">{ja.backHome}</a></p>
+  </div>
+</Base>

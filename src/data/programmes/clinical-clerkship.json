@@ -1,0 +1,58 @@
+{
+  "section": "study-in-nagoya",
+  "name": {
+    "en": "Clinical clerkship for overseas students",
+    "ja": "海外の医学生のための臨床実習"
+  },
+  "short": { "en": "Clinical clerkship", "ja": "臨床実習" },
+  "audience": {
+    "en": "Senior medical students of partner schools",
+    "ja": "協定校の医学部最終学年の学生"
+  },
+  "duration": {
+    "en": "1 week to 90 days (partner schools); 91 days to 1 year through NUPACE, with at most 3 months of clinical clerkship",
+    "ja": "協定校の学生は1週間から90日間。NUPACE経由は91日から1年間で、臨床実習は最長3か月"
+  },
+  "capacity": {
+    "en": "More than 40 students a year (older Japanese site)",
+    "ja": "年間40名を超える（旧日本語サイトの記載）"
+  },
+  "cost": {
+    "en": "Tuition, registration and admission fees waived for partner schools with a waiver agreement (number limited); otherwise tuition is 29,600 yen per 4 weeks",
+    "ja": "授業料免除協定のある協定校の学生は授業料・登録料・入学料が免除（人数に限りあり）。それ以外は授業料が4週間ごとに29,600円"
+  },
+  "funding": {
+    "en": "JASSO scholarship for NUPACE students: 80,000 yen a month and a one-time allowance of 80,000 yen (very few places)",
+    "ja": "NUPACE経由の学生はJASSO奨学金（月額8万円と来日後の一時金8万円）に応募可能。枠はごくわずか"
+  },
+  "eligibility": {
+    "en": "Enrolled senior medical student of a fully accredited school, in good standing, with a letter of approval from the Dean, fluent in Japanese or English. Only partner schools are accepted at present.",
+    "ja": "正規の最終学年の医学生で、成績が良好であり、学部長の承認書があり、日本語か英語が堪能な方。現在は協定校の学生のみ受け付けています。"
+  },
+  "howToApply": {
+    "en": "Contact the Office of International Affairs to confirm availability, then send the application documents. NUPACE applicants send them with the NUPACE application.",
+    "ja": "国際連携室に連絡して受入れ可否を確認し、その後に申請書類を送ります。NUPACE経由の学生はNUPACEの申請書類に添えて提出します。"
+  },
+  "deadline": {
+    "status": "rolling",
+    "text": {
+      "en": "6 months before the start of the clerkship (NUPACE applicants follow the date on the NUPACE website)",
+      "ja": "実習開始の6か月前まで（NUPACE経由の学生はNUPACEのウェブサイトに示された日まで）"
+    }
+  },
+  "contact": "intl-office",
+  "page": "study-in-nagoya/clinical-clerkship",
+  "sources": [
+    "https://www.med.nagoya-u.ac.jp/intlexch/english/abroad/overseas.html",
+    "https://www.med.nagoya-u.ac.jp/intlexch/english/index.html",
+    "https://www.med.nagoya-u.ac.jp/intlexch/japan/index.html",
+    "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/program1.html"
+  ],
+  "toConfirm": [
+    "Whether students of non-partner schools may still apply (the notice says partner schools only; the older clerkship page offers 1 to 4 weeks)",
+    "Whether the COVID-19 vaccination certificate is still required",
+    "Tuition (29,600 yen vs 14,800 yen on the older Japanese site)",
+    "Application deadline (6 months vs 4 months on the older Japanese site)",
+    "Yearly capacity (older Japanese site says more than 40 students)"
+  ]
+}

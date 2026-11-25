@@ -1,0 +1,51 @@
+{
+  "name": {
+    "en": "Elective clinical clerkship in basic-science departments abroad",
+    "ja": "選択臨床実習 基礎系専門分野配属海外派遣留学プログラム"
+  },
+  "short": {
+    "en": "Research placement abroad",
+    "ja": "基礎系配属海外派遣"
+  },
+  "audience": {
+    "en": "Fifth- and sixth-year medical students with strong research motivation",
+    "ja": "研究意欲の高い、5年生・6年生の学生"
+  },
+  "duration": {
+    "en": "Up to 3 months",
+    "ja": "最長3か月"
+  },
+  "capacity": {
+    "en": "2 funded students a year",
+    "ja": "支援は年2名"
+  },
+  "funding": {
+    "en": "Shibahara Fund support of up to JPY 1.5 million, adjusted by destination and period. It covers travel, living costs, tuition, bench fees and insurance.",
+    "ja": "柴原慶一基金から最大150万円（派遣先と期間により調整）。渡航費、滞在費、授業料、ベンチフィー、保険料などを支援"
+  },
+  "eligibility": {
+    "en": "Fifth- and sixth-year medical students, as part of the elective clerkship.",
+    "ja": "選択臨床実習の一環として行う5年生・6年生"
+  },
+  "howToApply": {
+    "en": "Details are announced on TACT, and briefings are held from time to time. Ask the office.",
+    "ja": "詳細はTACTで案内します。説明会も随時あります。国際連携室に問い合わせてください"
+  },
+  "deadline": {
+    "status": "tba",
+    "text": {
+      "en": "No dates are published. Details are announced on TACT.",
+      "ja": "日程は公開されていません。TACTで案内されます"
+    }
+  },
+  "page": "study-abroad/research-abroad",
+  "sources": [
+    "https://www.med.nagoya-u.ac.jp/medical_J/international/scholarship/fundprogram/",
+    "https://www.med.nagoya-u.ac.jp/medical_J/international/school/electivebasics/"
+  ],
+  "toConfirm": [
+    "Host institutions, application period, selection and credit arrangements: the programme page on both old sites says only that it is under construction."
+  ],
+  "section": "study-abroad",
+  "contact": "intl-office"
+}

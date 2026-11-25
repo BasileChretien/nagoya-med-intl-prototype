@@ -1,0 +1,21 @@
+---
+import { t, type Lang } from '../i18n/ui';
+import { href, type ProgrammeEntry } from '../lib/site';
+
+interface Props { lang: Lang; programmes: ProgrammeEntry[] }
+const { lang, programmes } = Astro.props;
+const ui = t(lang);
+---
+<div class="grid cols-3">
+  {programmes.map((p) => {
+    const d = p.data;
+    return (
+      <a class="card" href={href(lang, d.page)}>
+        {d.deadline && <span><span class={`pill ${d.deadline.status}`}>{ui.deadlineStatus[d.deadline.status]}</span></span>}
+        <h3>{(d.short ?? d.name)[lang]}</h3>
+        <p>{d.audience[lang]}</p>
+        {d.duration && <p style="font-size:0.88rem;color:var(--muted)">{ui.facts.duration}: {d.duration[lang]}</p>}
+      </a>
+    );
+  })}
+</div>

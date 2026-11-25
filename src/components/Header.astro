@@ -1,0 +1,59 @@
+---
+import { t, SECTIONS, type Lang, type Section } from '../i18n/ui';
+import { href, otherLang } from '../lib/site';
+
+interface Props {
+  lang: Lang;
+  slug: string;
+  hasCounterpart: boolean;
+  section?: Section;
+}
+const { lang, slug, hasCounterpart, section } = Astro.props;
+const ui = t(lang);
+const other = otherLang(lang);
+const otherHref = href(other, hasCounterpart ? slug : '');
+---
+<div class="proto" role="note">
+  <div class="wrap">
+    <b>{ui.protoLead}</b>
+    <span>{ui.protoText}</span>
+    <a href={href(lang, 'status')}>{ui.protoLink}</a>
+  </div>
+</div>
+<header class="site-head">
+  <div class="wrap head-top">
+    <a class="brand" href={href(lang)}>
+      <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true">
+        <rect width="64" height="64" rx="12" fill="#2d3986"></rect>
+        <circle cx="32" cy="32" r="17" fill="none" stroke="#fff" stroke-width="4"></circle>
+        <path d="M15 32h34M32 15c-6 5-9 11-9 17s3 12 9 17c6-5 9-11 9-17s-3-12-9-17z" fill="none" stroke="#fff" stroke-width="3"></path>
+      </svg>
+      <span class="brand-text">
+        <span class="brand-org">{ui.org}</span>
+        <span class="brand-site">{ui.site}</span>
+      </span>
+    </a>
+    <div class="head-actions">
+      <a class="lang-switch" href={otherHref} hreflang={other}>
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c-2.5 2.4-3.8 5.4-3.8 9s1.3 6.6 3.8 9c2.5-2.4 3.8-5.4 3.8-9S14.5 5.4 12 3z"></path></svg>
+        <span lang={other}>{ui.otherLang}</span><span class="visually-hidden">{ui.otherLangLabel}</span>
+      </a>
+      <details class="menu-toggle">
+        <summary>{ui.menu}</summary>
+        <nav class="menu-panel" aria-label={ui.menu}>
+          <a href={href(lang)}>{ui.home}</a>
+          {SECTIONS.map((s) => <a href={href(lang, s)} aria-current={section === s ? 'page' : undefined}>{ui.sections[s]}</a>)}
+        </nav>
+      </details>
+    </div>
+  </div>
+  <nav class="nav" aria-label={ui.menu}>
+    <div class="wrap">
+      <ul>
+        {SECTIONS.map((s) => (
+          <li><a href={href(lang, s)} class={section === s ? 'is-active' : undefined} aria-current={slug === s ? 'page' : undefined}>{ui.sections[s]}</a></li>
+        ))}
+      </ul>
+    </div>
+  </nav>
+</header>

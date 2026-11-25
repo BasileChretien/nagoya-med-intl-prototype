@@ -1,0 +1,56 @@
+[
+  {
+    "id": "intl-office",
+    "label": {
+      "en": "Office of International Affairs",
+      "ja": "国際医学教育学・国際連携室"
+    },
+    "audience": {
+      "en": "Visiting students, partner universities, delegations and general questions about international programmes",
+      "ja": "来日する学生、協定校、来訪団、国際プログラム全般についての問い合わせ"
+    },
+    "email": "med-intl@t.mail.nagoya-u.ac.jp",
+    "phone": "+81-52-744-2507",
+    "address": {
+      "en": "65 Tsurumai-cho, Showa-ku, Nagoya 466-8550, Japan",
+      "ja": "〒466-8550 愛知県名古屋市昭和区鶴舞町65"
+    },
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/medical_E/laboratory/clinical-med/comprehensive-ambulatory/international-medical-education/",
+      "https://www.med.nagoya-u.ac.jp/medical_J/laboratory/clinical-med/comprehensive-ambulatory/international-medical-education/",
+      "https://www.med.nagoya-u.ac.jp/intlexch/english/index.html",
+      "https://www.med.nagoya-u.ac.jp/intlexch/japanese/contact.html"
+    ],
+    "toConfirm": [
+      "Four different fax numbers are published and none is shown here: 052-744-1378 (exchange site home page, Japanese contact page and JDP contact page), 052-744-2255 (Vice Dean greeting page), 052-744-1368 (three Japanese news notices) and 052-744-1387 (one Japanese news notice). Several pages also give the telephone number as the fax number (052-744-2507). Confirm whether the office has a fax at all.",
+      "Other addresses seen on old pages are not used: international@med.nagoya-u.ac.jp (delegation visits and GAME or MIRAI contacts), japan@med.nagoya-u.ac.jp (2010 forum page) and individual staff addresses. The lab directory and the exchange site both give med-intl@t.mail.nagoya-u.ac.jp. Confirm that the older addresses are still read.",
+      "One Japanese news notice gives the postal code 466-0065 instead of 466-8550.",
+      "The faculty main number 052-741-2111 also appears on the faculty site. It is not shown here."
+    ]
+  },
+  {
+    "id": "jdp-office",
+    "label": {
+      "en": "Joint degree programmes (JDP, double degree, scholar exchange)",
+      "ja": "ジョイント・ディグリー・プログラム（JDP、ダブル・ディグリー、スカラー交流）"
+    },
+    "audience": {
+      "en": "Doctoral applicants and students asking about the joint degree, double degree and scholar exchange programmes",
+      "ja": "ジョイント・ディグリー、ダブル・ディグリー、スカラー交流について尋ねる博士課程の志願者と学生"
+    },
+    "email": "med-jdp@t.mail.nagoya-u.ac.jp",
+    "phone": "+81-52-744-2507",
+    "address": {
+      "en": "Office of International Affairs, 65 Tsurumai-cho, Showa-ku, Nagoya 466-8550, Japan",
+      "ja": "〒466-8550 愛知県名古屋市昭和区鶴舞町65 国際連携室"
+    },
+    "sources": [
+      "https://www.med.nagoya-u.ac.jp/jdp/en/contact/",
+      "https://www.med.nagoya-u.ac.jp/jdp/contact/"
+    ],
+    "toConfirm": [
+      "The JDP contact page gives the same telephone number as the Office of International Affairs and fax 052-744-1378. The fax number is not shown because the old pages disagree (see the Office of International Affairs entry).",
+      "The JDP pages route procedure questions (admission paperwork) to the graduate school student affairs office, with a separate address and telephone number. Confirm whether that contact should be added here."
+    ]
+  }
+]

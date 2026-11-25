@@ -1,0 +1,28 @@
+---
+import { t, type Lang } from '../i18n/ui';
+import { href, formatDate, type ProgrammeEntry } from '../lib/site';
+
+interface Props { lang: Lang; programmes: ProgrammeEntry[]; limit?: number }
+const { lang, programmes, limit } = Astro.props;
+const ui = t(lang);
+const rank = { open: 0, rolling: 1, tba: 2, closed: 3 } as const;
+const withDeadline = programmes
+  .filter((p) => p.data.deadline)
+  .sort((a, b) => {
+    const da = a.data.deadline!, db = b.data.deadline!;
+    return rank[da.status] - rank[db.status] || (da.date ?? '9999').localeCompare(db.date ?? '9999');
+  });
+const shown = limit ? withDeadline.slice(0, limit) : withDeadline;
+---
+<ul class="dates">
+  {shown.map((p) => {
+    const d = p.data.deadline!;
+    return (
+      <li>
+        <a href={href(lang, p.data.page)}>{(p.data.short ?? p.data.name)[lang]}</a>
+        <span class={`pill ${d.status}`}>{ui.deadlineStatus[d.status]}</span>
+        <span class="when">{d.date ? `${formatDate(d.date, lang)} · ` : ''}{d.text[lang]}</span>
+      </li>
+    );
+  })}
+</ul>
