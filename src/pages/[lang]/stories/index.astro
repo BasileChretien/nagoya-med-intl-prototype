@@ -3,7 +3,8 @@ import { getCollection } from 'astro:content';
 import Base from '../../../layouts/Base.astro';
 import StoryCard from '../../../components/StoryCard.astro';
 import { t, fill, type Lang } from '../../../i18n/ui';
-import { href, langPaths } from '../../../lib/site';
+import { href, asset, langPaths } from '../../../lib/site';
+import { reportFor, storyImages, excerptOf } from '../../../lib/reports';
 
 export function getStaticPaths() {
   return langPaths();
@@ -15,13 +16,20 @@ const types = Object.keys(ui.storyTypes) as (keyof typeof ui.storyTypes)[];
 const countries = [...new Set(stories.map((s) => s.data.country))].sort();
 const years = [...new Set(stories.map((s) => s.data.year))].sort((a, b) => b - a);
 const PAGE = 24;
-// All stories as compact JSON; the first PAGE are also rendered as HTML so the page works without JavaScript.
-const data = stories.map(({ data: s }) => ({
-  t: s.type, n: s.name, u: s.university === 'Not stated' ? '' : s.university, c: s.country, y: s.year,
-  d: s.departments.slice(0, 4), l: s.lang, x: s.excerpt, s: s.source,
+// All stories as compact JSON for filtering; the first PAGE are also rendered as HTML so the page works without JavaScript.
+const data = await Promise.all(stories.map(async (st) => {
+  const s = st.data;
+  const report = await reportFor(st.id, lang);
+  const [photo] = await storyImages(st.id);
+  return {
+    t: s.type, n: s.name, u: s.university === 'Not stated' ? '' : s.university, c: s.country, y: s.year,
+    d: s.departments.slice(0, 4), l: report?.lang ?? s.lang, x: report ? excerptOf(report.paragraphs) : s.excerpt,
+    m: report ? !report.original : false, h: href(lang, `stories/${st.id}`), sl: s.lang,
+    i: photo ? asset(photo.data.thumb ?? photo.data.file) : '', a: photo ? photo.data.alt[lang] : '',
+  };
 }));
 const json = JSON.stringify(data).replace(/</g, '\\u003c');
-const labels = { types: ui.storyTypes, read: ui.readStory, shown: ui.storiesShown };
+const labels = { types: ui.storyTypes, read: ui.readStory, shown: ui.storiesShown, machine: ui.machineLabel };
 ---
 <Base lang={lang} title={ui.stories} description={ui.storiesLede} slug="stories">
   <div class="wrap">
@@ -61,18 +69,20 @@ const labels = { types: ui.storyTypes, read: ui.readStory, shown: ui.storiesShow
     var limit = PAGE;
     function esc(v) { return String(v).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
     function card(s) {
-      return '<article class="card story"><div class="meta"><span>' + esc(labels.types[s.t]) + '</span><span>' + s.y + '</span><span>' + esc(s.c) + '</span></div>' +
-        '<h3>' + esc(s.n) + '</h3>' + (s.u ? '<span class="uni">' + esc(s.u) + '</span>' : '') +
-        (s.d.length ? '<div>' + s.d.map(function (d) { return '<span class="badge">' + esc(d) + '</span>'; }).join('') + '</div>' : '') +
-        '<blockquote lang="' + s.l + '">' + esc(s.x) + '</blockquote>' +
-        '<a class="read" href="' + esc(s.s) + '" rel="noopener">' + esc(labels.read) + ' ↗</a></article>';
+      return '<article class="card story">' +
+        (s.i ? '<div class="card-img"><img src="' + esc(s.i) + '" alt="' + esc(s.a) + '" width="480" height="300" loading="lazy" decoding="async"></div>' : '') +
+        '<div class="meta"><span>' + esc(labels.types[s.t]) + '</span><span>' + s.y + '</span><span>' + esc(s.c) + '</span></div>' +
+        '<h3><a href="' + esc(s.h) + '" lang="' + s.sl + '">' + esc(s.n) + '</a></h3>' + (s.u ? '<span class="uni">' + esc(s.u) + '</span>' : '') +
+        (s.d.length ? '<div>' + s.d.map(function (d) { return '<span class="badge" lang="' + s.sl + '">' + esc(d) + '</span>'; }).join('') + '</div>' : '') +
+        '<blockquote lang="' + s.l + '">' + esc(s.x) + (s.m ? '<span class="tag-machine">' + esc(labels.machine) + '</span>' : '') + '</blockquote>' +
+        '<a class="read" href="' + esc(s.h) + '">' + esc(labels.read) + ' →</a></article>';
     }
     function apply() {
       var q = f.q.value.trim().toLowerCase();
       var rows = all.filter(function (s) {
         return (!f.type.value || s.t === f.type.value) && (!f.country.value || s.c === f.country.value) &&
           (!f.year.value || String(s.y) === f.year.value) &&
-          (!q || (s.n + ' ' + s.u + ' ' + s.c + ' ' + s.d.join(' ')).toLowerCase().indexOf(q) >= 0);
+          (!q || (s.n + ' ' + s.u + ' ' + s.c + ' ' + s.d.join(' ') + ' ' + s.x).toLowerCase().indexOf(q) >= 0);
       });
       grid.innerHTML = rows.slice(0, limit).map(card).join('');
       countEl.textContent = labels.shown.replace('{shown}', Math.min(rows.length, limit)).replace('{total}', rows.length);

@@ -19,6 +19,8 @@ flowchart LR
   S1 --- compare_programmes("compare-programmes")
   S1 --- key_dates("key-dates")
   S2 --- story_library("story-library")
+  S2 --- report_pages("report-pages")
+  S2 --- photos("photos")
   S2 --- news("news")
   S3 --- team_partners_contacts("team-partners-contacts")
   S4 --- content_status("content-status")
@@ -34,6 +36,8 @@ flowchart LR
 | Decide | `compare-programmes` | Visitors can compare programmes side by side. | works | programme-references |
 | Decide | `key-dates` | The home page lists deadlines, and never shows a passed deadline as open. | works | deadlines |
 | Explore | `story-library` | Visitors can filter student stories by type, country and year, and open the full report. | works | data-files |
+| Explore | `report-pages` | Every student report has its own page in English and Japanese; the version that is not the original is an automatic translation, labelled as such, with a link to the original. *Limit: Translations are automatic (AI) and have not been checked by a person.* | works | report-translations |
+| Explore | `photos` | Pages, reports and the team list show photos, each with a description in both languages for screen readers. | works | photo-descriptions, images |
 | Explore | `news` | News and events are listed by year, with past items marked as archive. | works | data-files |
 | Contact | `team-partners-contacts` | Team, partner universities and contact points come from data files and stay consistent everywhere. | works | data-files |
 | Maintain | `content-status` | Editors see every fact that still needs confirming, on each page and on one checklist page. | works | data-files |

@@ -40,6 +40,19 @@ features:
     status: works
     delivered_by: [src/pages/[lang]/stories/index.astro, src/components/StoryCard.astro, src/data/stories.json]
     tests: [data-files]
+  - id: report-pages
+    says: Every student report has its own page in English and Japanese; the version that is not the original is an automatic translation, labelled as such, with a link to the original.
+    stage: Explore
+    status: works
+    delivered_by: [src/pages/[lang]/stories/[id].astro, src/lib/reports.ts, src/data/reports]
+    tests: [report-translations]
+    limits: Translations are automatic (AI) and have not been checked by a person.
+  - id: photos
+    says: Pages, reports and the team list show photos, each with a description in both languages for screen readers.
+    stage: Explore
+    status: works
+    delivered_by: [src/components/Photo.astro, src/data/images.json]
+    tests: [photo-descriptions, images]
   - id: news
     says: News and events are listed by year, with past items marked as archive.
     stage: Explore

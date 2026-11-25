@@ -27,6 +27,8 @@ jobs:
       - run: npm ci
       - name: Check content sources
         run: node scripts/check-content.mjs
+      - name: Test the content checks
+        run: node scripts/test-checks.mjs
       - name: Type check
         run: npx astro check
       - run: npm run build

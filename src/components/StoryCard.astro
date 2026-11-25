@@ -1,17 +1,29 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { t, type Lang } from '../i18n/ui';
+import { href, asset } from '../lib/site';
+import { reportFor, storyImages, excerptOf } from '../lib/reports';
 
 interface Props { story: CollectionEntry<'stories'>; lang: Lang }
 const { story, lang } = Astro.props;
 const ui = t(lang);
 const s = story.data;
+const report = await reportFor(story.id, lang);
+const machine = report !== null && !report.original;
+const excerpt = report ? excerptOf(report.paragraphs) : s.excerpt;
+const [photo] = await storyImages(story.id);
+const link = href(lang, `stories/${story.id}`);
 ---
 <article class="card story">
+  {photo && (
+    <div class="card-img">
+      <img src={asset(photo.data.thumb ?? photo.data.file)} alt={photo.data.alt[lang]} width="480" height="300" loading="lazy" decoding="async" />
+    </div>
+  )}
   <div class="meta"><span>{ui.storyTypes[s.type]}</span><span>{s.year}</span><span>{s.country}</span></div>
-  <h3>{s.name}</h3>
+  <h3><a href={link} lang={s.lang}>{s.name}</a></h3>
   {s.university && s.university !== 'Not stated' && <span class="uni">{s.university}</span>}
-  {s.departments.length > 0 && <div>{s.departments.slice(0, 4).map((d) => <span class="badge">{d}</span>)}</div>}
-  <blockquote lang={s.lang}>{s.excerpt}</blockquote>
-  <a class="read" href={s.source} rel="noopener">{ui.readStory} ↗</a>
+  {s.departments.length > 0 && <div>{s.departments.slice(0, 4).map((d) => <span class="badge" lang={s.lang}>{d}</span>)}</div>}
+  <blockquote lang={report?.lang ?? s.lang}>{excerpt}{machine && <span class="tag-machine">{ui.machineLabel}</span>}</blockquote>
+  <a class="read" href={link}>{ui.readStory} →</a>
 </article>

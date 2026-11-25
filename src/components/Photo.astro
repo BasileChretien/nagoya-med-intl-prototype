@@ -1,0 +1,40 @@
+---
+import type { ImageEntry } from '../lib/reports';
+import type { Lang } from '../i18n/ui';
+import { asset } from '../lib/site';
+
+interface Props {
+  image: ImageEntry;
+  lang: Lang;
+  /** Use the small file (cards). */
+  small?: boolean;
+  /** Show the caption under the photo. */
+  caption?: boolean;
+  eager?: boolean;
+  class?: string;
+}
+const { image, lang, small = false, caption = false, eager = false, class: cls } = Astro.props;
+const d = image.data;
+// Thumbnails were made at 480 px (report photos) or 560 px (page photos), never wider than the original.
+const thumbWidth = Math.min(d.kind === 'story' ? 480 : 560, d.width);
+const useThumb = small && Boolean(d.thumb);
+const src = asset(useThumb ? d.thumb! : d.file);
+const w = useThumb ? thumbWidth : d.width;
+const h = Math.round((w * d.height) / d.width);
+const srcset = !small && d.thumb && d.width > thumbWidth ? `${asset(d.thumb)} ${thumbWidth}w, ${asset(d.file)} ${d.width}w` : undefined;
+// Never stretch a small original beyond its real size.
+const style = !small && d.width < 760 ? `max-width:${d.width}px` : undefined;
+---
+<figure class:list={['photo', cls]}>
+  <img
+    src={src}
+    alt={d.alt[lang]}
+    width={w}
+    height={h}
+    loading={eager ? 'eager' : 'lazy'}
+    decoding="async"
+    style={style}
+    {...(srcset ? { srcset, sizes: '(max-width: 700px) 100vw, 760px' } : {})}
+  />
+  {caption && d.caption && <figcaption>{d.caption[lang]}</figcaption>}
+</figure>

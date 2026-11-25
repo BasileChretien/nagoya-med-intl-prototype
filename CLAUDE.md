@@ -6,6 +6,7 @@ Astro 7 static site: bilingual (en/ja) prototype replacing the seven internation
 
 - `npm run dev` / `npm run build` / `npm run preview`
 - `npm run check` — content checks (pairing, deadlines, images, references); `node scripts/check-content.mjs --dist` after a build also checks internal links
+- `npm test` — tests of the checks themselves (`scripts/test-checks.mjs`); add a case when a check gains a rule
 - `node scripts/draw-features.mjs` — redraws `docs/features.md` from the feature map `docs/features.yaml`
 
 ## Layout
@@ -22,5 +23,6 @@ Astro 7 static site: bilingual (en/ja) prototype replacing the seven internation
 - A page added in one language is added in the other in the same change, or the check fails.
 - Do not retype a fact that a data file holds (deadline, capacity, staff title, email): show it from the data.
 - Content rules and the Japanese style rules (yomiyasu) are in `CONTENT_GUIDE.md`.
-- No photos of people, no personal emails.
-- Source material for content lives outside this repo, in `../data/crawl/` (saved official pages) and `../report/issues.json` (audit findings).
+- Photos from the official sites are reused with the department's authorisation. Every photo under `public/img/` (except the decorative campus photo behind the home title) is listed in `src/data/images.json` with a description in both languages (`alt.en`, `alt.ja`), or the check fails. No personal emails.
+- Student reports: originals in `src/data/reports/original/`, automatic translations in `src/data/reports/translated/` (`"method": "machine"`, same number of paragraphs). Never present a translation as the original.
+- Source material for content lives outside this repo, in `../data/crawl/` (saved official pages) and `../report/issues.json` (audit findings). Photos are prepared with `../tools/photos.py` (collect, download, sheets, publish).
