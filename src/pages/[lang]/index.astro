@@ -1,11 +1,12 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import DeadlineList from '../../components/DeadlineList.astro';
 import StoryCard from '../../components/StoryCard.astro';
 import { t, fill, SECTIONS, type Lang } from '../../i18n/ui';
 import { href, asset, cardImage, langPaths, programmesIn, formatDate } from '../../lib/site';
 import { pageImages, type ImageEntry } from '../../lib/reports';
+import { officeData } from '../../lib/structured';
 
 export function getStaticPaths() {
   return langPaths();
@@ -26,6 +27,8 @@ const featured = stories
   .filter((s, i, arr) => arr.findIndex((x) => x.data.type === s.data.type) === i || i < 2)
   .slice(0, 3);
 const doors = SECTIONS.filter((s) => s !== 'about');
+const office = await getEntry('contacts', 'intl-office');
+const structured = office ? [officeData(office, lang, new URL(href(lang), Astro.site).toString())] : [];
 // Visitors that the section doors do not name: future partners, companies and research institutes, Nagoya staff,
 // parents of Nagoya students and the press. The anchor is the heading's id in each language (the page opens anyway).
 const moreDoors: { path: string; hash?: Record<Lang, string> }[] = [
@@ -41,7 +44,7 @@ for (const s of doors) {
   if (hero) doorPhotos[s] = hero;
 }
 ---
-<Base lang={lang} title={ui.heroTitle} description={ui.heroLede} slug="">
+<Base lang={lang} title={ui.heroTitle} description={ui.heroLede} slug="" structured={structured}>
   <section class="hero">
     <picture>
       <source media="(min-width: 901px)" srcset={asset('img/campus-1400.webp')} type="image/webp" />

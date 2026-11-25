@@ -1,5 +1,6 @@
 ---
 import { href } from '../lib/site';
+import { PROTOTYPE } from '../lib/launch.mjs';
 const en = href('en');
 const ja = href('ja');
 ---
@@ -8,7 +9,7 @@ const ja = href('ja');
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex, nofollow" />
+    {PROTOTYPE && <meta name="robots" content="noindex, nofollow" />}
     <title>International | Nagoya University Graduate School of Medicine (prototype)</title>
     <script is:inline define:vars={{ en, ja }}>
       var wantsJa = (navigator.languages || [navigator.language || '']).some(function (l) { return /^ja\b/i.test(l); });

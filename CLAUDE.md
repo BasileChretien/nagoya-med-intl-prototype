@@ -1,15 +1,16 @@
 # nagoya-med-intl-prototype
 
-Astro 7 static site: bilingual (en/ja) prototype replacing the seven international websites of Nagoya University Graduate School of Medicine. Deployed to GitHub Pages under the base path `/nagoya-med-intl-prototype`. Not an official site: it must keep the prototype banner and `noindex`.
+Astro 7 static site: bilingual (en/ja) prototype replacing the seven international websites of Nagoya University Graduate School of Medicine. Deployed to GitHub Pages under the base path `/nagoya-med-intl-prototype`. Not an official site: it must keep the prototype banner and `noindex` (`PROTOTYPE` in `src/lib/launch.mjs` stays true until launch; steps in `docs/launch.md`).
 
 ## Commands
 
 - `npm run dev` / `npm run build` / `npm run preview`
 - `npm run check` — content checks (pairing, deadlines, images, references) and staleness checks (`scripts/check-staleness.mjs`); `node scripts/check-content.mjs --dist` after a build also checks internal links
-- `npm test` — tests of the checks themselves (`scripts/test-checks.mjs`, `scripts/test-staleness.mjs`); add a case when a check gains a rule
+- `npm test` — tests of the checks themselves (`scripts/test-checks.mjs`, `scripts/test-staleness.mjs`, `scripts/test-content-plugin.mjs`, `scripts/test-tools.mjs`); add a case when a check gains a rule
 - `npm run sync -- status | confirm <key> | stamp-report <id> | prune` — record that both languages are in step (`content-sync.json`)
 - `npm run faculty-texts` — regenerate `faculty/*.md`; `npm run check:faculty` — compare the live faculty pages with the site
 - `node scripts/draw-features.mjs` — redraws `docs/features.md` from the feature map `docs/features.yaml`
+- `npm run weekly-check` (after a build) — outside links and content checks, as the Monday workflow runs them; it makes real requests
 
 ## Layout
 

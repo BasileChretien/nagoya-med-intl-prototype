@@ -31,7 +31,11 @@ flowchart LR
   S4 --- content_status("content-status")
   S4 --- browser_editing("browser-editing")
   S4 --- automatic_checks("automatic-checks")
+  S4 --- weekly_check("weekly-check")
+  S4 --- tool_updates("tool-updates (partial)")
   S4 --- search_hidden("search-hidden")
+  S0 --- findable_at_launch("findable-at-launch")
+  S0 --- privacy_accessibility("privacy-accessibility (partial)")
 ```
 
 | Stage | Feature | What it does | Status | Checked by |
@@ -54,4 +58,8 @@ flowchart LR
 | Maintain | `content-status` | Editors see every fact that still needs confirming on one checklist page; public pages show only a one-line pointer to it. | works | data-files |
 | Maintain | `browser-editing` | Office staff can edit in the browser and record that both languages are in step from the Actions tab, with nothing to install. *Limit: Commits made by the workflow do not start the pull request's checks again; the workflow runs the content and staleness checks itself.* | works | versions-in-step |
 | Maintain | `automatic-checks` | Every change is checked for missing translations, passed deadlines, large images and broken internal links before it is published. | works | pairing, deadlines, images, internal-links |
-| Maintain | `search-hidden` | The prototype stays out of search engines so it never competes with the official sites. *Limit: Remove before moving to production.* | works | noindex |
+| Maintain | `weekly-check` | Every Monday the site is rebuilt and checked for broken outside links and deadlines to update, and anything found is reported in one issue for the office. *Limit: Sites that refuse automated checks are listed in the run summary, not in the issue. GitHub pauses scheduled workflows after 60 days without a commit to the repository.* | works | weekly-check, deadlines |
+| Maintain | `tool-updates` | Updates of the site's tools arrive once a month as pull requests, checked like any other change. *Limit: Security alerts and security updates are switched on in the repository's settings, not in this file.* | partial |  |
+| Maintain | `search-hidden` | The prototype stays out of search engines so it never competes with the official sites. *Limit: One switch (src/lib/launch.mjs) turns it off at launch, with the other steps in docs/launch.md.* | works | noindex |
+| Find | `findable-at-launch` | Search engines get a sitemap with both languages and structured data for the office, each page's place in the site and each programme, ready to be announced at launch. *Limit: Events are not described as events, because the news data has no place for them. robots.txt counts only at the root of a host; under /intlexch/ the faculty adds the sitemap line to its own.* | works | sitemap, structured-data |
+| Find | `privacy-accessibility` | Visitors can read what the site records about them and how it is made accessible, and how to report a problem. *Limit: Both pages describe the prototype. The statements for the launched site, the accessibility target and any measurement of visits are to be agreed with the faculty (docs/launch.md).* | partial | pairing |
