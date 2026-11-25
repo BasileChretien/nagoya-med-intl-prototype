@@ -5,14 +5,16 @@ Astro 7 static site: bilingual (en/ja) prototype replacing the seven internation
 ## Commands
 
 - `npm run dev` / `npm run build` / `npm run preview`
-- `npm run check` — content checks (pairing, deadlines, images, references); `node scripts/check-content.mjs --dist` after a build also checks internal links
-- `npm test` — tests of the checks themselves (`scripts/test-checks.mjs`); add a case when a check gains a rule
+- `npm run check` — content checks (pairing, deadlines, images, references) and staleness checks (`scripts/check-staleness.mjs`); `node scripts/check-content.mjs --dist` after a build also checks internal links
+- `npm test` — tests of the checks themselves (`scripts/test-checks.mjs`, `scripts/test-staleness.mjs`); add a case when a check gains a rule
+- `npm run sync -- status | confirm <key> | stamp-report <id> | prune` — record that both languages are in step (`content-sync.json`)
+- `npm run faculty-texts` — regenerate `faculty/*.md`; `npm run check:faculty` — compare the live faculty pages with the site
 - `node scripts/draw-features.mjs` — redraws `docs/features.md` from the feature map `docs/features.yaml`
 
 ## Layout
 
 - `src/content/pages/{en,ja}/<section>/<slug>.md` — prose pages; same path in both languages
-- `src/data/programmes/<id>.json`, `src/data/{staff,contacts,partners,news,stories}.json` — facts, stored once
+- `src/data/programmes/<id>.json`, `src/data/{contacts,partners,news,stories,images}.json` — facts, stored once; `src/data/faculty.json` — faculty page addresses and live-check rules
 - `src/content.config.ts` — schemas (zod from `astro/zod`, loaders from `astro/loaders`)
 - `src/pages/[lang]/[...slug].astro` — renders every content page and its generated blocks
 - `src/i18n/ui.ts` — interface text in both languages; `src/lib/site.ts` — path and collection helpers
@@ -24,5 +26,7 @@ Astro 7 static site: bilingual (en/ja) prototype replacing the seven internation
 - Do not retype a fact that a data file holds (deadline, capacity, staff title, email): show it from the data.
 - Content rules and the Japanese style rules (yomiyasu) are in `CONTENT_GUIDE.md`.
 - Photos from the official sites are reused with the department's authorisation. Every photo under `public/img/` (except the decorative campus photo behind the home title) is listed in `src/data/images.json` with a description in both languages (`alt.en`, `alt.ja`) and its real pixel sizes (`width`/`height`, plus `thumbWidth`/`thumbHeight` for a thumbnail), or the check fails. No personal emails.
-- Student reports: originals in `src/data/reports/original/`, automatic translations in `src/data/reports/translated/` (`"method": "machine"`, same number of paragraphs). Never present a translation as the original.
+- Student reports: originals in `src/data/reports/original/`, automatic translations in `src/data/reports/translated/` (`"method": "machine"`, same number of paragraphs, `sourceFingerprint` of the original). Never present a translation as the original.
+- Change both languages together, then `npm run sync -- confirm <key>`; never confirm without checking both say the same thing.
+- Two layers: team, research and publications live only in the faculty's directory entry; this site links to it. `faculty/*.md` are generated, never edited by hand.
 - Source material for content lives outside this repo, in `../data/crawl/` (saved official pages) and `../report/issues.json` (audit findings). Photos are prepared with `../tools/photos.py` (collect, download, sheets, publish).

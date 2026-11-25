@@ -59,12 +59,31 @@ features:
     status: works
     delivered_by: [src/pages/[lang]/news/index.astro, src/data/news.json]
     tests: [data-files]
-  - id: team-partners-contacts
-    says: Team, partner universities and contact points come from data files and stay consistent everywhere.
+  - id: partners-contacts
+    says: Partner universities and contact points come from data files and stay consistent everywhere.
     stage: Contact
     status: works
-    delivered_by: [src/pages/[lang]/[...slug].astro, src/data/staff.json, src/data/partners.json, src/data/contacts.json]
+    delivered_by: [src/pages/[lang]/[...slug].astro, src/data/partners.json, src/data/contacts.json]
     tests: [data-files]
+  - id: faculty-links
+    says: The site shows where it sits in the faculty website and sends visitors to the faculty's directory entry for the team, research and publications.
+    stage: Contact
+    status: works
+    delivered_by: [src/components/Header.astro, src/components/Footer.astro, src/data/faculty.json]
+    tests: [internal-links, faculty-texts]
+  - id: versions-in-step
+    says: No English or Japanese version of a page, fact, photo description or report translation can fall behind the other without the check failing.
+    stage: Maintain
+    status: works
+    delivered_by: [scripts/check-staleness.mjs, scripts/staleness-lib.mjs, scripts/sync.mjs, content-sync.json]
+    tests: [versions-in-step, facts-match, translations-current]
+  - id: faculty-layer
+    says: The texts for the faculty website are generated from the site's data, and a weekly check compares the live faculty pages with the site.
+    stage: Maintain
+    status: works
+    delivered_by: [scripts/build-faculty-texts.mjs, faculty, scripts/check-faculty-live.mjs, scripts/faculty-live-lib.mjs, .github/workflows/faculty-drift.yml]
+    tests: [faculty-texts, faculty-live]
+    limits: The International section rule stays pending until the faculty's web team publishes the gateway texts.
   - id: content-status
     says: Editors see every fact that still needs confirming, on each page and on one checklist page.
     stage: Maintain

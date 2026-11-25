@@ -15,6 +15,8 @@ Live prototype: https://basilechretien.github.io/nagoya-med-intl-prototype/
 - **Photos with descriptions**: every photo has a text description in English and Japanese for screen readers.
 - **Honest status**: facts that the old sites contradict are listed on each page and on the *Content status* page, for the office to confirm.
 - **Automatic checks** on every change (`scripts/check-content.mjs`): missing translations, passed deadlines shown as open, oversized images, broken internal links.
+- **No version goes stale** (`scripts/check-staleness.mjs`): a page, fact, photo description or report translation changed in one language without the other fails the check, and facts must give the same numbers in both languages.
+- **Two layers, like the rest of the faculty**: team, research and publications stay in the faculty's laboratory directory entry; this site holds what changes. The texts for the faculty's own pages are generated from the site's data (`faculty/`), and a weekly job compares the live faculty pages with the site.
 - **Light and fast**: static pages, system fonts plus one small web font, images under 300 KB.
 
 The prototype is hidden from search engines (`noindex`) so that it never competes with the official sites.

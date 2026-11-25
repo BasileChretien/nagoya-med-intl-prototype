@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import { t, SECTIONS, OFFICIAL_URL, REPO_URL, type Lang } from '../i18n/ui';
 import { href } from '../lib/site';
+import faculty from '../data/faculty.json';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -35,6 +36,14 @@ const office = contacts.find((c) => c.id === 'intl-office');
           <li><a href={href(lang, 'news')}>{ui.news}</a></li>
           <li><a href={href(lang, 'programmes')}>{ui.programmesTitle}</a></li>
           <li><a href={href(lang, 'status')}>{ui.footerStatus}</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>{ui.facultyTitle}</h2>
+        <ul>
+          <li><a href={faculty.pages.directory[lang]} rel="noopener">{ui.facultyDirectory}</a></li>
+          <li><a href={faculty.pages.units[lang]} rel="noopener">{ui.facultyUnits}</a></li>
+          <li><a href={faculty.pages.international[lang]} rel="noopener">{ui.facultyInternational}</a></li>
         </ul>
       </div>
       <div>

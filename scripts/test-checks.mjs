@@ -127,17 +127,19 @@ for (const c of cases) {
 {
   const base = mkdtempSync(join(tmpdir(), 'check test ü 名古屋 '));
   try {
-    // Everything the check reads, including the files the feature map names (src/, .github/).
-    for (const part of ['scripts', 'docs', 'public', 'src', '.github']) {
+    // Everything the checks read, including the files the feature map names (src/, .github/, faculty/, content-sync.json).
+    for (const part of ['scripts', 'docs', 'public', 'src', '.github', 'faculty', 'tests', 'content-sync.json']) {
       cpSync(join(ROOT, part), join(base, part), { recursive: true });
     }
     const r = runCheck(base);
     say(r.status === 0, 'the check runs from a path with a space and non-ASCII characters', r.status === 0 ? '' : r.stderr.split('\n')[0]);
+    const st = spawnSync(process.execPath, [join(base, 'scripts', 'check-staleness.mjs')], { cwd: base, encoding: 'utf8' });
+    say(st.status === 0, 'the staleness check runs from a path with a space and non-ASCII characters', st.status === 0 ? '' : st.stderr.split('\n')[0]);
   } finally {
     rmSync(base, { recursive: true, force: true });
   }
 }
 
-const total = cases.length + 1;
+const total = cases.length + 2;
 process.stdout.write(`${total - failed}/${total} passed\n`);
 process.exit(failed ? 1 : 0);

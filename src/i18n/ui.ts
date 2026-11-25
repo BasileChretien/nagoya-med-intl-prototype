@@ -1,3 +1,5 @@
+import sectionNames from './sections.json';
+
 export type Lang = 'en' | 'ja';
 export const LANGS: readonly Lang[] = ['en', 'ja'] as const;
 
@@ -21,13 +23,7 @@ const en = {
   protoLead: 'Prototype for internal review.',
   protoText: 'This is not an official Nagoya University website. Content was taken from the official sites on 25 November 2026.',
   protoLink: 'What still needs checking',
-  sections: {
-    'study-in-nagoya': 'Study in Nagoya',
-    'study-abroad': 'Study abroad',
-    degrees: 'Joint & double degrees',
-    partnerships: 'Partnerships',
-    about: 'About us',
-  },
+  sections: sectionNames.en,
   sectionWho: {
     'study-in-nagoya': 'For medical students from partner schools abroad',
     'study-abroad': 'For Nagoya University medical students',
@@ -103,7 +99,14 @@ const en = {
     'No image is larger than 300 KB.',
     'Every internal link leads to a page that exists.',
   ],
-  team: { head: 'Head', faculty: 'Faculty', staff: 'Coordinators and secretariat' },
+  facultyTitle: 'On the faculty website',
+  facultyDirectory: 'Team, research and publications',
+  facultyDirectoryText: "The department's entry in the faculty's laboratory directory, the one place where the team and publications are kept.",
+  facultyUnits: 'The office among the faculty’s units',
+  facultyUnitsText: "The office's page in the faculty's list of units and centres.",
+  facultyInternational: 'International section of the faculty',
+  facultyBarSchool: 'Graduate School of Medicine',
+  facultyBarInternational: 'International',
   partnersRegion: 'Region',
   regions: {
     Asia: 'Asia', Oceania: 'Oceania', Europe: 'Europe', 'North America': 'North America',
@@ -131,13 +134,7 @@ const ja: UI = {
   protoLead: '内部検討用の試作版です。',
   protoText: '名古屋大学の公式サイトではありません。内容は2026年11月25日に公式サイトから取得しました。',
   protoLink: '確認が必要な項目',
-  sections: {
-    'study-in-nagoya': '名古屋で学ぶ',
-    'study-abroad': '海外で学ぶ',
-    degrees: '国際共同学位',
-    partnerships: '国際連携',
-    about: '私たちについて',
-  },
+  sections: sectionNames.ja,
   sectionWho: {
     'study-in-nagoya': '海外の協定校の医学生の方へ',
     'study-abroad': '名古屋大学医学部の学生の方へ',
@@ -213,7 +210,14 @@ const ja: UI = {
     '300KBを超える画像がないこと。',
     'サイト内のリンク先がすべて存在すること。',
   ],
-  team: { head: '室長', faculty: '教員', staff: 'コーディネーター・事務' },
+  facultyTitle: '医学系研究科の公式サイト',
+  facultyDirectory: '教職員、研究、業績',
+  facultyDirectoryText: '研究室紹介のページです。教職員と業績はここにまとめています。',
+  facultyUnits: '附属施設としての国際連携室',
+  facultyUnitsText: '附属施設・センターの一覧にある国際連携室のページです。',
+  facultyInternational: '医学系研究科の国際交流のページ',
+  facultyBarSchool: '医学系研究科・医学部',
+  facultyBarInternational: '国際交流',
   partnersRegion: '地域',
   regions: {
     Asia: 'アジア', Oceania: 'オセアニア', Europe: 'ヨーロッパ', 'North America': '北米',

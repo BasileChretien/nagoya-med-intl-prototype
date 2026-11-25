@@ -1,6 +1,7 @@
 ---
 import { t, SECTIONS, type Lang, type Section } from '../i18n/ui';
 import { href, otherLang } from '../lib/site';
+import faculty from '../data/faculty.json';
 
 interface Props {
   lang: Lang;
@@ -20,6 +21,13 @@ const otherHref = href(other, hasCounterpart ? slug : '');
     <a href={href(lang, 'status')}>{ui.protoLink}</a>
   </div>
 </div>
+<nav class="faculty-bar" aria-label={ui.facultyTitle}>
+  <div class="wrap">
+    <a href={faculty.pages.home[lang]} rel="noopener">{ui.facultyBarSchool}</a>
+    <span aria-hidden="true">›</span>
+    <a href={faculty.pages.international[lang]} rel="noopener">{ui.facultyBarInternational}</a>
+  </div>
+</nav>
 <header class="site-head">
   <div class="wrap head-top">
     <a class="brand" href={href(lang)}>

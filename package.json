@@ -8,9 +8,12 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "node scripts/check-content.mjs",
+    "check": "node scripts/check-content.mjs && node scripts/check-staleness.mjs",
     "typecheck": "astro check",
-    "test": "node scripts/test-checks.mjs"
+    "test": "node scripts/test-checks.mjs && node scripts/test-staleness.mjs",
+    "sync": "node scripts/sync.mjs",
+    "faculty-texts": "node scripts/build-faculty-texts.mjs",
+    "check:faculty": "node scripts/check-faculty-live.mjs"
   },
   "engines": {
     "node": ">=20"

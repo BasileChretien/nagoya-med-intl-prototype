@@ -1,0 +1,3486 @@
+{
+ "pages": {
+  "about": {
+   "en": "63addf559488ad13",
+   "ja": "ff8bdcee88620d7a"
+  },
+  "about/contact": {
+   "en": "a00869da5ded25e6",
+   "ja": "65af133beb51bd88"
+  },
+  "degrees": {
+   "en": "09bfff869e83decf",
+   "ja": "e0af4b51bb358566"
+  },
+  "degrees/adelaide": {
+   "en": "4c3686c01ffcfeab",
+   "ja": "6001c6896df78a75"
+  },
+  "degrees/admission": {
+   "en": "25ea19d21bfe8da9",
+   "ja": "181c1e27e6c0ac13"
+  },
+  "degrees/cuhk-double-degree": {
+   "en": "c0877c5f7be8272d",
+   "ja": "07fea17310aaf3aa"
+  },
+  "degrees/faq": {
+   "en": "3d8e68d98b9b589d",
+   "ja": "7a50f63d1a310a92"
+  },
+  "degrees/freiburg": {
+   "en": "32c85e34fba4754d",
+   "ja": "f2174e28f6d34161"
+  },
+  "degrees/joint-degree": {
+   "en": "150985e8f8e9766d",
+   "ja": "764bf651060669df"
+  },
+  "degrees/lund": {
+   "en": "a9df9bbaf885d222",
+   "ja": "aff70aa029f05495"
+  },
+  "degrees/unc-scholar-exchange": {
+   "en": "0e793e4d14cf11cb",
+   "ja": "0c2118d247f4c42b"
+  },
+  "partnerships": {
+   "en": "7c56a91fc1877b0d",
+   "ja": "dfbd6e5a2122a279"
+  },
+  "partnerships/agreements": {
+   "en": "9b51cbab2a896cfc",
+   "ja": "5c89dd15b4f9b911"
+  },
+  "partnerships/game": {
+   "en": "01d2083e620cf7ad",
+   "ja": "f360bb32da97e59e"
+  },
+  "partnerships/mirai": {
+   "en": "b56e43d0886fcca3",
+   "ja": "b62e02bfa7eb4a74"
+  },
+  "partnerships/symposia": {
+   "en": "501c02a44d00866b",
+   "ja": "16a01b0867e0306e"
+  },
+  "partnerships/visits": {
+   "en": "cb18d80c7f8e13eb",
+   "ja": "e7593648be3d1ab2"
+  },
+  "study-abroad": {
+   "en": "6e4119dbe863dbfd",
+   "ja": "39cbb5405239c112"
+  },
+  "study-abroad/clinical-electives": {
+   "en": "391cf699a8dfbd37",
+   "ja": "a30616746768c571"
+  },
+  "study-abroad/faq": {
+   "en": "3b68365cf6eb84d6",
+   "ja": "6b882c581c9b737c"
+  },
+  "study-abroad/honours-programme": {
+   "en": "6b894cd3f32668ef",
+   "ja": "70d3f9274e8e1e5c"
+  },
+  "study-abroad/medical-english": {
+   "en": "48357426de675f85",
+   "ja": "b03ecd00f213b78e"
+  },
+  "study-abroad/research-abroad": {
+   "en": "85bdcce99a56fbe0",
+   "ja": "06e2f866c1113e4c"
+  },
+  "study-abroad/scholarships": {
+   "en": "eea3ef5f70391f60",
+   "ja": "bf90b0fd95fbb755"
+  },
+  "study-abroad/short-programmes": {
+   "en": "fef0517137920752",
+   "ja": "4add5d5ce7c2a538"
+  },
+  "study-in-nagoya": {
+   "en": "180acb3a81f25fd6",
+   "ja": "8c3f79d3595800e0"
+  },
+  "study-in-nagoya/clinical-clerkship": {
+   "en": "37bb087fb744e1ee",
+   "ja": "1fa994711412ab3f"
+  },
+  "study-in-nagoya/faq": {
+   "en": "1a9e5d47dbcca45d",
+   "ja": "28030603e31f6e91"
+  },
+  "study-in-nagoya/living-in-nagoya": {
+   "en": "7ac548a8e54ce7c1",
+   "ja": "0c93256f1ecd0bbd"
+  },
+  "study-in-nagoya/research-training": {
+   "en": "2865bb82401e6901",
+   "ja": "a8bc457162a7d55c"
+  }
+ },
+ "fields": {
+  "contacts.json#intl-office/address": {
+   "en": "125e3a37e484d81e",
+   "ja": "03375f07bbb318bd"
+  },
+  "contacts.json#intl-office/audience": {
+   "en": "797110aee8088c37",
+   "ja": "c3bf7d067697fcd9"
+  },
+  "contacts.json#intl-office/label": {
+   "en": "cd912e655399db83",
+   "ja": "4b7549720df106ed"
+  },
+  "contacts.json#jdp-office/address": {
+   "en": "bacc2b3cb74cbd8b",
+   "ja": "c603f09a6d42b0b6"
+  },
+  "contacts.json#jdp-office/audience": {
+   "en": "8c51796017457293",
+   "ja": "e1dfac7be51ea4a7"
+  },
+  "contacts.json#jdp-office/label": {
+   "en": "e6e460c45dc0e78a",
+   "ja": "556cecf5ed972d87"
+  },
+  "images.json#clerkship-2011-report4-1/alt": {
+   "en": "48e9512398bcb254",
+   "ja": "8d47fedc2fa41a25"
+  },
+  "images.json#clerkship-2011-report4-2/alt": {
+   "en": "eebc7060a4fa84a5",
+   "ja": "9b74de780a4c8ff8"
+  },
+  "images.json#clerkship-2011-report5-1/alt": {
+   "en": "2ece433c45aabe2f",
+   "ja": "5f586aeb86283544"
+  },
+  "images.json#clerkship-2011-report5-2/alt": {
+   "en": "061dc53aefc36e3a",
+   "ja": "7b48f247edb49def"
+  },
+  "images.json#clerkship-2011-report6-1/alt": {
+   "en": "3297b06be2123593",
+   "ja": "1a72cef8982a64f4"
+  },
+  "images.json#clerkship-2011-report6-2/alt": {
+   "en": "ffb7cda71ccfef0c",
+   "ja": "55c70e25a6d9bfa0"
+  },
+  "images.json#clerkship-2011-report7-1/alt": {
+   "en": "ccc1ab55cac13cdf",
+   "ja": "3b746cc9b028af17"
+  },
+  "images.json#clerkship-2011-report7-2/alt": {
+   "en": "4b393fbc6a3fa0c2",
+   "ja": "53a439f4dabc5940"
+  },
+  "images.json#clerkship-2012-report10-1/alt": {
+   "en": "ced2b8e85edf0ed4",
+   "ja": "69c42acc57842e23"
+  },
+  "images.json#clerkship-2012-report10-2/alt": {
+   "en": "a217693bda75d035",
+   "ja": "9acc921204d49744"
+  },
+  "images.json#clerkship-2012-report10-3/alt": {
+   "en": "d026d5120ed04326",
+   "ja": "cb032c88cbce7974"
+  },
+  "images.json#clerkship-2012-report10-4/alt": {
+   "en": "a626e33d57cb6312",
+   "ja": "f09a02356baaff16"
+  },
+  "images.json#clerkship-2012-report10-5/alt": {
+   "en": "a002ad38f075f680",
+   "ja": "484ac02eca875ba5"
+  },
+  "images.json#clerkship-2012-report11-1/alt": {
+   "en": "5ed3cf79afb91ffc",
+   "ja": "aea205e603c27bc4"
+  },
+  "images.json#clerkship-2012-report11-2/alt": {
+   "en": "418b985e81e1f843",
+   "ja": "a9e34762d19cf8eb"
+  },
+  "images.json#clerkship-2012-report11-3/alt": {
+   "en": "4beff7986f52ca18",
+   "ja": "fdb3d9dfbad6dae0"
+  },
+  "images.json#clerkship-2012-report11-4/alt": {
+   "en": "1cf5668a4b46f2f2",
+   "ja": "a370319854425224"
+  },
+  "images.json#clerkship-2012-report12-1/alt": {
+   "en": "d59a9c87bfb77a8c",
+   "ja": "de545665b33541e4"
+  },
+  "images.json#clerkship-2012-report12-2/alt": {
+   "en": "bfddcca9260ee9b2",
+   "ja": "b207340c520bfb2a"
+  },
+  "images.json#clerkship-2012-report13-1/alt": {
+   "en": "cadffc1c16616e53",
+   "ja": "bf29a05e0de93786"
+  },
+  "images.json#clerkship-2012-report13-2/alt": {
+   "en": "76ff05d180443f29",
+   "ja": "caed234fce11bae5"
+  },
+  "images.json#clerkship-2012-report13-3/alt": {
+   "en": "86970db88b7f5781",
+   "ja": "5df2ff9e1ef3d9b8"
+  },
+  "images.json#clerkship-2012-report13-4/alt": {
+   "en": "87824729761ed605",
+   "ja": "91adcec55d0398a6"
+  },
+  "images.json#clerkship-2012-report13-5/alt": {
+   "en": "24297d04b38c7f3d",
+   "ja": "411fd32533154c09"
+  },
+  "images.json#clerkship-2012-report13-6/alt": {
+   "en": "d5f87943a1d025cf",
+   "ja": "3f7515190080bc8a"
+  },
+  "images.json#clerkship-2012-report13-7/alt": {
+   "en": "195f1928bde52d57",
+   "ja": "a4e103c48025ed60"
+  },
+  "images.json#clerkship-2012-report13-8/alt": {
+   "en": "043f44e8e3c26a48",
+   "ja": "f5a855f3f21bd845"
+  },
+  "images.json#clerkship-2012-report13-9/alt": {
+   "en": "d1fdad4fb974039d",
+   "ja": "3649794223d76b43"
+  },
+  "images.json#clerkship-2012-report14-1/alt": {
+   "en": "6b0caa2c9fae6b60",
+   "ja": "1539aca399a6639a"
+  },
+  "images.json#clerkship-2012-report15-1/alt": {
+   "en": "e1c9c1937cb11297",
+   "ja": "9f937020d3d1fab5"
+  },
+  "images.json#clerkship-2012-report16-1/alt": {
+   "en": "5e1e172d4c8c035d",
+   "ja": "1792596dff309945"
+  },
+  "images.json#clerkship-2012-report16-2/alt": {
+   "en": "d59e77e60da6ca91",
+   "ja": "b8c3ca8c0dcf3639"
+  },
+  "images.json#clerkship-2012-report16-3/alt": {
+   "en": "24781f034859360a",
+   "ja": "346625b7ae7c1715"
+  },
+  "images.json#clerkship-2012-report17-2/alt": {
+   "en": "a86a8d837b3716d6",
+   "ja": "0460ba83a56787ec"
+  },
+  "images.json#clerkship-2012-report17-3/alt": {
+   "en": "31ce824eda1b3d72",
+   "ja": "5c4c35ebbc6ed60d"
+  },
+  "images.json#clerkship-2012-report17-4/alt": {
+   "en": "59ddc16f5626f394",
+   "ja": "8c40a4602dfc4fe1"
+  },
+  "images.json#clerkship-2012-report17-5/alt": {
+   "en": "f8d28c634141b26f",
+   "ja": "ac882da448bce71f"
+  },
+  "images.json#clerkship-2012-report17-6/alt": {
+   "en": "9574ac8aeaa70dd5",
+   "ja": "76236d2c31cd3f2f"
+  },
+  "images.json#clerkship-2012-report8-1/alt": {
+   "en": "ca5dc4a8e6c85d44",
+   "ja": "de0f46446bc31126"
+  },
+  "images.json#clerkship-2012-report8-2/alt": {
+   "en": "49fc6b3709bee8ca",
+   "ja": "d39cfdd8146e1a65"
+  },
+  "images.json#clerkship-2012-report9-1/alt": {
+   "en": "770cf4b86e0480f6",
+   "ja": "d680515a1c919df8"
+  },
+  "images.json#clerkship-2012-report9-2/alt": {
+   "en": "863cf81ffc47f20a",
+   "ja": "b13750d6091b8bcc"
+  },
+  "images.json#clerkship-2012-report9-3/alt": {
+   "en": "82df3c80594191ef",
+   "ja": "4fea577ceaee74ca"
+  },
+  "images.json#clerkship-2012-report9-4/alt": {
+   "en": "b714c2eaee0dc332",
+   "ja": "04e6c06c5612f210"
+  },
+  "images.json#clerkship-2012-report9-5/alt": {
+   "en": "c49f15fd4e96484c",
+   "ja": "37f6ec0c729803c3"
+  },
+  "images.json#clerkship-2012-report9-6/alt": {
+   "en": "cd9d6e34eb953dc3",
+   "ja": "6b0564692adf4267"
+  },
+  "images.json#clerkship-2013-report18-1/alt": {
+   "en": "93f575cd4e754077",
+   "ja": "8d9d05492e047ad5"
+  },
+  "images.json#clerkship-2013-report18-2/alt": {
+   "en": "09f9c165e091b514",
+   "ja": "684778b29c883819"
+  },
+  "images.json#clerkship-2013-report18-3/alt": {
+   "en": "177d6db29406cb0a",
+   "ja": "82727ea416ce6982"
+  },
+  "images.json#clerkship-2013-report18-4/alt": {
+   "en": "da4e6a1efe2fca63",
+   "ja": "1c7f417f70e0598e"
+  },
+  "images.json#clerkship-2013-report19-1/alt": {
+   "en": "ff42e429eaabc32f",
+   "ja": "354ddc2b2dd691e2"
+  },
+  "images.json#clerkship-2013-report19-2/alt": {
+   "en": "419a4bf79d2ccdd1",
+   "ja": "0eebc5490a926b24"
+  },
+  "images.json#clerkship-2013-report20-1/alt": {
+   "en": "660deea76978009a",
+   "ja": "0938c7401a0b0340"
+  },
+  "images.json#clerkship-2013-report21-1/alt": {
+   "en": "0e41a3904bf7616d",
+   "ja": "faec08917153a9aa"
+  },
+  "images.json#clerkship-2013-report21-2/alt": {
+   "en": "8017ee663e56f668",
+   "ja": "1554c9330d760fea"
+  },
+  "images.json#clerkship-2013-report21-3/alt": {
+   "en": "07e60c23e43a136c",
+   "ja": "d1cc962ae6bf76fe"
+  },
+  "images.json#clerkship-2013-report22-1/alt": {
+   "en": "2de6aa210fd6fde6",
+   "ja": "0f405d2325e31d69"
+  },
+  "images.json#clerkship-2013-report22-2/alt": {
+   "en": "cf125a33cfc9c28f",
+   "ja": "8bbad1a33110bfbd"
+  },
+  "images.json#clerkship-2013-report22-3/alt": {
+   "en": "73518e7e56d40c78",
+   "ja": "31ce152eb712ae79"
+  },
+  "images.json#clerkship-2013-report22-4/alt": {
+   "en": "7ee0404b6dcd1fb2",
+   "ja": "c50a90c09e379598"
+  },
+  "images.json#clerkship-2013-report22-5/alt": {
+   "en": "9713c00b27ca49b9",
+   "ja": "0c39d0933a9b25cf"
+  },
+  "images.json#clerkship-2013-report23-1/alt": {
+   "en": "c728253fe67b2900",
+   "ja": "ea4c06526d646347"
+  },
+  "images.json#clerkship-2013-report23-2/alt": {
+   "en": "3b3c6d68d5e495a5",
+   "ja": "2066ad78c3d31934"
+  },
+  "images.json#clerkship-2013-report23-3/alt": {
+   "en": "ea9ac1e6f05f33c2",
+   "ja": "a52b8298d24d89c5"
+  },
+  "images.json#clerkship-2013-report24-1/alt": {
+   "en": "eab4c609c77345f1",
+   "ja": "c01a004474fae7b6"
+  },
+  "images.json#clerkship-2013-report24-2/alt": {
+   "en": "83a773a906dae9e0",
+   "ja": "dc98ac1d0de67210"
+  },
+  "images.json#clerkship-2013-report24-3/alt": {
+   "en": "60f03c3de1debfee",
+   "ja": "558e7ac6f43e2e5d"
+  },
+  "images.json#clerkship-2013-report25-1/alt": {
+   "en": "9f037a21f5dc505e",
+   "ja": "d3b2bd3f39e7bf25"
+  },
+  "images.json#clerkship-2013-report25-2/alt": {
+   "en": "bee9f3987de11497",
+   "ja": "52b7cbde4eff13dc"
+  },
+  "images.json#clerkship-2014-report26-1/alt": {
+   "en": "1c69b9129b630d32",
+   "ja": "c3b884df2efa873d"
+  },
+  "images.json#clerkship-2014-report26-2/alt": {
+   "en": "5845accf8f99d6ae",
+   "ja": "efbc0ae295e03139"
+  },
+  "images.json#clerkship-2014-report26-3/alt": {
+   "en": "a26ebce8f7ba1071",
+   "ja": "eb13b8be2fc0a93b"
+  },
+  "images.json#clerkship-2014-report28-1/alt": {
+   "en": "5cd72aba62835d29",
+   "ja": "d303d44aaac608e9"
+  },
+  "images.json#clerkship-2014-report29-1/alt": {
+   "en": "668c8fe8678fbfb3",
+   "ja": "144a69538c2ae15f"
+  },
+  "images.json#clerkship-2014-report29-2/alt": {
+   "en": "15c7b30a84092cbc",
+   "ja": "184a9f4279439c69"
+  },
+  "images.json#clerkship-2014-report29-3/alt": {
+   "en": "28e7a93b202cc1ed",
+   "ja": "8704523d6554da62"
+  },
+  "images.json#clerkship-2014-report29-4/alt": {
+   "en": "9cd3726327bf9570",
+   "ja": "274c5e63bfd055cd"
+  },
+  "images.json#clerkship-2014-report30-1/alt": {
+   "en": "94d97301040e56e0",
+   "ja": "580e467ab2d0e965"
+  },
+  "images.json#clerkship-2014-report30-2/alt": {
+   "en": "bedfd7074a6e2753",
+   "ja": "cc4d9ad159e2d6ce"
+  },
+  "images.json#clerkship-2014-report31-1/alt": {
+   "en": "9205fb2ec31826d6",
+   "ja": "1778c0d0aa5e16c6"
+  },
+  "images.json#clerkship-2014-report31-2/alt": {
+   "en": "6386c978e74454e5",
+   "ja": "0ba31af712164f0f"
+  },
+  "images.json#clerkship-2014-report31-3/alt": {
+   "en": "09bc24f875bf41a5",
+   "ja": "425860dedbe50e98"
+  },
+  "images.json#clerkship-2014-report31-4/alt": {
+   "en": "41ad320fd3f13e05",
+   "ja": "eec3e5be94a320fc"
+  },
+  "images.json#clerkship-2014-report32-1/alt": {
+   "en": "dd0195ea6cc27164",
+   "ja": "bff36d56edba64e6"
+  },
+  "images.json#clerkship-2014-report32-2/alt": {
+   "en": "2514cf981d2658af",
+   "ja": "369c57ba4611d648"
+  },
+  "images.json#clerkship-2014-report32-3/alt": {
+   "en": "6e35bd379a3b573f",
+   "ja": "1ab252f7c1b6915f"
+  },
+  "images.json#clerkship-2014-report32-4/alt": {
+   "en": "caa2ceda659ee761",
+   "ja": "28de6cafe89e5db6"
+  },
+  "images.json#clerkship-2014-report32-5/alt": {
+   "en": "aadc9bd845846fc0",
+   "ja": "0e8d83561506cab3"
+  },
+  "images.json#clerkship-2014-report33-1/alt": {
+   "en": "a88cba724d8d7ab1",
+   "ja": "becf9c3dc16165f9"
+  },
+  "images.json#clerkship-2014-report33-2/alt": {
+   "en": "4500839ec27b6f1d",
+   "ja": "c472569d176a0054"
+  },
+  "images.json#clerkship-2014-report34-1/alt": {
+   "en": "9d88a1cf6d5bc391",
+   "ja": "945ace421163aa1c"
+  },
+  "images.json#clerkship-2014-report34-2/alt": {
+   "en": "52ae19b7b91ff873",
+   "ja": "eaa36eaf1e9479be"
+  },
+  "images.json#clerkship-2014-report35-1/alt": {
+   "en": "fab3a30f37378f29",
+   "ja": "4a246b3428325212"
+  },
+  "images.json#clerkship-2014-report35-2/alt": {
+   "en": "0c3d7f48f6548e4b",
+   "ja": "9af317e1fe9760c2"
+  },
+  "images.json#clerkship-2014-report36-1/alt": {
+   "en": "f390c0ff13d31a30",
+   "ja": "46d1d8d4c86412ca"
+  },
+  "images.json#clerkship-2014-report36-2/alt": {
+   "en": "4f52702b717986e0",
+   "ja": "a858f89bd603a6b4"
+  },
+  "images.json#clerkship-2014-report37-1/alt": {
+   "en": "b2ac3d79bd34662e",
+   "ja": "8cd37774cc1755ba"
+  },
+  "images.json#clerkship-2014-report37-2/alt": {
+   "en": "087901f3c93ddb4c",
+   "ja": "59a2c7f26eec1c45"
+  },
+  "images.json#clerkship-2014-report39-1/alt": {
+   "en": "8bb6646fc11538d0",
+   "ja": "f2e878ae34bac6c8"
+  },
+  "images.json#clerkship-2014-report40-1/alt": {
+   "en": "06424632850d52c5",
+   "ja": "071345d934e9619a"
+  },
+  "images.json#clerkship-2014-report40-2/alt": {
+   "en": "8a2d49c32e8f8e8f",
+   "ja": "30b1adb0293b680e"
+  },
+  "images.json#clerkship-2014-report40-3/alt": {
+   "en": "6d3b20b8471febcf",
+   "ja": "b40e0bc33a2005af"
+  },
+  "images.json#clerkship-2014-report41-1/alt": {
+   "en": "374f469b16abd368",
+   "ja": "35c8db44adf545ac"
+  },
+  "images.json#clerkship-2014-report41-2/alt": {
+   "en": "5368398be867ea01",
+   "ja": "8b2747debbfcd6e4"
+  },
+  "images.json#clerkship-2014-report42-1/alt": {
+   "en": "d3c4f3fca206ebf1",
+   "ja": "34e21f4c34794c77"
+  },
+  "images.json#clerkship-2014-report42-2/alt": {
+   "en": "0741c62e57bd0ba6",
+   "ja": "b8d226780dda6f4e"
+  },
+  "images.json#clerkship-2015-report43-1/alt": {
+   "en": "fbe47bd1e8b8af2a",
+   "ja": "8970bb1d4e676b56"
+  },
+  "images.json#clerkship-2015-report43-2/alt": {
+   "en": "e415201309e75fae",
+   "ja": "8eecdd8267a37ff4"
+  },
+  "images.json#clerkship-2015-report43-3/alt": {
+   "en": "d849d972a59e5fd2",
+   "ja": "43ac959841ae08ea"
+  },
+  "images.json#clerkship-2015-report43-4/alt": {
+   "en": "1eddaa93c1ef72c9",
+   "ja": "f3f2e601c0a9d4ea"
+  },
+  "images.json#clerkship-2015-report44-1/alt": {
+   "en": "f8937cf923abf61a",
+   "ja": "4c893cf647b93ac5"
+  },
+  "images.json#clerkship-2015-report46-1/alt": {
+   "en": "dfa048cb33aa231d",
+   "ja": "67d056cb1ad9c9bb"
+  },
+  "images.json#clerkship-2015-report47-1/alt": {
+   "en": "52e76fb4e4584206",
+   "ja": "e86ee7ce10a8fb2f"
+  },
+  "images.json#clerkship-2015-report47-2/alt": {
+   "en": "8436553ea5ef5795",
+   "ja": "a7a11fb894f85933"
+  },
+  "images.json#clerkship-2015-report47-3/alt": {
+   "en": "c947e26e70da0d98",
+   "ja": "f622c0b286b5fd85"
+  },
+  "images.json#clerkship-2015-report51-1/alt": {
+   "en": "a285be7135e0ba3d",
+   "ja": "2d14cfe5c4459b85"
+  },
+  "images.json#clerkship-2015-report51-2/alt": {
+   "en": "1522dfcf99cd9377",
+   "ja": "a5c8c917f0c76fa3"
+  },
+  "images.json#clerkship-2015-report51-3/alt": {
+   "en": "c887026c961d9759",
+   "ja": "27a01481b0d7aa19"
+  },
+  "images.json#clerkship-2015-report53-1/alt": {
+   "en": "0e08f4b635a11f7e",
+   "ja": "af1aada048020aa4"
+  },
+  "images.json#clerkship-2015-report53-2/alt": {
+   "en": "0ec46718d104e0be",
+   "ja": "94f14ea333189115"
+  },
+  "images.json#clerkship-2015-report53-3/alt": {
+   "en": "3026b1e53b0a1855",
+   "ja": "6de47462535aa26e"
+  },
+  "images.json#clerkship-2015-report54-1/alt": {
+   "en": "f27aaef892d5e231",
+   "ja": "ccd9bf2411d29555"
+  },
+  "images.json#clerkship-2015-report54-2/alt": {
+   "en": "98e81f2b2da84c5b",
+   "ja": "947869e472707014"
+  },
+  "images.json#clerkship-2015-report55-1/alt": {
+   "en": "df8a9d34b012218f",
+   "ja": "ca3555c6cbbcfb38"
+  },
+  "images.json#clerkship-2015-report55-2/alt": {
+   "en": "e4ef39613cdee98d",
+   "ja": "38296eba7b897728"
+  },
+  "images.json#clerkship-2015-report55-3/alt": {
+   "en": "7f0a9c29b9dc64a5",
+   "ja": "cc2ff5e7d796fa4a"
+  },
+  "images.json#clerkship-2015-report57-1/alt": {
+   "en": "dba99dd238dbb9d6",
+   "ja": "07cd319b761639fb"
+  },
+  "images.json#clerkship-2015-report57-2/alt": {
+   "en": "7c3948d6ca780f20",
+   "ja": "3ae181247ec1a467"
+  },
+  "images.json#clerkship-2015-report58-1/alt": {
+   "en": "61c364386e048a46",
+   "ja": "633724d58aa4a3af"
+  },
+  "images.json#clerkship-2015-report58-2/alt": {
+   "en": "b2e78c851b75e6d7",
+   "ja": "951fc6222b586d8b"
+  },
+  "images.json#clerkship-2015-report58-3/alt": {
+   "en": "d665448d0c90100f",
+   "ja": "059d541d4e4033de"
+  },
+  "images.json#clerkship-2015-report61-1/alt": {
+   "en": "115629c8fe3f25d8",
+   "ja": "023a20bcf7ef2eb3"
+  },
+  "images.json#clerkship-2015-report61-2/alt": {
+   "en": "a9aa73a667acac75",
+   "ja": "8595b9c6de0a4f0a"
+  },
+  "images.json#clerkship-2015-report61-3/alt": {
+   "en": "b7e4509718d0162b",
+   "ja": "89b59ecf397036ea"
+  },
+  "images.json#clerkship-2016-report62-1/alt": {
+   "en": "64312f690b330401",
+   "ja": "08cd9ddde8955ce6"
+  },
+  "images.json#clerkship-2016-report62-2/alt": {
+   "en": "c797b46ceaf537d6",
+   "ja": "060ef76c0789ff41"
+  },
+  "images.json#clerkship-2016-report62-3/alt": {
+   "en": "26715a5b23a78296",
+   "ja": "4541156920a02264"
+  },
+  "images.json#clerkship-2016-report63-1/alt": {
+   "en": "d5251411729c123f",
+   "ja": "71105ca4e017d22e"
+  },
+  "images.json#clerkship-2016-report63-3/alt": {
+   "en": "e14f2be0f6e4f918",
+   "ja": "dd23ba1248797859"
+  },
+  "images.json#clerkship-2016-report64-1/alt": {
+   "en": "003360a935e86fc9",
+   "ja": "fbc5eb341a661b43"
+  },
+  "images.json#clerkship-2016-report65-1/alt": {
+   "en": "29b52005978b220b",
+   "ja": "78869f9a0472f9b9"
+  },
+  "images.json#clerkship-2016-report66-1/alt": {
+   "en": "03f228461e766b36",
+   "ja": "a5a2d40ed6eebae3"
+  },
+  "images.json#clerkship-2016-report66-2/alt": {
+   "en": "19261ad4a80d5e25",
+   "ja": "8332301bd282fde0"
+  },
+  "images.json#clerkship-2016-report66-3/alt": {
+   "en": "b3400f40afbbbf29",
+   "ja": "391898bb058e5f29"
+  },
+  "images.json#clerkship-2016-report67-1/alt": {
+   "en": "490417a696a3cf33",
+   "ja": "3c603e109de8ea83"
+  },
+  "images.json#clerkship-2016-report69-1/alt": {
+   "en": "399ad2df3217577a",
+   "ja": "f4bb1509205bda76"
+  },
+  "images.json#clerkship-2016-report69-2/alt": {
+   "en": "bb0b3aec2a221a6d",
+   "ja": "209b3a4b0f113532"
+  },
+  "images.json#clerkship-2016-report69-3/alt": {
+   "en": "b089a75a062f1e83",
+   "ja": "f3415a667d0d6df6"
+  },
+  "images.json#clerkship-2016-report72-1/alt": {
+   "en": "f6ea7a2def5297a9",
+   "ja": "01988da56b85e96f"
+  },
+  "images.json#clerkship-2016-report72-2/alt": {
+   "en": "aff1956312df24ac",
+   "ja": "4ba7b18b798ebe11"
+  },
+  "images.json#clerkship-2016-report76-1/alt": {
+   "en": "8b6b5d289189ece7",
+   "ja": "6297ae490b0f77a4"
+  },
+  "images.json#clerkship-2016-report76-2/alt": {
+   "en": "e015124c90f287e0",
+   "ja": "fd154a86fb005a75"
+  },
+  "images.json#clerkship-2016-report77-1/alt": {
+   "en": "4cd990155ed85abb",
+   "ja": "ef6c3b782c6e20e8"
+  },
+  "images.json#clerkship-2016-report77-2/alt": {
+   "en": "49bfc69c15aaf5f3",
+   "ja": "093b69744566b831"
+  },
+  "images.json#clerkship-2016-report78-1/alt": {
+   "en": "9d90e20eef86c906",
+   "ja": "e7a296b1c6dae183"
+  },
+  "images.json#clerkship-2016-report78-2/alt": {
+   "en": "2b31220cc3107ccc",
+   "ja": "07c9bbcf7540f0d1"
+  },
+  "images.json#clerkship-2016-report78-3/alt": {
+   "en": "cbc45159902562a8",
+   "ja": "df17a8a3ede32d07"
+  },
+  "images.json#clerkship-2016-report79-1/alt": {
+   "en": "92c66416e9e9c391",
+   "ja": "7c6b8db4a5abb370"
+  },
+  "images.json#clerkship-2016-report80-1/alt": {
+   "en": "4037bc60c1027e8c",
+   "ja": "03b3a48eab193e9c"
+  },
+  "images.json#clerkship-2016-report80-2/alt": {
+   "en": "7d303a24f1a2ccc7",
+   "ja": "27abb308cc893118"
+  },
+  "images.json#clerkship-2016-report82-1/alt": {
+   "en": "385c3a7044c83fb4",
+   "ja": "7e9e7d8f75f419d2"
+  },
+  "images.json#clerkship-2016-report83-1/alt": {
+   "en": "e23f13d4eff1a3b8",
+   "ja": "ba37f205d532047d"
+  },
+  "images.json#clerkship-2016-report83-2/alt": {
+   "en": "bf731bdf79523502",
+   "ja": "59305cec5243eeda"
+  },
+  "images.json#clerkship-2016-report84-1/alt": {
+   "en": "40532f2a129f5875",
+   "ja": "d7212f39cc4ddec7"
+  },
+  "images.json#clerkship-2016-report84-2/alt": {
+   "en": "79e2de87f5f8a174",
+   "ja": "91a6a92b040361ad"
+  },
+  "images.json#clerkship-2016-report84-3/alt": {
+   "en": "6ad76be7ba46a762",
+   "ja": "28bde3c435a16825"
+  },
+  "images.json#clerkship-2016-report84-4/alt": {
+   "en": "acc2fd56d72be1aa",
+   "ja": "ddc8bb56cecc4014"
+  },
+  "images.json#clerkship-2016-report84-5/alt": {
+   "en": "3f357c5cb67295e6",
+   "ja": "7beae141691a22b5"
+  },
+  "images.json#clerkship-2016-report85-1/alt": {
+   "en": "f4f2598f49802ebd",
+   "ja": "4ccb527013988f4a"
+  },
+  "images.json#clerkship-2016-report85-2/alt": {
+   "en": "5a5749041b9a3d56",
+   "ja": "56e2030409f32eed"
+  },
+  "images.json#clerkship-2016-report85-3/alt": {
+   "en": "ce9c0622f82252b2",
+   "ja": "adb54a7abd0ce1a4"
+  },
+  "images.json#clerkship-2016-report87-1/alt": {
+   "en": "0af50e856c962f96",
+   "ja": "8ebae09977c6bbeb"
+  },
+  "images.json#clerkship-2016-report87-2/alt": {
+   "en": "020395fd65f620a0",
+   "ja": "dc2ed3d7b8f02453"
+  },
+  "images.json#clerkship-2016-report88-1/alt": {
+   "en": "d24d767bbf3caad3",
+   "ja": "5a0fd9add8ea8362"
+  },
+  "images.json#clerkship-2016-report88-2/alt": {
+   "en": "e4c7866ed6957d14",
+   "ja": "6db3266ea29f5bb7"
+  },
+  "images.json#clerkship-2017-report100-1/alt": {
+   "en": "873c0b82d73fbc54",
+   "ja": "b2d92225a7006eb0"
+  },
+  "images.json#clerkship-2017-report101-1/alt": {
+   "en": "143a3adc46378ac2",
+   "ja": "0e1c9c5f4227bde2"
+  },
+  "images.json#clerkship-2017-report101-2/alt": {
+   "en": "29e17b97ab9568a0",
+   "ja": "c4682d5cf817d4f0"
+  },
+  "images.json#clerkship-2017-report104-1/alt": {
+   "en": "adf2fe34cf64d91f",
+   "ja": "34d8626d73ec67c8"
+  },
+  "images.json#clerkship-2017-report104-2/alt": {
+   "en": "657af9fd28a3468e",
+   "ja": "c60d48079caba6d4"
+  },
+  "images.json#clerkship-2017-report104-3/alt": {
+   "en": "a438c90a58cf8afc",
+   "ja": "66c54863ff3f1522"
+  },
+  "images.json#clerkship-2017-report105-1/alt": {
+   "en": "bfcf7df8b3bad2f9",
+   "ja": "8197edbc7f9bf1d1"
+  },
+  "images.json#clerkship-2017-report105-2/alt": {
+   "en": "fb1b96854f67b639",
+   "ja": "11e80418bf540fe8"
+  },
+  "images.json#clerkship-2017-report106-1/alt": {
+   "en": "c40f0a5c2da0eed2",
+   "ja": "25cdab7590a5dd11"
+  },
+  "images.json#clerkship-2017-report106-2/alt": {
+   "en": "00a80fd399011a70",
+   "ja": "1b6ff81c25031378"
+  },
+  "images.json#clerkship-2017-report109-1/alt": {
+   "en": "4ec97e5531edf63c",
+   "ja": "bb594ef8174cc257"
+  },
+  "images.json#clerkship-2017-report109-2/alt": {
+   "en": "6fdc08a382244e81",
+   "ja": "b1a2f9c73c8837b2"
+  },
+  "images.json#clerkship-2017-report110-1/alt": {
+   "en": "e8d0d0e090c8a133",
+   "ja": "1c1127f4c64851d5"
+  },
+  "images.json#clerkship-2017-report110-2/alt": {
+   "en": "0dc2c9362a2eb0c0",
+   "ja": "e510fe91118cf31d"
+  },
+  "images.json#clerkship-2017-report112-3/alt": {
+   "en": "51c0bb065d24df0a",
+   "ja": "6cd0262f7100ea42"
+  },
+  "images.json#clerkship-2017-report113-1/alt": {
+   "en": "be62f6e40af17071",
+   "ja": "3b021ad2a6545339"
+  },
+  "images.json#clerkship-2017-report113-2/alt": {
+   "en": "07f44999db6ec8e8",
+   "ja": "9ca35be94718d645"
+  },
+  "images.json#clerkship-2017-report115-1/alt": {
+   "en": "d0396e47109e5772",
+   "ja": "5b46be29cf829001"
+  },
+  "images.json#clerkship-2017-report115-3/alt": {
+   "en": "da952aaa969f1aa6",
+   "ja": "f7f1cababac6f4e4"
+  },
+  "images.json#clerkship-2017-report116-1/alt": {
+   "en": "bf922f14bfb31996",
+   "ja": "ba8e3e8914d6cfe0"
+  },
+  "images.json#clerkship-2017-report116-2/alt": {
+   "en": "89ab44d15ca47993",
+   "ja": "852f4498d9cdcd23"
+  },
+  "images.json#clerkship-2017-report116-3/alt": {
+   "en": "14fb3b505faa59c8",
+   "ja": "178c688ef91ea6ad"
+  },
+  "images.json#clerkship-2017-report118-1/alt": {
+   "en": "5b7bc009d87b6aaa",
+   "ja": "2433fd303db5081a"
+  },
+  "images.json#clerkship-2017-report118-2/alt": {
+   "en": "b39cc732748278be",
+   "ja": "709ae68244d83a8b"
+  },
+  "images.json#clerkship-2017-report118-3/alt": {
+   "en": "a7ac3a870cf66801",
+   "ja": "8b1698fcde473570"
+  },
+  "images.json#clerkship-2017-report90-1/alt": {
+   "en": "242c1933bd1b288e",
+   "ja": "d5820aa42d062d46"
+  },
+  "images.json#clerkship-2017-report90-2/alt": {
+   "en": "5fa20c0fc1ae49d4",
+   "ja": "1621766188da21f8"
+  },
+  "images.json#clerkship-2017-report92-1/alt": {
+   "en": "d79511ad9521f3b9",
+   "ja": "e9899bd7d2861cc0"
+  },
+  "images.json#clerkship-2017-report92-2/alt": {
+   "en": "c0115b43a661e20f",
+   "ja": "d366c4bf9c7d7e25"
+  },
+  "images.json#clerkship-2017-report92-3/alt": {
+   "en": "7c53eef1f69c74e5",
+   "ja": "7284081b6091bb1c"
+  },
+  "images.json#clerkship-2017-report93-1/alt": {
+   "en": "baa4f55f389d6236",
+   "ja": "7c98bd5e27a45745"
+  },
+  "images.json#clerkship-2017-report97-1/alt": {
+   "en": "12b1efbb3bf0af3b",
+   "ja": "3309ca50d753d9e4"
+  },
+  "images.json#clerkship-2017-report97-2/alt": {
+   "en": "1b6b5f0b6eb113cf",
+   "ja": "103c4dcd1ba2da25"
+  },
+  "images.json#clerkship-2017-report97-3/alt": {
+   "en": "3a18d9fcf5748ed7",
+   "ja": "e1599fa0501d9927"
+  },
+  "images.json#clerkship-2017-report98-1/alt": {
+   "en": "526a6e95ba1366ca",
+   "ja": "defec04b43543901"
+  },
+  "images.json#clerkship-2017-report98-2/alt": {
+   "en": "ac70efafdce8ab18",
+   "ja": "1257dba044c2e1fc"
+  },
+  "images.json#clerkship-2017-report99-1/alt": {
+   "en": "5d5e3abb621004d9",
+   "ja": "d0b1ffde71b7e773"
+  },
+  "images.json#clerkship-2018-report119-1/alt": {
+   "en": "7b74e2d67ad4d952",
+   "ja": "efa6283930817ec8"
+  },
+  "images.json#clerkship-2018-report119-2/alt": {
+   "en": "f3c6be4cf436ddd9",
+   "ja": "2ab19f4d5883dbc9"
+  },
+  "images.json#clerkship-2018-report119-3/alt": {
+   "en": "6e4a7cb49bc9f2bd",
+   "ja": "b7f3f15c81368c67"
+  },
+  "images.json#clerkship-2018-report120-1/alt": {
+   "en": "feb78bb146dcee9a",
+   "ja": "8e58e7ce3dcd002d"
+  },
+  "images.json#clerkship-2018-report121-1/alt": {
+   "en": "359b8728d36d10ee",
+   "ja": "0384b44aea5df2b3"
+  },
+  "images.json#clerkship-2018-report121-2/alt": {
+   "en": "c98e3423c169b1f5",
+   "ja": "55f5c4988985407d"
+  },
+  "images.json#clerkship-2018-report121-3/alt": {
+   "en": "c3f2088d3eeb4ac6",
+   "ja": "b213de371f43260e"
+  },
+  "images.json#clerkship-2018-report122-1/alt": {
+   "en": "27d784cbae3fd8ad",
+   "ja": "a08e4a294b0ab668"
+  },
+  "images.json#clerkship-2018-report122-2/alt": {
+   "en": "7ec4d22a77256e46",
+   "ja": "f3d6706b3aa8701e"
+  },
+  "images.json#clerkship-2018-report122-3/alt": {
+   "en": "94c997f4f90a07d0",
+   "ja": "b6034e99d0527fce"
+  },
+  "images.json#clerkship-2018-report123-1/alt": {
+   "en": "6e649f1e29ec2504",
+   "ja": "cca7286115b1b54f"
+  },
+  "images.json#clerkship-2018-report123-2/alt": {
+   "en": "347d347b8203baa3",
+   "ja": "4e5d48413e0000fa"
+  },
+  "images.json#clerkship-2018-report123-3/alt": {
+   "en": "c0bfdadc89e59f92",
+   "ja": "d21624c29a9f30f0"
+  },
+  "images.json#clerkship-2018-report124-1/alt": {
+   "en": "7f32718583836cf5",
+   "ja": "6bcf329cf517757f"
+  },
+  "images.json#clerkship-2018-report124-2/alt": {
+   "en": "c4c8ff7d1656d391",
+   "ja": "84ddcd545d1ff7b1"
+  },
+  "images.json#clerkship-2018-report124-3/alt": {
+   "en": "acba8d84b5d3ae14",
+   "ja": "a849f3c6a095b8c2"
+  },
+  "images.json#clerkship-2018-report126-1/alt": {
+   "en": "48f7a96ebcd78e3b",
+   "ja": "c0964d16fb5a3275"
+  },
+  "images.json#clerkship-2018-report126-2/alt": {
+   "en": "95f76bb11f6755e0",
+   "ja": "ef3da1cbc96e7341"
+  },
+  "images.json#clerkship-2018-report126-3/alt": {
+   "en": "481dca6b5be14b51",
+   "ja": "eeaaebb0098a726c"
+  },
+  "images.json#clerkship-2018-report128-1/alt": {
+   "en": "4326c4ddd878e3e4",
+   "ja": "e9f5ee0529d2a65e"
+  },
+  "images.json#clerkship-2018-report128-2/alt": {
+   "en": "f2a0099faf4ebe12",
+   "ja": "ff3d7c8d48022d3a"
+  },
+  "images.json#clerkship-2018-report129-1/alt": {
+   "en": "dfef02bf735152c1",
+   "ja": "4f929949e3ec5c6c"
+  },
+  "images.json#clerkship-2018-report129-2/alt": {
+   "en": "9a58e7a1b8abd95e",
+   "ja": "3e94104fe60eea8f"
+  },
+  "images.json#clerkship-2018-report133-1/alt": {
+   "en": "db1b3b04eb7b2112",
+   "ja": "5adf939a65c03e79"
+  },
+  "images.json#clerkship-2018-report133-2/alt": {
+   "en": "93c09b765e99dfd1",
+   "ja": "c8c9be6e68903f6a"
+  },
+  "images.json#clerkship-2018-report133-3/alt": {
+   "en": "bfac81c469c1fc06",
+   "ja": "72f7b25413a094fa"
+  },
+  "images.json#clerkship-2018-report137-1/alt": {
+   "en": "c421fabe401df443",
+   "ja": "7f3927c0761883a2"
+  },
+  "images.json#clerkship-2018-report139-1/alt": {
+   "en": "22163d08876f9464",
+   "ja": "b2c9f4c6e7655473"
+  },
+  "images.json#clerkship-2018-report140-1/alt": {
+   "en": "f39e82cd7615c386",
+   "ja": "9ab3122d11438a65"
+  },
+  "images.json#clerkship-2018-report140-2/alt": {
+   "en": "fa33c72a4cbcc721",
+   "ja": "7b8fc7265d0f1014"
+  },
+  "images.json#clerkship-2018-report140-3/alt": {
+   "en": "2db876daae1406c4",
+   "ja": "c517cfcc63e7f928"
+  },
+  "images.json#clerkship-2018-report143-1/alt": {
+   "en": "5ba78ef2cf65485f",
+   "ja": "d47a8854bcd7a3b1"
+  },
+  "images.json#clerkship-2018-report143-2/alt": {
+   "en": "df118fc9f1331d17",
+   "ja": "5e9229d424cbd342"
+  },
+  "images.json#clerkship-2019-report145-1/alt": {
+   "en": "90f8e3c03fa45002",
+   "ja": "6d190d7507a151ab"
+  },
+  "images.json#clerkship-2019-report146-1/alt": {
+   "en": "d949fea5e84548b1",
+   "ja": "582a82ee69bb6ddd"
+  },
+  "images.json#clerkship-2019-report146-2/alt": {
+   "en": "5ca8617fd78191dc",
+   "ja": "b96c4a612b2be181"
+  },
+  "images.json#clerkship-2019-report146-3/alt": {
+   "en": "05f195dba8e9b067",
+   "ja": "c9b80e217dda8020"
+  },
+  "images.json#clerkship-2019-report147-1/alt": {
+   "en": "1d5e34813111bd15",
+   "ja": "8dccd931ba99fd2b"
+  },
+  "images.json#clerkship-2019-report147-2/alt": {
+   "en": "87a32966e057db1f",
+   "ja": "3939b99623259a60"
+  },
+  "images.json#clerkship-2019-report148-1/alt": {
+   "en": "72399842d01bd0a6",
+   "ja": "079bd416bfd231d1"
+  },
+  "images.json#clerkship-2019-report150-1/alt": {
+   "en": "e7f051b859006420",
+   "ja": "5cdae40a00d3cba3"
+  },
+  "images.json#clerkship-2019-report150-2/alt": {
+   "en": "d3c7203a9c559e13",
+   "ja": "6512bb1b4d97df59"
+  },
+  "images.json#clerkship-2019-report150-3/alt": {
+   "en": "8ace8d31b57bd274",
+   "ja": "030626052ee61f89"
+  },
+  "images.json#clerkship-2019-report151-1/alt": {
+   "en": "8cfb982e47cc741c",
+   "ja": "f0b21cb98ec6366a"
+  },
+  "images.json#clerkship-2019-report151-2/alt": {
+   "en": "18e2ff6d00307290",
+   "ja": "b446c8918515fbdb"
+  },
+  "images.json#clerkship-2019-report151-3/alt": {
+   "en": "463dddfa4d025676",
+   "ja": "0e9f6cdb42e8f191"
+  },
+  "images.json#clerkship-2019-report152-1/alt": {
+   "en": "c3f214bf72426c1a",
+   "ja": "e4b44fa5553c9335"
+  },
+  "images.json#clerkship-2019-report152-2/alt": {
+   "en": "d5d4a914f916c722",
+   "ja": "03b65e697f8c1a79"
+  },
+  "images.json#clerkship-2019-report152-3/alt": {
+   "en": "f820cd1553ff365d",
+   "ja": "a3be150027ef69c3"
+  },
+  "images.json#clerkship-2019-report153-1/alt": {
+   "en": "3afff4a319066eae",
+   "ja": "1e822b7d19408677"
+  },
+  "images.json#clerkship-2019-report153-2/alt": {
+   "en": "e0da297bbe891540",
+   "ja": "cec8ac569afe83a0"
+  },
+  "images.json#clerkship-2019-report155-1/alt": {
+   "en": "5abb9417aba19dd2",
+   "ja": "d72162ac3f0eedde"
+  },
+  "images.json#clerkship-2019-report155-2/alt": {
+   "en": "6d8521a8b127b765",
+   "ja": "47a9c2001d75dc37"
+  },
+  "images.json#clerkship-2019-report155-3/alt": {
+   "en": "530b5a39591fe683",
+   "ja": "9fce87c8881785a1"
+  },
+  "images.json#clerkship-2019-report156-1/alt": {
+   "en": "21cce20429d03d80",
+   "ja": "9e0ffa418f38de0f"
+  },
+  "images.json#clerkship-2019-report156-2/alt": {
+   "en": "68b4f328a5d4dd7b",
+   "ja": "e6db015cb40aa385"
+  },
+  "images.json#clerkship-2019-report156-3/alt": {
+   "en": "5821e1f455b25ffe",
+   "ja": "1e421a546406f30b"
+  },
+  "images.json#clerkship-2019-report158-1/alt": {
+   "en": "7103a894fae96511",
+   "ja": "43278cd8b085b7cd"
+  },
+  "images.json#clerkship-2019-report158-2/alt": {
+   "en": "c5c710c3b125ade7",
+   "ja": "f08557076161d174"
+  },
+  "images.json#clerkship-2019-report159-1/alt": {
+   "en": "fcf1cee8d5ebcd42",
+   "ja": "10d11bb2a32e70ef"
+  },
+  "images.json#clerkship-2019-report161-1/alt": {
+   "en": "5ddb0ebca0ef13ec",
+   "ja": "cf8f2187be0852ce"
+  },
+  "images.json#clerkship-2019-report161-2/alt": {
+   "en": "726752e49a2835c5",
+   "ja": "94330b6ab06d2576"
+  },
+  "images.json#clerkship-2019-report161-3/alt": {
+   "en": "d56646523f84162c",
+   "ja": "0210a83f43b10ae2"
+  },
+  "images.json#clerkship-2019-report161-4/alt": {
+   "en": "93dc143d479d041a",
+   "ja": "10835a26b719fb91"
+  },
+  "images.json#clerkship-2019-report162-1/alt": {
+   "en": "fb520cd23cef2315",
+   "ja": "bd937408640546ac"
+  },
+  "images.json#clerkship-2019-report164-1/alt": {
+   "en": "85ffc7a8b623629f",
+   "ja": "1927a6ef0cbe8dad"
+  },
+  "images.json#clerkship-2019-report164-2/alt": {
+   "en": "9869a9bc1abb2ae3",
+   "ja": "b7b51612d5e4aa1c"
+  },
+  "images.json#clerkship-2022-report166-1/alt": {
+   "en": "bc3f9dfd3e00209d",
+   "ja": "f1c7c9929d53b29f"
+  },
+  "images.json#clerkship-2022-report166-2/alt": {
+   "en": "29db2109d48ac9a4",
+   "ja": "f1280887dafcd470"
+  },
+  "images.json#clerkship-2022-report166-3/alt": {
+   "en": "e0258a3ccb2a119e",
+   "ja": "1fd182a3f53df618"
+  },
+  "images.json#clerkship-2022-report168-1/alt": {
+   "en": "fa56cfdf7355ff04",
+   "ja": "189dd52ddf776f95"
+  },
+  "images.json#clerkship-2022-report168-2/alt": {
+   "en": "60cf0b3f59f33485",
+   "ja": "772c098760d25741"
+  },
+  "images.json#clerkship-2022-report168-3/alt": {
+   "en": "e45da9675c924732",
+   "ja": "6bcf616c9516a0a3"
+  },
+  "images.json#clerkship-2022-report168-4/alt": {
+   "en": "11bc77f58ddb9060",
+   "ja": "faddc08840250188"
+  },
+  "images.json#clerkship-2022-report168-5/alt": {
+   "en": "f4be4a2fa361f7c1",
+   "ja": "42b487bb276495ca"
+  },
+  "images.json#clerkship-2022-report168-6/alt": {
+   "en": "86b4c10cb9d70417",
+   "ja": "aeb3ad92924fd5a0"
+  },
+  "images.json#clerkship-2022-report168-7/alt": {
+   "en": "c27149f1438b5f6e",
+   "ja": "c1233350a0bc4f9c"
+  },
+  "images.json#clerkship-2022-report170-1/alt": {
+   "en": "ef5f3b86de5edf91",
+   "ja": "b0f10a684a6d4678"
+  },
+  "images.json#clerkship-2022-report170-2/alt": {
+   "en": "c54a7efad3dacbd7",
+   "ja": "b58a9efeed6cd228"
+  },
+  "images.json#clerkship-2022-report172-1/alt": {
+   "en": "c73a5a07d722cef0",
+   "ja": "ce1fabb9a6481a27"
+  },
+  "images.json#clerkship-2022-report172-2/alt": {
+   "en": "2529bc9d4ac4c35c",
+   "ja": "33de44d4cd14f61a"
+  },
+  "images.json#clerkship-2022-report172-3/alt": {
+   "en": "ccfcab18f253c87b",
+   "ja": "40bce1d90632d36b"
+  },
+  "images.json#clerkship-2023-report173-1/alt": {
+   "en": "c40ec8ac95ccdcfa",
+   "ja": "ff8f5d09db98870f"
+  },
+  "images.json#clerkship-2023-report174-1/alt": {
+   "en": "86455367902acb2f",
+   "ja": "641e91a123b5d551"
+  },
+  "images.json#clerkship-2023-report174-2/alt": {
+   "en": "502aa46832fc8c4a",
+   "ja": "7af8a48a0d245c0d"
+  },
+  "images.json#clerkship-2023-report175-1/alt": {
+   "en": "8b4a97fde4d10922",
+   "ja": "37cad01661a6727c"
+  },
+  "images.json#clerkship-2023-report175-2/alt": {
+   "en": "0ddd18f570f1d3c5",
+   "ja": "d6b55117b7e03e10"
+  },
+  "images.json#clerkship-2023-report177-1/alt": {
+   "en": "b82b7cf368284a9a",
+   "ja": "bdf7ac1d968a959d"
+  },
+  "images.json#clerkship-2023-report177-2/alt": {
+   "en": "b5f47cf5018945aa",
+   "ja": "f03f2dbc4a618bb9"
+  },
+  "images.json#clerkship-2023-report178-1/alt": {
+   "en": "c83e20e67d705b60",
+   "ja": "f00fed7a4dfe9976"
+  },
+  "images.json#clerkship-2023-report178-2/alt": {
+   "en": "292d9f6309cb7e74",
+   "ja": "f8955d3b2646c8aa"
+  },
+  "images.json#clerkship-2023-report178-3/alt": {
+   "en": "e626f7ef21fe3003",
+   "ja": "1f9540164070dc21"
+  },
+  "images.json#clerkship-2023-report179-1/alt": {
+   "en": "69dedf71d02111ba",
+   "ja": "2ba7db5c1a71380f"
+  },
+  "images.json#clerkship-2023-report179-2/alt": {
+   "en": "6c7692bc6f7c0517",
+   "ja": "6d657ae5f1df5118"
+  },
+  "images.json#clerkship-2023-report179-3/alt": {
+   "en": "c818e7e7b7539c01",
+   "ja": "56718fa0c16d6719"
+  },
+  "images.json#clerkship-2024-report181-1/alt": {
+   "en": "1d47b14c8c6476d6",
+   "ja": "c25d3a37ae9d7fff"
+  },
+  "images.json#clerkship-2024-report181-2/alt": {
+   "en": "9225be5c80af907a",
+   "ja": "7943650700529e7e"
+  },
+  "images.json#clerkship-2024-report181-3/alt": {
+   "en": "5dfdb90d5392f3ac",
+   "ja": "381235c93d968c16"
+  },
+  "images.json#clerkship-2024-report181-4/alt": {
+   "en": "1505d3a33e0fa327",
+   "ja": "6c7b1b10b275e1c1"
+  },
+  "images.json#clerkship-2024-report182-1/alt": {
+   "en": "04a8058105ec3151",
+   "ja": "ce5cf54cd909b501"
+  },
+  "images.json#clerkship-2024-report182-2/alt": {
+   "en": "b82dad45575581d1",
+   "ja": "dae151791e8e3f6c"
+  },
+  "images.json#clerkship-2024-report182-3/alt": {
+   "en": "1600d70d288a6499",
+   "ja": "8065292f63c34664"
+  },
+  "images.json#clerkship-2024-report182-4/alt": {
+   "en": "2ec0c9d818455a7f",
+   "ja": "0fc26ba89d9e7c52"
+  },
+  "images.json#clerkship-2024-report183-1/alt": {
+   "en": "7ea757c5b981487c",
+   "ja": "445ead60fd298b0a"
+  },
+  "images.json#clerkship-2024-report183-10/alt": {
+   "en": "2d30b7c097dd8448",
+   "ja": "4a5ca7d1184c63ac"
+  },
+  "images.json#clerkship-2024-report183-2/alt": {
+   "en": "882688ee6a5207ec",
+   "ja": "b188e9da7947d9ee"
+  },
+  "images.json#clerkship-2024-report183-3/alt": {
+   "en": "6e3cf95d88d28371",
+   "ja": "50bfef932f28d031"
+  },
+  "images.json#clerkship-2024-report183-4/alt": {
+   "en": "823bf7b3b6ad1546",
+   "ja": "065031958d9200cd"
+  },
+  "images.json#clerkship-2024-report183-5/alt": {
+   "en": "59f3a6fc3cc1d36b",
+   "ja": "19eade5969a656d2"
+  },
+  "images.json#clerkship-2024-report183-6/alt": {
+   "en": "739d4ed501eb58bd",
+   "ja": "2d7fc478851fa23e"
+  },
+  "images.json#clerkship-2024-report183-7/alt": {
+   "en": "aee26165b48c385e",
+   "ja": "e91e2ac691f5ecae"
+  },
+  "images.json#clerkship-2024-report183-8/alt": {
+   "en": "efaeeb856fcb1901",
+   "ja": "d27e0d40748b471c"
+  },
+  "images.json#clerkship-2024-report183-9/alt": {
+   "en": "120c9cd9c89f94aa",
+   "ja": "6f74eca5551f502f"
+  },
+  "images.json#clerkship-2024-report184-1/alt": {
+   "en": "2ebf24d51197c377",
+   "ja": "3c006e9f36c39d40"
+  },
+  "images.json#clerkship-2024-report184-2/alt": {
+   "en": "1e9f801242d17609",
+   "ja": "3c34c2b5a4444876"
+  },
+  "images.json#clerkship-2024-report184-3/alt": {
+   "en": "e96ee8f393651bb0",
+   "ja": "823c398be58f5209"
+  },
+  "images.json#clerkship-2024-report186-1/alt": {
+   "en": "deae40534ca7d73c",
+   "ja": "a825e40e23ba5d76"
+  },
+  "images.json#clerkship-2024-report186-2/alt": {
+   "en": "03006b09fd741fa9",
+   "ja": "f129b8e7bb7d0003"
+  },
+  "images.json#clerkship-2024-report186-3/alt": {
+   "en": "5321d8a706d9f7eb",
+   "ja": "dc9991bb3a2aceb5"
+  },
+  "images.json#clerkship-2024-report186-4/alt": {
+   "en": "8b47c2de9ef0e614",
+   "ja": "240ddc77a254f065"
+  },
+  "images.json#clerkship-2024-report186-5/alt": {
+   "en": "d1f09a310013f9c4",
+   "ja": "9c6db2d7f6e0b6fd"
+  },
+  "images.json#clerkship-2024-report186-6/alt": {
+   "en": "23a8fdcbfa841b63",
+   "ja": "c6e8099f27f3cc5f"
+  },
+  "images.json#clerkship-2024-report186-7/alt": {
+   "en": "89d955772bffb4f7",
+   "ja": "b3979eb9a6225853"
+  },
+  "images.json#clerkship-2024-report188-1/alt": {
+   "en": "6babe859868753d1",
+   "ja": "22bdf01ee58b5eef"
+  },
+  "images.json#clerkship-2024-report188-2/alt": {
+   "en": "b00518fabf8d0229",
+   "ja": "86ea7b4c6c27b734"
+  },
+  "images.json#clerkship-2024-report188-3/alt": {
+   "en": "e1930c89226f7140",
+   "ja": "7b668a2778b4b64a"
+  },
+  "images.json#clerkship-2024-report188-4/alt": {
+   "en": "957909d15663fd8e",
+   "ja": "4a15d53c5eba7ed7"
+  },
+  "images.json#clerkship-2024-report188-5/alt": {
+   "en": "b235ea5136c3c369",
+   "ja": "65b9c2f034e9f7e7"
+  },
+  "images.json#clerkship-2025-report189-1/alt": {
+   "en": "08a23b6748633b99",
+   "ja": "e84c74db36f85c8a"
+  },
+  "images.json#clerkship-2025-report189-2/alt": {
+   "en": "759400675c8df539",
+   "ja": "422dc0892aa7a948"
+  },
+  "images.json#clerkship-2025-report189-3/alt": {
+   "en": "4a35306e32f6d7a9",
+   "ja": "41ac8a413d29c272"
+  },
+  "images.json#clerkship-2025-report190-1/alt": {
+   "en": "26caeb1f71d96b50",
+   "ja": "62bef30bf8348bf2"
+  },
+  "images.json#clerkship-2025-report193-1/alt": {
+   "en": "73a3dcf6646cd474",
+   "ja": "52dfbe1e785179f5"
+  },
+  "images.json#clerkship-2025-report193-2/alt": {
+   "en": "3bbcbbce37ba7120",
+   "ja": "5c5a176423912171"
+  },
+  "images.json#clerkship-2025-report193-3/alt": {
+   "en": "4a885e5cde345712",
+   "ja": "c6acb560608b8f0b"
+  },
+  "images.json#clerkship-2025-report193-4/alt": {
+   "en": "1cd35f0c01c00f82",
+   "ja": "ab391e6c3a7e78cd"
+  },
+  "images.json#clerkship-2025-report194-1/alt": {
+   "en": "4e7012a77e24bd13",
+   "ja": "f4d0e0db42188ed5"
+  },
+  "images.json#clerkship-2025-report194-2/alt": {
+   "en": "6907bef45e34641d",
+   "ja": "aa17a261bed27eb2"
+  },
+  "images.json#clerkship-2025-report194-3/alt": {
+   "en": "ffb51163ffa31d29",
+   "ja": "e4ef0eb042e6a88e"
+  },
+  "images.json#clerkship-2025-report194-4/alt": {
+   "en": "39d1aa2adaf1030b",
+   "ja": "afaef9e639f9a742"
+  },
+  "images.json#clerkship-2025-report194-5/alt": {
+   "en": "a6dd01e4a6d92ae2",
+   "ja": "4180c6c18729360a"
+  },
+  "images.json#clerkship-2025-report194-6/alt": {
+   "en": "141a107a391b3b1c",
+   "ja": "33481024982bf57a"
+  },
+  "images.json#clerkship-2025-report195-1/alt": {
+   "en": "5b3a07b4bff7fab4",
+   "ja": "224eddc50885797b"
+  },
+  "images.json#clerkship-2025-report195-2/alt": {
+   "en": "87f1e7929cc0a328",
+   "ja": "635007e72079508c"
+  },
+  "images.json#clerkship-2025-report195-3/alt": {
+   "en": "d4a9ef9cfa35845e",
+   "ja": "b8afb07c63352107"
+  },
+  "images.json#clerkship-2025-report196-1/alt": {
+   "en": "29e5ddb116c70e7d",
+   "ja": "16927ed2ca016452"
+  },
+  "images.json#clerkship-2025-report196-2/alt": {
+   "en": "61713e0e4db87686",
+   "ja": "4f32527887a6118b"
+  },
+  "images.json#clerkship-2025-report196-3/alt": {
+   "en": "c61e706db5a8eebb",
+   "ja": "46424930d7308918"
+  },
+  "images.json#clerkship-2025-report197-1/alt": {
+   "en": "d43d3ab308e0de42",
+   "ja": "73adc571cf27c9c5"
+  },
+  "images.json#clerkship-2025-report197-2/alt": {
+   "en": "d8f2bbbc6cd7133d",
+   "ja": "7771f9329932b21c"
+  },
+  "images.json#clerkship-2025-report197-3/alt": {
+   "en": "4e4a72c8b09f712d",
+   "ja": "f785e7745fcdd128"
+  },
+  "images.json#clerkship-past-report-1/alt": {
+   "en": "3204be852c1420e0",
+   "ja": "5f2e0c4d05c308a0"
+  },
+  "images.json#page-024abcb026c5-degrees-joint-degree/alt": {
+   "en": "2d0dc400903324fb",
+   "ja": "6b98d4d93f63a044"
+  },
+  "images.json#page-038a08ed4b0e-partnerships-game/alt": {
+   "en": "f0053e041c985815",
+   "ja": "b734d37c83196923"
+  },
+  "images.json#page-038a08ed4b0e-partnerships-game/caption": {
+   "en": "016864c0b52ae9b6",
+   "ja": "e77a0e335826d129"
+  },
+  "images.json#page-16e987423cfd-partnerships-visits/alt": {
+   "en": "f9a51a6c87d8a784",
+   "ja": "9c1b3480eef24ee3"
+  },
+  "images.json#page-1a25444efa26-about/alt": {
+   "en": "8045b05d3f3213a0",
+   "ja": "7f1113f2cfc5e65f"
+  },
+  "images.json#page-1a8a7519e9bf-study-in-nagoya-living-in-nagoya/alt": {
+   "en": "b82b7cf368284a9a",
+   "ja": "bdf7ac1d968a959d"
+  },
+  "images.json#page-1ade7161291a-degrees/alt": {
+   "en": "093a8270032903ea",
+   "ja": "1e4df1602e4a4939"
+  },
+  "images.json#page-1ade7161291a-degrees/caption": {
+   "en": "5cb36a6b18d85e0b",
+   "ja": "216a594892e28b8d"
+  },
+  "images.json#page-1c0ad1281bf1-partnerships-visits/alt": {
+   "en": "ca8036f456660b5e",
+   "ja": "6b503b56616bdb5b"
+  },
+  "images.json#page-2705334a2f6b-degrees-joint-degree/alt": {
+   "en": "ff5f0b51645d34dd",
+   "ja": "121ea4554de57b55"
+  },
+  "images.json#page-2ad2e62d0996-about/alt": {
+   "en": "80400cebbf0ccc6e",
+   "ja": "aee4af8c19e17359"
+  },
+  "images.json#page-2f490494582b-study-abroad-clinical-electives/alt": {
+   "en": "f8d8a2cec93fe87d",
+   "ja": "9a11c591905a4e1b"
+  },
+  "images.json#page-2f490494582b-study-abroad-clinical-electives/caption": {
+   "en": "6260f1831c9fd2d0",
+   "ja": "4f6d3ce8f3647042"
+  },
+  "images.json#page-332e930f0c1e-study-abroad-medical-english/alt": {
+   "en": "70745582edcf228b",
+   "ja": "cee5a27d424eea51"
+  },
+  "images.json#page-332e930f0c1e-study-abroad-medical-english/caption": {
+   "en": "d416add6dc1935fe",
+   "ja": "6bf61f9787017c96"
+  },
+  "images.json#page-3503efbf1ab6-partnerships-game/alt": {
+   "en": "fba932917ea393d2",
+   "ja": "106d61d6971cf643"
+  },
+  "images.json#page-450194a466a5-study-in-nagoya/alt": {
+   "en": "d38ac96bbdd208eb",
+   "ja": "5909d75770cd8d8e"
+  },
+  "images.json#page-450194a466a5-study-in-nagoya/caption": {
+   "en": "83ac8edb2926dbd9",
+   "ja": "4d1d8558342317cb"
+  },
+  "images.json#page-48f3059f0ae0-degrees-freiburg/alt": {
+   "en": "4b4e865bc28becfd",
+   "ja": "589a1637a236c221"
+  },
+  "images.json#page-4f003f18cfe1-study-abroad-research-abroad/alt": {
+   "en": "da2248d356c0d911",
+   "ja": "4effaed5fc0fbc78"
+  },
+  "images.json#page-50dbcd537f67-degrees-admission/alt": {
+   "en": "0c4471d600ca6c3e",
+   "ja": "9d17194bb3c9bfa6"
+  },
+  "images.json#page-536298e80d8e-degrees-lund/alt": {
+   "en": "94538d6a798a8245",
+   "ja": "5a9fe8842c2a3068"
+  },
+  "images.json#page-536298e80d8e-degrees-lund/caption": {
+   "en": "c1161d19db6c2950",
+   "ja": "31d83d3060caed43"
+  },
+  "images.json#page-57abbadaded5-partnerships-visits/alt": {
+   "en": "db07d04d51775043",
+   "ja": "6035c63551b5ae85"
+  },
+  "images.json#page-5e15649074c7-degrees-adelaide/alt": {
+   "en": "918e63b22be273e1",
+   "ja": "ddd777f2de6c32bd"
+  },
+  "images.json#page-67db7535597d-study-abroad-short-programmes/alt": {
+   "en": "0887d5d9935eda7f",
+   "ja": "d1b6cd9dcf04227e"
+  },
+  "images.json#page-7c7b5f5c3e74-degrees/alt": {
+   "en": "5625ff3220019c0d",
+   "ja": "a513f52b9efc3fc3"
+  },
+  "images.json#page-7c7b5f5c3e74-degrees/caption": {
+   "en": "c386581d97e56a08",
+   "ja": "2509e6ecaee584ce"
+  },
+  "images.json#page-8b307dc7c221-partnerships-game/alt": {
+   "en": "f7ed32fc2fbbb818",
+   "ja": "5363baeae38e0bd9"
+  },
+  "images.json#page-909f58b73327-study-abroad-clinical-electives/alt": {
+   "en": "b835583c76bd0649",
+   "ja": "0fe4af0232cd043d"
+  },
+  "images.json#page-909f58b73327-study-abroad-clinical-electives/caption": {
+   "en": "bae7a5c57d78a433",
+   "ja": "de19c98c8c28d4a3"
+  },
+  "images.json#page-9ec80a5ddd9a-study-abroad-medical-english/alt": {
+   "en": "d2094f7a1b5b129e",
+   "ja": "969525344fca749c"
+  },
+  "images.json#page-9ec80a5ddd9a-study-abroad-medical-english/caption": {
+   "en": "e9107802fc6c076a",
+   "ja": "3a2c0c3b2b6e049d"
+  },
+  "images.json#page-a0d298ead951-study-abroad-clinical-electives/alt": {
+   "en": "0eb91d05f192caba",
+   "ja": "2f31904a44f21e84"
+  },
+  "images.json#page-a0d298ead951-study-abroad-clinical-electives/caption": {
+   "en": "630d21c12041e4e7",
+   "ja": "8896a25241308d83"
+  },
+  "images.json#page-a13f2b63419a-degrees-adelaide/alt": {
+   "en": "dedca86c45f926c3",
+   "ja": "dc48e391e4e198f5"
+  },
+  "images.json#page-a4bc613d1ccb-partnerships-game/alt": {
+   "en": "769f71c78e38455f",
+   "ja": "489a284b1a09df04"
+  },
+  "images.json#page-a4bc613d1ccb-study-abroad-short-programmes/alt": {
+   "en": "feaf6ce839d51359",
+   "ja": "60e106c79edfde3c"
+  },
+  "images.json#page-a4bc613d1ccb-study-abroad-short-programmes/caption": {
+   "en": "5acf1431d6344565",
+   "ja": "8e8e954e6525b383"
+  },
+  "images.json#page-a58eaf1a316b-degrees-freiburg/alt": {
+   "en": "65dc6bc19d9410a7",
+   "ja": "42d46d806de7a6ee"
+  },
+  "images.json#page-a6061a417b93-study-in-nagoya-clinical-clerkship/alt": {
+   "en": "89f5739f3e75fdc5",
+   "ja": "72d6b982684eab3e"
+  },
+  "images.json#page-a807ac80ddad-study-in-nagoya/alt": {
+   "en": "feb78bb146dcee9a",
+   "ja": "8e58e7ce3dcd002d"
+  },
+  "images.json#page-a9b29bc149c7-partnerships-visits/alt": {
+   "en": "abe05a52b3546026",
+   "ja": "e79946830fa21cff"
+  },
+  "images.json#page-b1371214a088-study-abroad-scholarships/alt": {
+   "en": "58391778f7d02500",
+   "ja": "535a0cc3f401d8a8"
+  },
+  "images.json#page-b1407967c80d-partnerships-game/alt": {
+   "en": "f5ece4b9c757d21b",
+   "ja": "ec3845372e1b9768"
+  },
+  "images.json#page-b1407967c80d-study-abroad-short-programmes/alt": {
+   "en": "525ffb76692d3c16",
+   "ja": "d2e9a7abd06c1b54"
+  },
+  "images.json#page-b7f14df57068-degrees-adelaide/alt": {
+   "en": "a90283a6a5134c4c",
+   "ja": "fa8f048c7f8b6f8e"
+  },
+  "images.json#page-b97f474ce1d2-partnerships-symposia/alt": {
+   "en": "e5e9c03f2b901d0e",
+   "ja": "63491f0f58cf07ae"
+  },
+  "images.json#page-b97f474ce1d2-partnerships-symposia/caption": {
+   "en": "6bd0e0d53b3f24b3",
+   "ja": "9433df6a36d5ab71"
+  },
+  "images.json#page-ba8c453d9eac-partnerships/alt": {
+   "en": "3ac9b672d69c4715",
+   "ja": "6e33d4472d11d5f0"
+  },
+  "images.json#page-bf7dacd6b6b1-study-abroad/alt": {
+   "en": "411798e8b54d9555",
+   "ja": "22c5ac300096989c"
+  },
+  "images.json#page-bf7dacd6b6b1-study-abroad/caption": {
+   "en": "bcbea9dbe222653f",
+   "ja": "4ea3bb3460302c44"
+  },
+  "images.json#page-c1bffe6ed84f-degrees-lund/alt": {
+   "en": "6ced3eb660ca4bd8",
+   "ja": "d35f29565db996d7"
+  },
+  "images.json#page-c461e1b4bc18-partnerships-visits/alt": {
+   "en": "180c0b734595fcb9",
+   "ja": "241ca0697d272875"
+  },
+  "images.json#page-c6956514d0c2-study-abroad-faq/alt": {
+   "en": "3106f4beff92eb26",
+   "ja": "e613a8460133b41c"
+  },
+  "images.json#page-c6956514d0c2-study-abroad-faq/caption": {
+   "en": "59eec146c7d71f6c",
+   "ja": "55fed78931ddcaa9"
+  },
+  "images.json#page-cbafaa14f564-study-in-nagoya-clinical-clerkship/alt": {
+   "en": "5ca8617fd78191dc",
+   "ja": "b96c4a612b2be181"
+  },
+  "images.json#page-cd4efd2d031f-study-in-nagoya-living-in-nagoya/alt": {
+   "en": "0df2d293ad913d7f",
+   "ja": "1a8e187cf23b4cc2"
+  },
+  "images.json#page-cffa751f1c89-study-abroad-medical-english/alt": {
+   "en": "c14042d93b933443",
+   "ja": "1b712ad9ea5eb1b9"
+  },
+  "images.json#page-cffa751f1c89-study-abroad-medical-english/caption": {
+   "en": "12c89d08f9d01147",
+   "ja": "d5991de1157a37fa"
+  },
+  "images.json#page-d03f5db7ab3d-study-abroad/alt": {
+   "en": "e4f579eeee5f87e8",
+   "ja": "9f89deffae1bc035"
+  },
+  "images.json#page-d03f5db7ab3d-study-abroad/caption": {
+   "en": "36c1d6a8cb1d9fd4",
+   "ja": "705ea72317fe5783"
+  },
+  "images.json#page-d845c8c31aae-about/alt": {
+   "en": "7996dd4dc5a10024",
+   "ja": "15370441e2cc9f81"
+  },
+  "images.json#page-d8bff7f6e4b9-study-in-nagoya-research-training/alt": {
+   "en": "657af9fd28a3468e",
+   "ja": "c60d48079caba6d4"
+  },
+  "images.json#page-d900de136e94-degrees-freiburg/alt": {
+   "en": "3a11fc8a2ad62d7a",
+   "ja": "0b23b0b38bdc50ae"
+  },
+  "images.json#page-d91545735de2-degrees-adelaide/alt": {
+   "en": "fb1a58be884a0660",
+   "ja": "482d1db724fa2f1b"
+  },
+  "images.json#page-dc92b376df1e-degrees-lund/alt": {
+   "en": "359c5520763112c7",
+   "ja": "96afcbc067498aa1"
+  },
+  "images.json#page-e266ac411146-partnerships-symposia/alt": {
+   "en": "27b1cda356217a48",
+   "ja": "7f6a8a048182c640"
+  },
+  "images.json#page-e266ac411146-partnerships-symposia/caption": {
+   "en": "f5baa6791bfe135a",
+   "ja": "8a5c6bae99bbcd1d"
+  },
+  "images.json#page-ec517092c82b-study-abroad-short-programmes/alt": {
+   "en": "474c520125b5b06a",
+   "ja": "d8800d0d9b07d1a0"
+  },
+  "images.json#page-ec56aa3736b8-study-abroad-clinical-electives/alt": {
+   "en": "e23eb08761bbe8d4",
+   "ja": "45a0d9f807086ce0"
+  },
+  "images.json#page-ec56aa3736b8-study-abroad-clinical-electives/caption": {
+   "en": "ed7398060452e45a",
+   "ja": "6b28a45344f42c37"
+  },
+  "images.json#page-ef7e573666f5-partnerships-symposia/alt": {
+   "en": "db37e6e861c4e1d2",
+   "ja": "70efc66ce7460f6e"
+  },
+  "images.json#page-ef7e573666f5-partnerships-symposia/caption": {
+   "en": "f8a18a77419f6ef4",
+   "ja": "829843e5df8fa3b8"
+  },
+  "images.json#page-f73591a8c1c0-partnerships-symposia/alt": {
+   "en": "a1e14fadb6b059bf",
+   "ja": "0fbf83150f03a20b"
+  },
+  "images.json#page-fcc369ed7368-degrees-lund/alt": {
+   "en": "516f8d0d3ae37090",
+   "ja": "b6f1d59e3272561b"
+  },
+  "images.json#page-fe8b4a1a098e-study-in-nagoya-faq/alt": {
+   "en": "4a6dc438f4306824",
+   "ja": "888666b25583109e"
+  },
+  "images.json#page-fe8b4a1a098e-study-in-nagoya-faq/caption": {
+   "en": "83ac8edb2926dbd9",
+   "ja": "4d1d8558342317cb"
+  },
+  "images.json#research-2014-kimberley-evans-1/alt": {
+   "en": "e71d7e27a0b9fdb0",
+   "ja": "de9c91df08c47375"
+  },
+  "images.json#research-2014-sophia-moraitis-1/alt": {
+   "en": "a464e76739283f1b",
+   "ja": "9d7409f039380fea"
+  },
+  "images.json#research-2015-benjamin-leow-1/alt": {
+   "en": "8fc3438b30a29b2d",
+   "ja": "d049e22d1a1e2d83"
+  },
+  "images.json#research-2015-gatien-begel-1/alt": {
+   "en": "6120a1adb92d72b7",
+   "ja": "c286d4084d325b51"
+  },
+  "images.json#research-2015-gatien-begel-2/alt": {
+   "en": "1b7ce31b73fa08a2",
+   "ja": "2af8aa7bf41c3352"
+  },
+  "images.json#research-2015-l-a-schieffer-1/alt": {
+   "en": "9e6695e393f5a935",
+   "ja": "3782ff57c1659a83"
+  },
+  "images.json#research-2015-l-a-schieffer-2/alt": {
+   "en": "09616dab9540e908",
+   "ja": "5e38efc750712a0d"
+  },
+  "images.json#research-2015-sara-imbs-1/alt": {
+   "en": "eed6868d841a3425",
+   "ja": "cddd26b8aba2cf11"
+  },
+  "images.json#research-2015-sara-imbs-2/alt": {
+   "en": "1b7ce31b73fa08a2",
+   "ja": "2af8aa7bf41c3352"
+  },
+  "images.json#research-2016-anri-yamaguchi-1/alt": {
+   "en": "dde646b31bfa0ae3",
+   "ja": "9fc7cc502bac1abb"
+  },
+  "images.json#research-2016-anri-yamaguchi-2/alt": {
+   "en": "222c336fa72202ea",
+   "ja": "f7c1e411f6165d67"
+  },
+  "images.json#research-2017-nika-nemec-1/alt": {
+   "en": "600ca990595bb5c1",
+   "ja": "9fe87f937ff64712"
+  },
+  "images.json#research-2017-vanja-mandi-maravi-1/alt": {
+   "en": "e1d23ce8d944e310",
+   "ja": "5bb3e9608849c6e4"
+  },
+  "images.json#research-2017-vanja-mandi-maravi-2/alt": {
+   "en": "600ca990595bb5c1",
+   "ja": "9fe87f937ff64712"
+  },
+  "images.json#research-2017-wurtz-guillaume-1/alt": {
+   "en": "af8e9cda071547ac",
+   "ja": "9ca91926bdad455c"
+  },
+  "images.json#research-2017-wurtz-guillaume-2/alt": {
+   "en": "4e3b470af2a032b3",
+   "ja": "3d1c1a2f888cd380"
+  },
+  "images.json#research-2018-ida-steiro-1/alt": {
+   "en": "f6b6c430a11dfa06",
+   "ja": "17f4fd022a8b5d6c"
+  },
+  "images.json#research-2018-ida-steiro-2/alt": {
+   "en": "37d8468a17974c77",
+   "ja": "de8deb774a20042c"
+  },
+  "images.json#research-2018-marit-lien-1/alt": {
+   "en": "d8cb876e80cc1f9f",
+   "ja": "1fd870da48cdf4c9"
+  },
+  "images.json#research-2018-marit-lien-2/alt": {
+   "en": "5f4df7a16ab3df7a",
+   "ja": "f4a064261e2e705d"
+  },
+  "images.json#research-2018-marit-lien-3/alt": {
+   "en": "41982130d4945d49",
+   "ja": "0602ea55f812172f"
+  },
+  "news.json#2018-11-jdp-freiburg-site/summary": {
+   "en": "9f0d8a580851ebeb",
+   "ja": "7f1afa81315d16e8"
+  },
+  "news.json#2018-11-jdp-freiburg-site/title": {
+   "en": "f3d10603ee7af99d",
+   "ja": "9cb2ce699d41c7b1"
+  },
+  "news.json#2020-10-mirai-kickoff/summary": {
+   "en": "bd6ca0b8c43e5997",
+   "ja": "be20dfeddc93e4a1"
+  },
+  "news.json#2020-10-mirai-kickoff/title": {
+   "en": "e4d600195cd41554",
+   "ja": "e1f628efe5f0b76c"
+  },
+  "news.json#2020-11-game-case-discussion/summary": {
+   "en": "2b938e39074603ed",
+   "ja": "ae79ff07bd69ffeb"
+  },
+  "news.json#2020-11-game-case-discussion/title": {
+   "en": "f764cf83f5f54152",
+   "ja": "7ca818d81bcf6137"
+  },
+  "news.json#2021-02-gifu-english/summary": {
+   "en": "9298a6d48fc01acc",
+   "ja": "e2ad68472acc838a"
+  },
+  "news.json#2021-02-gifu-english/title": {
+   "en": "18e319e5334fae3e",
+   "ja": "fded77504d447556"
+  },
+  "news.json#2021-03-leicester-course/summary": {
+   "en": "0efcaeefc95317f8",
+   "ja": "4bf2b595af3470bb"
+  },
+  "news.json#2021-03-leicester-course/title": {
+   "en": "803f822beb806af1",
+   "ja": "ff6470e3fc1dc085"
+  },
+  "news.json#2021-03-lmu-case-discussion/summary": {
+   "en": "04252266fcadd251",
+   "ja": "19ce97b9560f8e9b"
+  },
+  "news.json#2021-03-lmu-case-discussion/title": {
+   "en": "57f7939c397d4e4c",
+   "ja": "595cb3c465e4608f"
+  },
+  "news.json#2021-05-game-case-discussion/summary": {
+   "en": "cb3838d1834f7a69",
+   "ja": "8fdc2c0c4aad3609"
+  },
+  "news.json#2021-05-game-case-discussion/title": {
+   "en": "f57f7a9ea30deadd",
+   "ja": "bceb815de94e4082"
+  },
+  "news.json#2021-06-mirai-week/summary": {
+   "en": "5e1799047b4b92be",
+   "ja": "8cc30e54cafb8be9"
+  },
+  "news.json#2021-06-mirai-week/title": {
+   "en": "0dcadd21658d7cff",
+   "ja": "0dcadd21658d7cff"
+  },
+  "news.json#2021-06-renkei-workshop/summary": {
+   "en": "edc1972ace8325e2",
+   "ja": "37c408b08dc20bc5"
+  },
+  "news.json#2021-06-renkei-workshop/title": {
+   "en": "0df1938237960dbc",
+   "ja": "74451d3dade41c39"
+  },
+  "news.json#2021-06-us-alumni-lectures/summary": {
+   "en": "d919711115fc3194",
+   "ja": "13789d2c760d5b00"
+  },
+  "news.json#2021-06-us-alumni-lectures/title": {
+   "en": "3414a6a5c4d9c51c",
+   "ja": "f265340ee2ae1272"
+  },
+  "news.json#2021-07-tei-camp/summary": {
+   "en": "bf214fcf00ec7fba",
+   "ja": "256f1240fd235f42"
+  },
+  "news.json#2021-07-tei-camp/title": {
+   "en": "bf6acca01be0fc40",
+   "ja": "384e609a499eab6f"
+  },
+  "news.json#2021-08-medical-english/summary": {
+   "en": "134aef542985a5b3",
+   "ja": "d4b1eb145e8ccd85"
+  },
+  "news.json#2021-08-medical-english/title": {
+   "en": "0d39bcaa9733aa78",
+   "ja": "cc4d0e72f0f9662e"
+  },
+  "news.json#2021-09-us-student-talk/summary": {
+   "en": "6bb94798e263be79",
+   "ja": "a3a8ec40e00ef5e7"
+  },
+  "news.json#2021-09-us-student-talk/title": {
+   "en": "e7a4dce951a02394",
+   "ja": "947cc956035f597c"
+  },
+  "news.json#2021-10-jdp-workshop/summary": {
+   "en": "1dec79d7b030741e",
+   "ja": "d1f12df23d3cc32a"
+  },
+  "news.json#2021-10-jdp-workshop/title": {
+   "en": "b32272b81eb8377c",
+   "ja": "0649054dd49109e5"
+  },
+  "news.json#2021-11-national-council/summary": {
+   "en": "917251662950eea4",
+   "ja": "31b346d34c284d26"
+  },
+  "news.json#2021-11-national-council/title": {
+   "en": "38b3750e122cd249",
+   "ja": "60deef2390e1e257"
+  },
+  "news.json#2022-02-clerkship-call/summary": {
+   "en": "859ca9692c9bc8f3",
+   "ja": "6be6524c3bd52df0"
+  },
+  "news.json#2022-02-clerkship-call/title": {
+   "en": "89d157ffafe9c855",
+   "ja": "92b14a1e89693aed"
+  },
+  "news.json#2022-05-jdp-info-session/summary": {
+   "en": "98b15bfabb1b92e2",
+   "ja": "d771e6852378d9b4"
+  },
+  "news.json#2022-05-jdp-info-session/title": {
+   "en": "4fd79097044e894c",
+   "ja": "97c42c7857f3de72"
+  },
+  "news.json#2022-11-game-annual-meeting/summary": {
+   "en": "61ac4320b95f4400",
+   "ja": "30d7d327ccc28188"
+  },
+  "news.json#2022-11-game-annual-meeting/title": {
+   "en": "612a83707f681107",
+   "ja": "44e1ded2e5233d64"
+  },
+  "news.json#2024-01-jdp-call/summary": {
+   "en": "067c55f4d38bbf8e",
+   "ja": "a0f45b8363db3729"
+  },
+  "news.json#2024-01-jdp-call/title": {
+   "en": "687e5e638911928c",
+   "ja": "851ef63e1dc0fa53"
+  },
+  "news.json#2024-02-colorado-call/summary": {
+   "en": "328964e156b8cb0d",
+   "ja": "44038e2610d93e2f"
+  },
+  "news.json#2024-02-colorado-call/title": {
+   "en": "4bea86787d99d98e",
+   "ja": "8f5894bc32144697"
+  },
+  "news.json#2024-02-national-council/summary": {
+   "en": "d62cd962472a624f",
+   "ja": "640fa51023623c19"
+  },
+  "news.json#2024-02-national-council/title": {
+   "en": "14326a50f1d3564b",
+   "ja": "2f89d5d6ae9324bf"
+  },
+  "news.json#2024-03-experience-reports/summary": {
+   "en": "2bdfd3cff235835e",
+   "ja": "e6827914db90333c"
+  },
+  "news.json#2024-03-experience-reports/title": {
+   "en": "5498d2df4e42ea51",
+   "ja": "2f597a500c354777"
+  },
+  "news.json#2024-03-freiburg-visit/summary": {
+   "en": "69678d786eafa88a",
+   "ja": "2e699c3fde09ea6d"
+  },
+  "news.json#2024-03-freiburg-visit/title": {
+   "en": "5cf9b19c2505046a",
+   "ja": "33a9551818d47fc2"
+  },
+  "news.json#2024-03-monash-symposium/summary": {
+   "en": "fe776472adee40bb",
+   "ja": "2dc9b058080b1f4b"
+  },
+  "news.json#2024-03-monash-symposium/title": {
+   "en": "c1f191a61b216af0",
+   "ja": "2a60e63cc005380a"
+  },
+  "news.json#2024-03-nottingham-visit/summary": {
+   "en": "d4781e087f8a0fee",
+   "ja": "392318927bfe42d0"
+  },
+  "news.json#2024-03-nottingham-visit/title": {
+   "en": "1daa2b9586d54cdc",
+   "ja": "80ca4eac2a70230f"
+  },
+  "news.json#2024-09-freiburg-delegation/summary": {
+   "en": "3c089e970a64ce7e",
+   "ja": "689cfd3923179b17"
+  },
+  "news.json#2024-09-freiburg-delegation/title": {
+   "en": "cf2681bcc6a2486b",
+   "ja": "209a99945a6c1492"
+  },
+  "news.json#2024-12-reims-visit/summary": {
+   "en": "1139403999850ceb",
+   "ja": "636dec9910b2df5d"
+  },
+  "news.json#2024-12-reims-visit/title": {
+   "en": "d166f3051e0a8fcb",
+   "ja": "50d5ed565dc626d4"
+  },
+  "news.json#2025-01-ncsu-visit/summary": {
+   "en": "47699df5bb3eaf3d",
+   "ja": "3e150e5a7c5cc111"
+  },
+  "news.json#2025-01-ncsu-visit/title": {
+   "en": "89b804b19c5f3d7c",
+   "ja": "8c73597a62d073ed"
+  },
+  "news.json#2025-03-experience-reports/summary": {
+   "en": "f7d64dab6d168315",
+   "ja": "3a38668d9fe9d1d3"
+  },
+  "news.json#2025-03-experience-reports/title": {
+   "en": "5498d2df4e42ea51",
+   "ja": "2f597a500c354777"
+  },
+  "news.json#2025-04-vienna-visit/summary": {
+   "en": "dfe9d0086aff49c6",
+   "ja": "29be2165adc11d3a"
+  },
+  "news.json#2025-04-vienna-visit/title": {
+   "en": "3d44919da04b905c",
+   "ja": "b906194e39cb3a4e"
+  },
+  "news.json#2025-05-unc-visit/summary": {
+   "en": "041ba663e87be59c",
+   "ja": "7d5c6a146217c51f"
+  },
+  "news.json#2025-05-unc-visit/title": {
+   "en": "4613ac50662430cb",
+   "ja": "f992da6dbb1c340a"
+  },
+  "news.json#2025-06-gdansk-visit/summary": {
+   "en": "8b035ab2e319fb41",
+   "ja": "88a818c29affee14"
+  },
+  "news.json#2025-06-gdansk-visit/title": {
+   "en": "27eb6c4183be17e7",
+   "ja": "9a10617913f1b76e"
+  },
+  "news.json#2025-11-mayo-visit/summary": {
+   "en": "2980ff90e75e9682",
+   "ja": "d02caa5c87615e4c"
+  },
+  "news.json#2025-11-mayo-visit/title": {
+   "en": "326ed58bcd5d5fd7",
+   "ja": "c116f0a7fe35ef5b"
+  },
+  "news.json#2026-02-uwa-lecture/summary": {
+   "en": "56af952cccb5086c",
+   "ja": "f695825096abfcc9"
+  },
+  "news.json#2026-02-uwa-lecture/title": {
+   "en": "e15972f1f938cd6e",
+   "ja": "a37ef03cdd6f6510"
+  },
+  "news.json#2026-03-experience-reports/summary": {
+   "en": "aaf997605d786698",
+   "ja": "e3a0e14a707f3186"
+  },
+  "news.json#2026-03-experience-reports/title": {
+   "en": "5498d2df4e42ea51",
+   "ja": "2f597a500c354777"
+  },
+  "partners.json#adelaide/country": {
+   "en": "c1ef40ce0484c698",
+   "ja": "23d678706afded83"
+  },
+  "partners.json#adelaide/name": {
+   "en": "e478f10c0dfbbba8",
+   "ja": "31b1505af25d1630"
+  },
+  "partners.json#alberta/country": {
+   "en": "be55ef3f4c4e6c2d",
+   "ja": "59dd1990c1a0af2c"
+  },
+  "partners.json#alberta/name": {
+   "en": "ae229ad3284d4503",
+   "ja": "9bd201d6d1983993"
+  },
+  "partners.json#asan/country": {
+   "en": "c85329e3779e4096",
+   "ja": "306d5b1c48e24feb"
+  },
+  "partners.json#asan/name": {
+   "en": "072489fba491fe92",
+   "ja": "260084fffe5c26bf"
+  },
+  "partners.json#bangkok-hospital/country": {
+   "en": "6e49e65081b2bcb5",
+   "ja": "62865cc56a9e2b91"
+  },
+  "partners.json#bangkok-hospital/name": {
+   "en": "34e855ab11c7115f",
+   "ja": "050d32cbfe390725"
+  },
+  "partners.json#bologna/country": {
+   "en": "5a9cf672c8be6b5a",
+   "ja": "6a23dcecdbb44001"
+  },
+  "partners.json#bologna/name": {
+   "en": "5017c45f94c67b13",
+   "ja": "09586bbffd27b9ef"
+  },
+  "partners.json#chulabhorn/country": {
+   "en": "6e49e65081b2bcb5",
+   "ja": "62865cc56a9e2b91"
+  },
+  "partners.json#chulabhorn/name": {
+   "en": "5606f232095f5428",
+   "ja": "e6f881c36531c0c2"
+  },
+  "partners.json#chulalongkorn/country": {
+   "en": "6e49e65081b2bcb5",
+   "ja": "62865cc56a9e2b91"
+  },
+  "partners.json#chulalongkorn/name": {
+   "en": "c5c7fd731e0bd5c5",
+   "ja": "693ded5ff5f0335e"
+  },
+  "partners.json#cjfh/country": {
+   "en": "10436829032f361a",
+   "ja": "f0e9521611bb290d"
+  },
+  "partners.json#cjfh/name": {
+   "en": "a38485f729937c59",
+   "ja": "c9a046b1d9b06888"
+  },
+  "partners.json#cuhk/country": {
+   "en": "1ed8c7e56c947beb",
+   "ja": "d448d143c4e04eb6"
+  },
+  "partners.json#cuhk/name": {
+   "en": "633012c7396bad4e",
+   "ja": "5674399d9c6ba0b5"
+  },
+  "partners.json#duke/country": {
+   "en": "49dca65f362fee40",
+   "ja": "f7f181033c4da3c4"
+  },
+  "partners.json#duke/name": {
+   "en": "f3f969df93e4a682",
+   "ja": "dc9f0ccc9bbb1303"
+  },
+  "partners.json#edinburgh/country": {
+   "en": "8d23a6e37e0a6431",
+   "ja": "b1573b12262e9f61"
+  },
+  "partners.json#edinburgh/name": {
+   "en": "632643d72ec0329e",
+   "ja": "46614f5cb654b9e4"
+  },
+  "partners.json#erasmus-mc/country": {
+   "en": "3a386c13d283dc2e",
+   "ja": "72446fce7237cd50"
+  },
+  "partners.json#erasmus-mc/name": {
+   "en": "60eea4972b2c1ba2",
+   "ja": "06b77b9aa5524b03"
+  },
+  "partners.json#freiburg/country": {
+   "en": "80db4ccdca106d37",
+   "ja": "e8900cb0689eae74"
+  },
+  "partners.json#freiburg/name": {
+   "en": "016421b1b5310ed0",
+   "ja": "90f8aefa0d8329f0"
+  },
+  "partners.json#gdansk/country": {
+   "en": "7f69649ad70496d4",
+   "ja": "9c73dc3c0b8b156b"
+  },
+  "partners.json#gdansk/name": {
+   "en": "8f41af3f951ebff9",
+   "ja": "3782b3728ba518a2"
+  },
+  "partners.json#glasgow/country": {
+   "en": "8d23a6e37e0a6431",
+   "ja": "b1573b12262e9f61"
+  },
+  "partners.json#glasgow/name": {
+   "en": "33e369978ddb47fd",
+   "ja": "38f8df45aeea4f7d"
+  },
+  "partners.json#gothenburg/country": {
+   "en": "853637136575897a",
+   "ja": "2ee52c57caa9f6d0"
+  },
+  "partners.json#gothenburg/name": {
+   "en": "3b8895f9c6b2f678",
+   "ja": "d3be0b21c68aea66"
+  },
+  "partners.json#harvard/country": {
+   "en": "49dca65f362fee40",
+   "ja": "f7f181033c4da3c4"
+  },
+  "partners.json#harvard/name": {
+   "en": "2ccacf6788b33cc2",
+   "ja": "4a3c67fa4208d94c"
+  },
+  "partners.json#hcmc-umc/country": {
+   "en": "2e5e81066a29cd66",
+   "ja": "10736e9eb57b1ddb"
+  },
+  "partners.json#hcmc-umc/name": {
+   "en": "9c967203e44439e1",
+   "ja": "703dd4e4d2e7450b"
+  },
+  "partners.json#hiroshima/country": {
+   "en": "647294383b2cbc24",
+   "ja": "cf2abf0c5be326cb"
+  },
+  "partners.json#hiroshima/name": {
+   "en": "30dd79a9e36492f0",
+   "ja": "aa916a8c64b71da4"
+  },
+  "partners.json#hokkaido/country": {
+   "en": "647294383b2cbc24",
+   "ja": "cf2abf0c5be326cb"
+  },
+  "partners.json#hokkaido/name": {
+   "en": "6e42795cc05cf376",
+   "ja": "5725831751916f47"
+  },
+  "partners.json#hue/country": {
+   "en": "2e5e81066a29cd66",
+   "ja": "10736e9eb57b1ddb"
+  },
+  "partners.json#hue/name": {
+   "en": "d1536de8b807ada3",
+   "ja": "0aa31dc956946e60"
+  },
+  "partners.json#jhu/country": {
+   "en": "49dca65f362fee40",
+   "ja": "f7f181033c4da3c4"
+  },
+  "partners.json#jhu/name": {
+   "en": "1be7665b87c568cc",
+   "ja": "312aab60bd376a8f"
+  },
+  "partners.json#jonkoping/country": {
+   "en": "853637136575897a",
+   "ja": "2ee52c57caa9f6d0"
+  },
+  "partners.json#jonkoping/name": {
+   "en": "f04b7e2228f86927",
+   "ja": "70c3229cdd08d869"
+  },
+  "partners.json#karlstad/country": {
+   "en": "853637136575897a",
+   "ja": "2ee52c57caa9f6d0"
+  },
+  "partners.json#karlstad/name": {
+   "en": "e90dbd5b6059c865",
+   "ja": "966eaf30b2e52c4d"
+  },
+  "partners.json#korea-university/country": {
+   "en": "c85329e3779e4096",
+   "ja": "306d5b1c48e24feb"
+  },
+  "partners.json#korea-university/name": {
+   "en": "139544a2ecb36ba3",
+   "ja": "001df049addadeb5"
+  },
+  "partners.json#kyushu/country": {
+   "en": "647294383b2cbc24",
+   "ja": "cf2abf0c5be326cb"
+  },
+  "partners.json#kyushu/name": {
+   "en": "dbc661dc289f83d5",
+   "ja": "b12feb9b8eaa8681"
+  },
+  "partners.json#leicester/country": {
+   "en": "8d23a6e37e0a6431",
+   "ja": "b1573b12262e9f61"
+  },
+  "partners.json#leicester/name": {
+   "en": "9f3a6bb8a4ae4c6b",
+   "ja": "640514c55ecbf367"
+  },
+  "partners.json#linkoping/country": {
+   "en": "853637136575897a",
+   "ja": "2ee52c57caa9f6d0"
+  },
+  "partners.json#linkoping/name": {
+   "en": "0e123b098aefb461",
+   "ja": "577116c850b5e8ff"
+  },
+  "partners.json#linnaeus/country": {
+   "en": "853637136575897a",
+   "ja": "2ee52c57caa9f6d0"
+  },
+  "partners.json#linnaeus/name": {
+   "en": "5d7d0ecc72fd991f",
+   "ja": "0cfe69e83c21bbd8"
+  },
+  "partners.json#lmu-munich/country": {
+   "en": "80db4ccdca106d37",
+   "ja": "e8900cb0689eae74"
+  },
+  "partners.json#lmu-munich/name": {
+   "en": "5c475a175e30f520",
+   "ja": "be3627ad6da768e9"
+  },
+  "partners.json#lulea/country": {
+   "en": "853637136575897a",
+   "ja": "2ee52c57caa9f6d0"
+  },
+  "partners.json#lulea/name": {
+   "en": "05f86fd0a1c67277",
+   "ja": "1e5ce727dade8397"
+  },
+  "partners.json#lund/country": {
+   "en": "853637136575897a",
+   "ja": "2ee52c57caa9f6d0"
+  },
+  "partners.json#lund/name": {
+   "en": "6a849cc9d11c1757",
+   "ja": "69d60baa16f98b7b"
+  },
+  "partners.json#mahidol-asean/country": {
+   "en": "6e49e65081b2bcb5",
+   "ja": "62865cc56a9e2b91"
+  },
+  "partners.json#mahidol-asean/name": {
+   "en": "3648b53e4a9b39b3",
+   "ja": "36d954acb14b2997"
+  },
+  "partners.json#mahidol-ramathibodi/country": {
+   "en": "6e49e65081b2bcb5",
+   "ja": "62865cc56a9e2b91"
+  },
+  "partners.json#mahidol-ramathibodi/name": {
+   "en": "8abf29dfe4c20aae",
+   "ja": "199c5127bfd004e9"
+  },
+  "partners.json#mnums/country": {
+   "en": "99a7c065a730fdac",
+   "ja": "8fac4c67e8b55775"
+  },
+  "partners.json#mnums/name": {
+   "en": "051a7aedd4275d95",
+   "ja": "541447b0ad271bbb"
+  },
+  "partners.json#monash/country": {
+   "en": "c1ef40ce0484c698",
+   "ja": "23d678706afded83"
+  },
+  "partners.json#monash/name": {
+   "en": "337d9093d69dd9c5",
+   "ja": "41a278f0ed1b743d"
+  },
+  "partners.json#mongolia-moh/country": {
+   "en": "99a7c065a730fdac",
+   "ja": "8fac4c67e8b55775"
+  },
+  "partners.json#mongolia-moh/name": {
+   "en": "c54eb933827992ab",
+   "ja": "e924b94c75daa752"
+  },
+  "partners.json#nottingham/country": {
+   "en": "8d23a6e37e0a6431",
+   "ja": "b1573b12262e9f61"
+  },
+  "partners.json#nottingham/name": {
+   "en": "1970544d8f9eb125",
+   "ja": "38af58560dc48727"
+  },
+  "partners.json#ntnu/country": {
+   "en": "bea54a349795017d",
+   "ja": "67ca196897247a1c"
+  },
+  "partners.json#ntnu/name": {
+   "en": "9e4f53e9b0ab99ca",
+   "ja": "f018b72f7585e76c"
+  },
+  "partners.json#ntu/country": {
+   "en": "dd76af196e2c7794",
+   "ja": "33db161daa042c42"
+  },
+  "partners.json#ntu/name": {
+   "en": "2969f0359c9123b3",
+   "ja": "c816fcb2edd999c3"
+  },
+  "partners.json#nuh-singapore/country": {
+   "en": "c96dd81db196cca5",
+   "ja": "b289b2720987c665"
+  },
+  "partners.json#nuh-singapore/name": {
+   "en": "5925e56716ef3207",
+   "ja": "cdcb8c8b5ea371fa"
+  },
+  "partners.json#nus-medicine/country": {
+   "en": "c96dd81db196cca5",
+   "ja": "b289b2720987c665"
+  },
+  "partners.json#nus-medicine/name": {
+   "en": "65b4ade954fc06bc",
+   "ja": "7640bd4c2a514173"
+  },
+  "partners.json#nus-nursing/country": {
+   "en": "c96dd81db196cca5",
+   "ja": "b289b2720987c665"
+  },
+  "partners.json#nus-nursing/name": {
+   "en": "628f4e7908fc2113",
+   "ja": "decea212ad83d237"
+  },
+  "partners.json#orebro/country": {
+   "en": "853637136575897a",
+   "ja": "2ee52c57caa9f6d0"
+  },
+  "partners.json#orebro/name": {
+   "en": "05844117c81a1f71",
+   "ja": "3a961fcb36e9aacb"
+  },
+  "partners.json#pku/country": {
+   "en": "10436829032f361a",
+   "ja": "f0e9521611bb290d"
+  },
+  "partners.json#pku/name": {
+   "en": "a7ebcde7a7f863f5",
+   "ja": "6337a73be0adee92"
+  },
+  "partners.json#sjtu/country": {
+   "en": "10436829032f361a",
+   "ja": "f0e9521611bb290d"
+  },
+  "partners.json#sjtu/name": {
+   "en": "2085d13e4d94db60",
+   "ja": "55ff87a4a851b095"
+  },
+  "partners.json#snu-medicine/country": {
+   "en": "c85329e3779e4096",
+   "ja": "306d5b1c48e24feb"
+  },
+  "partners.json#snu-medicine/name": {
+   "en": "3ded190871a50a2b",
+   "ja": "48ed144dacf3003e"
+  },
+  "partners.json#snuh/country": {
+   "en": "c85329e3779e4096",
+   "ja": "306d5b1c48e24feb"
+  },
+  "partners.json#snuh/name": {
+   "en": "f24f5cc4f28f6e08",
+   "ja": "60aa9f6f363ac9cd"
+  },
+  "partners.json#sophia/country": {
+   "en": "647294383b2cbc24",
+   "ja": "cf2abf0c5be326cb"
+  },
+  "partners.json#sophia/name": {
+   "en": "1677f0d63dfd0aac",
+   "ja": "28bf252078a257c0"
+  },
+  "partners.json#sse/country": {
+   "en": "853637136575897a",
+   "ja": "2ee52c57caa9f6d0"
+  },
+  "partners.json#sse/name": {
+   "en": "3d60ad73cbcae47c",
+   "ja": "4ab62ca819ec00e5"
+  },
+  "partners.json#tohoku/country": {
+   "en": "647294383b2cbc24",
+   "ja": "cf2abf0c5be326cb"
+  },
+  "partners.json#tohoku/name": {
+   "en": "c90c97e94ece0d72",
+   "ja": "6e91b0d233396367"
+  },
+  "partners.json#tulane/country": {
+   "en": "49dca65f362fee40",
+   "ja": "f7f181033c4da3c4"
+  },
+  "partners.json#tulane/name": {
+   "en": "69b970a8e8c2a184",
+   "ja": "1daa8fcd97b4e513"
+  },
+  "partners.json#umea/country": {
+   "en": "853637136575897a",
+   "ja": "2ee52c57caa9f6d0"
+  },
+  "partners.json#umea/name": {
+   "en": "a5ae11d3687ae949",
+   "ja": "3a7d11c815b19b43"
+  },
+  "partners.json#unc/country": {
+   "en": "49dca65f362fee40",
+   "ja": "f7f181033c4da3c4"
+  },
+  "partners.json#unc/name": {
+   "en": "0558a2c282748623",
+   "ja": "1b97440870878ee0"
+  },
+  "partners.json#up-manila-nursing/country": {
+   "en": "c3782c86d8099f3f",
+   "ja": "38ef288c297ee095"
+  },
+  "partners.json#up-manila-nursing/name": {
+   "en": "afbbcf7bbdc247f4",
+   "ja": "938419969021eda1"
+  },
+  "partners.json#upenn/country": {
+   "en": "49dca65f362fee40",
+   "ja": "f7f181033c4da3c4"
+  },
+  "partners.json#upenn/name": {
+   "en": "abe3ad10364639c9",
+   "ja": "7e78184d9a0bc144"
+  },
+  "partners.json#uppsala/country": {
+   "en": "853637136575897a",
+   "ja": "2ee52c57caa9f6d0"
+  },
+  "partners.json#uppsala/name": {
+   "en": "b76997f3e58bffa8",
+   "ja": "1143e42b8783a48f"
+  },
+  "partners.json#utokyo/country": {
+   "en": "647294383b2cbc24",
+   "ja": "cf2abf0c5be326cb"
+  },
+  "partners.json#utokyo/name": {
+   "en": "7512ed816e87b16e",
+   "ja": "8302c97c77d9d3a5"
+  },
+  "partners.json#uwa/country": {
+   "en": "c1ef40ce0484c698",
+   "ja": "23d678706afded83"
+  },
+  "partners.json#uwa/name": {
+   "en": "3c62a0d0f00a5357",
+   "ja": "27a41c500f4c40af"
+  },
+  "partners.json#vienna/country": {
+   "en": "c9cab0238debc6e5",
+   "ja": "187d4b5e8c981da2"
+  },
+  "partners.json#vienna/name": {
+   "en": "520e07f6741fc677",
+   "ja": "b669e5576e2d947c"
+  },
+  "partners.json#waseda/country": {
+   "en": "647294383b2cbc24",
+   "ja": "cf2abf0c5be326cb"
+  },
+  "partners.json#waseda/name": {
+   "en": "2d1539c539157f72",
+   "ja": "204ed8cf511c8f3e"
+  },
+  "partners.json#yangon-um1/country": {
+   "en": "ba2039a4cf69defd",
+   "ja": "35dd0b0826798378"
+  },
+  "partners.json#yangon-um1/name": {
+   "en": "402d6821c1df055c",
+   "ja": "4a86a329361c4e01"
+  },
+  "programmes/basic-medical-seminar.json#audience": {
+   "en": "72b5069c1e02c5e9",
+   "ja": "8b5c1f562e29aa01"
+  },
+  "programmes/basic-medical-seminar.json#capacity": {
+   "en": "c245101493692e4d",
+   "ja": "150dc93c74c49886"
+  },
+  "programmes/basic-medical-seminar.json#deadline/text": {
+   "en": "a0bf0d29a9f88d91",
+   "ja": "f155bc1e1a58a10b"
+  },
+  "programmes/basic-medical-seminar.json#duration": {
+   "en": "40bcc8ea11573ce1",
+   "ja": "7dd5ae2d555a8bcd"
+  },
+  "programmes/basic-medical-seminar.json#eligibility": {
+   "en": "cc2dc039a0fc7b51",
+   "ja": "36a7f7b6b136a87a"
+  },
+  "programmes/basic-medical-seminar.json#funding": {
+   "en": "3ea52f7e47585067",
+   "ja": "8eee67e1017defd1"
+  },
+  "programmes/basic-medical-seminar.json#howToApply": {
+   "en": "887dbf24911db8ac",
+   "ja": "b1e254f6e3883970"
+  },
+  "programmes/basic-medical-seminar.json#name": {
+   "en": "8e28ba9aefbc1a32",
+   "ja": "985ee715689f2d54"
+  },
+  "programmes/basic-medical-seminar.json#short": {
+   "en": "93d1a87062d0ff49",
+   "ja": "578ecd3687985d1e"
+  },
+  "programmes/cambridge-exchange.json#audience": {
+   "en": "f6218653c9e6076a",
+   "ja": "2c2623e668efdd9f"
+  },
+  "programmes/cambridge-exchange.json#capacity": {
+   "en": "a3945c17c71e4ba7",
+   "ja": "bcbc2a73b532d55b"
+  },
+  "programmes/cambridge-exchange.json#deadline/text": {
+   "en": "d2184007a88dc941",
+   "ja": "3604909d7ecce995"
+  },
+  "programmes/cambridge-exchange.json#duration": {
+   "en": "15c6cefd22769064",
+   "ja": "85bc70c5f1355ace"
+  },
+  "programmes/cambridge-exchange.json#eligibility": {
+   "en": "3bea692c55769d14",
+   "ja": "39f9b5dfa3c93294"
+  },
+  "programmes/cambridge-exchange.json#howToApply": {
+   "en": "eda72918e849fdc6",
+   "ja": "e13bad3e3cf5b3dc"
+  },
+  "programmes/cambridge-exchange.json#name": {
+   "en": "1ce3459d8badd69a",
+   "ja": "9f56e34f3a7e6f42"
+  },
+  "programmes/cambridge-exchange.json#short": {
+   "en": "5c4d60a77e6b28a8",
+   "ja": "6f17255230801a27"
+  },
+  "programmes/clinical-clerkship.json#audience": {
+   "en": "84ce033f19d28ffd",
+   "ja": "a8aa2a0542bd0c12"
+  },
+  "programmes/clinical-clerkship.json#capacity": {
+   "en": "60e60d131dcda89e",
+   "ja": "b763c81bb0a43a9f"
+  },
+  "programmes/clinical-clerkship.json#cost": {
+   "en": "db3819e8ab707281",
+   "ja": "76faec1c53944a1a"
+  },
+  "programmes/clinical-clerkship.json#deadline/text": {
+   "en": "26b22f3dd2048245",
+   "ja": "299980b1490059c0"
+  },
+  "programmes/clinical-clerkship.json#duration": {
+   "en": "e4916c1b0580fd16",
+   "ja": "d14bc7665a4c9762"
+  },
+  "programmes/clinical-clerkship.json#eligibility": {
+   "en": "d133481bc51a39e3",
+   "ja": "3f86963b1ab9a321"
+  },
+  "programmes/clinical-clerkship.json#funding": {
+   "en": "45db6a1cbafbf53d",
+   "ja": "38843d4c94ba6d1e"
+  },
+  "programmes/clinical-clerkship.json#howToApply": {
+   "en": "2b08bf0a10a4d041",
+   "ja": "f33c81e5006580c5"
+  },
+  "programmes/clinical-clerkship.json#name": {
+   "en": "5cdaffbd64525876",
+   "ja": "6310d4607eaf091b"
+  },
+  "programmes/clinical-clerkship.json#short": {
+   "en": "daf899f7110020f9",
+   "ja": "97395c2d554ade31"
+  },
+  "programmes/clinical-electives.json#audience": {
+   "en": "e3a3e294fc8b7f32",
+   "ja": "af83b3b603ad45d1"
+  },
+  "programmes/clinical-electives.json#capacity": {
+   "en": "297158e6ce563d5f",
+   "ja": "1801c8e0577635de"
+  },
+  "programmes/clinical-electives.json#cost": {
+   "en": "f2b7f158e4d9e773",
+   "ja": "2185d5f7f06d1052"
+  },
+  "programmes/clinical-electives.json#deadline/text": {
+   "en": "00de2688d1d13ce7",
+   "ja": "005c8b09b26f0433"
+  },
+  "programmes/clinical-electives.json#degree": {
+   "en": "5defb5e613283a6c",
+   "ja": "67b75466c43b8145"
+  },
+  "programmes/clinical-electives.json#duration": {
+   "en": "9a5de4c69657b960",
+   "ja": "2266b3233465ca13"
+  },
+  "programmes/clinical-electives.json#eligibility": {
+   "en": "77afde9029077456",
+   "ja": "dfcc4efffad6379f"
+  },
+  "programmes/clinical-electives.json#funding": {
+   "en": "4ca33091713501f0",
+   "ja": "76fcf9e0e9df9bfe"
+  },
+  "programmes/clinical-electives.json#howToApply": {
+   "en": "f5b0729cae85989a",
+   "ja": "a8e36a3c8b0dfdfa"
+  },
+  "programmes/clinical-electives.json#name": {
+   "en": "a3b83f41c1526cdc",
+   "ja": "5adbd74d747f77b7"
+  },
+  "programmes/clinical-electives.json#short": {
+   "en": "843e750900e11290",
+   "ja": "b43cbfa39dfaeacc"
+  },
+  "programmes/colorado-entrepreneurship.json#audience": {
+   "en": "f739849fed0e22ae",
+   "ja": "8899d1fe425e6e65"
+  },
+  "programmes/colorado-entrepreneurship.json#capacity": {
+   "en": "aa93eb40058a9c0a",
+   "ja": "323d6177353e6ee8"
+  },
+  "programmes/colorado-entrepreneurship.json#cost": {
+   "en": "24decceb51ee2601",
+   "ja": "9eb1ccbbc94968b7"
+  },
+  "programmes/colorado-entrepreneurship.json#deadline/text": {
+   "en": "847eea374931d600",
+   "ja": "a0ee2daef850cf65"
+  },
+  "programmes/colorado-entrepreneurship.json#degree": {
+   "en": "f83ffea82ca85e05",
+   "ja": "8561ea859a5ed1d2"
+  },
+  "programmes/colorado-entrepreneurship.json#duration": {
+   "en": "221efb0cda44e4a1",
+   "ja": "038e68660dc75c9c"
+  },
+  "programmes/colorado-entrepreneurship.json#howToApply": {
+   "en": "693cb465e08c947e",
+   "ja": "d4520ed21fadb3b4"
+  },
+  "programmes/colorado-entrepreneurship.json#name": {
+   "en": "15350ea41f806a19",
+   "ja": "5a47727791e9be4a"
+  },
+  "programmes/colorado-entrepreneurship.json#short": {
+   "en": "97299a515cd3ad92",
+   "ja": "d77e9692984d0888"
+  },
+  "programmes/dd-cuhk.json#audience": {
+   "en": "025b14698e8d871d",
+   "ja": "5bf0837759c90fb4"
+  },
+  "programmes/dd-cuhk.json#capacity": {
+   "en": "bb9dcc1c2e1b03fb",
+   "ja": "ce12d8255dd0bfa6"
+  },
+  "programmes/dd-cuhk.json#cost": {
+   "en": "1e4bc2a141166664",
+   "ja": "b993b5c6c5dbab8a"
+  },
+  "programmes/dd-cuhk.json#deadline/text": {
+   "en": "47ea2cf6d6b4356b",
+   "ja": "9d57f9b08d2f0b4e"
+  },
+  "programmes/dd-cuhk.json#degree": {
+   "en": "e166fb2ad56926da",
+   "ja": "f8d632a91d3d4d53"
+  },
+  "programmes/dd-cuhk.json#duration": {
+   "en": "30624c399792459a",
+   "ja": "4c13fcb2f5e8e3b0"
+  },
+  "programmes/dd-cuhk.json#eligibility": {
+   "en": "85085ceb5449550b",
+   "ja": "b2ebda01f0d48fe8"
+  },
+  "programmes/dd-cuhk.json#funding": {
+   "en": "baa8af84636327db",
+   "ja": "3b9dccbea14154e7"
+  },
+  "programmes/dd-cuhk.json#howToApply": {
+   "en": "842dc445c796c039",
+   "ja": "a672128f0f698162"
+  },
+  "programmes/dd-cuhk.json#name": {
+   "en": "2718e7f95e7b5d98",
+   "ja": "8eb91bf58ac1b1b9"
+  },
+  "programmes/dd-cuhk.json#short": {
+   "en": "71fc2235cb351850",
+   "ja": "438cdcb3bc4dee6d"
+  },
+  "programmes/game-case-discussion.json#audience": {
+   "en": "c3b12402e6777cc8",
+   "ja": "3aebb691b707e2bd"
+  },
+  "programmes/game-case-discussion.json#capacity": {
+   "en": "d60413d055484c09",
+   "ja": "f3e5be72cb9aa8c8"
+  },
+  "programmes/game-case-discussion.json#cost": {
+   "en": "f411a1fb62758b4c",
+   "ja": "6b328eb54d03d69c"
+  },
+  "programmes/game-case-discussion.json#deadline/text": {
+   "en": "5f7fccd703f6bd9e",
+   "ja": "ecc1855ee05e3f22"
+  },
+  "programmes/game-case-discussion.json#degree": {
+   "en": "7e59e38e9a3833a6",
+   "ja": "667068303ce20486"
+  },
+  "programmes/game-case-discussion.json#duration": {
+   "en": "dcd82e50c3e42b73",
+   "ja": "dcdfdecf43afb8b0"
+  },
+  "programmes/game-case-discussion.json#howToApply": {
+   "en": "a0ca4195f56ca1cb",
+   "ja": "d4520ed21fadb3b4"
+  },
+  "programmes/game-case-discussion.json#name": {
+   "en": "08e18c69ac9d3dac",
+   "ja": "3f7d43cc35207aa4"
+  },
+  "programmes/game-case-discussion.json#short": {
+   "en": "c054ba21abbb96bb",
+   "ja": "96befcef141fe0fa"
+  },
+  "programmes/hawaii-medical-english.json#audience": {
+   "en": "c06ae4e6ff3fab41",
+   "ja": "25cdf7903f2416c9"
+  },
+  "programmes/hawaii-medical-english.json#cost": {
+   "en": "f3fa0e841675c240",
+   "ja": "11f767dfcfd952bf"
+  },
+  "programmes/hawaii-medical-english.json#deadline/text": {
+   "en": "2bc60aef1140073f",
+   "ja": "ae8827243a97f21b"
+  },
+  "programmes/hawaii-medical-english.json#howToApply": {
+   "en": "76be8526576582c6",
+   "ja": "3f1246b55d8e2529"
+  },
+  "programmes/hawaii-medical-english.json#name": {
+   "en": "4aeddd89881cff64",
+   "ja": "c4accfd3235d3a5e"
+  },
+  "programmes/hawaii-medical-english.json#short": {
+   "en": "be6f9393a0d30945",
+   "ja": "d2034d9735b27437"
+  },
+  "programmes/jdp-adelaide.json#audience": {
+   "en": "7f24de47b8719440",
+   "ja": "fad4dddb61666cc0"
+  },
+  "programmes/jdp-adelaide.json#capacity": {
+   "en": "f380a33b18f51215",
+   "ja": "a71abdbe25c00963"
+  },
+  "programmes/jdp-adelaide.json#cost": {
+   "en": "1efa6aa088f824ca",
+   "ja": "be87e61db0c9b308"
+  },
+  "programmes/jdp-adelaide.json#deadline/text": {
+   "en": "4e9aa79a17177389",
+   "ja": "c1c8b416223633e7"
+  },
+  "programmes/jdp-adelaide.json#degree": {
+   "en": "741d94f87f55ff6e",
+   "ja": "ce26d3a558c1dd0b"
+  },
+  "programmes/jdp-adelaide.json#duration": {
+   "en": "18d9ac7e5fc7756b",
+   "ja": "13a6fe726ad72a35"
+  },
+  "programmes/jdp-adelaide.json#eligibility": {
+   "en": "24c5270a45b1c189",
+   "ja": "a2ea933e39f3e116"
+  },
+  "programmes/jdp-adelaide.json#funding": {
+   "en": "19007f51f6eb4cfb",
+   "ja": "0668b46b1b9da6ad"
+  },
+  "programmes/jdp-adelaide.json#howToApply": {
+   "en": "688eb98ce2a72a15",
+   "ja": "83295c8199d5fbd3"
+  },
+  "programmes/jdp-adelaide.json#name": {
+   "en": "cfb4a3d76a676d35",
+   "ja": "d41c1aed9c2ea3c4"
+  },
+  "programmes/jdp-adelaide.json#short": {
+   "en": "29a721665789eb13",
+   "ja": "4bba8e872bf3950c"
+  },
+  "programmes/jdp-freiburg.json#audience": {
+   "en": "7f24de47b8719440",
+   "ja": "fad4dddb61666cc0"
+  },
+  "programmes/jdp-freiburg.json#capacity": {
+   "en": "e48b6d73a239f196",
+   "ja": "a9894ecbbe417897"
+  },
+  "programmes/jdp-freiburg.json#cost": {
+   "en": "06754a9fad6a4c21",
+   "ja": "636f85d3b8d78a2c"
+  },
+  "programmes/jdp-freiburg.json#deadline/text": {
+   "en": "4e9aa79a17177389",
+   "ja": "c1c8b416223633e7"
+  },
+  "programmes/jdp-freiburg.json#degree": {
+   "en": "db54d958ba5cc514",
+   "ja": "ce26d3a558c1dd0b"
+  },
+  "programmes/jdp-freiburg.json#duration": {
+   "en": "be9a75e1ec8ee1f9",
+   "ja": "5e6ed4d47e07b34b"
+  },
+  "programmes/jdp-freiburg.json#eligibility": {
+   "en": "45061334049596e3",
+   "ja": "0567675c75bd8c76"
+  },
+  "programmes/jdp-freiburg.json#funding": {
+   "en": "19007f51f6eb4cfb",
+   "ja": "0668b46b1b9da6ad"
+  },
+  "programmes/jdp-freiburg.json#howToApply": {
+   "en": "8949616c3d5fae3e",
+   "ja": "fb814d8c58a1e094"
+  },
+  "programmes/jdp-freiburg.json#name": {
+   "en": "26495436f5e855d2",
+   "ja": "c7feda656543ee61"
+  },
+  "programmes/jdp-freiburg.json#short": {
+   "en": "0e3c424ab15a127a",
+   "ja": "7893e1da35052919"
+  },
+  "programmes/jdp-lund.json#audience": {
+   "en": "7f24de47b8719440",
+   "ja": "fad4dddb61666cc0"
+  },
+  "programmes/jdp-lund.json#capacity": {
+   "en": "f380a33b18f51215",
+   "ja": "a71abdbe25c00963"
+  },
+  "programmes/jdp-lund.json#cost": {
+   "en": "c70d7874a44f67b7",
+   "ja": "3328e57f635a2589"
+  },
+  "programmes/jdp-lund.json#deadline/text": {
+   "en": "4e9aa79a17177389",
+   "ja": "c1c8b416223633e7"
+  },
+  "programmes/jdp-lund.json#degree": {
+   "en": "db54d958ba5cc514",
+   "ja": "ce26d3a558c1dd0b"
+  },
+  "programmes/jdp-lund.json#duration": {
+   "en": "8e53eaf2d91e0ebe",
+   "ja": "9cb7a3b28835b6f3"
+  },
+  "programmes/jdp-lund.json#eligibility": {
+   "en": "4c0206f109c1a0bd",
+   "ja": "9b3b1bc277b5148c"
+  },
+  "programmes/jdp-lund.json#funding": {
+   "en": "19007f51f6eb4cfb",
+   "ja": "0668b46b1b9da6ad"
+  },
+  "programmes/jdp-lund.json#howToApply": {
+   "en": "bcd6e8408a5303b8",
+   "ja": "a39c5d41d7329795"
+  },
+  "programmes/jdp-lund.json#name": {
+   "en": "e653809b9bb0e432",
+   "ja": "e10d28d3465ce86a"
+  },
+  "programmes/jdp-lund.json#short": {
+   "en": "667cb38882333c65",
+   "ja": "705ef23331ff4401"
+  },
+  "programmes/leicester-summer-school.json#audience": {
+   "en": "b8a8e1c7ce57a685",
+   "ja": "da3579bf71d5e86b"
+  },
+  "programmes/leicester-summer-school.json#cost": {
+   "en": "5cbd7e8c768bf00d",
+   "ja": "bc9b3c77fbd1e3c9"
+  },
+  "programmes/leicester-summer-school.json#deadline/text": {
+   "en": "2bc60aef1140073f",
+   "ja": "ae8827243a97f21b"
+  },
+  "programmes/leicester-summer-school.json#duration": {
+   "en": "166ffe391ab35c34",
+   "ja": "5dc43c37bf3c3608"
+  },
+  "programmes/leicester-summer-school.json#howToApply": {
+   "en": "0593c590b914a530",
+   "ja": "0e5481c3d107ff79"
+  },
+  "programmes/leicester-summer-school.json#name": {
+   "en": "afe0d73b32ebc262",
+   "ja": "811cfd9752b2e6d6"
+  },
+  "programmes/leicester-summer-school.json#short": {
+   "en": "2c70699432225585",
+   "ja": "a8336f97f13e47ed"
+  },
+  "programmes/lmu-nu-usmle.json#audience": {
+   "en": "148df5263bb167c1",
+   "ja": "cf04afb07757b54a"
+  },
+  "programmes/lmu-nu-usmle.json#duration": {
+   "en": "2c2451bf1c7a619d",
+   "ja": "959f7432c1e054f6"
+  },
+  "programmes/lmu-nu-usmle.json#howToApply": {
+   "en": "5cede5eb0c568d62",
+   "ja": "1f89bc1f882065c5"
+  },
+  "programmes/lmu-nu-usmle.json#name": {
+   "en": "035b6c7d630456f5",
+   "ja": "48c934274f9d02e2"
+  },
+  "programmes/lmu-nu-usmle.json#short": {
+   "en": "71d8d85ed4a4f289",
+   "ja": "78b62dfbded99011"
+  },
+  "programmes/research-abroad.json#audience": {
+   "en": "3d03ad9e99e5bbbb",
+   "ja": "58eed1c26d49c524"
+  },
+  "programmes/research-abroad.json#capacity": {
+   "en": "a9c6e380818cfd78",
+   "ja": "2dcdb0077e2b5e07"
+  },
+  "programmes/research-abroad.json#deadline/text": {
+   "en": "a0bf0d29a9f88d91",
+   "ja": "f155bc1e1a58a10b"
+  },
+  "programmes/research-abroad.json#duration": {
+   "en": "d332e301976f683a",
+   "ja": "6dfd85bedce29cc0"
+  },
+  "programmes/research-abroad.json#eligibility": {
+   "en": "618eacc4d732814a",
+   "ja": "60342a875da2332d"
+  },
+  "programmes/research-abroad.json#funding": {
+   "en": "513f668f932943f2",
+   "ja": "3c24e8dc4fefdd2d"
+  },
+  "programmes/research-abroad.json#howToApply": {
+   "en": "887dbf24911db8ac",
+   "ja": "b1e254f6e3883970"
+  },
+  "programmes/research-abroad.json#name": {
+   "en": "8bf2354fa8e9d863",
+   "ja": "c9b3e61e271e6465"
+  },
+  "programmes/research-abroad.json#short": {
+   "en": "47d5f79754576ca9",
+   "ja": "62e5873cf5bae0d7"
+  },
+  "programmes/research-training.json#audience": {
+   "en": "7f42cdbaedf43ab7",
+   "ja": "4044e0a546855415"
+  },
+  "programmes/research-training.json#cost": {
+   "en": "48804fdf053e803a",
+   "ja": "cff8e2651cd91397"
+  },
+  "programmes/research-training.json#deadline/text": {
+   "en": "f7f153ea0f0a74fe",
+   "ja": "72d9471b9304f59b"
+  },
+  "programmes/research-training.json#duration": {
+   "en": "ee552e25bec70d2f",
+   "ja": "5b87e4814cb857a5"
+  },
+  "programmes/research-training.json#eligibility": {
+   "en": "d0f51304ee8ed6a9",
+   "ja": "deabf5b267c44a29"
+  },
+  "programmes/research-training.json#funding": {
+   "en": "dac9583bf52837a1",
+   "ja": "0b80076f6b1ef50e"
+  },
+  "programmes/research-training.json#howToApply": {
+   "en": "2b08bf0a10a4d041",
+   "ja": "f33c81e5006580c5"
+  },
+  "programmes/research-training.json#name": {
+   "en": "f26fea17f289abd7",
+   "ja": "2f8f0bdc4b2a6c48"
+  },
+  "programmes/research-training.json#short": {
+   "en": "211c5e5561b645a5",
+   "ja": "1dfea7b907f90716"
+  },
+  "programmes/sep-unc.json#audience": {
+   "en": "87fa92d374bacb4d",
+   "ja": "eb12df9edc03432e"
+  },
+  "programmes/sep-unc.json#capacity": {
+   "en": "bb9dcc1c2e1b03fb",
+   "ja": "ce12d8255dd0bfa6"
+  },
+  "programmes/sep-unc.json#cost": {
+   "en": "6f09ceb69e167b64",
+   "ja": "8e32b934a9b54e55"
+  },
+  "programmes/sep-unc.json#deadline/text": {
+   "en": "47ea2cf6d6b4356b",
+   "ja": "9d57f9b08d2f0b4e"
+  },
+  "programmes/sep-unc.json#degree": {
+   "en": "84c0f83ea1eb0578",
+   "ja": "feda0b7e3e01a888"
+  },
+  "programmes/sep-unc.json#duration": {
+   "en": "72534e9802df67b7",
+   "ja": "d7004f53b9a45770"
+  },
+  "programmes/sep-unc.json#eligibility": {
+   "en": "6d51b3bb8b2df5fb",
+   "ja": "e53f9b43f36b0dbd"
+  },
+  "programmes/sep-unc.json#funding": {
+   "en": "82d7e23ca911d434",
+   "ja": "cb5f1113cc143a0e"
+  },
+  "programmes/sep-unc.json#howToApply": {
+   "en": "842dc445c796c039",
+   "ja": "a672128f0f698162"
+  },
+  "programmes/sep-unc.json#name": {
+   "en": "e87b58c539965014",
+   "ja": "ca770b4716669ddc"
+  },
+  "programmes/sep-unc.json#short": {
+   "en": "e67097e853c47de9",
+   "ja": "8467061ce49a6ebd"
+  },
+  "programmes/shibahara-entrepreneurship.json#audience": {
+   "en": "ebe06b05aef7c908",
+   "ja": "00cb807306fadc36"
+  },
+  "programmes/shibahara-entrepreneurship.json#capacity": {
+   "en": "6a7fc7ae5d1615c5",
+   "ja": "79e13c383570fa80"
+  },
+  "programmes/shibahara-entrepreneurship.json#deadline/text": {
+   "en": "a0bf0d29a9f88d91",
+   "ja": "f155bc1e1a58a10b"
+  },
+  "programmes/shibahara-entrepreneurship.json#duration": {
+   "en": "e358a8d34309d247",
+   "ja": "622b8c9cb5b45d07"
+  },
+  "programmes/shibahara-entrepreneurship.json#eligibility": {
+   "en": "54180740269bdcde",
+   "ja": "8bd289e6f9993884"
+  },
+  "programmes/shibahara-entrepreneurship.json#funding": {
+   "en": "e4fbaf75c2f26495",
+   "ja": "c594be082bad395b"
+  },
+  "programmes/shibahara-entrepreneurship.json#howToApply": {
+   "en": "887dbf24911db8ac",
+   "ja": "b1e254f6e3883970"
+  },
+  "programmes/shibahara-entrepreneurship.json#name": {
+   "en": "d72a22928f42d2dd",
+   "ja": "d80a27b2bf893734"
+  },
+  "programmes/shibahara-entrepreneurship.json#short": {
+   "en": "a78da0efd5685cd1",
+   "ja": "0e2c044c50ec3f94"
+  },
+  "programmes/shibahara-fund.json#audience": {
+   "en": "4ca01f9fd44f7cab",
+   "ja": "b9b05ebd1a5e9c5d"
+  },
+  "programmes/shibahara-fund.json#capacity": {
+   "en": "21d91ddfdd096bb6",
+   "ja": "dba424e6ed56bc2b"
+  },
+  "programmes/shibahara-fund.json#deadline/text": {
+   "en": "a0bf0d29a9f88d91",
+   "ja": "f155bc1e1a58a10b"
+  },
+  "programmes/shibahara-fund.json#duration": {
+   "en": "a033d6012f04ad45",
+   "ja": "fc79b79be8e00a2b"
+  },
+  "programmes/shibahara-fund.json#funding": {
+   "en": "3b8854a443da75ed",
+   "ja": "afd2a2bcb5564050"
+  },
+  "programmes/shibahara-fund.json#howToApply": {
+   "en": "9e805592944245ef",
+   "ja": "60459edd5b5d62a8"
+  },
+  "programmes/shibahara-fund.json#name": {
+   "en": "6bbd905ac3d159ea",
+   "ja": "2934e37257e8b379"
+  },
+  "programmes/shibahara-fund.json#short": {
+   "en": "45dde931eb7ec109",
+   "ja": "2cfb028af4be1fa1"
+  },
+  "programmes/tei-summer-camp.json#audience": {
+   "en": "9a53a5ee8277c4b3",
+   "ja": "be477819694b7dd3"
+  },
+  "programmes/tei-summer-camp.json#deadline/text": {
+   "en": "2d90db5948ecebeb",
+   "ja": "1fa5abd168dfad53"
+  },
+  "programmes/tei-summer-camp.json#duration": {
+   "en": "ffd6f7ce77db93c1",
+   "ja": "810866c9a445c3d6"
+  },
+  "programmes/tei-summer-camp.json#howToApply": {
+   "en": "ab44c82008c51397",
+   "ja": "e28863df1a9d5a78"
+  },
+  "programmes/tei-summer-camp.json#name": {
+   "en": "59c6bc760aca5e28",
+   "ja": "835919674e7e40b7"
+  },
+  "programmes/tei-summer-camp.json#short": {
+   "en": "2226df6968d46504",
+   "ja": "716fa350d65dadf9"
+  },
+  "programmes/uk-short-clinical.json#audience": {
+   "en": "b4f52f08d70e5ef4",
+   "ja": "9879c4f5d47aad1f"
+  },
+  "programmes/uk-short-clinical.json#capacity": {
+   "en": "868bbb8679fd8dc1",
+   "ja": "f86a1d6369f197fe"
+  },
+  "programmes/uk-short-clinical.json#deadline/text": {
+   "en": "f46b5be0e3ab005b",
+   "ja": "118ae27c2404dbd1"
+  },
+  "programmes/uk-short-clinical.json#duration": {
+   "en": "302aceaf374d9124",
+   "ja": "8b7cea893e4d48ca"
+  },
+  "programmes/uk-short-clinical.json#howToApply": {
+   "en": "a3d35a107ff9ea1b",
+   "ja": "cc2b4904dbc7394a"
+  },
+  "programmes/uk-short-clinical.json#name": {
+   "en": "ee66a1cd3a4dd01d",
+   "ja": "8a3b363c48583629"
+  },
+  "programmes/uk-short-clinical.json#short": {
+   "en": "ae7bda42468536dd",
+   "ja": "26a768bbd0c9484f"
+  }
+ }
+}

@@ -7166,57 +7166,5 @@
    "ja": "顕微鏡やモニターが並ぶ広い実験室"
   },
   "source": "https://www.med.nagoya-u.ac.jp/medical_E/international/images/rep_104-2.jpg"
- },
- {
-  "id": "staff-kasuya-hideki",
-  "kind": "portrait",
-  "staff": "kasuya-hideki",
-  "file": "img/staff/kasuya-hideki.webp",
-  "width": 150,
-  "height": 200,
-  "alt": {
-   "en": "Portrait of Hideki Kasuya",
-   "ja": "粕谷 英樹の写真"
-  },
-  "source": "https://www.med.nagoya-u.ac.jp/medical_E/laboratory/assets_c/2026/03/international-medical-education_head-thumb-150x200-31624.jpg"
- },
- {
-  "id": "staff-aleksic-branko",
-  "kind": "portrait",
-  "staff": "aleksic-branko",
-  "file": "img/staff/aleksic-branko.webp",
-  "width": 120,
-  "height": 160,
-  "alt": {
-   "en": "Portrait of Branko Aleksic",
-   "ja": "アレクシッチ ブランコの写真"
-  },
-  "source": "https://www.med.nagoya-u.ac.jp/medical_E/international/images/staff_02.jpg"
- },
- {
-  "id": "staff-sumigama-seiji",
-  "kind": "portrait",
-  "staff": "sumigama-seiji",
-  "file": "img/staff/sumigama-seiji.webp",
-  "width": 120,
-  "height": 160,
-  "alt": {
-   "en": "Portrait of Seiji Sumigama",
-   "ja": "炭竈 誠二の写真"
-  },
-  "source": "https://www.med.nagoya-u.ac.jp/medical_E/international/images/staff_03.jpg"
- },
- {
-  "id": "staff-bustos-villalobos-itzel",
-  "kind": "portrait",
-  "staff": "bustos-villalobos-itzel",
-  "file": "img/staff/bustos-villalobos-itzel.webp",
-  "width": 120,
-  "height": 160,
-  "alt": {
-   "en": "Portrait of Itzel Bustos Villalobos",
-   "ja": "イッツェル ブストス ビジャロボスの写真"
-  },
-  "source": "https://www.med.nagoya-u.ac.jp/medical_E/international/images/staff_04.jpg"
  }
 ]

@@ -34,10 +34,12 @@ The unit's missions are the following.
 3. To promote international joint education in master's and doctoral programs, such as the joint degree programmes.
 4. To provide international services at Nagoya University Hospital, such as support for foreign patients and English versions of hospital documents.
 
-The unit also compares education and hospital internationalization at universities in Japan and abroad, so that the school can respond to what society expects. A fifth area, the Cancer Immune Therapy Research Center, develops treatments for intractable cancer. The head of the office also directs it. See [Research](research).
+The unit also compares education and hospital internationalization at universities in Japan and abroad, so that the school can respond to what society expects. A fifth area, the Cancer Immune Therapy Research Center, develops treatments for intractable cancer. The head of the office also directs it.
 
 ## History
 
 The office began in 1991 as the International Exchange Office. The first student was sent abroad for a clinical clerkship in 1993, to the University of North Carolina at Chapel Hill. The Department of International Medical Education was created in 2018.
 
-The staff are listed on the [team page](team), and ways to reach the office are on the [contact page](contact).
+## Team, research and publications
+
+The team, the department's research and its publications are kept in one place: the department's entry in the faculty's laboratory directory, linked below. Ways to reach the office are on the [contact page](contact).
