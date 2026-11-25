@@ -26,8 +26,15 @@ const featured = stories
   .filter((s, i, arr) => arr.findIndex((x) => x.data.type === s.data.type) === i || i < 2)
   .slice(0, 3);
 const doors = SECTIONS.filter((s) => s !== 'about');
-// Visitors that the section doors do not name: future partners, companies and research institutes, Nagoya staff.
-const moreDoors = ['partnerships/become-a-partner', 'partnerships/companies', 'partnerships/for-faculty'];
+// Visitors that the section doors do not name: future partners, companies and research institutes, Nagoya staff,
+// parents of Nagoya students and the press. The anchor is the heading's id in each language (the page opens anyway).
+const moreDoors: { path: string; hash?: Record<Lang, string> }[] = [
+  { path: 'partnerships/become-a-partner' },
+  { path: 'partnerships/companies' },
+  { path: 'partnerships/for-faculty' },
+  { path: 'study-abroad/safety', hash: { en: 'for-parents', ja: '保護者の方へ' } },
+  { path: 'about/contact', hash: { en: 'media-and-official-enquiries', ja: '報道機関と公的な問い合わせ' } },
+];
 const doorPhotos: Partial<Record<(typeof doors)[number], ImageEntry>> = {};
 for (const s of doors) {
   const { hero } = await pageImages(s);
@@ -62,8 +69,8 @@ for (const s of doors) {
       </div>
       <h3 class="band-sub" id="more-doors">{ui.moreDoorsTitle}</h3>
       <ul class="grid cols-3 plain-list" aria-labelledby="more-doors">
-        {moreDoors.map((path) => (
-          <li><a class="card door-more" href={href(lang, path)}><span class="door-more-title">{ui.audienceCards[path]}</span></a></li>
+        {moreDoors.map(({ path, hash }) => (
+          <li><a class="card door-more" href={`${href(lang, path)}${hash ? `#${hash[lang]}` : ''}`}><span class="door-more-title">{ui.audienceCards[path]}</span></a></li>
         ))}
       </ul>
     </div>

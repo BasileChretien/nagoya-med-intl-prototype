@@ -11,8 +11,8 @@ const { programme, lang, showTitle = true } = Astro.props;
 const ui = t(lang);
 const d = programme.data;
 const contact = await getEntry('contacts', d.contact);
-type Key = 'audience' | 'duration' | 'capacity' | 'cost' | 'funding' | 'degree' | 'eligibility' | 'howToApply';
-const rows: Key[] = ['audience', 'duration', 'capacity', 'degree', 'cost', 'funding', 'eligibility', 'howToApply'];
+type Key = 'audience' | 'duration' | 'capacity' | 'cost' | 'funding' | 'degree' | 'language' | 'eligibility' | 'howToApply';
+const rows: Key[] = ['audience', 'duration', 'capacity', 'degree', 'cost', 'funding', 'language', 'eligibility', 'howToApply'];
 ---
 <section class="facts" aria-label={`${ui.factsTitle}: ${d.name[lang]}`}>
   {showTitle && (

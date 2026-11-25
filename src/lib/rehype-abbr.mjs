@@ -6,6 +6,8 @@
  *    browser would read the same href one level too deep, so every relative link is rewritten to its full address
  *    (which the --dist link check then verifies).
  *
+ *    A link to a page in the other language, or to a PDF, says so after its text: "(Japanese)", "（英語）", "(PDF)".
+ *
  * 2. Acronyms, from src/data/glossary.json:
  *   - the first use of each acronym on a page becomes <abbr title="what it stands for">;
  *   - an "Abbreviations on this page" box at the end lists them, with the institution's website when it has one,
@@ -16,12 +18,15 @@
  *   markdown: { processor: satteri({ hastPlugins: [abbrPlugin({ base })] }) }
  */
 import { readFileSync } from 'node:fs';
+import { urlLang } from './url-lang.mjs';
 
 const GLOSSARY_FILE = new URL('../data/glossary.json', import.meta.url);
 const SKIP = new Set(['abbr', 'code', 'pre', 'script', 'style']);
 const TEXT = {
-  en: { heading: 'Abbreviations on this page', website: 'website', all: 'All abbreviations', unconfirmed: 'to be confirmed' },
-  ja: { heading: 'このページの略語', website: '公式サイト', all: '略語の一覧', unconfirmed: '確認中' },
+  en: { heading: 'Abbreviations on this page', website: 'website', all: 'All abbreviations', unconfirmed: 'to be confirmed',
+    other: 'Japanese', pdf: 'PDF', open: ' (', sep: ', ', close: ')' },
+  ja: { heading: 'このページの略語', website: '公式サイト', all: '略語の一覧', unconfirmed: '確認中',
+    other: '英語', pdf: 'PDF', open: '（', sep: '、', close: '）' },
 };
 
 /** @param {string} s */
@@ -58,6 +63,21 @@ export default function abbrPlugin(options = {}) {
         filter: ['a'],
         visit(node, ctx) {
           const href = node.properties?.href;
+          if (typeof href === 'string' && /^https?:\/\//i.test(href)) {
+            // Say when the target is in the other language or is a PDF, unless the link text, or the words right after
+            // the link ("(in Japanese)", ", which is in Japanese", "(PDF, 447 KB)", "（英語）"), already do.
+            const parent = ctx.parent(node);
+            const next = parent?.children?.[(ctx.indexOf(node) ?? -1) + 1];
+            const after = next?.type === 'text' ? next.value.slice(0, 40) : '';
+            const said = ctx.textContent(node) + (/^[^.。]{0,25}?(in (Japanese|English)|日本語|英語)/i.test(after) ? ' Japanese' : '') + (/^\s*[(（]\s*PDF/i.test(after) ? ' PDF' : '');
+            const target = urlLang(href);
+            const labels = [];
+            if (target && target !== lang && !/(Japanese|English|日本語|英語)/i.test(said)) labels.push(t.other);
+            if (/\.pdf$/i.test(new URL(href).pathname) && !/PDF/i.test(said)) labels.push(t.pdf);
+            if (target && target !== lang) ctx.setProperty(node, 'hrefLang', target);
+            if (labels.length) ctx.appendChild(node, text(`${t.open}${labels.join(t.sep)}${t.close}`));
+            return;
+          }
           if (typeof href !== 'string' || !href || /^([a-z][a-z0-9+.-]*:|\/|#)/i.test(href)) return;
           const url = new URL(href, `https://site${base}/${folder}`);
           // "index" is the section's own page: degrees/index is /degrees/.

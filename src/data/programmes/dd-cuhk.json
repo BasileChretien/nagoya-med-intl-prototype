@@ -32,9 +32,13 @@
     "en": "A doctoral degree from each university, with two dissertations of different content",
     "ja": "各大学からそれぞれ博士の学位。内容の異なる学位論文を2本作成"
   },
+  "language": {
+    "en": "IELTS 6.5, TOEFL 79 or DMAT 21, taken within the last two years.",
+    "ja": "受験から2年以内のIELTS 6.5、TOEFL 79点またはDMAT 21"
+  },
   "eligibility": {
-    "en": "Academically excellent and of good conduct. IELTS 6.5, TOEFL 79 or DMAT 21, taken within the last two years.",
-    "ja": "学術優秀で品行方正であること。受験から2年以内のIELTS 6.5、TOEFL 79点またはDMAT 21"
+    "en": "Academically excellent and of good conduct.",
+    "ja": "学術優秀で品行方正であること"
   },
   "howToApply": {
     "en": "Contact the joint degree programmes office before you apply.",

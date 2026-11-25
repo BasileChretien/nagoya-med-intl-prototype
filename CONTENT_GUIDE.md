@@ -8,11 +8,18 @@ How content is stored and written in this site. Read it before adding or changin
 
 **In the browser, with nothing to install.** Open the repository on github.com, open the file, and click the pencil ("Edit this file"). When you are done, click "Commit changes", choose "Create a new branch for this commit and start a pull request", and create the pull request. GitHub explains the steps in [Editing files](https://docs.github.com/en/repositories/working-with-files/managing-files/editing-files). To change several files in one go (a report and its photo, for example), press `.` on the repository page: it opens the [github.dev editor](https://docs.github.com/en/codespaces/the-githubdev-web-based-editor) in the browser.
 
-The browser editors cannot run the commands this guide names (`npm run check`, `npm run sync`, `npm run faculty-texts`). The checks still run on every pull request, and a red check lists what is wrong. A change that needs `npm run sync -- confirm` stays red until someone runs it: ask the technical contact (see "Publishing, review and undo"), or open a [codespace](https://docs.github.com/en/codespaces/about-codespaces/what-are-codespaces), which is the same editor with a terminal.
+The browser editors cannot run commands, and they do not need to. The checks run on every pull request, and a red check lists what is wrong. When it says two languages are out of step, finish in the browser as well:
+
+1. Read the English and the Japanese once more and make sure they say the same thing.
+2. In the repository, open the **Actions** tab, choose **Confirm both languages**, and click **Run workflow**.
+3. Choose your branch (the one your pull request was created on), paste the keys the check printed (for example `study-in-nagoya/faq programmes/sep-unc.json#duration`, separated by spaces), add the story ids if you updated a report translation, tick "I have read both languages", and run it.
+4. The workflow records the confirmation, regenerates the faculty texts, commits to your branch and runs the checks. When it is green, merge the pull request.
+
+The workflow will not run unless the box is ticked: confirming is a statement that both languages say the same thing, never a way to silence the check. A [codespace](https://docs.github.com/en/codespaces/about-codespaces/what-are-codespaces), the same editor with a terminal, also works.
 
 **On your computer.** Install Node.js 22.23.4 or later (the site's build on GitHub uses Node.js 22), run `npm ci` once in the project folder, then `npm run dev` to see the site at `http://localhost:4321/nagoya-med-intl-prototype/` while you edit. Run `npm run check` before you commit.
 
-**With a content editor, later.** [Pages CMS](https://pagescms.org/) and [Decap CMS](https://decapcms.org/) are free editors that work on top of a GitHub repository. They show forms instead of files, and every save becomes a commit, so the checks and the pull request review stay as they are. Neither is installed. Setting one up means writing a configuration file that describes the pages and the data files, and deciding who runs the `confirm` step, which a form cannot do on its own. Decide this once the office knows who will edit the site and how often.
+**With a content editor, later.** [Pages CMS](https://pagescms.org/) and [Decap CMS](https://decapcms.org/) are free editors that work on top of a GitHub repository. They show forms instead of files, and every save becomes a commit, so the checks and the pull request review stay as they are. Neither is installed. Setting one up means writing a configuration file that describes the pages and the data files; the `confirm` step then runs from the Actions tab as above. Decide this once the office knows who will edit the site and how often.
 
 ### Your first edit
 

@@ -32,9 +32,13 @@
     "en": "Doctor of Philosophy (in Medicine), one joint degree from both universities",
     "ja": "博士（医学）。両大学による単一の共同学位"
   },
+  "language": {
+    "en": "IELTS Overall 6.5 with at least 6 in each section, or an equivalent test accepted by Adelaide.",
+    "ja": "IELTS Overall 6.5（各セクション6以上）またはアデレード大学が認める同等のスコア"
+  },
   "eligibility": {
-    "en": "Research ability equivalent to a master's degree. IELTS Overall 6.5 with at least 6 in each section, or an equivalent Adelaide-accepted test. 30 credits are required.",
-    "ja": "修士相当の研究能力。IELTS Overall 6.5（各セクション6以上）またはアデレード大学が認める同等のスコア。必要単位は30単位"
+    "en": "Research ability equivalent to a master's degree. 30 credits are required.",
+    "ja": "修士相当の研究能力。必要単位は30単位"
   },
   "howToApply": {
     "en": "Consult the joint degree programmes office first. Then apply to Nagoya University through the graduate school's call for applications, attend the interviews and submit documents to Adelaide. See the admission page.",

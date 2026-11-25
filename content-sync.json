@@ -133,16 +133,16 @@
    "ja": "7e0511213f6d377a"
   },
   "study-in-nagoya": {
-   "en": "53c7d72d6742b50d",
-   "ja": "8b5596c061e2160c"
+   "en": "bff6219a9b19c913",
+   "ja": "219c3cf521d2a56f"
   },
   "study-in-nagoya/clinical-clerkship": {
-   "en": "8ec7a2f504f7febf",
-   "ja": "91a5cfe0a57603b3"
+   "en": "08ff5b00c54bf7bf",
+   "ja": "aa7dad82d2eb19b6"
   },
   "study-in-nagoya/faq": {
-   "en": "8a1e2a7bf6bbc86e",
-   "ja": "c6e9695655949c20"
+   "en": "9eb2d4b15198cd32",
+   "ja": "5ec95b8201bfe78d"
   },
   "study-in-nagoya/living-in-nagoya": {
    "en": "465539eea9e16c20",
@@ -3251,8 +3251,8 @@
    "ja": "4c13fcb2f5e8e3b0"
   },
   "programmes/dd-cuhk.json#eligibility": {
-   "en": "85085ceb5449550b",
-   "ja": "b2ebda01f0d48fe8"
+   "en": "782f2d3979cdb636",
+   "ja": "4639c39974df3500"
   },
   "programmes/dd-cuhk.json#funding": {
    "en": "baa8af84636327db",
@@ -3261,6 +3261,10 @@
   "programmes/dd-cuhk.json#howToApply": {
    "en": "0721af16933f9625",
    "ja": "1d77675c670734cf"
+  },
+  "programmes/dd-cuhk.json#language": {
+   "en": "c45a12f2da267416",
+   "ja": "017db50c596c2308"
   },
   "programmes/dd-cuhk.json#name": {
    "en": "2718e7f95e7b5d98",
@@ -3355,8 +3359,8 @@
    "ja": "13a6fe726ad72a35"
   },
   "programmes/jdp-adelaide.json#eligibility": {
-   "en": "24c5270a45b1c189",
-   "ja": "a2ea933e39f3e116"
+   "en": "515be8645e1485c5",
+   "ja": "221598fc1975bdd2"
   },
   "programmes/jdp-adelaide.json#funding": {
    "en": "3e2dc29e0a84c1a3",
@@ -3365,6 +3369,10 @@
   "programmes/jdp-adelaide.json#howToApply": {
    "en": "56cf16ffb82c337c",
    "ja": "57bd9ed00cb4b5e4"
+  },
+  "programmes/jdp-adelaide.json#language": {
+   "en": "f71558cd8405705a",
+   "ja": "bfa6f36fb5b9759e"
   },
   "programmes/jdp-adelaide.json#name": {
    "en": "cfb4a3d76a676d35",
@@ -3399,8 +3407,8 @@
    "ja": "5e6ed4d47e07b34b"
   },
   "programmes/jdp-freiburg.json#eligibility": {
-   "en": "45061334049596e3",
-   "ja": "0567675c75bd8c76"
+   "en": "f536393914d603c3",
+   "ja": "d8b84d43608327cb"
   },
   "programmes/jdp-freiburg.json#funding": {
    "en": "3e2dc29e0a84c1a3",
@@ -3409,6 +3417,10 @@
   "programmes/jdp-freiburg.json#howToApply": {
    "en": "dec9322ef234e4df",
    "ja": "22906225aae4f82e"
+  },
+  "programmes/jdp-freiburg.json#language": {
+   "en": "138e14b901a2c600",
+   "ja": "3000eb56221d0874"
   },
   "programmes/jdp-freiburg.json#name": {
    "en": "26495436f5e855d2",
@@ -3443,8 +3455,8 @@
    "ja": "9cb7a3b28835b6f3"
   },
   "programmes/jdp-lund.json#eligibility": {
-   "en": "4c0206f109c1a0bd",
-   "ja": "9b3b1bc277b5148c"
+   "en": "f97a94977ace0023",
+   "ja": "5fca3631a60c513c"
   },
   "programmes/jdp-lund.json#funding": {
    "en": "3e2dc29e0a84c1a3",
@@ -3453,6 +3465,10 @@
   "programmes/jdp-lund.json#howToApply": {
    "en": "a52128ec7d30469d",
    "ja": "89ad1af8c00a0d30"
+  },
+  "programmes/jdp-lund.json#language": {
+   "en": "7d93161a97ea06da",
+   "ja": "a24f8019ca74e7cd"
   },
   "programmes/jdp-lund.json#name": {
    "en": "e653809b9bb0e432",
@@ -3611,8 +3627,8 @@
    "ja": "10584ef14d2dd300"
   },
   "programmes/sep-unc.json#eligibility": {
-   "en": "6d51b3bb8b2df5fb",
-   "ja": "e53f9b43f36b0dbd"
+   "en": "fbe167b0395b77a9",
+   "ja": "0e1186bee2bd5f79"
   },
   "programmes/sep-unc.json#funding": {
    "en": "fce323a52d7dbe55",
@@ -3621,6 +3637,10 @@
   "programmes/sep-unc.json#howToApply": {
    "en": "68d791d27f2315c3",
    "ja": "a37bfec7b539a7f8"
+  },
+  "programmes/sep-unc.json#language": {
+   "en": "6bed831ee5f4f08a",
+   "ja": "f485d665fdb76f85"
   },
   "programmes/sep-unc.json#name": {
    "en": "e87b58c539965014",

@@ -32,9 +32,13 @@
     "en": "No UNC degree. A certificate of completion and an evaluation are issued; results can be used in the doctoral dissertation at Nagoya.",
     "ja": "UNCの学位は出ない。評価書と修了証が発行され、成果は名古屋大学の博士論文の一部にできる"
   },
+  "language": {
+    "en": "TOEFL iBT 65, IELTS 6, CEFR B2, OPI Intermediate Mid or TOEIC 650, taken within the last two years.",
+    "ja": "受験から2年以内のTOEFL iBT 65点、IELTS 6、CEFR B2、OPI Intermediate MidまたはTOEIC 650点"
+  },
   "eligibility": {
-    "en": "TOEFL iBT 65, IELTS 6, CEFR B2, OPI Intermediate Mid or TOEIC 650, taken within the last two years. Age is counted on 1 April of the fiscal year. Faculty members are sent only to promote joint research.",
-    "ja": "受験から2年以内のTOEFL iBT 65点、IELTS 6、CEFR B2、OPI Intermediate MidまたはTOEIC 650点。年齢は各年度4月1日時点。教員の派遣は共同研究の推進に限る"
+    "en": "Age is counted on 1 April of the fiscal year. Faculty members are sent only to promote joint research.",
+    "ja": "年齢は各年度4月1日時点。教員の派遣は共同研究の推進に限る"
   },
   "howToApply": {
     "en": "Send four documents to the joint degree programmes office: the UNC visiting scholar application form and the UNC recommendation form (both in a set format), a CV in English and a motivation letter. The CV and the letter are forwarded to UNC. Ask the office for the two UNC forms.",

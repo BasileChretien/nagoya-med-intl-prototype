@@ -32,9 +32,13 @@
     "en": "Doctor of Philosophy in Medical Science, one joint degree from both universities",
     "ja": "博士（医学）。両大学による単一の共同学位"
   },
+  "language": {
+    "en": "TOEFL iBT 79 or higher, or IELTS Academic Overall 6.5 with at least 5.0 in each section, at application.",
+    "ja": "出願時にTOEFL iBT 79点以上、またはIELTS Academic Overall 6.5以上（各セクション5.0以上）"
+  },
   "eligibility": {
-    "en": "TOEFL iBT 79 or higher, or IELTS Academic Overall 6.5 with at least 5.0 in each section, at application. 48 credits are required for students admitted from 1 January 2024.",
-    "ja": "出願時にTOEFL iBT 79点以上、またはIELTS Academic Overall 6.5以上（各セクション5.0以上）。2024年1月1日以降の入学者は48単位が必要"
+    "en": "48 credits are required for students admitted from 1 January 2024.",
+    "ja": "2024年1月1日以降の入学者は48単位が必要"
   },
   "howToApply": {
     "en": "Consult the joint degree programmes office first. Then apply to Nagoya University through the graduate school's call for applications, attend the interviews and submit documents to Lund. See the admission page.",

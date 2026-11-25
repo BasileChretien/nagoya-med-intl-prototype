@@ -41,6 +41,8 @@ const programmes = defineCollection({
     cost: L.optional(),
     funding: L.optional(),
     degree: L.optional(),
+    /** Language test and scores required, kept apart from eligibility so it can be compared. */
+    language: L.optional(),
     eligibility: L.optional(),
     howToApply: L.optional(),
     deadline: z
