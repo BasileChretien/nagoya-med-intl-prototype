@@ -26,7 +26,7 @@ updated: 2026-11-25
 
 ## Can I apply if my school is not a partner?
 
-For clinical clerkships, not at present. The office accepts applications from students of partner medical schools only and will update the website if this changes. Check [Agreements and partner institutions](../../partnerships/agreements) to see whether your school is a partner, and write to the Office of International Affairs if you are still unsure.
+For clinical clerkships, not at present. The office accepts applications from students of partner medical schools only and will update the website if this changes. Check [Agreements and partner institutions](../partnerships/agreements) to see whether your school is a partner, and write to the Office of International Affairs if you are still unsure.
 
 ## Who can do a clinical clerkship?
 
@@ -34,11 +34,11 @@ Enrolled senior medical students of a fully accredited medical school, in good s
 
 ## I have graduated. Can I still come?
 
-The clerkship and the research training are for enrolled students. Graduates, doctors, postdocs and researchers need a host laboratory, and can come as research students or visiting researchers. See [Visiting researchers, postdocs and PhD applicants](../visiting-researchers), which also covers the doctoral course and MEXT scholarships.
+The clerkship and the research training are for enrolled students. Graduates, doctors, postdocs and researchers need a host laboratory, and can come as research students or visiting researchers. See [Visiting researchers, postdocs and PhD applicants](visiting-researchers), which also covers the doctoral course and MEXT scholarships.
 
 ## I study at another university in Japan. Can I come?
 
-The programmes on this site are written for students of schools abroad. Write to the Office of International Affairs before you prepare anything, and see [Visiting researchers, postdocs and PhD applicants](../visiting-researchers).
+The programmes on this site are written for students of schools abroad. Write to the Office of International Affairs before you prepare anything, and see [Visiting researchers, postdocs and PhD applicants](visiting-researchers).
 
 ## How long can I stay?
 
@@ -46,7 +46,7 @@ Students of partner schools who apply directly can stay from one week to 90 days
 
 ## How much does it cost?
 
-Students of partner schools with a tuition waiver agreement pay no tuition, registration or admission fees. The number of waivers is limited. The tuition for other students is in the box on the [clinical clerkship](../clinical-clerkship) and [research training](../research-training) pages. You also pay for your insurance, your travel and your living costs. A private single room in Nagoya usually costs 35,000 to 60,000 yen a month. [Living in Nagoya](../living-in-nagoya) gives more figures.
+Students of partner schools with a tuition waiver agreement pay no tuition, registration or admission fees. The number of waivers is limited. The tuition for other students is in the box on the [clinical clerkship](clinical-clerkship) and [research training](research-training) pages. You also pay for your insurance, your travel and your living costs. A private single room in Nagoya usually costs 35,000 to 60,000 yen a month. [Living in Nagoya](living-in-nagoya) gives more figures.
 
 ## Is there a scholarship?
 
@@ -54,7 +54,7 @@ NUPACE students who are full-time students at their home school can apply for a 
 
 ## When should I apply?
 
-Applications are accepted all year round. Contact the office first to confirm availability, then send the complete documents by the deadline shown on the [clinical clerkship](../clinical-clerkship) or [research training](../research-training) page. NUPACE applicants follow the dates on the NUPACE website.
+Applications are accepted all year round. Contact the office first to confirm availability, then send the complete documents by the deadline shown on the [clinical clerkship](clinical-clerkship) or [research training](research-training) page. NUPACE applicants follow the dates on the NUPACE website.
 
 ## Which vaccinations do I need?
 
@@ -78,8 +78,8 @@ No. You must not take side jobs during the clerkship or the research program.
 
 ## Where can I stay?
 
-A dormitory is available when there are vacancies. Ask the office when you apply. [Living in Nagoya](../living-in-nagoya) describes the university residences and private housing.
+A dormitory is available when there are vacancies. Ask the office when you apply. [Living in Nagoya](living-in-nagoya) describes the university residences and private housing.
 
 ## Can my family come with me?
 
-The Nagoya University Living Guide explains how a spouse and children can join you. See the family section of [Living in Nagoya](../living-in-nagoya), and ask the office whether it applies to your type of stay.
+The Nagoya University Living Guide explains how a spouse and children can join you. See the family section of [Living in Nagoya](living-in-nagoya), and ask the office whether it applies to your type of stay.

@@ -48,9 +48,9 @@ Nagoya University runs several international residences, among them Internationa
 
 ## What it costs to live here
 
-- **University residence.** One clerkship student who stayed in the Yamate international residence in 2024 paid about 26,000 yen a month in rent, plus 3,000 to 4,000 yen for electricity. The same report says that a stay of less than a month pays no electricity ([read the report](../../stories/clerkship-2024-report180)).
+- **University residence.** One clerkship student who stayed in the Yamate international residence in 2024 paid about 26,000 yen a month in rent, plus 3,000 to 4,000 yen for electricity. The same report says that a stay of less than a month pays no electricity ([read the report](../stories/clerkship-2024-report180)).
 - **Private room.** A single room in Nagoya usually costs 35,000 to 60,000 yen a month, according to the university's housing page.
-- **Fees and insurance.** Tuition, waivers and insurance are on the [clinical clerkship](../clinical-clerkship) and [research training](../research-training) pages.
+- **Fees and insurance.** Tuition, waivers and insurance are on the [clinical clerkship](clinical-clerkship) and [research training](research-training) pages.
 - **Food, transport and other costs.** Ask the office if you need an estimate for your budget.
 
 ## Visa
@@ -61,7 +61,7 @@ For a clinical clerkship or a research visit of 90 days or less, ask the office 
 
 ## On arrival
 
-1. **Visit the Office of International Affairs.** [How to reach the office](../../about/access) gives the map and directions. Ask the office what you need for your first day at the hospital or the laboratory.
+1. **Visit the Office of International Affairs.** [How to reach the office](../about/access) gives the map and directions. Ask the office what you need for your first day at the hospital or the laboratory.
 2. **Residence card.** If you are granted a stay of more than three months, you receive a residence card at the airport (for example at Narita, Haneda, Kansai or Chubu).
 3. **Ward office.** If you stay more than three months, register your address at the ward office within 14 days of moving in. You also enrol there in National Health Insurance and, if you are 20 or older, in the National Pension System. See [procedures at the ward offices](https://life.gmc.nagoya-u.ac.jp/en/arrival/ward-office/).
 4. **Insurance.** NUPACE students pay monthly premiums to Japan National Health Insurance and buy Student Personal Liability Insurance from the Nagoya University Co-operative. Other visiting students keep the health insurance they showed when they applied.
@@ -69,7 +69,7 @@ For a clinical clerkship or a research visit of 90 days or less, ask the office 
 
 ## Insurance and health care
 
-Students who join through NUPACE pay monthly premiums to Japan National Health Insurance and buy Student Personal Liability Insurance from the Nagoya University Co-operative. Other visiting students need their own health insurance that covers the stay, and show proof when they apply. Clinical clerkship students also need malpractice insurance. The pages on clinical clerkship and research training give the details, and the [FAQ](../faq) lists the vaccinations you need.
+Students who join through NUPACE pay monthly premiums to Japan National Health Insurance and buy Student Personal Liability Insurance from the Nagoya University Co-operative. Other visiting students need their own health insurance that covers the stay, and show proof when they apply. Clinical clerkship students also need malpractice insurance. The pages on clinical clerkship and research training give the details, and the [FAQ](faq) lists the vaccinations you need.
 
 ## If your family comes with you
 
@@ -97,4 +97,4 @@ Classes take place in seminar room 101, on the first floor of the Building for M
 
 ## Getting to the campus
 
-The School of Medicine and the Office of International Affairs are on Tsurumai Campus. [How to reach the office](../../about/access) gives the address, the map, the directions and the building.
+The School of Medicine and the Office of International Affairs are on Tsurumai Campus. [How to reach the office](../about/access) gives the address, the map, the directions and the building.

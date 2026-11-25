@@ -6,6 +6,7 @@ order: 10
 summary: Clinical rotations at Nagoya University Hospital for senior medical students of partner schools, from one week to three months.
 status: to-confirm
 toConfirm:
+  - 'The two old pages name this insurance differently: the exchange site calls it malpractice insurance covering a clerkship abroad (up to one million US dollars), the faculty''s clerkship page calls it liability insurance for injury or damage to third parties. Both give the same 1,723-yen university insurance. Confirm which cover is required.'
   - Whether students of non-partner schools may still apply. The current notice on the English home page accepts partner schools only, while the older clerkship page still describes a one to four week route for non-partner schools. This page follows the notice.
   - Whether the COVID-19 vaccination certificate (item xii of the English clerkship page) is still required. The page tells applicants to ask the office.
   - Whether the forms linked on this page (clerkship application template, immunization requirements) are the current versions.
@@ -32,7 +33,7 @@ updated: 2026-11-25
 programmes: [clinical-clerkship]
 ---
 
-Nagoya University School of Medicine accepts a limited number of international students in the clinical clerkships (rotations) of its senior students. At present only students of partner schools are accepted. To find out whether your school is one, see [Agreements and partner institutions](../../partnerships/agreements). Please do not contact departments or faculty members directly. All enquiries go through the Office of International Affairs.
+Nagoya University School of Medicine accepts a limited number of international students in the clinical clerkships (rotations) of its senior students. At present only students of partner schools are accepted. To find out whether your school is one, see [Agreements and partner institutions](../partnerships/agreements). Please do not contact departments or faculty members directly. All enquiries go through the Office of International Affairs.
 
 ## When to apply
 
@@ -45,7 +46,7 @@ Applications are accepted all year round from students of partner schools. Write
 - You communicate fluently in Japanese or English. A TOEFL iBT score above 100 is desirable if English is not your first language.
 - You do not take side jobs during the clerkship.
 
-If you have already graduated, see [Visiting researchers, postdocs and PhD applicants](../visiting-researchers).
+If you have already graduated, see [Visiting researchers, postdocs and PhD applicants](visiting-researchers).
 
 ## Length of stay and certificate
 
@@ -67,7 +68,7 @@ A dormitory is available when there are vacancies. Ask the office when you apply
 
 - Malpractice insurance, if your own does not cover you (see below).
 - Health insurance for your whole stay.
-- Housing. One student who stayed in the Yamate international residence in 2024 paid about 26,000 yen a month in rent, plus 3,000 to 4,000 yen for electricity ([read the report](../../stories/clerkship-2024-report180)). A private single room in Nagoya usually costs 35,000 to 60,000 yen a month, according to the [university's housing page](https://en.nagoya-u.ac.jp/campus/life/housing/).
+- Housing. One student who stayed in the Yamate international residence in 2024 paid about 26,000 yen a month in rent, plus 3,000 to 4,000 yen for electricity ([read the report](../stories/clerkship-2024-report180)). A private single room in Nagoya usually costs 35,000 to 60,000 yen a month, according to the [university's housing page](https://en.nagoya-u.ac.jp/campus/life/housing/).
 - Travel to Japan, food and local transport. Ask the office if you need an estimate.
 
 ## Insurance
@@ -103,4 +104,4 @@ A dormitory is available when there are vacancies. Ask the office when you apply
 
 ## Before you arrive
 
-Ask the office which visa or status of entry applies to your stay before you book your travel. The Office of International Affairs takes care of your rotation and your stay. [Living in Nagoya](../living-in-nagoya) covers housing, visa, insurance, what to do on arrival and daily life, and [How to reach the office](../../about/access) gives the map and directions.
+Ask the office which visa or status of entry applies to your stay before you book your travel. The Office of International Affairs takes care of your rotation and your stay. [Living in Nagoya](living-in-nagoya) covers housing, visa, insurance, what to do on arrival and daily life, and [How to reach the office](../about/access) gives the map and directions.

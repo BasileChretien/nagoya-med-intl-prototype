@@ -205,7 +205,8 @@ if (stories) {
 }
 
 // 3d. Every acronym in the pages and in the programme, contact, partner and news texts is explained in
-//     glossary.json, which the pages use to say what each one stands for (src/lib/rehype-abbr.mjs).
+//     glossary.json. Content pages mark it where it is first used (src/lib/rehype-abbr.mjs); acronyms in titles
+//     and data texts are explained on the glossary page.
 const glossary = readList('glossary.json');
 if (glossary) {
   const known = new Set();
@@ -220,7 +221,7 @@ if (glossary) {
   const NOT_ACRONYMS = new Set(['JPY', 'USD', 'GBP', 'EUR', 'FAX', 'II', 'III', 'IV', 'HK', 'JAPAN', 'OK']);
   /** Words of letters (split at digits and signs, so PhD4GAME gives PhD and GAME) with two capitals or more, at least half capitals. */
   const acronymsIn = (text) => {
-    const clean = text.replace(/https?:\/\/\S+/g, ' ').replace(/`[^`]*`/g, ' ').replace(/\]\([^)]*\)/g, ']').replace(/<[^>]+>/g, ' ');
+    const clean = text.normalize('NFKC').replace(/https?:\/\/\S+/g, ' ').replace(/`[^`]*`/g, ' ').replace(/\]\([^)]*\)/g, ']').replace(/<[^>]+>/g, ' ');
     const found = new Set();
     for (const word of clean.match(/[A-Za-z]+/g) ?? []) {
       const caps = (word.match(/[A-Z]/g) ?? []).length;
@@ -281,8 +282,13 @@ if (process.argv.includes('--dist')) {
   for (const f of html) {
     const text = readFileSync(f, 'utf8');
     if (!/<meta name="robots" content="noindex/.test(text)) fail(`${relative(DIST, f)} is missing the noindex meta tag`);
-    for (const m of text.matchAll(/(?:href|src)="([^"#?]+)[^"]*"/g)) {
+    // Links in the markup only: scripts build some hrefs from strings at run time.
+    const markup = text.replace(/<script\b[\s\S]*?<\/script>/gi, '');
+    for (const m of markup.matchAll(/(?:href|src)="([^"#?]+)[^"]*"/g)) {
       const url = m[1];
+      // A relative link resolves against the page's address, not its source file: content links are rewritten to
+      // full addresses at build time (src/lib/rehype-abbr.mjs), so one left relative would be read wrongly.
+      if (!/^([a-z][a-z0-9+.-]*:|\/)/i.test(url)) { fail(`${relative(DIST, f)} has a relative link "${url}": write it as a site link or a full address`); continue; }
       if (!url.startsWith(`${BASE}/`)) continue;
       checked += 1;
       const rel = decodeURIComponent(url.slice(BASE.length + 1));

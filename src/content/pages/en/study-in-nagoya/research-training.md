@@ -26,7 +26,7 @@ programmes: [research-training]
 
 The Program for International Research Students lets students from abroad work for a short period in a laboratory of Nagoya University Graduate School of Medicine. The number of students the school can accept is limited, so contact the Office of International Affairs before you prepare an application.
 
-The programme is for students who are enrolled at their home school. If you have graduated, for example as a doctor, a postdoc or a researcher, see [Visiting researchers, postdocs and PhD applicants](../visiting-researchers).
+The programme is for students who are enrolled at their home school. If you have graduated, for example as a doctor, a postdoc or a researcher, see [Visiting researchers, postdocs and PhD applicants](visiting-researchers).
 
 ## When to apply
 
@@ -57,7 +57,7 @@ NUPACE students who are full-time students at their home school and stay 91 days
 
 Everyone must hold liability insurance for injury or damage to third parties and show proof. If you cannot, you can buy the insurance used by Nagoya University School of Medicine students for 1,723 yen a year. NUPACE students pay monthly premiums to Japan National Health Insurance and buy Student Personal Liability Insurance from the Nagoya University Co-operative. Other students need a health insurance policy that covers their stay, and must show proof.
 
-Housing, living costs and what to do on arrival are on [Living in Nagoya](../living-in-nagoya).
+Housing, living costs and what to do on arrival are on [Living in Nagoya](living-in-nagoya).
 
 ## How to apply
 

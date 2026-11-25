@@ -1,6 +1,6 @@
 /**
- * Helpers for the news pages. The news schema in content.config.ts does not yet declare the optional fields
- * "body", "page", "partners" and "until", so they are read from the data file itself until it does.
+ * Helpers for the news pages. The optional fields "body", "page", "partners" and "until" are declared in the news
+ * schema (content.config.ts) and also read here from the data file itself; both give the same values.
  */
 import { getCollection, type CollectionEntry } from 'astro:content';
 import raw from '../../../data/news.json';

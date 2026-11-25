@@ -1,5 +1,12 @@
 /**
- * Explains acronyms on content pages, from src/data/glossary.json:
+ * Two jobs on content pages (src/content/pages/<lang>/...):
+ *
+ * 1. Site links. Markdown links are written relative to the file, as CONTENT_GUIDE says: [Contact](../about/contact)
+ *    in en/degrees/adelaide.md means /en/about/contact/. Pages are served at /en/degrees/adelaide/, from where a
+ *    browser would read the same href one level too deep, so every relative link is rewritten to its full address
+ *    (which the --dist link check then verifies).
+ *
+ * 2. Acronyms, from src/data/glossary.json:
  *   - the first use of each acronym on a page becomes <abbr title="what it stands for">;
  *   - an "Abbreviations on this page" box at the end lists them, with the institution's website when it has one,
  *     and links to the full list (about/glossary). Common terms (UK, PDF...) get the title but stay out of the box.
@@ -11,7 +18,7 @@
 import { readFileSync } from 'node:fs';
 
 const GLOSSARY_FILE = new URL('../data/glossary.json', import.meta.url);
-const SKIP = new Set(['a', 'abbr', 'code', 'pre', 'script', 'style']);
+const SKIP = new Set(['abbr', 'code', 'pre', 'script', 'style']);
 const TEXT = {
   en: { heading: 'Abbreviations on this page', website: 'website', all: 'All abbreviations', unconfirmed: 'to be confirmed' },
   ja: { heading: 'このページの略語', website: '公式サイト', all: '略語の一覧', unconfirmed: '確認中' },
@@ -40,11 +47,25 @@ export default function abbrPlugin(options = {}) {
     const { terms, pattern } = loadGlossary();
     const path = decodeURIComponent(factory.fileURL?.pathname ?? '');
     const lang = /\/pages\/ja\//.test(path) ? 'ja' : 'en';
+    // The page's folder within the site ("en/degrees/"), against which its relative links are read.
+    const folder = (path.split('/pages/')[1] ?? `${lang}/`).replace(/[^/]*$/, '');
     const seen = [];
     const t = TEXT[lang];
 
     return {
       name: 'abbr',
+      element: {
+        filter: ['a'],
+        visit(node, ctx) {
+          const href = node.properties?.href;
+          if (typeof href !== 'string' || !href || /^([a-z][a-z0-9+.-]*:|\/|#)/i.test(href)) return;
+          const url = new URL(href, `https://site${base}/${folder}`);
+          // "index" is the section's own page: degrees/index is /degrees/.
+          const clean = url.pathname.replace(/\/index\/?$/, '/');
+          const pathname = /\.[a-z0-9]+$/i.test(clean) || clean.endsWith('/') ? clean : `${clean}/`;
+          ctx.setProperty(node, 'href', pathname + url.search + url.hash);
+        },
+      },
       text(node, ctx) {
         for (let p = ctx.parent(node); p && p.type !== 'root'; p = ctx.parent(p)) {
           if (p.type === 'element' && SKIP.has(p.tagName)) return;

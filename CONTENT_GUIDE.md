@@ -116,6 +116,8 @@ programmes: [clinical-clerkship]             # programme ids whose fact box appe
 
 - `status: draft-translation` when the page was translated from the other language and no native speaker has checked it yet.
 - `status: to-confirm` when any fact on the page conflicts between sources or may be out of date. List each one in `toConfirm`, in the page's language.
+- A `toConfirm` item that contains a colon followed by a space must be in quotes (`- 'Two sources differ: ...'`), or YAML reads it as a key and the build fails.
+- Link other pages of the site relative to the file, as you would between the Markdown files themselves: from `degrees/adelaide.md`, `[Admission](admission)` for a page of the same section, `[Contact](../about/contact)` for another section, and `[Degrees](index)` for the section's first page. The build turns each into the page's full address, and `node scripts/check-content.mjs --dist` fails on a link that leads nowhere.
 
 ## 4. Programme file (`src/data/programmes/<id>.json`)
 

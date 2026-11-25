@@ -30,7 +30,7 @@ sources:
 updated: 2026-11-25
 ---
 
-The [research training programme](../research-training) is for students who are still enrolled at their home school. If you have graduated, for example as a doctor, a postdoctoral researcher or a researcher, this page shows the routes that are open to you. All of them start with a laboratory that agrees to host you.
+The [research training programme](research-training) is for students who are still enrolled at their home school. If you have graduated, for example as a doctor, a postdoctoral researcher or a researcher, this page shows the routes that are open to you. All of them start with a laboratory that agrees to host you.
 
 ## Find a host laboratory first
 
@@ -58,11 +58,11 @@ A research student enrols at the Graduate School to do research on a set topic, 
 
 The current form, the email address and the steps are on the faculty's [research student guidelines](https://www.med.nagoya-u.ac.jp/medical_E/admission/research/guideline/) ([Japanese page](https://www.med.nagoya-u.ac.jp/medical_J/admission/research/foreign/)). Fees and housing for research students are explained on the university's [research students page](https://en.nagoya-u.ac.jp/admissions/research-students/research-students/).
 
-If you come from abroad as a research student, ask the Student Affairs Division which status of residence applies. The [visa section of Living in Nagoya](../living-in-nagoya) explains the Certificate of Eligibility that the university requests for students.
+If you come from abroad as a research student, ask the Student Affairs Division which status of residence applies. The [visa section of Living in Nagoya](living-in-nagoya) explains the Certificate of Eligibility that the university requests for students.
 
 ## Postdocs and visiting researchers
 
-If you come with your own funding or appointment, agree on your project and dates with your host professor first. For the next steps, including your status of residence and the papers you need, ask the Office of International Affairs through the [contact page](../../about/contact).
+If you come with your own funding or appointment, agree on your project and dates with your host professor first. For the next steps, including your status of residence and the papers you need, ask the Office of International Affairs through the [contact page](../about/contact).
 
 Nagoya University helps international researchers with housing, visas, language and orientation. See [researcher support](https://en.nagoya-u.ac.jp/campus/researcher-support/).
 
@@ -93,7 +93,7 @@ For entry on 1 October 2027, the faculty page gives these dates: applications fr
 
 ### Joint and double degrees
 
-Nagoya University runs joint degree and double degree programmes with universities abroad. In a joint degree, the two universities award one degree in their joint names. In a double degree, each university awards its own degree. See [Degrees](../../degrees) for the programmes and who can apply.
+Nagoya University runs joint degree and double degree programmes with universities abroad. In a joint degree, the two universities award one degree in their joint names. In a double degree, each university awards its own degree. See [Degrees](../degrees) for the programmes and who can apply.
 
 ## Students of other universities in Japan
 
@@ -101,4 +101,4 @@ The clinical clerkship and the research training on this site are written for st
 
 ## If your family comes with you
 
-The Nagoya University Living Guide explains how your spouse and children can join you, how to register them at the ward office, and where to find day care and schools. See the [Family page](https://life.gmc.nagoya-u.ac.jp/en/life-in-japan/family/) and the [family section of Living in Nagoya](../living-in-nagoya).
+The Nagoya University Living Guide explains how your spouse and children can join you, how to register them at the ward office, and where to find day care and schools. See the [Family page](https://life.gmc.nagoya-u.ac.jp/en/life-in-japan/family/) and the [family section of Living in Nagoya](living-in-nagoya).
