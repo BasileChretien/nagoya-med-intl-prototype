@@ -6,7 +6,6 @@
 import { spawnSync } from 'node:child_process';
 import { writeFileSync, readFileSync, rmSync, mkdirSync, existsSync, cpSync, mkdtempSync } from 'node:fs';
 import { dirname, join } from 'node:path';
-import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
@@ -242,7 +241,9 @@ for (const c of cases) {
 
 // The scripts must run from a folder whose path has a space and non-ASCII characters (round 2).
 {
-  const base = mkdtempSync(join(tmpdir(), 'check test ü 名古屋 '));
+  // Inside the project, so the copied scripts find node_modules (parse5, css-tree, satteri) by walking up, as Node
+  // does, with no link to make or remove; "zz-test" keeps a folder left by an interrupted run out of git.
+  const base = mkdtempSync(join(ROOT, 'zz-test check ü 名古屋 '));
   try {
     // Everything the checks read, including the files the feature map names (src/, .github/, faculty/, content-sync.json).
     for (const part of ['scripts', 'docs', 'public', 'src', '.github', 'faculty', 'tests', 'content-sync.json', 'CONTENT_GUIDE.md', 'astro.config.mjs']) {

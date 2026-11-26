@@ -1,27 +1,29 @@
 /**
  * Outside links of the built site, checked with the audit's rules (tools/linkcheck.py in the audit folder):
  * the same user agent, one request at a time per host, HEAD first and GET when HEAD is refused, and the same
- * verdicts (report section "Measured side by side"). Used by scripts/check-external.mjs; tested offline by
+ * verdicts (report section "Measured side by side"). Used by scripts/weekly-check.mjs; tested offline by
  * scripts/test-tools.mjs.
  */
+import { toDocument, elements, attrs } from './html-lib.mjs';
 
 export const UA = 'Mozilla/5.0 (compatible; site-audit/1.0)';
 export const OWN_HOST = 'www.med.nagoya-u.ac.jp';
-const ENTITIES = { '&amp;': '&', '&quot;': '"', '&#39;': "'", '&lt;': '<', '&gt;': '>' };
 
 /**
- * Outside addresses in one page's markup, without fragments. Scripts are skipped (they build addresses at run
- * time). `self` is the site's own address prefix: canonical and language links point there and are not outside.
- * @param {string} html @param {string} [self] @returns {string[]}
+ * Outside addresses in one page, without fragments: every href and src that is a full http(s) address, read with
+ * parse5 (entities decoded, any quoting). Text inside scripts is not markup and is not read: scripts build some
+ * addresses at run time. `self` is the site's own address prefix: canonical and language links point there.
+ * @param {string | import('./html-lib.mjs').Node} page @param {string} [self] @returns {string[]}
  */
-export function externalLinks(html, self) {
-  const markup = html.replace(/<script\b[\s\S]*?<\/script>/gi, '');
+export function externalLinks(page, self) {
   const out = [];
-  // (?<![\w:-]) skips data-href, xlink:href and similar attributes.
-  for (const m of markup.matchAll(/(?<![\w:-])(?:href|src)="(https?:\/\/[^"]+)"/g)) {
-    const url = m[1].replace(/&(amp|quot|#39|lt|gt);/g, (e) => ENTITIES[e]).split('#')[0];
-    if (self && url.startsWith(self)) continue;
-    out.push(url);
+  for (const el of elements(toDocument(page))) {
+    for (const value of [...attrs(el, 'href'), ...attrs(el, 'src')]) {
+      if (!/^https?:\/\//i.test(value)) continue;
+      const url = value.split('#')[0];
+      if (self && url.startsWith(self)) continue;
+      out.push(url);
+    }
   }
   return out;
 }

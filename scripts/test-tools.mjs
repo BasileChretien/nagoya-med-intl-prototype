@@ -6,7 +6,7 @@
  */
 import { externalLinks, verdict, checkAll, limiter, weeklyReport, OWN_HOST, ISSUE_LIMIT } from './external-lib.mjs';
 import { structuredData, missingTypes } from './structured-lib.mjs';
-import { outsideResources, outsideInCss, outsideLinks } from './resources-lib.mjs';
+import { outsideResources, outsideInCss, outsideLinks, isOutside } from './resources-lib.mjs';
 import { programmeDeadline, newsEntry, icsText, shownStatus } from '../src/lib/calendar.ts';
 
 let failed = 0;
@@ -22,6 +22,9 @@ const SELF = 'https://example.github.io/site/';
   const got = externalLinks(html, SELF);
   const want = ['https://a.org/x?p=1&q=2', 'https://b.org/i.png', 'http://e.org/'];
   say(JSON.stringify(got) === JSON.stringify(want), 'outside links are read from the markup only, without own pages or fragments', JSON.stringify(got));
+  // What visitors without JavaScript get is checked too, and a script's own address is a link to check.
+  const fallback = externalLinks('<noscript><a href="https://n.example/page">menu</a></noscript><script src="https://s.example/x.js"></script>');
+  say(JSON.stringify(fallback.sort()) === JSON.stringify(['https://n.example/page', 'https://s.example/x.js']), 'links inside <noscript> and script addresses are read', JSON.stringify(fallback));
 }
 
 // Verdicts follow the audit: gone or refused by the faculty's server is broken; a refusal elsewhere is unverified.
@@ -182,6 +185,19 @@ const SELF = 'https://example.github.io/site/';
   say(JSON.stringify(got4) === JSON.stringify(want4), 'single-quoted styles and numeric entities are read; another project on the same host is outside; the site itself over http is not', JSON.stringify(got4));
   const css20 = outsideInCss('@import "https://x.example/a\'b.css";@import/**/"https://x.example/c.css";@import /* note */ \'https://x.example/d"e.css\';');
   say(JSON.stringify(css20) === JSON.stringify(['https://x.example/a\'b.css', 'https://x.example/c.css', 'https://x.example/d"e.css']), 'an @import address holding the other quote, or after a comment, is found', JSON.stringify(css20));
+  // Recorded on #21, now read by the parsers: an entity beyond Unicode does not stop the check; host case, default
+  // ports and ".." segments are read as a browser reads them; a "/*" inside a string does not hide what follows.
+  let huge;
+  try { huge = outsideResources('<img alt="" src="&#x110000;"><div style="a:&#99999999;"></div>', OWN); } catch (e) { huge = e; }
+  say(Array.isArray(huge) && huge.length === 0, 'an entity beyond Unicode does not stop the check', String(huge));
+  const own21 = [
+    isOutside('https://Example.github.io/site/a.png', OWN),
+    isOutside('https://example.github.io:443/site/a.png', OWN),
+    isOutside('https://example.github.io/site/../other-project/x.js', OWN),
+  ];
+  say(JSON.stringify(own21) === '[false,false,true]', 'host case and default ports are the site\'s own; ".." that leaves the site is outside', JSON.stringify(own21));
+  const strings = outsideInCss('.a{content:"/*"}@import "https://x.example/a.css";.b{content:"*/"}');
+  say(JSON.stringify(strings) === '["https://x.example/a.css"]', 'a comment sign inside a CSS string does not hide the addresses after it', JSON.stringify(strings));
 }
 
 // Structured data that must be there: a page without its expected type is reported, whatever the attribute order.
@@ -201,6 +217,12 @@ const SELF = 'https://example.github.io/site/';
   say(empty.problems.some((p) => /empty "@graph"/.test(p)) && untyped.problems.some((p) => /item 1 of the "@graph" has no "@type"/.test(p)), 'an empty @graph, or a graph item without a type, is reported', JSON.stringify([empty.problems, untyped.problems]));
   const relative = structuredData(block({ '@context': 'https://schema.org', '@graph': [{ '@type': 'WebPage', url: '/x' }] }));
   say(relative.problems.length === 1 && /structured data WebPage: "url" is not a full https address: \/x/.test(relative.problems[0]), 'an address problem inside an @graph names the item\'s type', relative.problems.join('; '));
+  // Recorded on #21: an item that only points at another by @id is valid JSON-LD.
+  const reference = structuredData(block({ '@context': 'https://schema.org', '@graph': [{ '@type': 'WebPage' }, { '@id': 'https://example.org/#org' }] }));
+  say(reference.problems.length === 0, 'a graph item that only refers to another item by @id is accepted', reference.problems.join('; '));
+  // Parsed, not matched: a type attribute in upper case or single quotes still marks a block.
+  const quoted = structuredData("<script type='Application/LD+JSON'>{\"@context\":\"https://schema.org\",\"@type\":\"WebPage\"}</script>");
+  say(quoted.blocks.length === 1, 'a structured-data block is found whatever the quoting and case of its type');
 }
 
 // Links from Markdown pages in every form: titled, in angle brackets, reference definitions and HTML.
@@ -211,8 +233,8 @@ const SELF = 'https://example.github.io/site/';
     '',
     '[r]: https://a.example/4',
   ].join('\n');
-  const got = outsideLinks(md).sort();
-  say(JSON.stringify(got) === JSON.stringify(['https://a.example/1', 'https://a.example/2', 'https://a.example/3', 'https://a.example/4', 'https://a.example/5']), 'links in every Markdown and HTML form are found', JSON.stringify(got));
+  const got = (await outsideLinks(`${md}\nAn autolink <https://a.example/6>, and \`[code](https://a.example/7)\` that is not a link.\n`)).sort();
+  say(JSON.stringify(got) === JSON.stringify(['https://a.example/1', 'https://a.example/2', 'https://a.example/3', 'https://a.example/4', 'https://a.example/5', 'https://a.example/6']), 'links in every Markdown and HTML form are found, and text in code is not a link', JSON.stringify(got));
 }
 
 // The weekly report shows a crashed content check, and stays within GitHub's issue size.
