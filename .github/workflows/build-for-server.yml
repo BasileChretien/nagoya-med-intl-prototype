@@ -1,0 +1,47 @@
+name: Build for the faculty server
+
+# Run from the Actions tab ("Run workflow"). It builds the site for another host, by default the faculty server at
+# https://www.med.nagoya-u.ac.jp/intlexch/, runs the same checks as every deploy, and offers the result as a zip
+# ("site-for-server") to download from the run's page and upload to that folder on the server.
+# docs/launch.md ("Hosting on the faculty server") explains the server settings and the other ways to deploy.
+on:
+  workflow_dispatch:
+    inputs:
+      site_url:
+        description: 'The host, https with no path'
+        required: true
+        type: string
+        default: 'https://www.med.nagoya-u.ac.jp'
+      base_path:
+        description: 'The folder on that host, starting with / (leave empty for the root of the host)'
+        required: false
+        type: string
+        default: '/intlexch'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # The inputs reach the build only as environment values, read and checked by src/lib/address.mjs.
+    env:
+      SITE_URL: ${{ inputs.site_url }}
+      BASE_PATH: ${{ inputs.base_path }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Check content sources
+        run: node scripts/check-content.mjs
+      - run: npm run build
+      - name: Check the built site at its new address
+        run: node scripts/check-content.mjs --dist
+      - uses: actions/upload-artifact@v4
+        with:
+          name: site-for-server
+          path: dist
+          retention-days: 14

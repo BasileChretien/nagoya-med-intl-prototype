@@ -4,6 +4,7 @@
  * the calendar files (src/lib/calendar.ts, loaded through Node's type stripping).
  * No network: requests go to a fake fetch. Run: node scripts/test-tools.mjs
  */
+import { spawnSync } from 'node:child_process';
 import { externalLinks, verdict, checkAll, limiter, weeklyReport, OWN_HOST, ISSUE_LIMIT } from './external-lib.mjs';
 import { structuredData, missingTypes } from './structured-lib.mjs';
 import { outsideResources, outsideInCss, outsideLinks, isOutside, cssAddressesByPattern, loadedAddresses, isPageRelative, servedAt } from './resources-lib.mjs';
@@ -299,6 +300,27 @@ const SELF = 'https://example.github.io/site/';
   const fenced = weeklyReport({ checked: '2026-11-30', results: [], content: { code: 1, output: `TypeError: boom\n${'z'.repeat(80000)}` } });
   const fences = (fenced.markdown.match(/^```/gm) ?? []).length;
   say(fences % 2 === 0 && /```\n\n… The report was cut here/.test(fenced.markdown) && fenced.markdown.length < ISSUE_LIMIT, 'a cut inside a code block closes the block before the note', `${fences} fences`);
+}
+
+// The site's address (src/lib/address.mjs): GitHub Pages by default, another host from SITE_URL and BASE_PATH, and a
+// plain error, not a broken build, for a value that cannot be right. Each case runs in its own process (the module
+// reads the environment once).
+{
+  const ADDRESS = new URL('../src/lib/address.mjs', import.meta.url).href;
+  const read = (env) => spawnSync(process.execPath, ['--input-type=module', '-e', `import('${ADDRESS}').then((m) => console.log(JSON.stringify([m.SITE, m.BASE])))`], {
+    encoding: 'utf8', env: { ...process.env, SITE_URL: undefined, BASE_PATH: undefined, ...env },
+  });
+  const clean = (env) => Object.fromEntries(Object.entries(env).filter(([, v]) => v !== undefined));
+  const byDefault = read({});
+  say(byDefault.stdout.trim() === '["https://basilechretien.github.io","/nagoya-med-intl-prototype"]', 'the site is addressed at GitHub Pages by default', byDefault.stdout + byDefault.stderr);
+  const faculty = spawnSync(process.execPath, ['--input-type=module', '-e', `import('${ADDRESS}').then((m) => console.log(JSON.stringify([m.SITE, m.BASE])))`], {
+    encoding: 'utf8', env: clean({ ...process.env, SITE_URL: 'https://www.med.nagoya-u.ac.jp', BASE_PATH: '/intlexch' }),
+  });
+  say(faculty.stdout.trim() === '["https://www.med.nagoya-u.ac.jp","/intlexch"]', 'SITE_URL and BASE_PATH address the site at another host', faculty.stdout + faculty.stderr);
+  const wrong = spawnSync(process.execPath, ['--input-type=module', '-e', `import('${ADDRESS}')`], {
+    encoding: 'utf8', env: clean({ ...process.env, SITE_URL: 'https://www.med.nagoya-u.ac.jp/intlexch', BASE_PATH: 'intlexch/' }),
+  });
+  say(wrong.status !== 0 && /SITE_URL must be an https address with no path/.test(wrong.stderr), 'a site address with a path stops the build with a plain message', wrong.stderr.split('\n').find((l) => /Error/.test(l)) ?? '');
 }
 
 process.stdout.write(`${total - failed}/${total} passed\n`);

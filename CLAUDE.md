@@ -1,6 +1,6 @@
 # nagoya-med-intl-prototype
 
-Astro 7 static site: bilingual (en/ja) prototype replacing the seven international websites of Nagoya University Graduate School of Medicine. Deployed to GitHub Pages under the base path `/nagoya-med-intl-prototype`. Not an official site: it must keep the prototype banner and `noindex` (`PROTOTYPE` in `src/lib/launch.mjs` stays true until launch; steps in `docs/launch.md`).
+Astro 7 static site: bilingual (en/ja) prototype replacing the seven international websites of Nagoya University Graduate School of Medicine. Deployed to GitHub Pages under the base path `/nagoya-med-intl-prototype`; `SITE_URL` and `BASE_PATH` build it for another host, such as the faculty server (`src/lib/address.mjs`, `docs/launch.md`). Not an official site: it must keep the prototype banner and `noindex` (`PROTOTYPE` in `src/lib/launch.mjs` stays true until launch; steps in `docs/launch.md`).
 
 ## Commands
 

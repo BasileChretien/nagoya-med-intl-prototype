@@ -42,7 +42,9 @@ const otherUrl = new URL(href(other, hasCounterpart ? slug : ''), Astro.site).to
     <link rel="canonical" href={self} />
     <link rel="alternate" hreflang={lang} href={self} />
     {hasCounterpart && <link rel="alternate" hreflang={other} href={otherUrl} />}
-    <link rel="icon" href={asset('favicon.svg')} type="image/svg+xml" />
+    <!-- The faculty's emblem, as on the faculty site (medical_E/tpl/img/ogp/). -->
+    <link rel="icon" href={asset('brand/emblem-192.png')} type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href={asset('brand/apple-touch-icon.png')} />
     <link rel="alternate" type="application/rss+xml" title={ui.newsFeed} href={`${href(lang, 'news')}rss.xml`} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />

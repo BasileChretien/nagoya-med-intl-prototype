@@ -1,6 +1,6 @@
 ---
 import { t, SECTIONS, type Lang, type Section } from '../i18n/ui';
-import { href, otherLang } from '../lib/site';
+import { href, asset, otherLang } from '../lib/site';
 import faculty from '../data/faculty.json';
 
 interface Props {
@@ -13,6 +13,8 @@ const { lang, slug, hasCounterpart, section } = Astro.props;
 const ui = t(lang);
 const other = otherLang(lang);
 const otherHref = href(other, hasCounterpart ? slug : '');
+// Pixel sizes of the faculty's logo files in public/brand/ (the English one is wider).
+const LOGO: Record<Lang, { width: number; height: number }> = { en: { width: 1020, height: 143 }, ja: { width: 854, height: 150 } };
 ---
 <div class="proto" role="note">
   <div class="wrap">
@@ -31,15 +33,11 @@ const otherHref = href(other, hasCounterpart ? slug : '');
 <header class="site-head">
   <div class="wrap head-top">
     <a class="brand" href={href(lang)}>
-      <svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true">
-        <rect width="64" height="64" rx="12" fill="#2d3986"></rect>
-        <circle cx="32" cy="32" r="17" fill="none" stroke="#fff" stroke-width="4"></circle>
-        <path d="M15 32h34M32 15c-6 5-9 11-9 17s3 12 9 17c6-5 9-11 9-17s-3-12-9-17z" fill="none" stroke="#fff" stroke-width="3"></path>
-      </svg>
-      <span class="brand-text">
-        <span class="brand-org">{ui.org}</span>
-        <span class="brand-site">{ui.site}</span>
-      </span>
+      {/* The faculty's own logo, as on the department pages of the faculty site (medical_E|J/tpl/img/logo.png), in the
+          page's language; on a phone, the faculty's emblem alone, so the menu still fits. */}
+      <img class="brand-logo" src={asset(`brand/logo-${lang}.png`)} width={LOGO[lang].width} height={LOGO[lang].height} alt={ui.org} />
+      <img class="brand-emblem" src={asset('brand/emblem-192.png')} width="192" height="192" alt={ui.org} />
+      <span class="brand-site">{ui.site}</span>
     </a>
     <div class="head-actions">
       <a class="search-link" href={href(lang, 'search')} aria-current={slug === 'search' ? 'page' : undefined}>
