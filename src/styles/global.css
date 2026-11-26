@@ -60,11 +60,14 @@ p { margin: 0; }
 /* Header */
 .site-head { background: #fff; border-bottom: 1px solid var(--line); }
 .head-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 0.9rem; }
-.brand { display: flex; align-items: center; gap: 0.8rem; text-decoration: none; color: var(--ink); }
-.brand-mark { width: 42px; height: 42px; flex: none; }
-.brand-text { display: grid; line-height: 1.2; }
-.brand-org { font-size: 0.78rem; color: var(--muted); }
-.brand-site { font-family: var(--f-serif); font-size: 1.45rem; color: var(--navy-ink); font-weight: 600; }
+.brand { display: flex; align-items: center; gap: 0.9rem; text-decoration: none; color: var(--ink); min-width: 0; }
+/* The faculty's logo (public/brand/), then the site's name after a thin rule. Below 760 px the faculty's emblem takes
+   the logo's place (the full logo would not fit beside the buttons), and below 440 px the site's name is read by
+   screen readers only. The logo never shrinks out of shape (max-width: none overrides the global img rule). */
+.brand-logo { height: 46px; width: auto; max-width: none; flex: none; }
+.brand-emblem { display: none; width: 38px; height: 38px; flex: none; }
+.brand-site { font-family: var(--f-serif); font-size: 1.4rem; color: var(--navy-ink); font-weight: 600; padding-left: 0.9rem; border-left: 1px solid var(--line-2); line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.head-actions { flex: none; }
 .lang-switch, .search-link { display: inline-flex; align-items: center; gap: 0.4rem; border: 1px solid var(--line-2); border-radius: 999px; padding: 0.3rem 0.9rem; font-size: 0.9rem; text-decoration: none; color: var(--navy); white-space: nowrap; }
 .lang-switch:hover, .search-link:hover { background: var(--bg-soft); }
 .lang-switch svg, .search-link svg { width: 1rem; height: 1rem; }
@@ -85,18 +88,28 @@ p { margin: 0; }
   .menu-panel a.is-active, .menu-panel a[aria-current="page"] { background: var(--navy-deep); box-shadow: inset 4px 0 0 var(--teal); }
   .head-top { position: relative; }
   .head-actions { display: flex; gap: 0.5rem; align-items: center; }
-  .brand-org { font-size: 0.7rem; }
-  .brand-site { font-size: 1.2rem; }
+  .brand-logo { height: 38px; }
+  .brand-site { font-size: 1.15rem; }
 }
 .head-actions { display: flex; gap: 0.6rem; align-items: center; }
 @media (min-width: 861px) { .menu-panel { display: none !important; } }
+/* Small tablets and phones: the emblem and the site's name. At 760 px the full logo (271 px at 38 px high), the name
+   and the three buttons no longer fit. */
+@media (max-width: 760px) {
+  .brand-logo { display: none; }
+  .brand-emblem { display: block; }
+  .brand-site { padding-left: 0; border-left: 0; }
+}
 @media (max-width: 560px) {
-  .brand-org { display: none; }
-  .brand-mark { width: 36px; height: 36px; }
   .lang-switch, .search-link { padding: 0.3rem 0.6rem; }
   /* On a phone the magnifier stays; its word is read by screen readers only. */
   .search-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .head-actions { gap: 0.4rem; }
+}
+/* Narrow phones: the emblem alone on screen (the bar above already says "Graduate School of Medicine > International");
+   the site's name stays in the link for screen readers, so the link is named for where it goes. */
+@media (max-width: 440px) {
+  .brand-site { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 }
 
 /* Hero */

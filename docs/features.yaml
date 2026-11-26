@@ -167,6 +167,14 @@ features:
     delivered_by: [src/lib/launch.mjs, src/layouts/Base.astro, src/pages/robots.txt.ts]
     tests: [noindex]
     limits: One switch (src/lib/launch.mjs) turns it off at launch, with the other steps in docs/launch.md.
+  - id: any-host
+    says: The same site builds for GitHub Pages or for the faculty server at www.med.nagoya-u.ac.jp/intlexch/ by setting two values, with the same checks, and a workflow offers the build for the server as a zip.
+    stage: Maintain
+    status: works
+    delivered_by: [src/lib/address.mjs, astro.config.mjs, .github/workflows/build-for-server.yml]
+    tests: [internal-links]
+    docs: docs/launch.md
+    limits: Getting the files onto the server (by hand, fetched by the server, or sent over SFTP) and the server settings (404 page, file types, redirects) are for faculty IT to choose and set.
   - id: findable-at-launch
     says: Search engines get a sitemap with both languages and structured data for the office, each page's place in the site and each programme, ready to be announced at launch.
     stage: Find

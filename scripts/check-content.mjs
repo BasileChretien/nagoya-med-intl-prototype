@@ -26,7 +26,8 @@ const PAGES = join(ROOT, 'src', 'content', 'pages');
 const DATA = join(ROOT, 'src', 'data');
 const PUBLIC = join(ROOT, 'public');
 const DIST = join(ROOT, 'dist');
-const BASE = '/nagoya-med-intl-prototype';
+// The site's folder, as the build used it (SITE_URL and BASE_PATH, src/lib/address.mjs).
+import { BASE } from '../src/lib/address.mjs';
 const MAX_IMAGE_KB = 300;
 const today = new Date().toISOString().slice(0, 10);
 // Dates written by the office are Japan dates: a fact checked this morning in Nagoya is not "in the future".
@@ -391,7 +392,8 @@ if (process.argv.includes('--dist')) {
         // A relative link resolves against the page's address, not its source file: content links are rewritten to
         // full addresses at build time (src/lib/rehype-abbr.mjs), so one left relative would be read wrongly.
         if (!/^([a-z][a-z0-9+.-]*:|\/)/i.test(url)) { fail(`${page} has a relative link "${url}": write it as a site link or a full address`); continue; }
-        if (!url.startsWith(`${BASE}/`)) continue;
+        // "//host/..." is another site, even when the site lives at the root of its host (BASE "").
+        if (url.startsWith('//') || !url.startsWith(`${BASE}/`)) continue;
         checked += 1;
         let rel;
         try { rel = decodeURIComponent(url.slice(BASE.length + 1)); } catch { fail(`${page} has a link that cannot be read: ${url}`); continue; }

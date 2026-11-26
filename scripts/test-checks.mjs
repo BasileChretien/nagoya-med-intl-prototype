@@ -95,8 +95,8 @@ The XQZW office also helps.
   // Recorded review items of #2: a listed file that is not WebP, and wrong-typed entries (no crash).
   {
     name: 'a listed photo that is not a WebP file is reported',
-    edit: ['src/data/images.json', (old) => old.replace(/"file": "[^"]+"/, '"file": "favicon.svg"')], expect: 'fail',
-    message: /images\.json \S+: public\/favicon\.svg is not a WebP file/,
+    edit: ['src/data/images.json', (old) => old.replace(/"file": "[^"]+"/, '"file": "brand/logo-en.png"')], expect: 'fail',
+    message: /images\.json \S+: public\/brand\/logo-en\.png is not a WebP file/,
   },
   {
     name: 'a photo whose file is not a text path is reported without a crash',

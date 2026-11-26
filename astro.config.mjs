@@ -3,15 +3,16 @@ import { defineConfig } from 'astro/config';
 import { satteri } from '@astrojs/markdown-satteri';
 import sitemap from '@astrojs/sitemap';
 import abbrPlugin from './src/lib/rehype-abbr.mjs';
+import { SITE, BASE } from './src/lib/address.mjs';
 
-const base = '/nagoya-med-intl-prototype';
-const site = 'https://basilechretien.github.io';
-
-// Served from GitHub Pages as a project site: https://basilechretien.github.io/nagoya-med-intl-prototype/
-// For production at www.med.nagoya-u.ac.jp/intlexch/, change `site` and `base` here and follow docs/launch.md.
+// Served from GitHub Pages as a project site by default: https://basilechretien.github.io/nagoya-med-intl-prototype/
+// For the faculty server, build with SITE_URL and BASE_PATH set (src/lib/address.mjs, docs/launch.md "Hosting"):
+// no file changes.
+const site = SITE;
+const base = BASE;
 export default defineConfig({
   site,
-  base,
+  base: base || '/',
   trailingSlash: 'always',
   build: { format: 'directory' },
   // Acronyms on content pages: first use explained, list at the end of each page (src/data/glossary.json).
