@@ -68,13 +68,22 @@ export function cssAddressesByPattern(css) {
  * @returns {string[]}
  */
 export function outsideInCss(css, own = [], { context = 'stylesheet', base, parse = csstree.parse } = {}) {
-  const outside = (u) => isOutside(u, own, base);
+  return cssAddresses(css, { context, parse }).filter((u) => isOutside(u, own, base));
+}
+
+/**
+ * Every address in CSS, as written: url(...) (also inside custom properties) and @import strings. A stylesheet
+ * css-tree cannot read is scanned by simple patterns instead (cssAddressesByPattern).
+ * @param {string} css @param {{ context?: 'stylesheet' | 'declarationList', parse?: typeof csstree.parse }} [options]
+ * @returns {string[]}
+ */
+export function cssAddresses(css, { context = 'stylesheet', parse = csstree.parse } = {}) {
   let ast;
   try {
     // parseCustomProperty: a custom property's value is parsed too, so a url() in it is a Url node like any other.
     ast = parse(css, { context, parseValue: true, parseAtrulePrelude: true, parseCustomProperty: true, onParseError: () => {} });
   } catch {
-    return cssAddressesByPattern(css).filter(outside);
+    return cssAddressesByPattern(css);
   }
   const found = [];
   csstree.walk(ast, (node) => {
@@ -83,22 +92,20 @@ export function outsideInCss(css, own = [], { context = 'stylesheet', base, pars
       csstree.walk(node.prelude, (part) => { if (part.type === 'String') found.push(part.value); });
     }
   });
-  return found.filter(outside);
+  return found;
 }
 
 /** The addresses in a srcset or imagesrcset value. @param {string} value */
 const srcsetUrls = (value) => value.split(',').map((part) => part.trim().split(/\s+/)[0]).filter(Boolean);
 
 /**
- * Outside addresses a page would load.
+ * Every address a page would load, as written: media and script sources, srcset, SVG links, linked resources other
+ * than canonical and language links, and every address in its <style> blocks and style attributes.
  * @param {string | import('./html-lib.mjs').Node} page the page text, or a document parsed once by the caller
- * @param {string[]} [own] the site's own addresses (host and base path), not outside
- * @param {string} [base] the page's own address, against which its relative addresses are read
  * @returns {string[]}
  */
-export function outsideResources(page, own = [], base = undefined) {
+export function loadedAddresses(page) {
   const found = [];
-  const css = [];
   for (const el of elements(toDocument(page))) {
     const tag = el.tagName ?? '';
     if (MEDIA.has(tag)) {
@@ -113,11 +120,37 @@ export function outsideResources(page, own = [], base = undefined) {
         for (const value of attrs(el, 'imagesrcset')) found.push(...srcsetUrls(value));
       }
     } else if (tag === 'style') {
-      css.push(...outsideInCss(text(el), own, { base }));
+      found.push(...cssAddresses(text(el)));
     }
-    for (const value of attrs(el, 'style')) css.push(...outsideInCss(value, own, { context: 'declarationList', base }));
+    for (const value of attrs(el, 'style')) found.push(...cssAddresses(value, { context: 'declarationList' }));
   }
-  return [...found.filter((u) => isOutside(u, own, base)), ...css];
+  return found;
+}
+
+/**
+ * Outside addresses a page would load.
+ * @param {string | import('./html-lib.mjs').Node} page the page text, or a document parsed once by the caller
+ * @param {string[]} [own] the site's own addresses (host and base path), not outside
+ * @param {string} [base] the page's own address, against which its relative addresses are read
+ * @returns {string[]}
+ */
+export function outsideResources(page, own = [], base = undefined) {
+  return loadedAddresses(page).filter((u) => isOutside(u, own, base));
+}
+
+/** Whether an address is relative to the page it is on (not a full address, not from the site root, not a fragment). @param {string} url */
+export const isPageRelative = (url) => !/^([a-z][a-z0-9+.-]*:|[/\\]|#)/i.test(url.trim());
+
+/**
+ * The address a built file is served at, against which its relative addresses are read: the folder for an
+ * index.html (build.format 'directory'), the file itself otherwise. Each path segment is encoded, so a name holding
+ * "%", "#" or "?" stays part of the path. Undefined without a site address.
+ * @param {string} rel the file's path inside dist/, with "/" separators @param {string} [siteAddress] for example https://example.github.io/site/
+ */
+export function servedAt(rel, siteAddress) {
+  if (!siteAddress) return undefined;
+  const path = rel.replace(/(^|\/)index\.html$/, '$1').split('/').map(encodeURIComponent).join('/');
+  return new URL(path, siteAddress).toString();
 }
 
 /**

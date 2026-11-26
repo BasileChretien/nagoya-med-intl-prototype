@@ -6,7 +6,7 @@
  */
 import { externalLinks, verdict, checkAll, limiter, weeklyReport, OWN_HOST, ISSUE_LIMIT } from './external-lib.mjs';
 import { structuredData, missingTypes } from './structured-lib.mjs';
-import { outsideResources, outsideInCss, outsideLinks, isOutside, cssAddressesByPattern } from './resources-lib.mjs';
+import { outsideResources, outsideInCss, outsideLinks, isOutside, cssAddressesByPattern, loadedAddresses, isPageRelative, servedAt } from './resources-lib.mjs';
 import { programmeDeadline, newsEntry, icsText, shownStatus } from '../src/lib/calendar.ts';
 
 let failed = 0;
@@ -230,6 +230,23 @@ const SELF = 'https://example.github.io/site/';
   ];
   const relativeOut = outsideResources('<img alt="" srcset="../../../other/a.webp 2x">', OWN, pageBase);
   say(relativeOwn.length === 0 && JSON.stringify(relativeOut) === '["../../../other/a.webp"]', 'relative addresses are read against their page or stylesheet: inside the site they are its own, above it they are outside', JSON.stringify([relativeOwn, relativeOut]));
+  // Round 3 of #22: the page's address also reaches <style> blocks and style attributes.
+  const styled = outsideResources('<style>.a{background:url(../a.png)}</style><div style="background:url(../b.png)"></div>', OWN, pageBase);
+  const styledOut = outsideResources('<style>.a{background:url(../../../x/a.png)}</style>', OWN, pageBase);
+  say(styled.length === 0 && styledOut.length === 1, 'relative addresses in <style> blocks and style attributes are read against the page', JSON.stringify([styled, styledOut]));
+  // Round 3 of #22: where a built file is served, with each path segment kept as a name.
+  const served = [
+    servedAt('en/about/index.html', 'https://example.github.io/site/'),
+    servedAt('index.html', 'https://example.github.io/site/'),
+    servedAt('_astro/x.css', 'https://example.github.io/site/'),
+    servedAt('a#b/c%d/index.html', 'https://example.github.io/site/'),
+    servedAt('en/index.html', undefined),
+  ];
+  const wantServed = ['https://example.github.io/site/en/about/', 'https://example.github.io/site/', 'https://example.github.io/site/_astro/x.css', 'https://example.github.io/site/a%23b/c%25d/', undefined];
+  say(JSON.stringify(served) === JSON.stringify(wantServed), 'a built file is served at its folder (index.html) or its own address, with "#" and "%" kept in the path', JSON.stringify(served));
+  // Round 3 of #22: the 404 page is shown at any address, so its page-relative addresses are found for the check to refuse.
+  const notFound = loadedAddresses('<img alt="" srcset="../x.webp 2x" src="/site/a.webp"><div style="background:url(img/b.png)"></div><a href="../menu">menu</a>').filter(isPageRelative);
+  say(JSON.stringify(notFound) === JSON.stringify(['../x.webp', 'img/b.png']), 'page-relative addresses a page loads are found; site-root addresses and plain links are not', JSON.stringify(notFound));
 }
 
 // Structured data that must be there: a page without its expected type is reported, whatever the attribute order.

@@ -10,7 +10,7 @@ import { join, relative, sep, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readFeatures, drawFeatures } from './features.mjs';
 import { structuredData, missingTypes } from './structured-lib.mjs';
-import { outsideResources, outsideInCss, outsideLinks } from './resources-lib.mjs';
+import { outsideResources, outsideInCss, outsideLinks, loadedAddresses, isPageRelative, servedAt } from './resources-lib.mjs';
 import { toDocument, elements, attr, attrs } from './html-lib.mjs';
 import { PROTOTYPE } from '../src/lib/launch.mjs';
 import { urlLang } from '../src/lib/url-lang.mjs';
@@ -360,12 +360,11 @@ if (process.argv.includes('--dist')) {
   const homeLinks = existsSync(homeFile) ? [...elements(toDocument(readFileSync(homeFile, 'utf8')))].filter((el) => el.tagName === 'link') : [];
   const canonical = homeLinks.map((el) => (relOf(el).includes('canonical') ? attr(el, 'href') : undefined)).find(Boolean);
   const own = canonical ? [canonical.replace(/en\/$/, '')] : [];
-  // The address a built file is served at, against which its relative addresses are read, as a browser reads them.
-  const servedAt = (rel) => (own[0] ? new URL(rel.replace(/index\.html$/, ''), own[0]).toString() : undefined);
-  // Built stylesheets too: a font or image named in CSS is loaded like one named in a page.
+  // Built stylesheets too: a font or image named in CSS is loaded like one named in a page. Relative addresses are
+  // read against the address each file is served at (servedAt), as a browser reads them.
   for (const f of walk(DIST).filter((x) => x.endsWith('.css'))) {
     const rel = relative(DIST, f).split(sep).join('/');
-    for (const url of outsideInCss(readFileSync(f, 'utf8'), own, { base: servedAt(rel) })) fail(`${rel} loads ${url} from another site: serve it from the site itself (the privacy page says nothing is loaded from elsewhere)`);
+    for (const url of outsideInCss(readFileSync(f, 'utf8'), own, { base: servedAt(rel, own[0]) })) fail(`${rel} loads ${url} from another site: serve it from the site itself (the privacy page says nothing is loaded from elsewhere)`);
   }
   for (const f of html) {
     const doc = toDocument(readFileSync(f, 'utf8'));
@@ -378,7 +377,12 @@ if (process.argv.includes('--dist')) {
     for (const type of missingTypes(sd.blocks, expected.get(page) ?? [])) fail(`${page}: no ${type} structured data`);
     expected.delete(page);
     // The privacy page says a page loads nothing from other sites.
-    for (const url of outsideResources(doc, own, servedAt(page))) fail(`${page} loads ${url} from another site: serve it from the site itself (the privacy page says nothing is loaded from elsewhere)`);
+    for (const url of outsideResources(doc, own, servedAt(page, own[0]))) fail(`${page} loads ${url} from another site: serve it from the site itself (the privacy page says nothing is loaded from elsewhere)`);
+    // The 404 page is shown at whatever missing address was asked for, so an address relative to the page cannot
+    // work there: everything it loads must be written from the site root or in full.
+    if (page === '404.html') {
+      for (const url of loadedAddresses(doc).filter(isPageRelative)) fail(`404.html loads the relative address "${url}": it is shown at any missing address, so write it from the site root`);
+    }
     // Every href and src in the markup (text inside scripts is not markup: scripts build some links at run time).
     for (const el of all) {
       for (const value of [...attrs(el, 'href'), ...attrs(el, 'src')]) {
