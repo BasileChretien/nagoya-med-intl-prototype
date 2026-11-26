@@ -360,9 +360,12 @@ if (process.argv.includes('--dist')) {
   const homeLinks = existsSync(homeFile) ? [...elements(toDocument(readFileSync(homeFile, 'utf8')))].filter((el) => el.tagName === 'link') : [];
   const canonical = homeLinks.map((el) => (relOf(el).includes('canonical') ? attr(el, 'href') : undefined)).find(Boolean);
   const own = canonical ? [canonical.replace(/en\/$/, '')] : [];
+  // The address a built file is served at, against which its relative addresses are read, as a browser reads them.
+  const servedAt = (rel) => (own[0] ? new URL(rel.replace(/index\.html$/, ''), own[0]).toString() : undefined);
   // Built stylesheets too: a font or image named in CSS is loaded like one named in a page.
   for (const f of walk(DIST).filter((x) => x.endsWith('.css'))) {
-    for (const url of outsideInCss(readFileSync(f, 'utf8'), own)) fail(`${relative(DIST, f).split(sep).join('/')} loads ${url} from another site: serve it from the site itself (the privacy page says nothing is loaded from elsewhere)`);
+    const rel = relative(DIST, f).split(sep).join('/');
+    for (const url of outsideInCss(readFileSync(f, 'utf8'), own, { base: servedAt(rel) })) fail(`${rel} loads ${url} from another site: serve it from the site itself (the privacy page says nothing is loaded from elsewhere)`);
   }
   for (const f of html) {
     const doc = toDocument(readFileSync(f, 'utf8'));
@@ -375,7 +378,7 @@ if (process.argv.includes('--dist')) {
     for (const type of missingTypes(sd.blocks, expected.get(page) ?? [])) fail(`${page}: no ${type} structured data`);
     expected.delete(page);
     // The privacy page says a page loads nothing from other sites.
-    for (const url of outsideResources(doc, own)) fail(`${page} loads ${url} from another site: serve it from the site itself (the privacy page says nothing is loaded from elsewhere)`);
+    for (const url of outsideResources(doc, own, servedAt(page))) fail(`${page} loads ${url} from another site: serve it from the site itself (the privacy page says nothing is loaded from elsewhere)`);
     // Every href and src in the markup (text inside scripts is not markup: scripts build some links at run time).
     for (const el of all) {
       for (const value of [...attrs(el, 'href'), ...attrs(el, 'src')]) {

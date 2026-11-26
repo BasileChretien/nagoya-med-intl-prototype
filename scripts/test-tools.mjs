@@ -218,6 +218,18 @@ const SELF = 'https://example.github.io/site/';
   // Review of #22: a stylesheet css-tree cannot read is still scanned by simple patterns.
   const fallbackCss = cssAddressesByPattern('@import"https://x.example/a.css";.a{background:url( "https://img.example/b.png" )}');
   say(JSON.stringify(fallbackCss) === JSON.stringify(['https://img.example/b.png', 'https://x.example/a.css']), 'the fallback scan of an unreadable stylesheet finds url() and @import addresses', JSON.stringify(fallbackCss));
+  // Fix round of #22: outsideInCss itself falls back when the parser throws, and keeps only outside addresses.
+  const failing = () => { throw new Error('cannot read'); };
+  const viaFallback = outsideInCss('@import"https://x.example/a.css";.a{background:url(/site/img/own.webp)}', OWN, { parse: failing });
+  say(JSON.stringify(viaFallback) === '["https://x.example/a.css"]', 'when the CSS parser fails, the stylesheet is still scanned and its outside addresses reported', JSON.stringify(viaFallback));
+  // Fix round of #22: relative addresses are read against the page or stylesheet that holds them, as a browser does.
+  const pageBase = 'https://example.github.io/site/en/about/';
+  const relativeOwn = [
+    ...outsideResources('<img alt="" srcset="../a.webp 2x" src="/site/b.webp">', OWN, pageBase),
+    ...outsideInCss('.x{background:url(../img/a.png)}', OWN, { base: 'https://example.github.io/site/_astro/x.css' }),
+  ];
+  const relativeOut = outsideResources('<img alt="" srcset="../../../other/a.webp 2x">', OWN, pageBase);
+  say(relativeOwn.length === 0 && JSON.stringify(relativeOut) === '["../../../other/a.webp"]', 'relative addresses are read against their page or stylesheet: inside the site they are its own, above it they are outside', JSON.stringify([relativeOwn, relativeOut]));
 }
 
 // Structured data that must be there: a page without its expected type is reported, whatever the attribute order.

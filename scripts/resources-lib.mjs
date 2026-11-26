@@ -20,19 +20,18 @@ const NO_SITE = 'https://relative.invalid/';
 
 /**
  * Whether an address is outside the site. Every value is resolved with the WHATWG URL parser, as a browser resolves
- * it against the site (the first of `own`, for example https://example.github.io/site/): host names in any case,
- * default ports, ".." segments and backslashes (a browser reads "/\host/x" as "//host/x") all come out as the
- * browser reads them. Inline data (data:, blob:) and other schemes load nothing from another site. An address is
- * the site's own when it is under one of `own` (host and base path). Pages are checked to hold no relative links
- * (check-content), so resolving against the site's address rather than each page's is enough.
- * @param {string} url @param {string[]} [own]
+ * it against the address of the page or stylesheet that holds it (`base`; the site's address, the first of `own`,
+ * when none is given): host names in any case, default ports, ".." segments and backslashes (a browser reads
+ * "/\host/x" as "//host/x") all come out as the browser reads them. Inline data (data:, blob:) and other schemes
+ * load nothing from another site. An address is the site's own when it is under one of `own` (host and base path).
+ * @param {string} url @param {string[]} [own] @param {string} [base] the address of the page or stylesheet
  */
-export function isOutside(url, own = []) {
+export function isOutside(url, own = [], base = undefined) {
   const value = url.trim();
   if (!value) return false;
   let address;
   try {
-    address = new URL(value, own[0] ?? NO_SITE);
+    address = new URL(value, base ?? own[0] ?? NO_SITE);
   } catch {
     return ABSOLUTE.test(value); // an absolute address that cannot be read is reported rather than trusted
   }
@@ -61,17 +60,21 @@ export function cssAddressesByPattern(css) {
 
 /**
  * Outside addresses in CSS: every url(...) (fonts, backgrounds, @import url(), and inside custom properties such as
- * --hero: url(...)) and the string of an @import.
- * @param {string} css @param {string[]} [own] @param {'stylesheet' | 'declarationList'} [context] declarationList for a style attribute
+ * --hero: url(...)) and the string of an @import. Relative addresses are read against `base`: the stylesheet's own
+ * address for a .css file, the page's address for a <style> block or a style attribute.
+ * @param {string} css @param {string[]} [own]
+ * @param {{ context?: 'stylesheet' | 'declarationList', base?: string, parse?: typeof csstree.parse }} [options]
+ *   context: declarationList for a style attribute; parse: replaces css-tree's parser (tests of the fallback)
  * @returns {string[]}
  */
-export function outsideInCss(css, own = [], context = 'stylesheet') {
+export function outsideInCss(css, own = [], { context = 'stylesheet', base, parse = csstree.parse } = {}) {
+  const outside = (u) => isOutside(u, own, base);
   let ast;
   try {
     // parseCustomProperty: a custom property's value is parsed too, so a url() in it is a Url node like any other.
-    ast = csstree.parse(css, { context, parseValue: true, parseAtrulePrelude: true, parseCustomProperty: true, onParseError: () => {} });
+    ast = parse(css, { context, parseValue: true, parseAtrulePrelude: true, parseCustomProperty: true, onParseError: () => {} });
   } catch {
-    return cssAddressesByPattern(css).filter((u) => isOutside(u, own));
+    return cssAddressesByPattern(css).filter(outside);
   }
   const found = [];
   csstree.walk(ast, (node) => {
@@ -80,7 +83,7 @@ export function outsideInCss(css, own = [], context = 'stylesheet') {
       csstree.walk(node.prelude, (part) => { if (part.type === 'String') found.push(part.value); });
     }
   });
-  return found.filter((u) => isOutside(u, own));
+  return found.filter(outside);
 }
 
 /** The addresses in a srcset or imagesrcset value. @param {string} value */
@@ -90,9 +93,10 @@ const srcsetUrls = (value) => value.split(',').map((part) => part.trim().split(/
  * Outside addresses a page would load.
  * @param {string | import('./html-lib.mjs').Node} page the page text, or a document parsed once by the caller
  * @param {string[]} [own] the site's own addresses (host and base path), not outside
+ * @param {string} [base] the page's own address, against which its relative addresses are read
  * @returns {string[]}
  */
-export function outsideResources(page, own = []) {
+export function outsideResources(page, own = [], base = undefined) {
   const found = [];
   const css = [];
   for (const el of elements(toDocument(page))) {
@@ -109,11 +113,11 @@ export function outsideResources(page, own = []) {
         for (const value of attrs(el, 'imagesrcset')) found.push(...srcsetUrls(value));
       }
     } else if (tag === 'style') {
-      css.push(...outsideInCss(text(el), own));
+      css.push(...outsideInCss(text(el), own, { base }));
     }
-    for (const value of attrs(el, 'style')) css.push(...outsideInCss(value, own, 'declarationList'));
+    for (const value of attrs(el, 'style')) css.push(...outsideInCss(value, own, { context: 'declarationList', base }));
   }
-  return [...found.filter((u) => isOutside(u, own)), ...css];
+  return [...found.filter((u) => isOutside(u, own, base)), ...css];
 }
 
 /**
