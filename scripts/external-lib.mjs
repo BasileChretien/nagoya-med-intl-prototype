@@ -11,8 +11,10 @@ export const OWN_HOST = 'www.med.nagoya-u.ac.jp';
 
 /**
  * Outside addresses in one page, without fragments: every href and src that is a full http(s) address, read with
- * parse5 (entities decoded, any quoting). Text inside scripts is not markup and is not read: scripts build some
- * addresses at run time. `self` is the site's own address prefix: canonical and language links point there.
+ * parse5 (entities decoded, any quoting). That includes a script's own src, SVG xlink:href (parse5 reads it as
+ * href), and links inside <noscript> and <template>: all of them can lead a visitor or a browser somewhere, so all
+ * are checked. Text inside scripts is not markup and is not read: scripts build some addresses at run time.
+ * `self` is the site's own address prefix: canonical and language links point there.
  * @param {string | import('./html-lib.mjs').Node} page @param {string} [self] @returns {string[]}
  */
 export function externalLinks(page, self) {

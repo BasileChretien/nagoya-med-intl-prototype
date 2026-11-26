@@ -16,22 +16,28 @@ const ABSOLUTE = /^(https?:)?\/\//i;
 const MEDIA = new Set(['img', 'script', 'iframe', 'video', 'audio', 'source', 'track', 'embed', 'object', 'input']);
 const SVG_LINKS = new Set(['image', 'use', 'feImage']);
 const NOT_LOADED = new Set(['canonical', 'alternate']);
+const NO_SITE = 'https://relative.invalid/';
 
 /**
- * Whether an address is outside the site. Relative addresses, fragments and inline data are the site's own, as is
- * anything under one of `own`, the site's addresses (for example https://example.github.io/site/). Addresses are
- * compared once parsed: host names in any case, default ports and ".." segments come out as a browser reads them.
+ * Whether an address is outside the site. Every value is resolved with the WHATWG URL parser, as a browser resolves
+ * it against the site (the first of `own`, for example https://example.github.io/site/): host names in any case,
+ * default ports, ".." segments and backslashes (a browser reads "/\host/x" as "//host/x") all come out as the
+ * browser reads them. Inline data (data:, blob:) and other schemes load nothing from another site. An address is
+ * the site's own when it is under one of `own` (host and base path). Pages are checked to hold no relative links
+ * (check-content), so resolving against the site's address rather than each page's is enough.
  * @param {string} url @param {string[]} [own]
  */
 export function isOutside(url, own = []) {
   const value = url.trim();
-  if (!ABSOLUTE.test(value)) return false;
+  if (!value) return false;
   let address;
   try {
-    address = new URL(value, 'https://relative.invalid/');
+    address = new URL(value, own[0] ?? NO_SITE);
   } catch {
-    return true; // an absolute address that cannot be read is reported rather than trusted
+    return ABSOLUTE.test(value); // an absolute address that cannot be read is reported rather than trusted
   }
+  if (address.protocol !== 'http:' && address.protocol !== 'https:') return false;
+  if (address.host === new URL(NO_SITE).host) return false; // relative, with no site address to resolve against
   return !own.some((prefix) => {
     try {
       const site = new URL(prefix);
@@ -43,16 +49,29 @@ export function isOutside(url, own = []) {
 }
 
 /**
- * Outside addresses in CSS: every url(...) (fonts, backgrounds, @import url()) and the string of an @import.
+ * The addresses in CSS found by simple patterns, used only when css-tree cannot read a stylesheet at all, so that
+ * an unreadable stylesheet is still scanned rather than passed unseen. @param {string} css @returns {string[]}
+ */
+export function cssAddressesByPattern(css) {
+  const found = [];
+  for (const m of css.matchAll(/url\(\s*(?:"([^"]*)"|'([^']*)'|([^'")\s]+))\s*\)/gi)) found.push(m[1] ?? m[2] ?? m[3]);
+  for (const m of css.matchAll(/@import\s*(?:"([^"]+)"|'([^']+)')/gi)) found.push(m[1] ?? m[2]);
+  return found;
+}
+
+/**
+ * Outside addresses in CSS: every url(...) (fonts, backgrounds, @import url(), and inside custom properties such as
+ * --hero: url(...)) and the string of an @import.
  * @param {string} css @param {string[]} [own] @param {'stylesheet' | 'declarationList'} [context] declarationList for a style attribute
  * @returns {string[]}
  */
 export function outsideInCss(css, own = [], context = 'stylesheet') {
   let ast;
   try {
-    ast = csstree.parse(css, { context, parseValue: true, parseAtrulePrelude: true, onParseError: () => {} });
+    // parseCustomProperty: a custom property's value is parsed too, so a url() in it is a Url node like any other.
+    ast = csstree.parse(css, { context, parseValue: true, parseAtrulePrelude: true, parseCustomProperty: true, onParseError: () => {} });
   } catch {
-    return [];
+    return cssAddressesByPattern(css).filter((u) => isOutside(u, own));
   }
   const found = [];
   csstree.walk(ast, (node) => {

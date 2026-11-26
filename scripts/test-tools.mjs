@@ -6,7 +6,7 @@
  */
 import { externalLinks, verdict, checkAll, limiter, weeklyReport, OWN_HOST, ISSUE_LIMIT } from './external-lib.mjs';
 import { structuredData, missingTypes } from './structured-lib.mjs';
-import { outsideResources, outsideInCss, outsideLinks, isOutside } from './resources-lib.mjs';
+import { outsideResources, outsideInCss, outsideLinks, isOutside, cssAddressesByPattern } from './resources-lib.mjs';
 import { programmeDeadline, newsEntry, icsText, shownStatus } from '../src/lib/calendar.ts';
 
 let failed = 0;
@@ -25,6 +25,9 @@ const SELF = 'https://example.github.io/site/';
   // What visitors without JavaScript get is checked too, and a script's own address is a link to check.
   const fallback = externalLinks('<noscript><a href="https://n.example/page">menu</a></noscript><script src="https://s.example/x.js"></script>');
   say(JSON.stringify(fallback.sort()) === JSON.stringify(['https://n.example/page', 'https://s.example/x.js']), 'links inside <noscript> and script addresses are read', JSON.stringify(fallback));
+  // Review of #22: SVG xlink:href and links inside <template> are checked too, as documented.
+  const svg = externalLinks('<svg><use xlink:href="https://x.example/s.svg#i"/></svg><template><a href="https://t.example/">t</a></template>');
+  say(JSON.stringify(svg.sort()) === JSON.stringify(['https://t.example/', 'https://x.example/s.svg']), 'SVG xlink:href and links inside <template> are read', JSON.stringify(svg));
 }
 
 // Verdicts follow the audit: gone or refused by the faculty's server is broken; a refusal elsewhere is unverified.
@@ -198,6 +201,23 @@ const SELF = 'https://example.github.io/site/';
   say(JSON.stringify(own21) === '[false,false,true]', 'host case and default ports are the site\'s own; ".." that leaves the site is outside', JSON.stringify(own21));
   const strings = outsideInCss('.a{content:"/*"}@import "https://x.example/a.css";.b{content:"*/"}');
   say(JSON.stringify(strings) === '["https://x.example/a.css"]', 'a comment sign inside a CSS string does not hide the addresses after it', JSON.stringify(strings));
+  // Review of #22 (blocking): a url() inside a custom property, in a stylesheet or a style attribute.
+  const custom = [
+    ...outsideInCss(':root{--hero:url(https://cdn.example/h.jpg)}.a{background:var(--hero)}', OWN),
+    ...outsideResources('<div style="--bg:url(https://x.example/a.png)"></div>', OWN),
+  ];
+  say(JSON.stringify(custom) === JSON.stringify(['https://cdn.example/h.jpg', 'https://x.example/a.png']), 'a url() inside a CSS custom property is found', JSON.stringify(custom));
+  // Review of #22: backslashes read as slashes, as browsers do; inline data loads nothing from another site.
+  const resolved = [
+    isOutside('/\\evil.example/x.js', OWN),
+    isOutside('\\\\evil.example/x.js', OWN),
+    isOutside('data:image/png;base64,AAAA', OWN),
+    isOutside('/site/img/a.webp', OWN),
+  ];
+  say(JSON.stringify(resolved) === '[true,true,false,false]', 'an address with backslashes is read as a browser reads it; inline data and the site\'s own files are not outside', JSON.stringify(resolved));
+  // Review of #22: a stylesheet css-tree cannot read is still scanned by simple patterns.
+  const fallbackCss = cssAddressesByPattern('@import"https://x.example/a.css";.a{background:url( "https://img.example/b.png" )}');
+  say(JSON.stringify(fallbackCss) === JSON.stringify(['https://img.example/b.png', 'https://x.example/a.css']), 'the fallback scan of an unreadable stylesheet finds url() and @import addresses', JSON.stringify(fallbackCss));
 }
 
 // Structured data that must be there: a page without its expected type is reported, whatever the attribute order.
