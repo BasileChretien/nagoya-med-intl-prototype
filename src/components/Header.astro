@@ -34,7 +34,7 @@ const LOGO: Record<Lang, { width: number; height: number }> = { en: { width: 102
   <div class="wrap head-top">
     <a class="brand" href={href(lang)}>
       {/* The faculty's own logo, as on the department pages of the faculty site (medical_E|J/tpl/img/logo.png), in the
-          page's language; on a phone, the faculty's emblem alone, so the menu still fits. */}
+          page's language. Below 760 px the faculty's emblem replaces it, so the buttons still fit (global.css). */}
       <img class="brand-logo" src={asset(`brand/logo-${lang}.png`)} width={LOGO[lang].width} height={LOGO[lang].height} alt={ui.org} />
       <img class="brand-emblem" src={asset('brand/emblem-192.png')} width="192" height="192" alt={ui.org} />
       <span class="brand-site">{ui.site}</span>

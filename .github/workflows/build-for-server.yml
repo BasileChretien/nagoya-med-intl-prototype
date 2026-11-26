@@ -1,8 +1,10 @@
 name: Build for the faculty server
 
 # Run from the Actions tab ("Run workflow"). It builds the site for another host, by default the faculty server at
-# https://www.med.nagoya-u.ac.jp/intlexch/, runs the same checks as every deploy, and offers the result as a zip
-# ("site-for-server") to download from the run's page and upload to that folder on the server.
+# https://www.med.nagoya-u.ac.jp/intlexch/, runs the content checks a deploy runs (sources, both languages in step,
+# types, and the built site at its new address), and offers the result as a zip ("site-for-server") to download
+# from the run's page and upload to that folder on the server. The tests of the checks themselves run on every
+# pull request (deploy.yml) and are not repeated here.
 # docs/launch.md ("Hosting on the faculty server") explains the server settings and the other ways to deploy.
 on:
   workflow_dispatch:
@@ -37,6 +39,10 @@ jobs:
       - run: npm ci
       - name: Check content sources
         run: node scripts/check-content.mjs
+      - name: Check that no version is stale
+        run: node scripts/check-staleness.mjs
+      - name: Type check
+        run: npx astro check
       - run: npm run build
       - name: Check the built site at its new address
         run: node scripts/check-content.mjs --dist

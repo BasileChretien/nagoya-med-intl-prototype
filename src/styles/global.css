@@ -61,8 +61,10 @@ p { margin: 0; }
 .site-head { background: #fff; border-bottom: 1px solid var(--line); }
 .head-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-block: 0.9rem; }
 .brand { display: flex; align-items: center; gap: 0.9rem; text-decoration: none; color: var(--ink); min-width: 0; }
-/* The faculty's logo (public/brand/), then the site's name after a thin rule; on a phone the emblem alone. */
-.brand-logo { height: 46px; width: auto; flex: none; }
+/* The faculty's logo (public/brand/), then the site's name after a thin rule. Below 760 px the faculty's emblem takes
+   the logo's place (the full logo would not fit beside the buttons), and below 440 px the site's name is read by
+   screen readers only. The logo never shrinks out of shape (max-width: none overrides the global img rule). */
+.brand-logo { height: 46px; width: auto; max-width: none; flex: none; }
 .brand-emblem { display: none; width: 38px; height: 38px; flex: none; }
 .brand-site { font-family: var(--f-serif); font-size: 1.4rem; color: var(--navy-ink); font-weight: 600; padding-left: 0.9rem; border-left: 1px solid var(--line-2); line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 .head-actions { flex: none; }
@@ -91,18 +93,23 @@ p { margin: 0; }
 }
 .head-actions { display: flex; gap: 0.6rem; align-items: center; }
 @media (min-width: 861px) { .menu-panel { display: none !important; } }
-@media (max-width: 560px) {
+/* Small tablets and phones: the emblem and the site's name. At 760 px the full logo (271 px at 38 px high), the name
+   and the three buttons no longer fit. */
+@media (max-width: 760px) {
   .brand-logo { display: none; }
   .brand-emblem { display: block; }
   .brand-site { padding-left: 0; border-left: 0; }
+}
+@media (max-width: 560px) {
   .lang-switch, .search-link { padding: 0.3rem 0.6rem; }
   /* On a phone the magnifier stays; its word is read by screen readers only. */
   .search-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .head-actions { gap: 0.4rem; }
 }
-/* Narrow phones: the emblem alone (the bar above already says "Graduate School of Medicine > International"). */
+/* Narrow phones: the emblem alone on screen (the bar above already says "Graduate School of Medicine > International");
+   the site's name stays in the link for screen readers, so the link is named for where it goes. */
 @media (max-width: 440px) {
-  .brand-site { display: none; }
+  .brand-site { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 }
 
 /* Hero */

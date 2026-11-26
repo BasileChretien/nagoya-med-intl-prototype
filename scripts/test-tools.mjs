@@ -321,6 +321,15 @@ const SELF = 'https://example.github.io/site/';
     encoding: 'utf8', env: clean({ ...process.env, SITE_URL: 'https://www.med.nagoya-u.ac.jp/intlexch', BASE_PATH: 'intlexch/' }),
   });
   say(wrong.status !== 0 && /SITE_URL must be an https address with no path/.test(wrong.stderr), 'a site address with a path stops the build with a plain message', wrong.stderr.split('\n').find((l) => /Error/.test(l)) ?? '');
+  // Review of #23: the host's root (an empty BASE_PATH) is accepted; a folder without its leading "/" is refused.
+  const atRoot = spawnSync(process.execPath, ['--input-type=module', '-e', `import('${ADDRESS}').then((m) => console.log(JSON.stringify([m.SITE, m.BASE])))`], {
+    encoding: 'utf8', env: clean({ ...process.env, SITE_URL: 'https://intl.example.ac.jp', BASE_PATH: '' }),
+  });
+  say(atRoot.stdout.trim() === '["https://intl.example.ac.jp",""]', 'an empty BASE_PATH puts the site at the root of its host', atRoot.stdout + atRoot.stderr);
+  const noSlash = spawnSync(process.execPath, ['--input-type=module', '-e', `import('${ADDRESS}')`], {
+    encoding: 'utf8', env: clean({ ...process.env, SITE_URL: 'https://www.med.nagoya-u.ac.jp', BASE_PATH: 'intlexch' }),
+  });
+  say(noSlash.status !== 0 && /BASE_PATH must be empty/.test(noSlash.stderr), 'a folder written without its leading "/" stops the build with a plain message', noSlash.stderr.split('\n').find((l) => /Error/.test(l)) ?? '');
 }
 
 process.stdout.write(`${total - failed}/${total} passed\n`);
