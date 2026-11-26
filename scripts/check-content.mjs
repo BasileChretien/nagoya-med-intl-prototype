@@ -10,7 +10,8 @@ import { join, relative, sep, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readFeatures, drawFeatures } from './features.mjs';
 import { structuredData, missingTypes } from './structured-lib.mjs';
-import { outsideResources, outsideInCss, outsideLinks } from './resources-lib.mjs';
+import { outsideResources, outsideInCss, outsideLinks, loadedAddresses, isPageRelative, servedAt } from './resources-lib.mjs';
+import { toDocument, elements, attr, attrs } from './html-lib.mjs';
 import { PROTOTYPE } from '../src/lib/launch.mjs';
 import { urlLang } from '../src/lib/url-lang.mjs';
 
@@ -301,7 +302,8 @@ if (summaries) {
   const linkedFromEnglish = new Set();
   for (const p of md('en')) {
     const body = readFileSync(join(PAGES, 'en', p), 'utf8').replace(/^---\r?\n[\s\S]*?\r?\n---/, '');
-    for (const link of outsideLinks(body)) {
+    // Rendered with the site's own Markdown processor, so every link form counts as the page will show it.
+    for (const link of await outsideLinks(body)) {
       const url = link.split('#')[0];
       linkedFromEnglish.add(url);
       let pathname = '';
@@ -349,38 +351,54 @@ if (process.argv.includes('--dist')) {
       expected.set(`${lang}/${slug ? `${slug}/` : ''}index.html`, ['BreadcrumbList']);
     }
   }
-  // The site's own address (origin and base path), from the English home page's canonical address: an address under
+  // Every page is read once with parse5 (scripts/html-lib.mjs), as a browser would read it, and every check below
+  // works on that tree: no pattern has to guess at quotes, entities, comments or attribute order.
+  const relOf = (el) => (attr(el, 'rel') ?? '').toLowerCase().split(/\s+/);
+  // The site's own address (host and base path), from the English home page's canonical address: an address under
   // it is not another site; another project on the same host is.
   const homeFile = join(DIST, 'en', 'index.html');
-  const canonical = existsSync(homeFile) ? readFileSync(homeFile, 'utf8').match(/<link rel="canonical" href="([^"]+)"/)?.[1] : undefined;
+  const homeLinks = existsSync(homeFile) ? [...elements(toDocument(readFileSync(homeFile, 'utf8')))].filter((el) => el.tagName === 'link') : [];
+  const canonical = homeLinks.map((el) => (relOf(el).includes('canonical') ? attr(el, 'href') : undefined)).find(Boolean);
   const own = canonical ? [canonical.replace(/en\/$/, '')] : [];
-  // Built stylesheets too: a font or image named in CSS is loaded like one named in a page.
+  // Built stylesheets too: a font or image named in CSS is loaded like one named in a page. Relative addresses are
+  // read against the address each file is served at (servedAt), as a browser reads them.
   for (const f of walk(DIST).filter((x) => x.endsWith('.css'))) {
-    for (const url of outsideInCss(readFileSync(f, 'utf8'), own)) fail(`${relative(DIST, f).split(sep).join('/')} loads ${url} from another site: serve it from the site itself (the privacy page says nothing is loaded from elsewhere)`);
+    const rel = relative(DIST, f).split(sep).join('/');
+    for (const url of outsideInCss(readFileSync(f, 'utf8'), own, { base: servedAt(rel, own[0]) })) fail(`${rel} loads ${url} from another site: serve it from the site itself (the privacy page says nothing is loaded from elsewhere)`);
   }
   for (const f of html) {
-    const text = readFileSync(f, 'utf8');
+    const doc = toDocument(readFileSync(f, 'utf8'));
+    const all = [...elements(doc)];
     const page = relative(DIST, f).split(sep).join('/');
-    if (PROTOTYPE && !/<meta name="robots" content="noindex/.test(text)) fail(`${page} is missing the noindex meta tag`);
-    const sd = structuredData(text);
+    const noindex = all.some((el) => el.tagName === 'meta' && (attr(el, 'name') ?? '').toLowerCase() === 'robots' && /\bnoindex\b/i.test(attr(el, 'content') ?? ''));
+    if (PROTOTYPE && !noindex) fail(`${page} is missing the noindex meta tag`);
+    const sd = structuredData(doc);
     for (const problem of sd.problems) fail(`${page}: ${problem}`);
     for (const type of missingTypes(sd.blocks, expected.get(page) ?? [])) fail(`${page}: no ${type} structured data`);
     expected.delete(page);
     // The privacy page says a page loads nothing from other sites.
-    for (const url of outsideResources(text, own)) fail(`${page} loads ${url} from another site: serve it from the site itself (the privacy page says nothing is loaded from elsewhere)`);
-    // Links in the markup only: scripts build some hrefs from strings at run time.
-    const markup = text.replace(/<script\b[\s\S]*?<\/script>/gi, '');
-    for (const m of markup.matchAll(/(?:href|src)="([^"#?]+)[^"]*"/g)) {
-      const url = m[1];
-      // A relative link resolves against the page's address, not its source file: content links are rewritten to
-      // full addresses at build time (src/lib/rehype-abbr.mjs), so one left relative would be read wrongly.
-      if (!/^([a-z][a-z0-9+.-]*:|\/)/i.test(url)) { fail(`${relative(DIST, f)} has a relative link "${url}": write it as a site link or a full address`); continue; }
-      if (!url.startsWith(`${BASE}/`)) continue;
-      checked += 1;
-      const rel = decodeURIComponent(url.slice(BASE.length + 1));
-      const target = join(DIST, rel);
-      const ok = existsSync(target) && (statSync(target).isFile() || existsSync(join(target, 'index.html')));
-      if (!ok) fail(`${relative(DIST, f)} links to missing ${url}`);
+    for (const url of outsideResources(doc, own, servedAt(page, own[0]))) fail(`${page} loads ${url} from another site: serve it from the site itself (the privacy page says nothing is loaded from elsewhere)`);
+    // The 404 page is shown at whatever missing address was asked for, so an address relative to the page cannot
+    // work there: everything it loads must be written from the site root or in full.
+    if (page === '404.html') {
+      for (const url of loadedAddresses(doc).filter(isPageRelative)) fail(`404.html loads the relative address "${url}": it is shown at any missing address, so write it from the site root`);
+    }
+    // Every href and src in the markup (text inside scripts is not markup: scripts build some links at run time).
+    for (const el of all) {
+      for (const value of [...attrs(el, 'href'), ...attrs(el, 'src')]) {
+        const url = value.split(/[#?]/)[0];
+        if (!url) continue;
+        // A relative link resolves against the page's address, not its source file: content links are rewritten to
+        // full addresses at build time (src/lib/rehype-abbr.mjs), so one left relative would be read wrongly.
+        if (!/^([a-z][a-z0-9+.-]*:|\/)/i.test(url)) { fail(`${page} has a relative link "${url}": write it as a site link or a full address`); continue; }
+        if (!url.startsWith(`${BASE}/`)) continue;
+        checked += 1;
+        let rel;
+        try { rel = decodeURIComponent(url.slice(BASE.length + 1)); } catch { fail(`${page} has a link that cannot be read: ${url}`); continue; }
+        const target = join(DIST, rel);
+        const ok = existsSync(target) && (statSync(target).isFile() || existsSync(join(target, 'index.html')));
+        if (!ok) fail(`${page} links to missing ${url}`);
+      }
     }
   }
   for (const page of expected.keys()) fail(`${page} was not built, so its structured data could not be checked`);

@@ -6,7 +6,7 @@
  */
 import { externalLinks, verdict, checkAll, limiter, weeklyReport, OWN_HOST, ISSUE_LIMIT } from './external-lib.mjs';
 import { structuredData, missingTypes } from './structured-lib.mjs';
-import { outsideResources, outsideInCss, outsideLinks } from './resources-lib.mjs';
+import { outsideResources, outsideInCss, outsideLinks, isOutside, cssAddressesByPattern, loadedAddresses, isPageRelative, servedAt } from './resources-lib.mjs';
 import { programmeDeadline, newsEntry, icsText, shownStatus } from '../src/lib/calendar.ts';
 
 let failed = 0;
@@ -22,6 +22,12 @@ const SELF = 'https://example.github.io/site/';
   const got = externalLinks(html, SELF);
   const want = ['https://a.org/x?p=1&q=2', 'https://b.org/i.png', 'http://e.org/'];
   say(JSON.stringify(got) === JSON.stringify(want), 'outside links are read from the markup only, without own pages or fragments', JSON.stringify(got));
+  // What visitors without JavaScript get is checked too, and a script's own address is a link to check.
+  const fallback = externalLinks('<noscript><a href="https://n.example/page">menu</a></noscript><script src="https://s.example/x.js"></script>');
+  say(JSON.stringify(fallback.sort()) === JSON.stringify(['https://n.example/page', 'https://s.example/x.js']), 'links inside <noscript> and script addresses are read', JSON.stringify(fallback));
+  // Review of #22: SVG xlink:href and links inside <template> are checked too, as documented.
+  const svg = externalLinks('<svg><use xlink:href="https://x.example/s.svg#i"/></svg><template><a href="https://t.example/">t</a></template>');
+  say(JSON.stringify(svg.sort()) === JSON.stringify(['https://t.example/', 'https://x.example/s.svg']), 'SVG xlink:href and links inside <template> are read', JSON.stringify(svg));
 }
 
 // Verdicts follow the audit: gone or refused by the faculty's server is broken; a refusal elsewhere is unverified.
@@ -182,6 +188,65 @@ const SELF = 'https://example.github.io/site/';
   say(JSON.stringify(got4) === JSON.stringify(want4), 'single-quoted styles and numeric entities are read; another project on the same host is outside; the site itself over http is not', JSON.stringify(got4));
   const css20 = outsideInCss('@import "https://x.example/a\'b.css";@import/**/"https://x.example/c.css";@import /* note */ \'https://x.example/d"e.css\';');
   say(JSON.stringify(css20) === JSON.stringify(['https://x.example/a\'b.css', 'https://x.example/c.css', 'https://x.example/d"e.css']), 'an @import address holding the other quote, or after a comment, is found', JSON.stringify(css20));
+  // Recorded on #21, now read by the parsers: an entity beyond Unicode does not stop the check; host case, default
+  // ports and ".." segments are read as a browser reads them; a "/*" inside a string does not hide what follows.
+  let huge;
+  try { huge = outsideResources('<img alt="" src="&#x110000;"><div style="a:&#99999999;"></div>', OWN); } catch (e) { huge = e; }
+  say(Array.isArray(huge) && huge.length === 0, 'an entity beyond Unicode does not stop the check', String(huge));
+  const own21 = [
+    isOutside('https://Example.github.io/site/a.png', OWN),
+    isOutside('https://example.github.io:443/site/a.png', OWN),
+    isOutside('https://example.github.io/site/../other-project/x.js', OWN),
+  ];
+  say(JSON.stringify(own21) === '[false,false,true]', 'host case and default ports are the site\'s own; ".." that leaves the site is outside', JSON.stringify(own21));
+  const strings = outsideInCss('.a{content:"/*"}@import "https://x.example/a.css";.b{content:"*/"}');
+  say(JSON.stringify(strings) === '["https://x.example/a.css"]', 'a comment sign inside a CSS string does not hide the addresses after it', JSON.stringify(strings));
+  // Review of #22 (blocking): a url() inside a custom property, in a stylesheet or a style attribute.
+  const custom = [
+    ...outsideInCss(':root{--hero:url(https://cdn.example/h.jpg)}.a{background:var(--hero)}', OWN),
+    ...outsideResources('<div style="--bg:url(https://x.example/a.png)"></div>', OWN),
+  ];
+  say(JSON.stringify(custom) === JSON.stringify(['https://cdn.example/h.jpg', 'https://x.example/a.png']), 'a url() inside a CSS custom property is found', JSON.stringify(custom));
+  // Review of #22: backslashes read as slashes, as browsers do; inline data loads nothing from another site.
+  const resolved = [
+    isOutside('/\\evil.example/x.js', OWN),
+    isOutside('\\\\evil.example/x.js', OWN),
+    isOutside('data:image/png;base64,AAAA', OWN),
+    isOutside('/site/img/a.webp', OWN),
+  ];
+  say(JSON.stringify(resolved) === '[true,true,false,false]', 'an address with backslashes is read as a browser reads it; inline data and the site\'s own files are not outside', JSON.stringify(resolved));
+  // Review of #22: a stylesheet css-tree cannot read is still scanned by simple patterns.
+  const fallbackCss = cssAddressesByPattern('@import"https://x.example/a.css";.a{background:url( "https://img.example/b.png" )}');
+  say(JSON.stringify(fallbackCss) === JSON.stringify(['https://img.example/b.png', 'https://x.example/a.css']), 'the fallback scan of an unreadable stylesheet finds url() and @import addresses', JSON.stringify(fallbackCss));
+  // Fix round of #22: outsideInCss itself falls back when the parser throws, and keeps only outside addresses.
+  const failing = () => { throw new Error('cannot read'); };
+  const viaFallback = outsideInCss('@import"https://x.example/a.css";.a{background:url(/site/img/own.webp)}', OWN, { parse: failing });
+  say(JSON.stringify(viaFallback) === '["https://x.example/a.css"]', 'when the CSS parser fails, the stylesheet is still scanned and its outside addresses reported', JSON.stringify(viaFallback));
+  // Fix round of #22: relative addresses are read against the page or stylesheet that holds them, as a browser does.
+  const pageBase = 'https://example.github.io/site/en/about/';
+  const relativeOwn = [
+    ...outsideResources('<img alt="" srcset="../a.webp 2x" src="/site/b.webp">', OWN, pageBase),
+    ...outsideInCss('.x{background:url(../img/a.png)}', OWN, { base: 'https://example.github.io/site/_astro/x.css' }),
+  ];
+  const relativeOut = outsideResources('<img alt="" srcset="../../../other/a.webp 2x">', OWN, pageBase);
+  say(relativeOwn.length === 0 && JSON.stringify(relativeOut) === '["../../../other/a.webp"]', 'relative addresses are read against their page or stylesheet: inside the site they are its own, above it they are outside', JSON.stringify([relativeOwn, relativeOut]));
+  // Round 3 of #22: the page's address also reaches <style> blocks and style attributes.
+  const styled = outsideResources('<style>.a{background:url(../a.png)}</style><div style="background:url(../b.png)"></div>', OWN, pageBase);
+  const styledOut = outsideResources('<style>.a{background:url(../../../x/a.png)}</style>', OWN, pageBase);
+  say(styled.length === 0 && styledOut.length === 1, 'relative addresses in <style> blocks and style attributes are read against the page', JSON.stringify([styled, styledOut]));
+  // Round 3 of #22: where a built file is served, with each path segment kept as a name.
+  const served = [
+    servedAt('en/about/index.html', 'https://example.github.io/site/'),
+    servedAt('index.html', 'https://example.github.io/site/'),
+    servedAt('_astro/x.css', 'https://example.github.io/site/'),
+    servedAt('a#b/c%d/index.html', 'https://example.github.io/site/'),
+    servedAt('en/index.html', undefined),
+  ];
+  const wantServed = ['https://example.github.io/site/en/about/', 'https://example.github.io/site/', 'https://example.github.io/site/_astro/x.css', 'https://example.github.io/site/a%23b/c%25d/', undefined];
+  say(JSON.stringify(served) === JSON.stringify(wantServed), 'a built file is served at its folder (index.html) or its own address, with "#" and "%" kept in the path', JSON.stringify(served));
+  // Round 3 of #22: the 404 page is shown at any address, so its page-relative addresses are found for the check to refuse.
+  const notFound = loadedAddresses('<img alt="" srcset="../x.webp 2x" src="/site/a.webp"><div style="background:url(img/b.png)"></div><a href="../menu">menu</a>').filter(isPageRelative);
+  say(JSON.stringify(notFound) === JSON.stringify(['../x.webp', 'img/b.png']), 'page-relative addresses a page loads are found; site-root addresses and plain links are not', JSON.stringify(notFound));
 }
 
 // Structured data that must be there: a page without its expected type is reported, whatever the attribute order.
@@ -201,6 +266,12 @@ const SELF = 'https://example.github.io/site/';
   say(empty.problems.some((p) => /empty "@graph"/.test(p)) && untyped.problems.some((p) => /item 1 of the "@graph" has no "@type"/.test(p)), 'an empty @graph, or a graph item without a type, is reported', JSON.stringify([empty.problems, untyped.problems]));
   const relative = structuredData(block({ '@context': 'https://schema.org', '@graph': [{ '@type': 'WebPage', url: '/x' }] }));
   say(relative.problems.length === 1 && /structured data WebPage: "url" is not a full https address: \/x/.test(relative.problems[0]), 'an address problem inside an @graph names the item\'s type', relative.problems.join('; '));
+  // Recorded on #21: an item that only points at another by @id is valid JSON-LD.
+  const reference = structuredData(block({ '@context': 'https://schema.org', '@graph': [{ '@type': 'WebPage' }, { '@id': 'https://example.org/#org' }] }));
+  say(reference.problems.length === 0, 'a graph item that only refers to another item by @id is accepted', reference.problems.join('; '));
+  // Parsed, not matched: a type attribute in upper case or single quotes still marks a block.
+  const quoted = structuredData("<script type='Application/LD+JSON'>{\"@context\":\"https://schema.org\",\"@type\":\"WebPage\"}</script>");
+  say(quoted.blocks.length === 1, 'a structured-data block is found whatever the quoting and case of its type');
 }
 
 // Links from Markdown pages in every form: titled, in angle brackets, reference definitions and HTML.
@@ -211,8 +282,8 @@ const SELF = 'https://example.github.io/site/';
     '',
     '[r]: https://a.example/4',
   ].join('\n');
-  const got = outsideLinks(md).sort();
-  say(JSON.stringify(got) === JSON.stringify(['https://a.example/1', 'https://a.example/2', 'https://a.example/3', 'https://a.example/4', 'https://a.example/5']), 'links in every Markdown and HTML form are found', JSON.stringify(got));
+  const got = (await outsideLinks(`${md}\nAn autolink <https://a.example/6>, and \`[code](https://a.example/7)\` that is not a link.\n`)).sort();
+  say(JSON.stringify(got) === JSON.stringify(['https://a.example/1', 'https://a.example/2', 'https://a.example/3', 'https://a.example/4', 'https://a.example/5', 'https://a.example/6']), 'links in every Markdown and HTML form are found, and text in code is not a link', JSON.stringify(got));
 }
 
 // The weekly report shows a crashed content check, and stays within GitHub's issue size.
