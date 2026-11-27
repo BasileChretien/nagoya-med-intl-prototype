@@ -46,12 +46,41 @@ export function verdict(rec) {
 }
 
 /**
+ * The entries of src/data/protected-areas.json that can be checked: an object with a string id and a full https
+ * address. check-content reports the others; the weekly check skips them instead of stopping.
+ * @param {unknown} list @returns {{ id: string, url: string, name?: { en?: string, ja?: string } }[]}
+ */
+export function usableAreas(list) {
+  if (!Array.isArray(list)) return [];
+  return list.filter((a) => a && typeof a === 'object' && typeof a.id === 'string' && a.id && typeof a.url === 'string' && /^https:\/\/[^/]+\/./.test(a.url));
+}
+
+/** Host (lower case, with a port only when it is not 80 or 443) and path of an address, or null. @param {string} u */
+function hostPath(u) {
+  try {
+    const x = new URL(u);
+    if (!/^https?:$/.test(x.protocol)) return null;
+    return `${x.hostname}${x.port && x.port !== '80' && x.port !== '443' ? `:${x.port}` : ''}${x.pathname}`;
+  } catch {
+    return null;
+  }
+}
+
+/**
  * Whether an address lies in one of the password-protected areas the site links to but does not hold
  * (src/data/protected-areas.json): the area's own address, with or without its final slash, or anything under it.
+ * Addresses are compared by host and path, so http or https, the host's letter case and a default port do not matter.
  * @param {string} url @param {{ url: string }[]} areas
  */
 export function inArea(url, areas) {
-  return areas.some((a) => url === a.url || url === a.url.replace(/\/$/, '') || url.startsWith(a.url.endsWith('/') ? a.url : `${a.url}/`));
+  const here = hostPath(url);
+  if (!here) return false;
+  return areas.some((a) => {
+    const area = hostPath(a.url);
+    if (!area) return false;
+    const folder = area.endsWith('/') ? area : `${area}/`;
+    return here === area || here === folder.slice(0, -1) || here.startsWith(folder);
+  });
 }
 
 /**
@@ -201,6 +230,8 @@ export function weeklyReport({ checked, results, content, areas = [] }) {
         '## Password-protected areas',
         '',
         'The site links to these areas but does not hold them. Each must keep asking for a password.',
+        '',
+        'This check asks without the password, so it cannot see a redirect that the server applies only after a member signs in (a redirect written in an `.htaccess` file). After any change to the redirects, someone with the members\' ID should sign in once and confirm the area still opens (docs/launch.md).',
         '',
         '| Area | Result |',
         '| --- | --- |',

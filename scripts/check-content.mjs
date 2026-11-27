@@ -12,7 +12,7 @@ import { readFeatures, drawFeatures } from './features.mjs';
 import { structuredData, missingTypes } from './structured-lib.mjs';
 import { outsideResources, outsideInCss, outsideLinks, loadedAddresses, isPageRelative, servedAt } from './resources-lib.mjs';
 import { toDocument, elements, attr, attrs } from './html-lib.mjs';
-import { inArea } from './external-lib.mjs';
+import { inArea, usableAreas } from './external-lib.mjs';
 import { PROTOTYPE } from '../src/lib/launch.mjs';
 import { urlLang } from '../src/lib/url-lang.mjs';
 
@@ -299,7 +299,7 @@ const protectedAreas = readList('protected-areas.json') ?? [];
     for (const l of ['en', 'ja']) if (typeof a.name?.[l] !== 'string' || !a.name[l].trim()) fail(`protected-areas.json ${a.id}: no "name.${l}"`);
   }
 }
-const validAreas = protectedAreas.filter((a) => typeof a.url === 'string' && /^https:\/\//.test(a.url));
+const validAreas = usableAreas(protectedAreas);
 
 // 3f. Summaries of Japanese-only pages (src/data/ja-summaries.json, shown by src/lib/rehype-abbr.mjs): each is
 //     marked as written automatically, dated, short, and used by an English page; and every link from an English

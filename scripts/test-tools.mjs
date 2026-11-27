@@ -5,7 +5,7 @@
  * No network: requests go to a fake fetch. Run: node scripts/test-tools.mjs
  */
 import { spawnSync } from 'node:child_process';
-import { externalLinks, verdict, checkAll, limiter, weeklyReport, OWN_HOST, ISSUE_LIMIT, inArea, protectedVerdict, checkProtected } from './external-lib.mjs';
+import { externalLinks, verdict, checkAll, limiter, weeklyReport, OWN_HOST, ISSUE_LIMIT, inArea, protectedVerdict, checkProtected, usableAreas } from './external-lib.mjs';
 import { structuredData, missingTypes } from './structured-lib.mjs';
 import { outsideResources, outsideInCss, outsideLinks, isOutside, cssAddressesByPattern, loadedAddresses, isPageRelative, servedAt } from './resources-lib.mjs';
 import { programmeDeadline, newsEntry, icsText, shownStatus } from '../src/lib/calendar.ts';
@@ -117,9 +117,20 @@ const SELF = 'https://example.github.io/site/';
     ['https://www.med.nagoya-u.ac.jp/intlexch/japanese/alumni/index.html', true],
     ['https://www.med.nagoya-u.ac.jp/intlexch/japanese/alumnifake/', false],
     ['https://www.med.nagoya-u.ac.jp/intlexch/japanese/', false],
+    // Written another way, the same address still belongs to the area (review round 1).
+    ['http://www.med.nagoya-u.ac.jp/intlexch/japanese/alumni/', true],
+    ['https://WWW.MED.NAGOYA-U.AC.JP/intlexch/japanese/alumni/', true],
+    ['https://www.med.nagoya-u.ac.jp:443/intlexch/japanese/alumni/', true],
+    ['https://www.med.nagoya-u.ac.jp:8443/intlexch/japanese/alumni/', false],
+    ['https://other.example/intlexch/japanese/alumni/', false],
+    ['mailto:someone@example.org', false],
+    ['not an address', false],
   ];
   const wrong = cases.filter(([url, want]) => inArea(url, areas) !== want).map(([url]) => url);
-  say(wrong.length === 0, 'an address belongs to a protected area only when it is the area or under it', wrong.join('; '));
+  say(wrong.length === 0, 'an address belongs to a protected area only when it is the area or under it, however its scheme, host case or default port is written', wrong.join('; '));
+  const usable = usableAreas([{ id: 'ok', url: 'https://x.example/m/' }, { id: 'no-url' }, { url: 'https://x.example/n/' }, { id: 'http', url: 'http://x.example/m/' }, null, 'text']);
+  say(usable.length === 1 && usable[0].id === 'ok', 'only entries with an id and a full https address are checked; the others are skipped, not a crash', JSON.stringify(usable));
+  say(usableAreas({}).length === 0, 'a protected-areas file that is not a list gives no areas instead of a crash');
 }
 
 // A protected area must keep asking for a password; anything else is named for what it means.
@@ -168,6 +179,7 @@ const SELF = 'https://example.github.io/site/';
   const area = (rec) => ({ url: 'https://x.example/members/', name: 'Frontier-kai members\' area', ...rec });
   const fine = weeklyReport({ ...base, areas: [area({ status: 401, auth: 'Basic realm="x"' })] });
   say(!fine.problems && /## Password-protected areas/.test(fine.markdown) && /Asks for a password, as it should\./.test(fine.markdown), 'a protected area that asks for a password is listed as fine, without an issue', fine.markdown);
+  say(/cannot see a redirect that the server applies only after a member signs in/.test(fine.markdown), 'the report says what the check cannot see (a redirect applied after sign-in)');
   const open = weeklyReport({ ...base, areas: [area({ status: 200 })] });
   say(open.problems && /Answers without a password/.test(open.markdown), 'a protected area that answers without a password opens an issue');
   const moved = weeklyReport({ ...base, areas: [area({ status: 302, location: 'https://x.example/ja/' })] });

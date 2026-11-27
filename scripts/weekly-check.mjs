@@ -15,7 +15,7 @@ import { readFileSync, readdirSync, statSync, writeFileSync, appendFileSync, exi
 import { join, relative, sep } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { externalLinks, checkAll, weeklyReport, inArea, checkProtected } from './external-lib.mjs';
+import { externalLinks, checkAll, weeklyReport, inArea, checkProtected, usableAreas } from './external-lib.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const DIST = join(ROOT, 'dist');
@@ -39,7 +39,10 @@ if (!canonical) {
 }
 const self = canonical.replace(/en\/$/, '');
 
-const areas = JSON.parse(readFileSync(join(ROOT, 'src', 'data', 'protected-areas.json'), 'utf8'));
+// Entries without a usable address are skipped here; the content check below reports them.
+let areaList = [];
+try { areaList = JSON.parse(readFileSync(join(ROOT, 'src', 'data', 'protected-areas.json'), 'utf8')); } catch { /* reported by check-content */ }
+const areas = usableAreas(areaList);
 
 /** @type {Map<string, Set<string>>} address -> pages that use it */
 const uses = new Map();

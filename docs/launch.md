@@ -60,13 +60,20 @@ replaces it: the site only links to it (`src/data/protected-areas.json`, the sup
 
 1. **Never delete, move or replace `/intlexch/japanese/alumni/`, or the password files that protect it.** When the
    old site is retired, remove its pages one by one or folder by folder, leaving `japanese/alumni/` in place.
-2. **No redirect may catch it.** Write the redirects one address per line (as below), never a pattern for the whole
-   `japanese/` folder; a pattern would send members to the new site instead of their area.
+2. **No redirect may catch it.** Each redirect line names one old page (`/intlexch/japanese/index.html`, as below) or a
+   folder other than `japanese/` itself. A plain `Redirect` line matches every address that *begins* with its path, so
+   `Redirect 301 /intlexch/japanese/ /intlexch/ja/` (or `/intlexch/japanese`) would catch `japanese/alumni/` too, and
+   so would any `RedirectMatch` or `RewriteRule` pattern over the whole folder. Members would be sent to the new site
+   instead of their area.
 3. **Uploads only add or replace files.** Never empty `/intlexch/` before uploading, and never use a "mirror" or
    "sync" option that deletes files missing from the upload.
 
-Every Monday the weekly check asks for the area without a password and opens an issue if it answers, sends visitors
-elsewhere or is gone. Ask faculty IT to check by hand once more after the switch.
+Every Monday the weekly check asks for the area without a password and opens an issue if it answers without one, is
+gone, or sends visitors elsewhere before asking. **It cannot see a redirect that Apache applies only after a member
+signs in**, which is what happens to a redirect written in an `.htaccess` file when the area keeps its own password:
+a visitor without the password still gets the prompt, so the check reports the area as fine, and only members are
+sent away. Rule 2 is what prevents that. After the switch, and after any change to the redirects, someone who has the
+members' ID and password signs in once and confirms the area still opens.
 
 **Server settings.** Two settings the file server could not show, and the redirects, go in `/intlexch/.htaccess`
 (faculty IT must allow it with `AllowOverride FileInfo`, or put the same lines in the server's own configuration):
@@ -81,8 +88,9 @@ AddCharset utf-8 .html .xml .ics .txt .css .js .json
 # Old addresses to their new pages, one line each, for example:
 Redirect 301 /intlexch/english/index.html /intlexch/en/
 Redirect 301 /intlexch/japanese/index.html /intlexch/ja/
-# Never redirect /intlexch/japanese/alumni/ (the Frontier-kai members' area), and never use a
-# RedirectMatch or RewriteRule pattern that covers the whole japanese/ folder.
+# Never redirect /intlexch/japanese/alumni/ (the Frontier-kai members' area). Redirect matches every
+# address that begins with its path: name single pages, never "/intlexch/japanese/" or "/intlexch/japanese",
+# and use no RedirectMatch or RewriteRule pattern that covers the whole japanese/ folder.
 ```
 
 **Getting the files onto the server.** Three ways, from the simplest to set up:
