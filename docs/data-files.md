@@ -45,7 +45,7 @@ A list of news items, events and calls. The news page sorts them by date, newest
 
 | Field | Required | Allowed values |
 | --- | --- | --- |
-| `id` | yes | `YYYY-MM-<short-name>`, for example `2025-06-gdansk-visit` |
+| `id` | yes | `YYYY-MM-<short-name>`, for example `2025-06-gdansk-visit`. Items added in the editing page get `news-<code>` automatically |
 | `date` | yes | The date of the item, `YYYY-MM-DD` |
 | `category` | yes | `news` (an announcement), `event` (a visit, lecture, symposium or other event), `call` (a call for applications) |
 | `title` | yes | Pair `{ "en", "ja" }`, one line |

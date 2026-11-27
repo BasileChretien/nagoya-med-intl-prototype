@@ -10,7 +10,7 @@
     "preview": "astro preview",
     "check": "node scripts/check-content.mjs && node scripts/check-staleness.mjs",
     "typecheck": "astro check",
-    "test": "node scripts/test-checks.mjs && node scripts/test-staleness.mjs && node scripts/test-content-plugin.mjs && node scripts/test-tools.mjs",
+    "test": "node scripts/test-checks.mjs && node scripts/test-staleness.mjs && node scripts/test-content-plugin.mjs && node scripts/test-tools.mjs && node scripts/test-editor.mjs",
     "weekly-check": "node --max-http-header-size=65536 scripts/weekly-check.mjs",
     "sync": "node scripts/sync.mjs",
     "faculty-texts": "node scripts/build-faculty-texts.mjs",

@@ -8,7 +8,7 @@
  * the same numbers in both languages.
  */
 import { createHash } from 'node:crypto';
-import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, existsSync, statSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 
 export const SYNC_FILE = 'content-sync.json';
@@ -36,7 +36,7 @@ function markdownFiles(dir) {
 }
 
 /** "study-in-nagoya/faq.md" -> "study-in-nagoya/faq"; "about/index.md" -> "about" (the site's slugs). */
-const slugOf = (rel) => rel.replace(/\.md$/, '').replace(/\/index$/, '');
+export const slugOf = (rel) => rel.replace(/\.md$/, '').replace(/\/index$/, '');
 
 /** @returns {Record<string, { en: string, ja: string }>} fingerprints of every page that exists in both languages */
 export function pagePairs(root) {
@@ -207,6 +207,12 @@ export function readRegistry(root) {
   if (!existsSync(f)) return null;
   const r = JSON.parse(readFileSync(f, 'utf8'));
   return { pages: r.pages ?? {}, fields: r.fields ?? {} };
+}
+
+/** Write the registry sorted, in the one format sync.mjs and editor-confirm.mjs share. */
+export function writeRegistry(root, registry) {
+  const sorted = (o) => Object.fromEntries(Object.keys(o).sort().map((k) => [k, o[k]]));
+  writeFileSync(join(root, SYNC_FILE), `${JSON.stringify({ pages: sorted(registry.pages), fields: sorted(registry.fields) }, null, 1)}\n`);
 }
 
 const confirmHint = (key) => `then run "npm run sync -- confirm ${key}"`;

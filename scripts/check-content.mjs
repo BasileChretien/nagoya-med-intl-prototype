@@ -15,11 +15,14 @@ import { toDocument, elements, attr, attrs } from './html-lib.mjs';
 import { inArea, usableAreas } from './external-lib.mjs';
 import { PROTOTYPE } from '../src/lib/launch.mjs';
 import { urlLang } from '../src/lib/url-lang.mjs';
+import { parse as parseYaml } from 'yaml';
+import { EDITOR_CONFIG, editorConfigProblems } from './editor-lib.mjs';
 
 /** Names of the checks below; feature map entries refer to them in `tests`. */
 const CHECKS = ['pairing', 'programme-references', 'deadlines', 'data-files', 'images', 'internal-links', 'noindex', 'feature-map',
   'photo-descriptions', 'report-translations', 'versions-in-step', 'facts-match', 'translations-current', 'faculty-texts', 'faculty-live', 'acronyms', 'content-plugin',
-  'structured-data', 'sitemap', 'weekly-check', 'ja-summaries', 'dated-facts', 'search-index', 'feeds', 'no-outside-resources'];
+  'structured-data', 'sitemap', 'weekly-check', 'ja-summaries', 'dated-facts', 'search-index', 'feeds', 'no-outside-resources',
+  'editor-config'];
 
 // fileURLToPath decodes %20 and non-ASCII characters, so the check runs from any folder.
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
@@ -356,6 +359,13 @@ if (existsSync(featuresFile)) {
   }
 } else fail('docs/features.yaml is missing');
 
+// 5b. The editing page (public/admin/, docs/editor-setup.md): its configuration parses and still matches the files.
+if (existsSync(join(ROOT, EDITOR_CONFIG))) {
+  let config = null;
+  try { config = parseYaml(readFileSync(join(ROOT, EDITOR_CONFIG), 'utf8')); } catch (e) { fail(`${EDITOR_CONFIG} does not parse: ${String(e.message).split('\n')[0]}`); }
+  if (config) for (const problem of editorConfigProblems(ROOT, config)) fail(problem);
+} else if (existsSync(join(PUBLIC, 'admin', 'index.html'))) fail(`${EDITOR_CONFIG} is missing: the editing page cannot start without it`);
+
 // 6. After a build: every internal link points to a file that exists, every page is noindex while the site is a
 //    prototype (src/lib/launch.mjs), structured data is well formed, and the sitemap lists the pages.
 if (process.argv.includes('--dist')) {
@@ -395,8 +405,9 @@ if (process.argv.includes('--dist')) {
     for (const problem of sd.problems) fail(`${page}: ${problem}`);
     for (const type of missingTypes(sd.blocks, expected.get(page) ?? [])) fail(`${page}: no ${type} structured data`);
     expected.delete(page);
-    // The privacy page says a page loads nothing from other sites.
-    for (const url of outsideResources(doc, own, servedAt(page, own[0]))) fail(`${page} loads ${url} from another site: serve it from the site itself (the privacy page says nothing is loaded from elsewhere)`);
+    // The privacy page says a page loads nothing from other sites. The editing page (admin/) is for the office's
+    // editors, not for visitors: it loads the editor from unpkg (docs/editor-setup.md).
+    if (page !== 'admin/index.html') for (const url of outsideResources(doc, own, servedAt(page, own[0]))) fail(`${page} loads ${url} from another site: serve it from the site itself (the privacy page says nothing is loaded from elsewhere)`);
     // The 404 page is shown at whatever missing address was asked for, so an address relative to the page cannot
     // work there: everything it loads must be written from the site root or in full.
     if (page === '404.html') {
@@ -431,6 +442,7 @@ if (process.argv.includes('--dist')) {
     const sm = readFileSync(sitemapFile, 'utf8');
     for (const lang of ['en', 'ja']) if (!sm.includes(`${BASE}/${lang}/</loc>`)) fail(`the sitemap does not list the ${lang} home page`);
     if (/\/status\/<\/loc>/.test(sm)) fail('the sitemap lists the office checklist (status) page');
+    if (/\/admin\/<\/loc>/.test(sm)) fail('the sitemap lists the editing page (admin)');
   }
   // The search index covers both languages; the news feed and the calendar exist in both.
   const entry = join(DIST, 'pagefind', 'pagefind-entry.json');

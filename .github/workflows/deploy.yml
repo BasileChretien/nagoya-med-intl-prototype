@@ -24,11 +24,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          # The editor step below compares each editor save with the commit before it (scripts/editor-confirm.mjs).
+          fetch-depth: 30
       - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
       - run: npm ci
+      # A save from the editing page (public/admin/, message starting with "[editor]") changes one language at a time,
+      # and office staff cannot run "npm run sync -- confirm". For those saves only, record the pages and fields of
+      # the files the saves changed as in step, so the checks below let them through; the record-editor-sync job
+      # commits the record after a successful build. Developer commits keep the strict rule.
+      - name: Record an editor save as in step in both languages
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && startsWith(github.event.head_commit.message, '[editor]')
+        run: node scripts/editor-confirm.mjs
       - name: Check content sources
         run: node scripts/check-content.mjs
       - name: Test the content checks
@@ -41,6 +51,8 @@ jobs:
         run: node scripts/test-content-plugin.mjs
       - name: Test the weekly check and the structured-data check
         run: node scripts/test-tools.mjs
+      - name: Test the editor's confirmation and configuration
+        run: node scripts/test-editor.mjs
       - name: Type check
         run: npx astro check
       - run: npm run build
@@ -50,6 +62,33 @@ jobs:
         if: github.ref == 'refs/heads/main'
         with:
           path: dist
+
+  # Commits the record made by the editor step to main, so the next build starts from it. A separate job, so the build
+  # job (which also runs pull request code) never holds a token that can write to the repository.
+  record-editor-sync:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && startsWith(github.event.head_commit.message, '[editor]')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 30
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      # Same script and same commits as in the build job: the record is the one the checks passed with.
+      - run: node scripts/editor-confirm.mjs
+      - name: Commit the record to main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content-sync.json faculty
+          if git diff --cached --quiet; then echo "Nothing new to record."; exit 0; fi
+          git commit -m "chore: record both languages as in step after an editor save [skip ci]"
+          # Another save may have reached main meanwhile: rebase on it and try once more.
+          git push origin HEAD:main || { git pull --rebase origin main && git push origin HEAD:main; }
 
   deploy:
     if: github.ref == 'refs/heads/main'

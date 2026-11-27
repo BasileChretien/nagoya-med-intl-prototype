@@ -15,17 +15,14 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { SYNC_FILE, pagePairs, dataFields, readRegistry, reportFingerprint } from './staleness-lib.mjs';
+import { SYNC_FILE, pagePairs, dataFields, readRegistry, reportFingerprint, writeRegistry } from './staleness-lib.mjs';
 import { staleness } from './staleness-report.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const [command, ...args] = process.argv.slice(2);
 
 const strip = (fields) => Object.fromEntries(Object.entries(fields).map(([k, v]) => [k, { en: v.en, ja: v.ja }]));
-const sorted = (o) => Object.fromEntries(Object.keys(o).sort().map((k) => [k, o[k]]));
-function save(registry) {
-  writeFileSync(join(ROOT, SYNC_FILE), `${JSON.stringify({ pages: sorted(registry.pages), fields: sorted(registry.fields) }, null, 1)}\n`);
-}
+const save = (registry) => writeRegistry(ROOT, registry);
 function die(msg) { process.stderr.write(`${msg}\n`); process.exit(1); }
 
 const pages = pagePairs(ROOT);

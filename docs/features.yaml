@@ -141,6 +141,14 @@ features:
     delivered_by: [.github/workflows/confirm.yml, CONTENT_GUIDE.md]
     tests: [versions-in-step]
     limits: Commits made by the workflow do not start the pull request's checks again; the workflow runs the content and staleness checks itself.
+  - id: web-editor
+    says: Office staff update news, programme deadlines and facts, contacts and page texts in an editing page in the browser (admin/), in Japanese, with nothing to install; each save goes through the checks before it is published.
+    stage: Maintain
+    status: partial
+    delivered_by: [public/admin/index.html, public/admin/config.yml, scripts/editor-lib.mjs, scripts/editor-confirm.mjs, .github/workflows/deploy.yml, docs/editor-setup.md, docs/editing-guide-ja.md]
+    tests: [editor-config, versions-in-step]
+    docs: docs/editing-guide-ja.md
+    limits: Nobody can sign in until the repository owner sets up the free sign-in service (docs/editor-setup.md). A save is trusted as checked in both languages. Photos, new pages, partners and stories still need technical help. No save has been tried on the live site yet.
   - id: automatic-checks
     says: Every change is checked for missing translations, passed deadlines, large images and broken internal links before it is published.
     stage: Maintain
