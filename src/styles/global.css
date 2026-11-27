@@ -99,7 +99,8 @@ p { margin: 0; }
 :lang(ja) .nav a { letter-spacing: 0.1em; }
 /* The English section names are longer: tighter, so the menu stays on the title's line on a laptop screen. */
 :lang(en) .nav a { letter-spacing: 0.01em; padding-inline: 0.75rem; }
-:lang(en) .brand-org { font-size: 0.82rem; }
+/* Desktop only, so the smaller sizes below 861 px apply to both languages alike. */
+@media (min-width: 861px) { :lang(en) .brand-org { font-size: 0.82rem; } }
 .nav a:hover { background: rgba(0, 0, 0, 0.14); color: #fff; }
 .nav a[aria-current="page"], .nav a.is-active { box-shadow: inset 0 -3px 0 #fff; }
 .menu-toggle { display: none; }
@@ -133,6 +134,15 @@ p { margin: 0; }
   .brand-site { font-size: 1.25rem; }
   .menu-toggle summary { padding: 0.3rem 0.65rem; font-size: 0.88rem; }
 }
+/* Narrow phones (320-379 px): a smaller emblem and title, so the title never runs under the Menu button. */
+@media (max-width: 379px) {
+  .head-top { gap: 0.5rem; }
+  .brand { gap: 0.45rem; }
+  .brand-emblem { width: 32px; height: 32px; }
+  .brand-org { font-size: 0.62rem; letter-spacing: 0; }
+  .brand-site { font-size: 1.08rem; letter-spacing: 0.03em; }
+  .menu-toggle summary { padding: 0.25rem 0.5rem; font-size: 0.82rem; }
+}
 
 /* Hero: a full-width photo with a dark veil and a centred white serif title, as the old site's slider. */
 .hero { position: relative; color: #fff; background: var(--navy-ink); overflow: hidden; --focus: #fff; }
@@ -154,8 +164,6 @@ main { display: block; }
 .band-more { display: flex; justify-content: center; margin-top: clamp(2rem, 1.5rem + 1.5vw, 3rem); }
 .btn-pill { display: inline-flex; justify-content: center; align-items: center; min-width: min(20rem, 100%); padding: 0.85rem 2.2rem; border-radius: 999px; background: var(--slate); color: #fff; font-family: var(--f-serif); font-weight: 700; letter-spacing: 0.04em; text-decoration: none; text-align: center; transition: background-color 0.2s; }
 .btn-pill:hover { background: var(--slate-deep); color: #fff; }
-.more-link { font-weight: 600; text-decoration: none; white-space: nowrap; }
-.more-link::after { content: " →"; }
 .grid { display: grid; gap: 1.5rem; }
 .grid.cols-4 { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
 .grid.cols-3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
@@ -210,7 +218,7 @@ a.card:hover { border-color: var(--sky-ink); box-shadow: 0 8px 24px rgba(31, 42,
 /* Photo band: a photo behind a white panel, as the old site's "留学を希望される方" section. */
 .photo-band { position: relative; overflow: hidden; background: var(--slate); padding-block: clamp(3rem, 2rem + 5vw, 6.5rem); }
 .photo-band > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.photo-band::before { content: ""; position: absolute; inset: 0; background: rgba(105, 126, 164, 0.25); }
+.photo-band::after { content: ""; position: absolute; inset: 0; background: rgba(105, 126, 164, 0.25); }
 .photo-panel { position: relative; z-index: 1; background: rgba(255, 255, 255, 0.95); padding: clamp(2rem, 1.5rem + 2vw, 3.5rem) clamp(1.25rem, 1rem + 2vw, 3.5rem); }
 .photo-panel .band-head { margin-bottom: 2rem; }
 .photo-panel .numbers { text-align: center; }
@@ -245,12 +253,13 @@ a.card:hover { border-color: var(--sky-ink); box-shadow: 0 8px 24px rgba(31, 42,
 /* Content pages. The breadcrumb and the page's title sit in a slate band across the page, centred, as the title band of
    the old site's inner pages (the band reaches the edges with a shadow, so the markup stays inside .wrap). */
 .crumbs, .page-head { background: var(--slate); box-shadow: 0 0 0 100vmax var(--slate); clip-path: inset(0 -100vmax); color: #fff; --focus: #fff; }
-.crumbs { font-size: 0.86rem; padding-block: 1.6rem 0; clip-path: inset(0 -100vmax -2px); }
+/* Room under the links (0.5rem) so their focus ring is not clipped by the band's clip-path or covered by the title. */
+.crumbs { font-size: 0.86rem; padding-block: 1.6rem 0.5rem; clip-path: inset(0 -100vmax -2px); }
 .crumbs ol { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.3rem; }
 .crumbs li + li::before { content: "/"; margin-right: 0.3rem; color: #fff; }
 .crumbs a { color: #fff; }
 .crumbs a:hover { color: #fff; }
-.page-head { padding-block: 1.1rem clamp(2.2rem, 1.8rem + 2vw, 3.5rem); display: grid; gap: 0.8rem; justify-items: center; text-align: center; margin-bottom: clamp(2rem, 1.6rem + 1.5vw, 3rem); }
+.page-head { padding-block: 0.6rem clamp(2.2rem, 1.8rem + 2vw, 3.5rem); display: grid; gap: 0.8rem; justify-items: center; text-align: center; margin-bottom: clamp(2rem, 1.6rem + 1.5vw, 3rem); }
 .page-head h1 { color: #fff; letter-spacing: 0.03em; max-width: 24em; }
 .page-head .lede { font-size: 1.12rem; color: #fff; max-width: 42em; }
 .page-head a { color: #fff; }
@@ -338,8 +347,7 @@ a.card:hover { border-color: var(--sky-ink); box-shadow: 0 8px 24px rgba(31, 42,
 .card .card-img { margin: -1.3rem -1.4rem 0.4rem; overflow: hidden; }
 .card .card-img img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 0; }
 .avatar-img { width: 3rem; height: 3rem; border-radius: 50%; object-fit: cover; background: var(--bg-tint); }
-.story-head .kicker-line { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.2rem 0.8rem; font-size: 0.86rem; color: var(--teal-ink); font-weight: 600; }
-.page-head.story-head .kicker-line { color: #fff; }
+.story-head .kicker-line { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.2rem 0.8rem; font-size: 0.86rem; color: #fff; font-weight: 600; }
 .story-title { font-family: var(--f-serif); font-size: 1.2rem; color: var(--ink-2); }
 .page-head .story-title { color: #fff; }
 .story-layout { padding-bottom: 4rem; }
@@ -379,8 +387,20 @@ a.card:hover { border-color: var(--sky-ink); box-shadow: 0 8px 24px rgba(31, 42,
   *, *::before, *::after { transition: none !important; animation: none !important; }
   .door:hover .door-photo img { transform: none; }
 }
+/* Print: browsers drop backgrounds on paper, so every text that is white on a band or a photo turns dark, and the white
+   emblem is printed black (filter). */
 @media print {
   .proto, .topbar, .nav, .menu-toggle, .side-nav, .site-foot, .hero picture, .photo-band > img { display: none !important; }
-  .site-head, .crumbs, .page-head { background: none; box-shadow: none; color: #000; }
-  .page-head h1, .page-head .lede, .page-head .page-meta, .crumbs a, .brand { color: #000; }
+  .hero::after, .photo-band::after { display: none; }
+  .site-head, .hero, .photo-band, .crumbs, .page-head { background: none !important; box-shadow: none !important; clip-path: none !important; border-color: #000; }
+  .site-head, .site-head *, .hero, .hero *, .crumbs, .crumbs *, .crumbs li + li::before, .page-head, .page-head * { color: #000 !important; text-shadow: none !important; }
+  .page-head .badge { background: none !important; border: 1px solid #000; }
+  .door-photo { background: none; aspect-ratio: auto; border: 1px solid #000; padding: 0.8rem 0; }
+  .door-photo img { display: none; }
+  .door-photo::after { display: none; }
+  .door-title, .door-title span { color: #000; text-shadow: none; background: none; }
+  .btn-pill, .btn { background: none !important; color: #000 !important; border: 1px solid #000; }
+  .page-head .news-past { border-color: #000 !important; }
+  .brand-emblem { filter: brightness(0); }
+  .hero .wrap { min-height: 0; padding-block: 1.5rem; }
 }
