@@ -173,9 +173,10 @@ Monday rebuild or a manual run), then:
   The same holds for the two languages of one data field.
 - A developer confirmation that leaves the registry entry as it was cannot be told from no confirmation, so a later
   editor save of that key records its own value as usual.
-- The walk looks at the 50 newest commits since the last record commit (the workflow fetches 51, so each has its
-  parent). Older pending saves would be left unrecorded; the check would then report them, and a developer confirms
-  them by hand.
+- The walk looks at every commit since the last record commit that the workflow's clone holds (the 51 newest commits
+  on `main`), along every parent; when no record commit is in the clone yet, it looks at the 50 newest. A save older
+  than that, or one whose parent is outside the clone, is left unrecorded; the check then reports it, and a developer
+  confirms it by hand.
 
 **Repository rules:** saves and the record commit push straight to `main`. Protect `main` against force pushes and
 deletion (the Additions security checklist recommends it, with the app not on the bypass list), but do not require a

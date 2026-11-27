@@ -46,14 +46,15 @@ export function ownerOf(path) {
  * or one whose run was cancelled, is carried forward to the next run. A commit whose parent is not in the clone is
  * skipped too (a shallow clone's last commit would otherwise look as if it added every file). The list stops at a
  * record commit, should one be in it.
- * @param {{ sha: string, message: string, hasParent: boolean }[]} commits newest first, from HEAD
+ * A merge (more than one parent) is skipped by its parents, whatever its message says.
+ * @param {{ sha: string, message: string, hasParent: boolean, merge?: boolean }[]} commits newest first, from HEAD
  * @returns {string[]} shas
  */
 export function pendingEditorCommits(commits) {
   const out = [];
   for (const c of commits) {
     if (isRecordCommit(c.message)) break;
-    if (c.hasParent && isEditorCommit(c.message)) out.push(c.sha);
+    if (c.hasParent && !c.merge && isEditorCommit(c.message)) out.push(c.sha);
   }
   return out;
 }

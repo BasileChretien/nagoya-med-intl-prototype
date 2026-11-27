@@ -40,15 +40,23 @@ export function lastRecordCommit(root, n = LOOK_BACK) {
 
 /**
  * The commits reachable from HEAD but not from the last record commit, newest first, along every parent: a merge
- * from a plain `git pull` can put an editor save on its second parent. Bounded by LOOK_BACK and by the clone's depth.
+ * from a plain `git pull` can put an editor save on its second parent. With a record commit, every such commit in the
+ * clone is listed (the record commit and the clone's depth bound the list; a count would let a long merged branch,
+ * listed first by --topo-order, push older first-parent saves out). Without one, the LOOK_BACK newest are listed.
  */
 export function recentCommits(root, n = LOOK_BACK) {
   const record = lastRecordCommit(root, n);
-  const log = git(root, ['log', '--topo-order', `-n${n}`, '--format=%H%x1f%B%x1e', 'HEAD', ...(record ? [`^${record}`] : [])]);
+  const range = record ? ['HEAD', `^${record}`] : [`-n${n}`, 'HEAD'];
+  const log = git(root, ['log', '--topo-order', '--format=%H%x1f%P%x1f%B%x1e', ...range]);
   if (!log.ok) throw new Error('git log failed: run this in a git clone');
   return log.out.split('\x1e').map((s) => s.trim()).filter(Boolean).map((entry) => {
-    const [sha, message = ''] = entry.split('\x1f');
-    return { sha, message, hasParent: git(root, ['rev-parse', '--verify', '--quiet', `${sha}^1`]).ok };
+    const [sha, parents = '', message = ''] = entry.split('\x1f');
+    return {
+      sha,
+      message,
+      merge: parents.trim().split(/\s+/).filter(Boolean).length > 1,
+      hasParent: git(root, ['rev-parse', '--verify', '--quiet', `${sha}^1`]).ok,
+    };
   });
 }
 

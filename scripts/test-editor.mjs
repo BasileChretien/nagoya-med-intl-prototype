@@ -190,6 +190,33 @@ inRepo('an editor save on the second parent of a merge (a plain git pull) is rec
   return parents[2] === save && same(shas, [save]) && plan.pages.about && !r.stale().length ? null : `${parents} ${JSON.stringify({ shas, plan })} ${r.stale()}`;
 });
 
+inRepo('a save stays visible when a long branch made before the record commit is merged after it (review round 3)', (r) => {
+  const base = r.git('rev-parse', 'HEAD');
+  r.commit(RECORD_MESSAGE);
+  r.editJa('国際連携室の窓口です。');
+  r.commit('[editor] 更新：ページ「index」（Office）');
+  const save = r.git('rev-parse', 'HEAD');
+  r.git('checkout', '-q', '-b', 'long', base);
+  for (let i = 0; i < 55; i += 1) r.commit(`chore: developer commit ${i}`);
+  r.git('checkout', '-q', 'master');
+  r.git('merge', '-q', '--no-ff', '-m', 'Merge pull request #99 from long', 'long');
+  const { shas, plan } = recordPending(r.dir);
+  return same(shas, [save]) && plan.pages.about && !r.stale().length ? null : `${JSON.stringify({ shas, plan })} ${r.stale()}`;
+});
+
+inRepo('a merge whose message starts with [editor] is not taken for a save', (r) => {
+  const base = r.git('rev-parse', 'HEAD');
+  r.write('README.md', 'a developer change on a branch\n');
+  r.commit('docs: a developer change');
+  const branch = r.git('rev-parse', 'HEAD');
+  r.git('checkout', '-q', '-b', 'other', base);
+  r.editNews((d) => { d[0].title.en = 'First, changed on the other side'; });
+  r.commit('feat: a developer change, not confirmed');
+  r.git('merge', '-q', '--no-ff', '-m', '[editor] merge', branch);
+  const { shas, plan } = recordPending(r.dir);
+  return shas.length === 0 && !Object.keys(plan.fields ?? {}).length ? null : JSON.stringify({ shas, plan });
+});
+
 inRepo('a commit that only quotes the record message in its body does not stop the walk', (r) => {
   r.editJa('国際連携室の窓口です。');
   r.commit('[editor] 更新：ページ「index」（Office）');
