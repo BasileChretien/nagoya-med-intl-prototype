@@ -122,6 +122,11 @@ const SELF = 'https://example.github.io/site/';
     ['https://WWW.MED.NAGOYA-U.AC.JP/intlexch/japanese/alumni/', true],
     ['https://www.med.nagoya-u.ac.jp:443/intlexch/japanese/alumni/', true],
     ['https://www.med.nagoya-u.ac.jp:8443/intlexch/japanese/alumni/', false],
+    // Only the port that is the default for the address's own scheme is dropped; encoded letters are read (round 2).
+    ['https://www.med.nagoya-u.ac.jp:80/intlexch/japanese/alumni/', false],
+    ['http://www.med.nagoya-u.ac.jp:443/intlexch/japanese/alumni/', false],
+    ['http://www.med.nagoya-u.ac.jp:80/intlexch/japanese/alumni/', true],
+    ['https://www.med.nagoya-u.ac.jp/intlexch/japanese/%61lumni/', true],
     ['https://other.example/intlexch/japanese/alumni/', false],
     ['mailto:someone@example.org', false],
     ['not an address', false],

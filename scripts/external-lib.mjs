@@ -55,12 +55,21 @@ export function usableAreas(list) {
   return list.filter((a) => a && typeof a === 'object' && typeof a.id === 'string' && a.id && typeof a.url === 'string' && /^https:\/\/[^/]+\/./.test(a.url));
 }
 
-/** Host (lower case, with a port only when it is not 80 or 443) and path of an address, or null. @param {string} u */
+/**
+ * Host and path of an http(s) address, or null. The URL parser lowers the host's case and drops the port that is the
+ * default for the address's own scheme (443 for https, 80 for http), so another port stays part of the host;
+ * percent-encoded letters, digits and -._~ in the path are decoded, as the server reads them.
+ * @param {string} u
+ */
 function hostPath(u) {
   try {
     const x = new URL(u);
     if (!/^https?:$/.test(x.protocol)) return null;
-    return `${x.hostname}${x.port && x.port !== '80' && x.port !== '443' ? `:${x.port}` : ''}${x.pathname}`;
+    const path = x.pathname.replace(/%([0-9A-Fa-f]{2})/g, (m, h) => {
+      const c = String.fromCharCode(parseInt(h, 16));
+      return /[A-Za-z0-9\-._~]/.test(c) ? c : m.toUpperCase();
+    });
+    return `${x.host}${path}`;
   } catch {
     return null;
   }
