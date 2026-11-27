@@ -53,6 +53,29 @@ The new folders (`en/`, `ja/`, `_astro/`, `img/`, `files/`, `pagefind/`) do not 
 (`english/`, `japanese/`, `japan/`), so the old files can stay in place until the redirects are set. Only the old
 `/intlexch/index.html` is replaced by the new one, which sends each visitor to their language.
 
+**The Frontier-kai members' area stays exactly where it is.** `/intlexch/japanese/alumni/` holds the Frontier-kai's
+newsletters and member information behind the server's own ID and password (checked 27 November 2026: it answers
+401 with a password prompt, and plain `http://` is sent to `https://`). It is not part of this site and nothing here
+replaces it: the site only links to it (`src/data/protected-areas.json`, the support page). Three rules keep it safe:
+
+1. **Never delete, move or replace `/intlexch/japanese/alumni/`, or the password files that protect it.** When the
+   old site is retired, remove its pages one by one or folder by folder, leaving `japanese/alumni/` in place.
+2. **No redirect may catch it.** Redirect single old pages outside `/intlexch/japanese/alumni/` only, one per line
+   (`/intlexch/japanese/index.html`, as below), and never a page inside it. A plain `Redirect` line also catches every
+   address under its path, so a line for any folder that holds the members' area (the site root `/`, `/intlexch/`,
+   `/intlexch/japanese/` or `/intlexch/japanese/alumni/` itself, with or without the final slash) would catch it too,
+   and so would any `RedirectMatch` or `RewriteRule` pattern that covers those folders. Members would be sent to the
+   new site instead of their area.
+3. **Uploads only add or replace files.** Never empty `/intlexch/` before uploading, and never use a "mirror" or
+   "sync" option that deletes files missing from the upload.
+
+Every Monday the weekly check asks for the area without a password and opens an issue if it answers without one, is
+gone, or sends visitors elsewhere before asking. **It cannot see a redirect that Apache applies only after a member
+signs in**, which is what happens to a redirect written in an `.htaccess` file when the area keeps its own password:
+a visitor without the password still gets the prompt, so the check reports the area as fine, and only members are
+sent away. Rule 2 is what prevents that. After the switch, and after any change to the redirects, someone who has the
+members' ID and password signs in once and confirms the area still opens.
+
 **Server settings.** Two settings the file server could not show, and the redirects, go in `/intlexch/.htaccess`
 (faculty IT must allow it with `AllowOverride FileInfo`, or put the same lines in the server's own configuration):
 
@@ -66,6 +89,10 @@ AddCharset utf-8 .html .xml .ics .txt .css .js .json
 # Old addresses to their new pages, one line each, for example:
 Redirect 301 /intlexch/english/index.html /intlexch/en/
 Redirect 301 /intlexch/japanese/index.html /intlexch/ja/
+# Never redirect /intlexch/japanese/alumni/ (the Frontier-kai members' area) or any page in it. Redirect also
+# catches every address under its path: name single pages outside the area only, never a folder that holds it
+# (/, /intlexch/, /intlexch/japanese/, /intlexch/japanese/alumni/), and use no RedirectMatch or RewriteRule
+# pattern that covers those folders.
 ```
 
 **Getting the files onto the server.** Three ways, from the simplest to set up:
@@ -79,7 +106,8 @@ Redirect 301 /intlexch/japanese/index.html /intlexch/ja/
    stored as repository secrets. This needs the faculty's server to accept connections from GitHub's machines,
    which the university firewall may not allow.
 
-Whichever is chosen, the checks still run on every change, before anything reaches the server.
+Whichever is chosen, the checks still run on every change, before anything reaches the server, and the upload adds or
+replaces files without deleting any (see the members' area above).
 
 ## With the office (and the faculty)
 
@@ -93,6 +121,9 @@ Whichever is chosen, the checks still run on every change, before anything reach
 - **Events in search results.** Search engines show events only with a place. The news data has no place field, so
   events are not described as events yet. Add a `place` to `src/data/news.json` items and an `Event` builder to
   `src/lib/structured.ts` if the office wants them shown.
+- **The members' area's content.** Who uploads the Frontier-kai newsletters and member information to
+  `/intlexch/japanese/alumni/` today, and who keeps its ID and password. If a vendor does it, the task needs a new
+  owner when the vendor contracts end.
 
 ## Already in place
 

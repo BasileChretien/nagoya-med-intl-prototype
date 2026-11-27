@@ -45,6 +45,101 @@ export function verdict(rec) {
   return status >= 400 ? 'unverified' : 'ok';
 }
 
+/**
+ * The entries of src/data/protected-areas.json that can be checked: an object with a string id and a full https
+ * address. check-content reports the others; the weekly check skips them instead of stopping.
+ * @param {unknown} list @returns {{ id: string, url: string, name?: { en?: string, ja?: string } }[]}
+ */
+export function usableAreas(list) {
+  if (!Array.isArray(list)) return [];
+  return list.filter((a) => a && typeof a === 'object' && typeof a.id === 'string' && a.id && typeof a.url === 'string' && /^https:\/\/[^/]+\/./.test(a.url));
+}
+
+/**
+ * Host and path of an http(s) address, or null. The URL parser lowers the host's case and drops the port that is the
+ * default for the address's own scheme (443 for https, 80 for http), so another port stays part of the host;
+ * percent-encoded letters, digits and -._~ in the path are decoded, as the server reads them.
+ * @param {string} u
+ */
+function hostPath(u) {
+  try {
+    const x = new URL(u);
+    if (!/^https?:$/.test(x.protocol)) return null;
+    const path = x.pathname.replace(/%([0-9A-Fa-f]{2})/g, (m, h) => {
+      const c = String.fromCharCode(parseInt(h, 16));
+      return /[A-Za-z0-9\-._~]/.test(c) ? c : m.toUpperCase();
+    });
+    return `${x.host}${path}`;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Whether an address lies in one of the password-protected areas the site links to but does not hold
+ * (src/data/protected-areas.json): the area's own address, with or without its final slash, or anything under it.
+ * Addresses are compared by host and path (hostPath): http or https, the host's letter case, the default port of the
+ * address's own scheme and percent-encoded letters, digits and -._~ do not matter; another port does.
+ * @param {string} url @param {{ url: string }[]} areas
+ */
+export function inArea(url, areas) {
+  const here = hostPath(url);
+  if (!here) return false;
+  return areas.some((a) => {
+    const area = hostPath(a.url);
+    if (!area) return false;
+    const folder = area.endsWith('/') ? area : `${area}/`;
+    return here === area || here === folder.slice(0, -1) || here.startsWith(folder);
+  });
+}
+
+/**
+ * The verdict on one protected area, asked for without a password and without following redirects:
+ * "protected" (it asks for a password, as it should), "open" (it answers without one: what it holds is public),
+ * "moved" (it sends visitors elsewhere, for example after a redirect rule caught it: members cannot reach it),
+ * "missing" (not found: the folder was deleted or moved), or "unverified" (no answer, or another status).
+ * @param {{ status: number | null, auth?: string | null }} rec @returns {'protected' | 'open' | 'moved' | 'missing' | 'unverified'}
+ */
+export function protectedVerdict(rec) {
+  const { status, auth } = rec;
+  if (status === 401 && auth) return 'protected';
+  if (status == null) return 'unverified';
+  if (status >= 200 && status < 300) return 'open';
+  if (status >= 300 && status < 400) return 'moved';
+  if (status === 404 || status === 410) return 'missing';
+  return 'unverified';
+}
+
+/**
+ * Ask each protected area for its page, as a visitor without the password would, one after the other.
+ * @param {{ id: string, url: string, name?: { en?: string } }[]} areas @param {{ fetchImpl?: typeof fetch }} [opts]
+ * @returns {Promise<{ id: string, url: string, name: string, status: number | null, auth?: string | null, location?: string | null, error?: string }[]>}
+ */
+export async function checkProtected(areas, opts = {}) {
+  const { fetchImpl = fetch } = opts;
+  const out = [];
+  for (const a of areas) {
+    const base = { id: a.id, url: a.url, name: a.name?.en ?? a.id };
+    try {
+      const res = await fetchImpl(a.url, { method: 'GET', redirect: 'manual', headers: { 'User-Agent': UA }, signal: AbortSignal.timeout(25000) });
+      await res.body?.cancel().catch(() => {});
+      out.push({ ...base, status: res.status, auth: res.headers.get('www-authenticate'), location: res.headers.get('location') });
+    } catch (e) {
+      const err = /** @type {any} */ (e);
+      out.push({ ...base, status: null, error: `${err.name}: ${err.cause?.code ?? err.message}`.slice(0, 160) });
+    }
+  }
+  return out;
+}
+
+const AREA_RESULT = {
+  protected: () => 'Asks for a password, as it should.',
+  open: () => '**Answers without a password: what it holds may be public. Tell faculty IT today.**',
+  moved: (r) => `**Sends visitors to ${r.location || 'another address'}: members cannot reach it. Check the redirects in \`/intlexch/.htaccess\` (docs/launch.md).**`,
+  missing: () => '**Not found: the folder may have been deleted or moved. Tell faculty IT.**',
+  unverified: (r) => `Could not be checked (${r.status ?? r.error ?? 'no answer'}). Open it by hand if it stays on this list.`,
+};
+
 /** At most `n` tasks at a time. @param {number} n */
 export function limiter(n) {
   let active = 0;
@@ -103,10 +198,12 @@ export async function checkAll(urls, opts = {}) {
 
 /**
  * The weekly report in Markdown, and whether anything needs a person.
- * @param {{ checked: string, results: { url: string, status: number | null, error?: string, places: string[] }[], content: { code: number, output: string } }} input
+ * A protected area that answers without a password, sends visitors elsewhere or is gone needs a person; one that
+ * could not be checked is listed without opening an issue, like an outside site that refuses checks.
+ * @param {{ checked: string, results: { url: string, status: number | null, error?: string, places: string[] }[], content: { code: number, output: string }, areas?: { url: string, name: string, status: number | null, auth?: string | null, location?: string | null, error?: string }[] }} input
  * @returns {{ markdown: string, full: string, problems: boolean }} `markdown` fits in an issue; `full` is for the run summary
  */
-export function weeklyReport({ checked, results, content }) {
+export function weeklyReport({ checked, results, content, areas = [] }) {
   const broken = results.filter((r) => verdict(r) === 'broken');
   const unverified = results.filter((r) => verdict(r) === 'unverified');
   const places = results.reduce((n, r) => n + r.places.length, 0);
@@ -138,6 +235,20 @@ export function weeklyReport({ checked, results, content }) {
     '',
     ...contentPart,
     '',
+    ...(areas.length
+      ? [
+        '## Password-protected areas',
+        '',
+        'The site links to these areas but does not hold them. Each must keep asking for a password.',
+        '',
+        'This check asks without the password, so it cannot see a redirect that the server applies only after a member signs in (a redirect written in an `.htaccess` file). After any change to the redirects, someone with the members\' ID should sign in once and confirm the area still opens (docs/launch.md).',
+        '',
+        '| Area | Result |',
+        '| --- | --- |',
+        ...areas.map((a) => `| ${cell(a.name)} (${cell(a.url)}) | ${cell(AREA_RESULT[protectedVerdict(a)](a))} |`),
+        '',
+      ]
+      : []),
     '## Outside links',
     '',
     `${results.length} addresses checked, used in ${places} places.`,
@@ -153,7 +264,8 @@ export function weeklyReport({ checked, results, content }) {
       : ['None.']),
     '',
   ].join('\n');
-  return { markdown: capReport(md), full: md, problems: broken.length > 0 || content.code !== 0 || contentLines.length > 0 };
+  const areaAlarm = areas.some((a) => ['open', 'moved', 'missing'].includes(protectedVerdict(a)));
+  return { markdown: capReport(md), full: md, problems: broken.length > 0 || content.code !== 0 || contentLines.length > 0 || areaAlarm };
 }
 
 /** GitHub refuses an issue body over 65,536 characters; keep the report under that, saying so when it is cut. */

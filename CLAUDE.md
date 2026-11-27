@@ -30,4 +30,5 @@ Astro 7 static site: bilingual (en/ja) prototype replacing the seven internation
 - Student reports: originals in `src/data/reports/original/`, automatic translations in `src/data/reports/translated/` (`"method": "machine"`, same number of paragraphs, `sourceFingerprint` of the original). Never present a translation as the original.
 - Change both languages together, then `npm run sync -- confirm <key>`; never confirm without checking both say the same thing.
 - Two layers: team, research and publications live only in the faculty's directory entry; this site links to it. `faculty/*.md` are generated, never edited by hand.
+- `/intlexch/japanese/alumni/` (Frontier-kai members' area, password-protected) lives on the faculty server, not here: never delete, move or redirect it; listed in `src/data/protected-areas.json`, rules in `docs/launch.md`.
 - Source material for content lives outside this repo, in `../data/crawl/` (saved official pages) and `../report/issues.json` (audit findings). Photos are prepared with `../tools/photos.py` (collect, download, sheets, publish).
