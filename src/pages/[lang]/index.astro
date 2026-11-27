@@ -43,6 +43,8 @@ for (const s of doors) {
   const { hero } = await pageImages(s);
   if (hero) doorPhotos[s] = hero;
 }
+// The photo behind the numbers: the About section's photo (the hospital across the park), which no door shows.
+const bandPhoto = (await pageImages('about')).hero?.data;
 ---
 <Base lang={lang} title={ui.heroTitle} description={ui.heroLede} slug="" structured={structured}>
   <section class="hero">
@@ -61,12 +63,12 @@ for (const s of doors) {
       <div class="band-head"><h2 id="doors">{ui.doorsTitle}</h2></div>
       <div class="grid cols-4">
         {doors.map((s) => (
-          <a class="card door" href={href(lang, s)}>
-            {doorPhotos[s] && (
-              <span class="card-img"><img {...cardImage(doorPhotos[s]!.data)} alt={doorPhotos[s]!.data.alt[lang]} loading="lazy" decoding="async" /></span>
-            )}
-            <span class="kicker">{ui.sectionWho[s]}</span>
-            <h3>{ui.sections[s]}</h3>
+          <a class="door" href={href(lang, s)}>
+            <div class="door-photo">
+              {doorPhotos[s] && <img {...cardImage(doorPhotos[s]!.data)} alt={doorPhotos[s]!.data.alt[lang]} loading="lazy" decoding="async" />}
+              <h3 class="door-title"><span>{ui.sections[s]}</span></h3>
+            </div>
+            <p class="door-who">{ui.sectionWho[s]}</p>
           </a>
         ))}
       </div>
@@ -81,28 +83,36 @@ for (const s of doors) {
 
   <section class="band soft" aria-labelledby="dates">
     <div class="wrap">
-      <div class="band-head">
-        <div style="display:grid;gap:0.4rem"><h2 id="dates">{ui.keyDates}</h2><p>{ui.keyDatesNote}</p></div>
-        <a class="more-link" href={href(lang, 'programmes')}>{ui.allProgrammes}</a>
-      </div>
+      <div class="band-head"><h2 id="dates">{ui.keyDates}</h2><p>{ui.keyDatesNote}</p></div>
       <DeadlineList lang={lang} programmes={programmes} limit={8} />
+      <p class="band-more"><a class="btn-pill" href={href(lang, 'programmes')}>{ui.allProgrammes}</a></p>
     </div>
   </section>
 
   <section class="band" aria-labelledby="stories">
     <div class="wrap">
-      <div class="band-head">
-        <div style="display:grid;gap:0.4rem"><h2 id="stories">{ui.stories}</h2><p>{ui.storiesLede}</p></div>
-        <a class="more-link" href={href(lang, 'stories')}>{fill(ui.allStories, { n: stories.length })}</a>
-      </div>
+      <div class="band-head"><h2 id="stories">{ui.stories}</h2><p>{ui.storiesLede}</p></div>
       <div class="grid cols-3">
         {featured.map((s) => <StoryCard story={s} lang={lang} />)}
       </div>
+      <p class="band-more"><a class="btn-pill" href={href(lang, 'stories')}>{fill(ui.allStories, { n: stories.length })}</a></p>
     </div>
   </section>
 
-  <section class="band soft" aria-labelledby="numbers">
-    <div class="wrap">
+  <section class="photo-band" aria-labelledby="numbers">
+    {bandPhoto && (
+      <img
+        src={asset(bandPhoto.thumb ?? bandPhoto.file)}
+        srcset={bandPhoto.thumb && bandPhoto.thumbWidth ? `${asset(bandPhoto.thumb)} ${bandPhoto.thumbWidth}w, ${asset(bandPhoto.file)} ${bandPhoto.width}w` : undefined}
+        sizes="100vw"
+        width={bandPhoto.width}
+        height={bandPhoto.height}
+        alt=""
+        loading="lazy"
+        decoding="async"
+      />
+    )}
+    <div class="wrap"><div class="photo-panel">
       <div class="band-head"><h2 id="numbers">{ui.numbersTitle}</h2></div>
       <div class="numbers">
         <div class="number"><b>{stories.length}</b><span>{fill(ui.numStories, { year: Math.min(...stories.map((s) => s.data.year)) })}</span></div>
@@ -110,16 +120,13 @@ for (const s of doors) {
         <div class="number"><b>{programmes.length}</b><span>{ui.numProgrammes}</span></div>
         <div class="number"><b>300+</b><span><a href={href(lang, 'study-in-nagoya/clinical-clerkship')}>{ui.numApplicants}</a></span></div>
       </div>
-    </div>
+    </div></div>
   </section>
 
   <section class="band" aria-labelledby="news">
     <div class="wrap">
-      <div class="band-head">
-        <h2 id="news">{ui.news}</h2>
-        <a class="more-link" href={href(lang, 'news')}>{ui.allNews}</a>
-      </div>
-      <ul class="news-list">
+      <div class="band-head"><h2 id="news">{ui.news}</h2></div>
+      <ul class="news-list news-home">
         {news.map((n) => (
           <li>
             <time datetime={n.data.date}>{formatDate(n.data.date, lang)}</time>
@@ -130,6 +137,7 @@ for (const s of doors) {
           </li>
         ))}
       </ul>
+      <p class="band-more"><a class="btn-pill" href={href(lang, 'news')}>{ui.allNews}</a></p>
     </div>
   </section>
 </Base>

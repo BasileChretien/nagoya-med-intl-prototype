@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import { t, SECTIONS, OFFICIAL_URL, REPO_URL, type Lang } from '../i18n/ui';
-import { href } from '../lib/site';
+import { href, asset } from '../lib/site';
 import faculty from '../data/faculty.json';
 import EmailLink from './EmailLink.astro';
 import PhoneLink from './PhoneLink.astro';
@@ -11,9 +11,12 @@ const { lang } = Astro.props;
 const ui = t(lang);
 const contacts = await getCollection('contacts');
 const office = contacts.find((c) => c.id === 'intl-office');
+// Pixel sizes of the white versions of the faculty's logo in public/brand/ (made from logo-en.png and logo-ja.png).
+const LOGO: Record<Lang, { width: number; height: number }> = { en: { width: 1020, height: 143 }, ja: { width: 854, height: 150 } };
 ---
 <footer class="site-foot">
   <div class="wrap">
+    <p class="foot-brand"><img src={asset(`brand/logo-${lang}-white.png`)} width={LOGO[lang].width} height={LOGO[lang].height} alt={ui.org} loading="lazy" decoding="async" /></p>
     <div class="foot-grid">
       <div>
         <h2>{ui.site}</h2>
@@ -59,7 +62,7 @@ const office = contacts.find((c) => c.id === 'intl-office');
       <div>
         <h2>{ui.protoLead}</h2>
         <p>{ui.footerAbout}</p>
-        <ul style="margin-top:0.6rem">
+        <ul class="foot-links">
           <li><a href={OFFICIAL_URL[lang]} rel="noopener">{ui.footerOfficial}</a></li>
           <li><a href={REPO_URL} rel="noopener">{ui.footerSource}</a></li>
         </ul>

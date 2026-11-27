@@ -50,7 +50,7 @@ const otherUrl = new URL(href(other, hasCounterpart ? slug : ''), Astro.site).to
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content={lang === 'ja' ? 'ja_JP' : 'en_GB'} />
-    <meta name="theme-color" content="#2d3986" />
+    <meta name="theme-color" content="#157bb0" />
     {structured.map((data) => <script type="application/ld+json" set:html={jsonLdText(data)} />)}
   </head>
   <body>
