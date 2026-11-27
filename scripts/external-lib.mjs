@@ -78,7 +78,8 @@ function hostPath(u) {
 /**
  * Whether an address lies in one of the password-protected areas the site links to but does not hold
  * (src/data/protected-areas.json): the area's own address, with or without its final slash, or anything under it.
- * Addresses are compared by host and path, so http or https, the host's letter case and a default port do not matter.
+ * Addresses are compared by host and path (hostPath): http or https, the host's letter case, the default port of the
+ * address's own scheme and percent-encoded letters, digits and -._~ do not matter; another port does.
  * @param {string} url @param {{ url: string }[]} areas
  */
 export function inArea(url, areas) {

@@ -60,11 +60,12 @@ replaces it: the site only links to it (`src/data/protected-areas.json`, the sup
 
 1. **Never delete, move or replace `/intlexch/japanese/alumni/`, or the password files that protect it.** When the
    old site is retired, remove its pages one by one or folder by folder, leaving `japanese/alumni/` in place.
-2. **No redirect may catch it.** Redirect single old pages only, one per line (`/intlexch/japanese/index.html`, as
-   below). A plain `Redirect` line also catches every address under its path, so a line for any folder that holds the
-   members' area (`/intlexch/`, `/intlexch/japanese/` or `/intlexch/japanese/alumni/`, with or without the final
-   slash) would catch it too, and so would any `RedirectMatch` or `RewriteRule` pattern that covers those folders.
-   Members would be sent to the new site instead of their area.
+2. **No redirect may catch it.** Redirect single old pages outside `/intlexch/japanese/alumni/` only, one per line
+   (`/intlexch/japanese/index.html`, as below), and never a page inside it. A plain `Redirect` line also catches every
+   address under its path, so a line for any folder that holds the members' area (the site root `/`, `/intlexch/`,
+   `/intlexch/japanese/` or `/intlexch/japanese/alumni/` itself, with or without the final slash) would catch it too,
+   and so would any `RedirectMatch` or `RewriteRule` pattern that covers those folders. Members would be sent to the
+   new site instead of their area.
 3. **Uploads only add or replace files.** Never empty `/intlexch/` before uploading, and never use a "mirror" or
    "sync" option that deletes files missing from the upload.
 
@@ -88,9 +89,10 @@ AddCharset utf-8 .html .xml .ics .txt .css .js .json
 # Old addresses to their new pages, one line each, for example:
 Redirect 301 /intlexch/english/index.html /intlexch/en/
 Redirect 301 /intlexch/japanese/index.html /intlexch/ja/
-# Never redirect /intlexch/japanese/alumni/ (the Frontier-kai members' area). Redirect also catches every
-# address under its path: name single pages only, never a folder that holds the area (/intlexch/,
-# /intlexch/japanese/), and use no RedirectMatch or RewriteRule pattern that covers those folders.
+# Never redirect /intlexch/japanese/alumni/ (the Frontier-kai members' area) or any page in it. Redirect also
+# catches every address under its path: name single pages outside the area only, never a folder that holds it
+# (/, /intlexch/, /intlexch/japanese/, /intlexch/japanese/alumni/), and use no RedirectMatch or RewriteRule
+# pattern that covers those folders.
 ```
 
 **Getting the files onto the server.** Three ways, from the simplest to set up:

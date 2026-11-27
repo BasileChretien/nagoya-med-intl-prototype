@@ -132,7 +132,7 @@ const SELF = 'https://example.github.io/site/';
     ['not an address', false],
   ];
   const wrong = cases.filter(([url, want]) => inArea(url, areas) !== want).map(([url]) => url);
-  say(wrong.length === 0, 'an address belongs to a protected area only when it is the area or under it, however its scheme, host case or default port is written', wrong.join('; '));
+  say(wrong.length === 0, 'an address belongs to a protected area only when it is the area or under it, whatever its scheme, host case, own default port or encoded letters; another port is another address', wrong.join('; '));
   const usable = usableAreas([{ id: 'ok', url: 'https://x.example/m/' }, { id: 'no-url' }, { url: 'https://x.example/n/' }, { id: 'http', url: 'http://x.example/m/' }, null, 'text']);
   say(usable.length === 1 && usable[0].id === 'ok', 'only entries with an id and a full https address are checked; the others are skipped, not a crash', JSON.stringify(usable));
   say(usableAreas({}).length === 0, 'a protected-areas file that is not a list gives no areas instead of a crash');
