@@ -218,6 +218,16 @@ The XQZW office also helps.
     message: /config\.yml programmes: field "how_to_apply" is in no entry of the data/,
   },
   {
+    name: 'a nested editor field that is not in the schema is reported',
+    edit: ['public/admin/config.yml', (old) => old.replace('- name: status', '- name: state')], expect: 'fail',
+    message: /config\.yml programmes: field "deadline\.state" is not in the schema of src\/content\.config\.ts/,
+  },
+  {
+    name: 'a page field that is not in the pages schema is reported',
+    edit: ['public/admin/config.yml', (old) => old.replace(/- name: summary(\r?\n\s+label: 一覧に出る要約)/, '- name: abstract$1')], expect: 'fail',
+    message: /config\.yml pages-study-in-nagoya: field "abstract" is not in the schema of src\/content\.config\.ts/,
+  },
+  {
     name: 'a page field without an i18n setting is reported (it would drop the English value)',
     edit: ['public/admin/config.yml', (old) => old.replace(/(- name: title\r?\n\s+label: ページの題名 \/ Title\r?\n\s+widget: string)\r?\n\s+i18n: true/, '$1')], expect: 'fail',
     message: /config\.yml pages-study-in-nagoya: field "title" has no i18n setting/,

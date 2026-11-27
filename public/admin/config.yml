@@ -1,10 +1,12 @@
-# Sveltia CMS: the editing page for the office (served at <site>/admin/).
+# Sveltia CMS: the editing page for the office, served only on GitHub Pages at <site>/admin/ (never on the faculty
+# server: docs/editor-setup.md).
 # Setup and sign-in: docs/editor-setup.md. Guide for the office (Japanese): docs/editing-guide-ja.md.
 # Documentation: https://sveltiacms.app/en/docs
 #
 # Only what the office changes often is here; everything else is edited in the files (CONTENT_GUIDE.md).
 # When a data file's fields change (src/content.config.ts), change this file too: the content check
-# "editor-config" fails when a folder or file named here is missing, or a field is no longer in its data.
+# "editor-config" fails when a folder or file named here is missing, when a field (nested ones included) is not in
+# the collection's schema, or when a top-level field of a data file is in none of its entries.
 # Fields not declared here (ids, sources, toConfirm, partners...) are written back unchanged on save.
 
 backend:
@@ -16,8 +18,8 @@ backend:
   # auth_type: additions
   # base_url: https://<your-worker>.workers.dev
   #
-  # Every save starts with "[editor]": the deploy workflow (.github/workflows/deploy.yml) then records the
-  # changed pages and fields as in step in both languages (scripts/editor-confirm.mjs). Keep the marker first.
+  # Every save starts with "[editor]": the deploy workflow (.github/workflows/deploy.yml) then records the pages and
+  # fields each save changed as in step in both languages (scripts/editor-confirm.mjs). Keep the marker first.
   commit_messages:
     create: '[editor] 追加：{{collection}}「{{slug}}」（{{author-name}}）'
     update: '[editor] 更新：{{collection}}「{{slug}}」（{{author-name}}）'
@@ -28,7 +30,8 @@ backend:
 # Saving commits straight to main. The checks in deploy.yml stop anything broken from being published.
 publish_mode: simple
 
-# The published site, for the "view site" link. Change it at launch (docs/editor-setup.md).
+# The published site, for the "view site" link only. At launch it may point to the faculty server's address; the
+# editing page itself stays on GitHub Pages.
 site_url: https://basilechretien.github.io/nagoya-med-intl-prototype/
 
 # Required by the editor. Uploading photos is not part of the editing page: every photo needs a description in

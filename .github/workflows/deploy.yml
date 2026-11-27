@@ -15,29 +15,32 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: pages-${{ github.ref }}
-  cancel-in-progress: true
+# Concurrency is set per job: a newer run cancels an older build, and a newer deploy an older one, but nothing
+# cancels a record-editor-sync job.
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    concurrency:
+      group: pages-build-${{ github.ref }}
+      cancel-in-progress: true
     steps:
       - uses: actions/checkout@v7
         with:
-          # The editor step below compares each editor save with the commit before it (scripts/editor-confirm.mjs).
-          fetch-depth: 30
+          # The editor step below walks back to the last record commit (scripts/editor-confirm.mjs, LOOK_BACK).
+          fetch-depth: 50
       - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
       - run: npm ci
       # A save from the editing page (public/admin/, message starting with "[editor]") changes one language at a time,
-      # and office staff cannot run "npm run sync -- confirm". For those saves only, record the pages and fields of
-      # the files the saves changed as in step, so the checks below let them through; the record-editor-sync job
-      # commits the record after a successful build. Developer commits keep the strict rule.
-      - name: Record an editor save as in step in both languages
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && startsWith(github.event.head_commit.message, '[editor]')
+      # and office staff cannot run "npm run sync -- confirm". On every run on main, record as in step what the editor
+      # saves since the last record commit changed, whatever the last commit is, so a save is never lost when a
+      # developer push, the Monday run or a later save cancels its run. The record-editor-sync job commits the record.
+      # Developer changes keep the strict rule (scripts/editor-lib.mjs).
+      - name: Record editor saves as in step in both languages
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         run: node scripts/editor-confirm.mjs
       - name: Check content sources
         run: node scripts/check-content.mjs
@@ -63,37 +66,52 @@ jobs:
         with:
           path: dist
 
-  # Commits the record made by the editor step to main, so the next build starts from it. A separate job, so the build
-  # job (which also runs pull request code) never holds a token that can write to the repository.
+  # Commits the record of pending editor saves to main, so the next run starts from it. It records from the newest main,
+  # so saves that arrived after this run started are included. A separate job, so the build job (which also runs pull
+  # request code) never holds a token that can write to the repository; its own group, never cancelled, so two record
+  # jobs never push at once and a newer run does not stop one half-way.
   record-editor-sync:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && startsWith(github.event.head_commit.message, '[editor]')
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    concurrency:
+      group: editor-record-${{ github.ref }}
+      cancel-in-progress: false
     steps:
       - uses: actions/checkout@v7
         with:
-          fetch-depth: 30
+          ref: main
+          fetch-depth: 50
       - uses: actions/setup-node@v7
         with:
           node-version: 22
-      # Same script and same commits as in the build job: the record is the one the checks passed with.
-      - run: node scripts/editor-confirm.mjs
-      - name: Commit the record to main
+      - name: Record pending editor saves and commit the record to main
         run: |
+          set -eu
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add content-sync.json faculty
-          if git diff --cached --quiet; then echo "Nothing new to record."; exit 0; fi
-          git commit -m "chore: record both languages as in step after an editor save [skip ci]"
-          # Another save may have reached main meanwhile: rebase on it and try once more.
-          git push origin HEAD:main || { git pull --rebase origin main && git push origin HEAD:main; }
+          # When main moves on during the job, start again from the new main (the record is recomputed, not rebased).
+          for attempt in 1 2 3; do
+            git fetch --depth=50 origin main
+            git reset --hard origin/main
+            node scripts/editor-confirm.mjs
+            git add content-sync.json faculty
+            if git diff --cached --quiet; then echo "Nothing to record."; exit 0; fi
+            git commit -m "$(node scripts/editor-confirm.mjs --record-message)"
+            if git push origin HEAD:main; then exit 0; fi
+            echo "main moved on; recording again from the new main"
+          done
+          exit 1
 
   deploy:
     if: github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
+    concurrency:
+      group: pages-deploy-${{ github.ref }}
+      cancel-in-progress: true
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

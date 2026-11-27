@@ -109,6 +109,13 @@ Redirect 301 /intlexch/japanese/index.html /intlexch/ja/
 Whichever is chosen, the checks still run on every change, before anything reaches the server, and the upload adds or
 replaces files without deleting any (see the members' area above).
 
+**The editing page stays on GitHub Pages.** The office edits at the GitHub Pages address
+(`https://basilechretien.github.io/nagoya-med-intl-prototype/admin/`, or the new owner's Pages address after the
+repository moves), before and after launch. The server build leaves `admin/` out (`build-for-server.yml`), and any
+other way of sending the build to the server must leave it out too: the editor keeps its sign-in token in the
+browser storage of the page's host, so on the faculty server every other page of `www.med.nagoya-u.ac.jp` could read
+it. The sign-in service's allowed domains list only the GitHub Pages host (`docs/editor-setup.md`).
+
 ## With the office (and the faculty)
 
 - **Measuring results.** Whether visits are measured, and with what. The faculty already uses Google Analytics on

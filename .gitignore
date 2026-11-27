@@ -11,3 +11,5 @@ desktop.ini
 ._*
 # Files a test run plants; left behind only if a run is interrupted
 zz-test*
+# The editor, copied from @sveltia/cms before dev and build (scripts/copy-editor.mjs)
+public/admin/cms/

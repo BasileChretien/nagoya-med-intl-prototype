@@ -10,10 +10,10 @@
   <body>
     <!--
       Sveltia CMS (MIT licence, https://sveltiacms.app/). It reads config.yml from this folder.
-      Setup and sign-in: docs/editor-setup.md. Guide for the office: docs/editing-guide-ja.md.
-      The script is loaded from unpkg without a version, as the Sveltia CMS start guide advises, so the
-      editor stays current. This is the only page of the site that loads anything from another site.
+      The script is served from the site itself: scripts/copy-editor.mjs copies it from the devDependency @sveltia/cms
+      into cms/ before every build. Setup and sign-in: docs/editor-setup.md. Guide for the office:
+      docs/editing-guide-ja.md. This page is published only on GitHub Pages, never on the faculty server.
     -->
-    <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
+    <script src="cms/sveltia-cms.js"></script>
   </body>
 </html>

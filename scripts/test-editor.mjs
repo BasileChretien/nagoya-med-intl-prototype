@@ -1,21 +1,21 @@
 #!/usr/bin/env node
 /**
  * Tests for the editing page's link to the "both languages in step" rule (scripts/editor-lib.mjs and
- * scripts/editor-confirm.mjs): which registry keys a changed file owns, what an editor save confirms, and which
- * commits count as editor saves. The last cases change the tree, confirm, run the staleness check and restore.
- * Run: node scripts/test-editor.mjs
+ * scripts/editor-confirm.mjs): which registry keys a changed file owns, which commits are pending editor saves, and
+ * what recording them changes. The recording cases run on small git repositories made in the system's temporary
+ * folder, so they exercise the same git commands as the deploy workflow. Run: node scripts/test-editor.mjs
  */
 import { spawnSync } from 'node:child_process';
-import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs';
-import { join, relative, sep } from 'node:path';
+import { readFileSync, writeFileSync, readdirSync, statSync, mkdirSync, mkdtempSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { dirname, join, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parse } from 'yaml';
-import { EDITOR_MARKER, isEditorCommit, ownerOf, planConfirmation, applyPlan, editorRange } from './editor-lib.mjs';
-import { confirmChanged } from './editor-confirm.mjs';
-import { pagePairs, dataFiles } from './staleness-lib.mjs';
+import { EDITOR_MARKER, RECORD_MESSAGE, isEditorCommit, isRecordCommit, ownerOf, pendingEditorCommits, applyPlan } from './editor-lib.mjs';
+import { recordPending } from './editor-confirm.mjs';
+import { pagePairs, dataFiles, dataFields, readRegistry, writeRegistry, comparePages, compareFields } from './staleness-lib.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
-const SYNC = 'content-sync.json';
 let failed = 0;
 let total = 0;
 const say = (ok, name, why = '') => { total += 1; process.stdout.write(`${ok ? 'ok  ' : 'FAIL'} ${name}${why && !ok ? ` (${why})` : ''}\n`); if (!ok) failed += 1; };
@@ -24,18 +24,19 @@ const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 // ------------------------------------------------------------ which keys a changed file owns
 {
   const cases = [
-    ['src/content/pages/ja/study-in-nagoya/faq.md', { kind: 'page', slug: 'study-in-nagoya/faq' }],
-    ['src/content/pages/en/about/index.md', { kind: 'page', slug: 'about' }],
-    ['src\\content\\pages\\ja\\degrees\\lund.md', { kind: 'page', slug: 'degrees/lund' }],
-    ['src/data/programmes/sep-unc.json', { kind: 'data', file: 'programmes/sep-unc.json' }],
-    ['src/data/news.json', { kind: 'data', file: 'news.json' }],
-    ['src/data/contacts.json', { kind: 'data', file: 'contacts.json' }],
+    ['src/content/pages/ja/study-in-nagoya/faq.md', { kind: 'page', slug: 'study-in-nagoya/faq', rel: 'study-in-nagoya/faq.md' }],
+    ['src/content/pages/en/about/index.md', { kind: 'page', slug: 'about', rel: 'about/index.md' }],
+    ['src\\content\\pages\\ja\\degrees\\lund.md', { kind: 'page', slug: 'degrees/lund', rel: 'degrees/lund.md' }],
+    ['src/data/programmes/sep-unc.json', { kind: 'data', file: 'programmes/sep-unc.json', facts: true }],
+    ['src/data/news.json', { kind: 'data', file: 'news.json', facts: false }],
+    ['src/data/contacts.json', { kind: 'data', file: 'contacts.json', facts: true }],
+    ['src/data/stories.json', null],
     ['src/data/reports/original/degree-30.json', null],
     ['public/admin/config.yml', null],
     ['content-sync.json', null],
     ['src/content/pages/fr/about/index.md', null],
   ];
-  for (const [path, want] of cases) say(same(ownerOf(path), want), `${path} owns ${want ? JSON.stringify(want) : 'nothing'}`, JSON.stringify(ownerOf(path)));
+  for (const [path, want] of cases) say(same(ownerOf(path), want), `${path} owns ${want ? `${want.kind} ${want.slug ?? want.file}` : 'nothing'}`, JSON.stringify(ownerOf(path)));
 }
 
 // The mapping names pages and data files exactly as the staleness check does, for every file in the tree.
@@ -50,110 +51,151 @@ const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
   say(wrong.length === 0, 'every bilingual data file maps to its own field-key prefix', wrong.join(', '));
 }
 
-// ------------------------------------------------------------ what a save confirms
+// ------------------------------------------------------------ which commits are pending editor saves
 {
-  const pages = { 'study-in-nagoya/faq': { en: 'e1', ja: 'j2' }, 'degrees/lund': { en: 'e9', ja: 'j8' }, about: { en: 'a', ja: 'b' } };
-  const fields = {
-    'news.json#2026-01-a/title': { en: 'x', ja: 'y2' },
-    'news.json#news-new/title': { en: 'n', ja: 'm' },
-    'programmes/sep-unc.json#deadline/text': { en: 'd', ja: 'e2' },
-    'programmes/sep-unc.json#capacity': { en: 'c', ja: 'c' },
-    'programmes/jdp-lund.json#cost': { en: 'k2', ja: 'l' },
-  };
-  const registry = {
-    pages: { 'study-in-nagoya/faq': { en: 'e1', ja: 'j1' }, 'degrees/lund': { en: 'e1', ja: 'j1' }, about: { en: 'a', ja: 'b' } },
-    fields: {
-      'news.json#2026-01-a/title': { en: 'x', ja: 'y' },
-      'news.json#gone/title': { en: 'g', ja: 'h' },
-      'programmes/sep-unc.json#deadline/text': { en: 'd', ja: 'e' },
-      'programmes/sep-unc.json#capacity': { en: 'c', ja: 'c' },
-      'programmes/jdp-lund.json#cost': { en: 'k', ja: 'l' },
-    },
-  };
-  const frozen = JSON.stringify(registry);
-  const plan = planConfirmation({
-    changed: ['src/content/pages/ja/study-in-nagoya/faq.md', 'src/content/pages/en/about/index.md', 'src/data/news.json', 'src/data/programmes/sep-unc.json', 'public/admin/config.yml'],
-    pages, fields, registry,
-  });
-  say(same(plan.pages, ['study-in-nagoya/faq']), 'a changed page is confirmed; an unchanged one (about) and one in a file not saved (degrees/lund) are not', JSON.stringify(plan.pages));
-  say(same(plan.fields, ['news.json#2026-01-a/title', 'news.json#news-new/title', 'programmes/sep-unc.json#deadline/text']),
-    'changed and new fields of the saved files are confirmed; fields of other files (jdp-lund) are not', JSON.stringify(plan.fields));
-  say(same(plan.dropped, ['news.json#gone/title']), 'the entries of an item removed from a saved file are forgotten', JSON.stringify(plan.dropped));
-  const next = applyPlan(registry, plan, pages, fields);
-  say(JSON.stringify(registry) === frozen, 'applying the plan leaves the given registry unchanged');
-  say(same(next.pages['study-in-nagoya/faq'], { en: 'e1', ja: 'j2' }) && same(next.fields['news.json#news-new/title'], { en: 'n', ja: 'm' }) && !next.fields['news.json#gone/title']
-    && same(next.fields['programmes/jdp-lund.json#cost'], { en: 'k', ja: 'l' }), 'the new registry records the saved state and keeps the rest');
-  const none = planConfirmation({ changed: ['README.md', 'src/data/programmes'], pages, fields, registry });
-  say(!none.pages.length && !none.fields.length && !none.dropped.length, 'a commit that changes no page or data file confirms nothing');
-}
-
-// ------------------------------------------------------------ which commits are editor saves
-{
-  say(isEditorCommit('[editor] 更新：プログラム「sep-unc」（Office）') && !isEditorCommit('feat: [editor] in the middle') && !isEditorCommit('chore: record editor saves [skip ci]') && !isEditorCommit(undefined),
+  say(isEditorCommit('[editor] 更新：プログラム「sep-unc」（Office）') && !isEditorCommit('feat: [editor] in the middle') && !isEditorCommit(RECORD_MESSAGE) && !isEditorCommit(undefined),
     'only a message that starts with the marker is an editor save');
+  say(isRecordCommit(RECORD_MESSAGE) && RECORD_MESSAGE.includes('[skip ci]') && !isRecordCommit('chore: confirm both languages: x'), 'the record commit has a fixed message with [skip ci]');
   const c = (sha, message, hasParent = true) => ({ sha, message, hasParent });
-  say(same(editorRange([c('a', '[editor] x'), c('b', '[editor] y'), c('c', 'feat: z'), c('d', '[editor] w')]), ['a', 'b']), 'the walk takes the editor saves on top and stops at the first other commit');
-  say(same(editorRange([c('a', 'feat: z'), c('b', '[editor] y')]), []), 'a developer commit on top confirms nothing, even over editor saves');
-  say(same(editorRange([c('a', '[editor] x'), c('b', 'chore: record both languages after an editor save [skip ci]'), c('c', '[editor] y')]), ['a']), 'the walk stops at the previous run\'s record commit');
-  say(same(editorRange([c('a', '[editor] x'), c('b', '[editor] y', false)]), ['a']), 'a commit whose parent is not in a shallow clone is not taken (it would look as if it added every file)');
+  say(same(pendingEditorCommits([c('a', '[editor] x'), c('b', 'feat: z'), c('c', '[editor] y'), c('d', RECORD_MESSAGE), c('e', '[editor] w')]), ['a', 'c']),
+    'developer commits are skipped and the walk stops at the last record commit');
+  say(same(pendingEditorCommits([c('a', 'feat: z'), c('b', '[editor] y'), c('c', '[editor] x')]), ['b', 'c']), 'editor saves under a developer commit are still pending');
+  say(same(pendingEditorCommits([c('a', RECORD_MESSAGE), c('b', '[editor] y')]), []), 'nothing is pending right after a record commit');
+  say(same(pendingEditorCommits([c('a', '[editor] x'), c('b', '[editor] y', false)]), ['a']), 'a commit whose parent is not in a shallow clone is not taken (it would look as if it added every file)');
+  const frozen = { pages: { p: { en: '1', ja: '1' } }, fields: { f: { en: '1', ja: '1' }, g: { en: '1', ja: '1' } } };
+  const before = JSON.stringify(frozen);
+  const next = applyPlan(frozen, { pages: { p: { en: '1', ja: '2' } }, fields: {}, dropped: ['g'] });
+  say(JSON.stringify(frozen) === before && next.pages.p.ja === '2' && !next.fields.g && next.fields.f, 'applying a plan returns a new registry and leaves the given one unchanged');
 }
 
-// ------------------------------------------------------------ config.yml keeps the marker first
+// ------------------------------------------------------------ the deploy workflow and config.yml use the same constants
 {
   const config = parse(readFileSync(join(ROOT, 'public', 'admin', 'config.yml'), 'utf8'));
   const messages = Object.entries(config.backend?.commit_messages ?? {});
   say(messages.length >= 3 && messages.every(([, m]) => String(m).startsWith(EDITOR_MARKER)), `every commit message in config.yml starts with ${EDITOR_MARKER}`, JSON.stringify(messages));
+  const deploy = readFileSync(join(ROOT, '.github', 'workflows', 'deploy.yml'), 'utf8');
+  say(deploy.includes('editor-confirm.mjs --record-message') && /cancel-in-progress: false/.test(deploy),
+    'deploy.yml takes the record message from the script and never cancels a record job');
 }
 
-// ------------------------------------------------------------ on the real tree, with the staleness check
-const read = (p) => readFileSync(join(ROOT, p), 'utf8');
-const staleness = () => spawnSync(process.execPath, [join(ROOT, 'scripts', 'check-staleness.mjs')], { cwd: ROOT, encoding: 'utf8' });
-function withChanges(changes, fn) {
-  const saved = new Map([[SYNC, read(SYNC)]]);
-  try {
-    for (const [p, change] of changes) { if (!saved.has(p)) saved.set(p, read(p)); writeFileSync(join(ROOT, p), change(read(p))); }
-    return fn();
-  } finally {
-    for (const [p, content] of saved) writeFileSync(join(ROOT, p), content);
-  }
+// ------------------------------------------------------------ recording, on small git repositories
+const strip = (fields) => Object.fromEntries(Object.entries(fields).map(([k, v]) => [k, { en: v.en, ja: v.ja }]));
+function makeRepo() {
+  const dir = mkdtempSync(join(tmpdir(), 'zz-editor-test-'));
+  const git = (...args) => {
+    const r = spawnSync('git', args, { cwd: dir, encoding: 'utf8' });
+    if (r.status !== 0) throw new Error(`git ${args.join(' ')}: ${r.stderr}`);
+    return r.stdout.trim();
+  };
+  const write = (path, text) => { mkdirSync(dirname(join(dir, path)), { recursive: true }); writeFileSync(join(dir, path), text); };
+  const commit = (message) => { git('add', '-A'); git('commit', '-q', '--allow-empty', '-m', message); };
+  const news = (items) => `${JSON.stringify(items, null, 2)}\n`;
+  const confirmAll = () => writeRegistry(dir, { pages: pagePairs(dir), fields: strip(dataFields(dir)) });
+  git('init', '-q');
+  for (const [k, v] of [['user.email', 'test@example.invalid'], ['user.name', 'Test'], ['core.autocrlf', 'false'], ['commit.gpgsign', 'false']]) git('config', k, v);
+  write('src/content/pages/en/about/index.md', '---\ntitle: About\nupdated: 2026-11-25\n---\n\nWe are the office.\n');
+  write('src/content/pages/ja/about/index.md', '---\ntitle: 私たちについて\nupdated: 2026-11-25\n---\n\n国際連携室です。\n');
+  write('src/data/news.json', news([
+    { id: 'a', date: '2026-01-01', title: { en: 'First', ja: '一つ目' } },
+    { id: 'b', date: '2026-02-01', title: { en: 'Second', ja: '二つ目' } },
+  ]));
+  write('README.md', 'test\n');
+  confirmAll();
+  commit('chore: start');
+  const readNews = () => JSON.parse(readFileSync(join(dir, 'src/data/news.json'), 'utf8'));
+  const editNews = (fn) => { const d = readNews(); fn(d); write('src/data/news.json', news(d)); };
+  const editJa = (text) => write('src/content/pages/ja/about/index.md', `---\ntitle: 私たちについて\nupdated: 2026-11-25\n---\n\n${text}\n`);
+  const stale = () => {
+    const reg = readRegistry(dir);
+    return [...comparePages(pagePairs(dir), reg.pages), ...compareFields(dataFields(dir), reg.fields)];
+  };
+  return { dir, git, write, commit, editNews, editJa, confirmAll, stale, remove: () => rmSync(dir, { recursive: true, force: true }) };
 }
-const JA_FAQ = 'src/content/pages/ja/study-in-nagoya/faq.md';
-const EN_LUND = 'src/content/pages/en/degrees/lund.md';
-const NEWS = 'src/data/news.json';
-const append = (text) => (old) => `${old.trimEnd()}\n\n${text}\n`;
+function inRepo(name, fn) {
+  let repo;
+  try { repo = makeRepo(); const why = fn(repo); say(!why, name, why ?? ''); } catch (e) { say(false, name, e.message); } finally { repo?.remove(); }
+}
 
-say(staleness().status === 0, 'baseline: the staleness check passes on the clean tree');
-
-withChanges([[JA_FAQ, append('誤字を直しました。')]], () => {
-  const plan = confirmChanged(ROOT, [JA_FAQ]);
-  const r = staleness();
-  say(same(plan.pages, ['study-in-nagoya/faq']) && r.status === 0, 'a page changed in one language by the editor passes once confirmed', r.stderr.slice(0, 300));
+inRepo('a page saved in one language by the editor is recorded, and the check passes', (r) => {
+  r.editJa('国際連携室の窓口です。');
+  r.commit('[editor] 更新：ページ「index」（Office）');
+  const { plan } = recordPending(r.dir);
+  return same(Object.keys(plan.pages), ['about']) && !r.stale().length ? null : `${JSON.stringify(plan)} ${r.stale()}`;
 });
 
-withChanges([[JA_FAQ, append('誤字を直しました。')], [EN_LUND, append('A developer change.')]], () => {
-  confirmChanged(ROOT, [JA_FAQ]);
-  const r = staleness();
-  say(r.status === 1 && /degrees\/lund is stale/.test(r.stderr) && !/study-in-nagoya\/faq/.test(r.stderr),
-    'a change outside the editor\'s commit stays out of step', r.stderr.slice(0, 300));
+inRepo('an editor save under a developer commit is still recorded (developer commit after an editor save)', (r) => {
+  r.editJa('国際連携室の窓口です。');
+  r.commit('[editor] 更新：ページ「index」（Office）');
+  r.write('README.md', 'changed by a developer\n');
+  r.commit('docs: a developer change');
+  const { shas, plan } = recordPending(r.dir);
+  return shas.length === 1 && plan.pages.about && !r.stale().length ? null : `${JSON.stringify(plan)} ${r.stale()}`;
 });
 
-withChanges([[NEWS, (old) => {
-  const d = JSON.parse(old);
-  d.push({ id: 'news-zztest', date: '2026-11-01', category: 'news', title: { en: 'Test item', ja: 'テストの項目' }, summary: { en: 'A test.', ja: 'テストです。' } });
-  d.splice(0, 1);
-  return `${JSON.stringify(d, null, 2)}\n`;
-}]], () => {
-  const plan = confirmChanged(ROOT, [NEWS]);
-  const r = staleness();
-  say(plan.fields.includes('news.json#news-zztest/title') && plan.dropped.length > 0 && r.status === 0,
-    'a news item added and one removed in the editor pass once confirmed', r.stderr.slice(0, 300));
+inRepo('two editor saves whose first run was cancelled are both recorded by the next run', (r) => {
+  r.editJa('国際連携室の窓口です。');
+  r.commit('[editor] 更新：ページ「index」（Office）');
+  r.editNews((d) => { d[1].title.ja = '二つ目のお知らせ'; });
+  r.commit('[editor] 更新：お知らせ「1」（Office）');
+  const { shas, plan } = recordPending(r.dir);
+  return shas.length === 2 && plan.pages.about && plan.fields['news.json#b/title'] && !r.stale().length ? null : `${JSON.stringify(plan)} ${r.stale()}`;
 });
 
-withChanges([['src/data/programmes/sep-unc.json', (old) => { const d = JSON.parse(old); d.capacity.ja = '各大学から年3名'; return `${JSON.stringify(d, null, 2)}\n`; }]], () => {
-  confirmChanged(ROOT, ['src/data/programmes/sep-unc.json']);
-  const r = staleness();
-  say(r.status === 1 && /programmes\/sep-unc\.json#capacity: numbers differ/.test(r.stderr),
-    'a fact whose two languages give different numbers still fails after an editor save', r.stderr.slice(0, 300));
+inRepo('a developer\'s unconfirmed change in a file the editor also saved stays out of step', (r) => {
+  r.editNews((d) => { d[0].title.en = 'First, changed by a developer'; });
+  r.commit('feat: a developer change, not confirmed');
+  r.editNews((d) => { d[1].title.ja = '二つ目のお知らせ'; });
+  r.commit('[editor] 更新：お知らせ「1」（Office）');
+  const { plan } = recordPending(r.dir);
+  const left = r.stale();
+  return same(Object.keys(plan.fields), ['news.json#b/title']) && left.length === 1 && /news\.json#a\/title: ja is stale/.test(left[0]) ? null : `${JSON.stringify(plan)} ${left}`;
+});
+
+inRepo('the walk stops at the record commit: a later developer change stays out of step', (r) => {
+  r.editJa('国際連携室の窓口です。');
+  r.commit('[editor] 更新：ページ「index」（Office）');
+  recordPending(r.dir);
+  r.commit(RECORD_MESSAGE);
+  r.write('src/content/pages/en/about/index.md', '---\ntitle: About\nupdated: 2026-11-25\n---\n\nWe are the office, changed.\n');
+  r.commit('feat: a developer change, not confirmed');
+  r.editNews((d) => { d[1].title.ja = '二つ目のお知らせ'; });
+  r.commit('[editor] 更新：お知らせ「1」（Office）');
+  const { shas, plan } = recordPending(r.dir);
+  const left = r.stale();
+  return shas.length === 1 && !plan.pages.about && left.length === 1 && /ja\/about is stale/.test(left[0]) ? null : `${JSON.stringify(plan)} ${left}`;
+});
+
+inRepo('a developer confirmation made after an editor save is not overwritten', (r) => {
+  r.editNews((d) => { d[0].title.ja = '一つ目（編集）'; });
+  r.commit('[editor] 更新：お知らせ「0」（Office）');
+  r.editNews((d) => { d[0].title = { en: 'First, rewritten', ja: '一つ目、書き直し' }; });
+  r.confirmAll();
+  r.commit('feat: rewrite item a and confirm it');
+  const confirmed = readRegistry(r.dir).fields['news.json#a/title'];
+  const { plan } = recordPending(r.dir);
+  return !plan.fields['news.json#a/title'] && same(readRegistry(r.dir).fields['news.json#a/title'], confirmed) && !r.stale().length ? null : `${JSON.stringify(plan)} ${r.stale()}`;
+});
+
+inRepo('a news item added and one removed in the editor are recorded and forgotten', (r) => {
+  r.editNews((d) => { d.splice(0, 1); d.push({ id: 'news-new', date: '2026-03-01', title: { en: 'New', ja: '新しい項目' } }); });
+  r.commit('[editor] 追加：お知らせ「2」（Office）');
+  const { plan } = recordPending(r.dir);
+  return plan.fields['news.json#news-new/title'] && same(plan.dropped, ['news.json#a/title']) && !r.stale().length ? null : `${JSON.stringify(plan)} ${r.stale()}`;
+});
+
+inRepo('a save that changes only the "updated" date records nothing', (r) => {
+  r.write('src/content/pages/ja/about/index.md', '---\ntitle: 私たちについて\nupdated: 2026-11-26\n---\n\n国際連携室です。\n');
+  r.commit('[editor] 更新：ページ「index」（Office）');
+  const { shas, plan } = recordPending(r.dir);
+  return shas.length === 1 && !Object.keys(plan.pages).length && !Object.keys(plan.fields).length && !r.stale().length ? null : JSON.stringify(plan);
+});
+
+inRepo('nothing is recorded when no editor save is pending', (r) => {
+  r.write('README.md', 'changed\n');
+  r.commit('docs: a developer change');
+  const before = readFileSync(join(r.dir, 'content-sync.json'), 'utf8');
+  const { shas } = recordPending(r.dir);
+  return !shas.length && readFileSync(join(r.dir, 'content-sync.json'), 'utf8') === before ? null : 'something was written';
 });
 
 process.stdout.write(`${total - failed}/${total} passed\n`);

@@ -20,9 +20,12 @@ const lf = (s) => s.replace(/\r\n/g, '\n');
 
 // ---------------------------------------------------------------- pages
 
-/** The content of a page file that counts as "what it says": everything but the "updated:" date. */
+/** What a page's text says: everything but the "updated:" date. @param {string} text */
+export const pageText = (text) => lf(text).split('\n').filter((l) => !/^updated:\s/.test(l)).map((l) => l.trimEnd()).join('\n').trim();
+
+/** The content of a page file that counts as "what it says" (see pageText). */
 export function pageContent(file) {
-  return lf(readFileSync(file, 'utf8')).split('\n').filter((l) => !/^updated:\s/.test(l)).map((l) => l.trimEnd()).join('\n').trim();
+  return pageText(readFileSync(file, 'utf8'));
 }
 
 /** @param {string} dir @returns {string[]} paths of .md files relative to dir, with forward slashes */
@@ -52,19 +55,30 @@ export function pagePairs(root) {
 
 // ---------------------------------------------------------------- data fields
 
+/** The top-level data files with bilingual fields (besides programmes/*.json, which are facts). */
+export const LIST_DATA_FILES = [
+  { file: 'contacts.json', facts: true },
+  { file: 'partners.json', facts: true },
+  { file: 'news.json', facts: false },
+  { file: 'images.json', facts: false },
+];
+
+/**
+ * Whether a data file (named as under src/data, "programmes/x.json" or "news.json") is compared between languages,
+ * and whether its numbers must match. @returns {{ file: string, facts: boolean } | null}
+ */
+export function dataFileOf(file) {
+  if (/^programmes\/[^/]+\.json$/.test(file)) return { file, facts: true };
+  return LIST_DATA_FILES.find((d) => d.file === file) ?? null;
+}
+
 /** Data files with bilingual fields, and whether their numbers must match (facts) or not (descriptions, news). */
 export function dataFiles(root) {
   const data = join(root, 'src', 'data');
   const programmes = existsSync(join(data, 'programmes'))
     ? readdirSync(join(data, 'programmes')).filter((n) => n.endsWith('.json')).map((n) => ({ file: `programmes/${n}`, facts: true }))
     : [];
-  return [
-    ...programmes,
-    { file: 'contacts.json', facts: true },
-    { file: 'partners.json', facts: true },
-    { file: 'news.json', facts: false },
-    { file: 'images.json', facts: false },
-  ].filter((f) => existsSync(join(data, f.file)));
+  return [...programmes, ...LIST_DATA_FILES].filter((f) => existsSync(join(data, f.file)));
 }
 
 const isObject = (v) => Boolean(v) && typeof v === 'object' && !Array.isArray(v);
@@ -87,23 +101,36 @@ function halfPairProblem(v) {
 export function scanData(root) {
   const out = {};
   const halves = [];
-  const walk = (value, key, facts) => {
-    if (isPair(value)) { out[key] = { en: fingerprint(value.en), ja: fingerprint(value.ja), enText: value.en, jaText: value.ja, facts }; return; }
-    if (looksBilingual(value)) { halves.push(`${key}: ${halfPairProblem(value)}`); return; }
-    if (Array.isArray(value)) value.forEach((v, i) => walk(v, `${key}/${i}`, facts));
-    else if (value && typeof value === 'object') for (const [k, v] of Object.entries(value)) walk(v, key.endsWith('#') ? `${key}${k}` : `${key}/${k}`, facts);
-  };
   for (const { file, facts } of dataFiles(root)) {
     let data;
     try { data = JSON.parse(readFileSync(join(root, 'src', 'data', file), 'utf8')); } catch { continue; } // reported by check-content
-    if (Array.isArray(data)) {
-      for (const item of data) {
-        if (!item || typeof item !== 'object' || typeof item.id !== 'string') continue;
-        const { id, ...rest } = item;
-        for (const [k, v] of Object.entries(rest)) walk(v, `${file}#${id}/${k}`, facts);
-      }
-    } else if (data && typeof data === 'object') walk(data, `${file}#`, facts);
+    const one = scanDataFile(file, data, facts);
+    Object.assign(out, one.fields);
+    halves.push(...one.halves);
   }
+  return { fields: out, halves };
+}
+
+/**
+ * The { en, ja } fields of one data file's parsed content, keyed as scanData keys them (also used on a file read at
+ * an earlier commit by scripts/editor-confirm.mjs). @param {string} file name under src/data @param {unknown} data
+ */
+export function scanDataFile(file, data, facts = false) {
+  const out = {};
+  const halves = [];
+  const walk = (value, key) => {
+    if (isPair(value)) { out[key] = { en: fingerprint(value.en), ja: fingerprint(value.ja), enText: value.en, jaText: value.ja, facts }; return; }
+    if (looksBilingual(value)) { halves.push(`${key}: ${halfPairProblem(value)}`); return; }
+    if (Array.isArray(value)) value.forEach((v, i) => walk(v, `${key}/${i}`));
+    else if (value && typeof value === 'object') for (const [k, v] of Object.entries(value)) walk(v, key.endsWith('#') ? `${key}${k}` : `${key}/${k}`);
+  };
+  if (Array.isArray(data)) {
+    for (const item of data) {
+      if (!item || typeof item !== 'object' || typeof item.id !== 'string') continue;
+      const { id, ...rest } = item;
+      for (const [k, v] of Object.entries(rest)) walk(v, `${file}#${id}/${k}`);
+    }
+  } else if (data && typeof data === 'object') walk(data, `${file}#`);
   return { fields: out, halves };
 }
 

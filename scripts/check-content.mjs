@@ -16,7 +16,10 @@ import { inArea, usableAreas } from './external-lib.mjs';
 import { PROTOTYPE } from '../src/lib/launch.mjs';
 import { urlLang } from '../src/lib/url-lang.mjs';
 import { parse as parseYaml } from 'yaml';
-import { EDITOR_CONFIG, editorConfigProblems } from './editor-lib.mjs';
+import { EDITOR_CONFIG, editorConfigProblems } from './editor-config-lib.mjs';
+
+/** The editing page in the built site (public/admin/index.html). */
+const EDITOR_PAGE = 'admin/index.html';
 
 /** Names of the checks below; feature map entries refer to them in `tests`. */
 const CHECKS = ['pairing', 'programme-references', 'deadlines', 'data-files', 'images', 'internal-links', 'noindex', 'feature-map',
@@ -405,9 +408,8 @@ if (process.argv.includes('--dist')) {
     for (const problem of sd.problems) fail(`${page}: ${problem}`);
     for (const type of missingTypes(sd.blocks, expected.get(page) ?? [])) fail(`${page}: no ${type} structured data`);
     expected.delete(page);
-    // The privacy page says a page loads nothing from other sites. The editing page (admin/) is for the office's
-    // editors, not for visitors: it loads the editor from unpkg (docs/editor-setup.md).
-    if (page !== 'admin/index.html') for (const url of outsideResources(doc, own, servedAt(page, own[0]))) fail(`${page} loads ${url} from another site: serve it from the site itself (the privacy page says nothing is loaded from elsewhere)`);
+    // The privacy page says a page loads nothing from other sites.
+    for (const url of outsideResources(doc, own, servedAt(page, own[0]))) fail(`${page} loads ${url} from another site: serve it from the site itself (the privacy page says nothing is loaded from elsewhere)`);
     // The 404 page is shown at whatever missing address was asked for, so an address relative to the page cannot
     // work there: everything it loads must be written from the site root or in full.
     if (page === '404.html') {
@@ -420,7 +422,11 @@ if (process.argv.includes('--dist')) {
         if (!url) continue;
         // A relative link resolves against the page's address, not its source file: content links are rewritten to
         // full addresses at build time (src/lib/rehype-abbr.mjs), so one left relative would be read wrongly.
-        if (!/^([a-z][a-z0-9+.-]*:|\/)/i.test(url)) { fail(`${page} has a relative link "${url}": write it as a site link or a full address`); continue; }
+        // The editing page is a plain file served only at <site>/admin/: its script sits next to it (cms/).
+        if (!/^([a-z][a-z0-9+.-]*:|\/)/i.test(url)) {
+          if (page === EDITOR_PAGE && !url.includes('..')) { if (!existsSync(join(DIST, 'admin', url))) fail(`${page} loads missing ${url}: run npm run build (scripts/copy-editor.mjs)`); continue; }
+          fail(`${page} has a relative link "${url}": write it as a site link or a full address`); continue;
+        }
         // "//host/..." is another site, even when the site lives at the root of its host (BASE "").
         if (url.startsWith('//') || !url.startsWith(`${BASE}/`)) continue;
         checked += 1;

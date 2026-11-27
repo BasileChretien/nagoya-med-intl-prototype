@@ -1,69 +1,94 @@
 #!/usr/bin/env node
 /**
- * After a save in the editing page: record as in step the pages and fields that the editor's commits changed, and
- * regenerate the faculty texts, so the checks let the save through. Run by .github/workflows/deploy.yml before the
- * checks, only when the pushed commit's message starts with "[editor]" (scripts/editor-lib.mjs explains the rule).
+ * Record saves from the editing page as in step in both languages, so the checks let them through
+ * (scripts/editor-lib.mjs explains the rule). Run by .github/workflows/deploy.yml on every run on main, before the
+ * checks, and again by its record-editor-sync job, which commits the result.
  *
- *   node scripts/editor-confirm.mjs           confirm, write content-sync.json and faculty/, print what was done
- *   node scripts/editor-confirm.mjs --dry-run print what would be confirmed, write nothing
+ *   node scripts/editor-confirm.mjs                  record pending editor saves in content-sync.json, regenerate
+ *                                                    faculty/ when there were any, print what was done
+ *   node scripts/editor-confirm.mjs --dry-run        print what would be recorded, write nothing
+ *   node scripts/editor-confirm.mjs --record-message print the message of the record commit
  *
- * Does nothing (exit 0) when the last commit is not an editor save.
+ * Does nothing when no editor save is pending (none since the last record commit).
  */
 import { spawnSync } from 'node:child_process';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { pagePairs, dataFields, readRegistry, writeRegistry, SYNC_FILE } from './staleness-lib.mjs';
-import { planConfirmation, applyPlan, editorRange } from './editor-lib.mjs';
+import { pendingEditorCommits, planRecord, applyPlan, RECORD_MESSAGE } from './editor-lib.mjs';
 
-/** How many commits to look back at most; deploy.yml fetches this many. */
-export const LOOK_BACK = 30;
+/** How many commits to look back at most; deploy.yml fetches this many. More pending saves than this are missed. */
+export const LOOK_BACK = 50;
 
 /** @param {string} root @param {string[]} args */
 function git(root, args) {
-  const r = spawnSync('git', args, { cwd: root, encoding: 'utf8' });
+  const r = spawnSync('git', args, { cwd: root, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
   return { ok: r.status === 0, out: r.stdout ?? '' };
 }
 
-/** The editor commits from HEAD down (see editorRange) and the files they changed. */
-export function editorChanges(root) {
-  const log = git(root, ['log', `-n${LOOK_BACK}`, '--format=%H%x1f%B%x1e']);
+/** The last commits from HEAD along the first parent, newest first. */
+export function recentCommits(root, n = LOOK_BACK) {
+  const log = git(root, ['log', '--first-parent', `-n${n}`, '--format=%H%x1f%B%x1e']);
   if (!log.ok) throw new Error('git log failed: run this in a git clone');
-  const commits = log.out.split('\x1e').map((s) => s.trim()).filter(Boolean).map((entry) => {
+  return log.out.split('\x1e').map((s) => s.trim()).filter(Boolean).map((entry) => {
     const [sha, message = ''] = entry.split('\x1f');
-    return { sha, message, hasParent: git(root, ['rev-parse', '--verify', '--quiet', `${sha}^`]).ok };
+    return { sha, message, hasParent: git(root, ['rev-parse', '--verify', '--quiet', `${sha}^1`]).ok };
   });
-  const shas = editorRange(commits);
-  const changed = new Set();
-  for (const sha of shas) {
-    const diff = git(root, ['diff', '--name-only', '--no-renames', `${sha}^`, sha]);
-    if (!diff.ok) throw new Error(`git diff failed for ${sha}`);
-    for (const f of diff.out.split('\n').map((s) => s.trim()).filter(Boolean)) changed.add(f);
-  }
-  return { shas, changed: [...changed].sort() };
 }
 
-/** Confirm what the changed files hold; returns the plan. Writes content-sync.json unless dryRun. */
-export function confirmChanged(root, changed, { dryRun = false } = {}) {
-  const registry = readRegistry(root);
-  if (!registry) throw new Error(`${SYNC_FILE} is missing`);
-  const pages = pagePairs(root);
-  const fields = dataFields(root);
-  const plan = planConfirmation({ changed, pages, fields, registry });
-  if (!dryRun) writeRegistry(root, applyPlan(registry, plan, pages, fields));
-  return plan;
+/** Files a commit changed, compared with its first parent. */
+export function changedFiles(root, sha) {
+  const diff = git(root, ['diff', '--name-only', '--no-renames', `${sha}^1`, sha]);
+  if (!diff.ok) throw new Error(`git diff failed for ${sha}`);
+  return diff.out.split('\n').map((s) => s.trim()).filter(Boolean);
+}
+
+/** A file's content at a revision, or null when it is not there. */
+export const readAt = (root) => (rev, path) => {
+  const r = git(root, ['show', `${rev}:${path}`]);
+  return r.ok ? r.out : null;
+};
+
+/** The registry as committed at a revision (empty when the file is not there). */
+export const registryAt = (root) => (rev) => {
+  const text = readAt(root)(rev, SYNC_FILE);
+  if (text === null) return { pages: {}, fields: {} };
+  const r = JSON.parse(text);
+  return { pages: r.pages ?? {}, fields: r.fields ?? {} };
+};
+
+/**
+ * Record the pending editor saves of the clone at root. Writes content-sync.json unless dryRun.
+ * @returns {{ shas: string[], plan: ReturnType<typeof planRecord> }}
+ */
+export function recordPending(root, { dryRun = false } = {}) {
+  const shas = pendingEditorCommits(recentCommits(root));
+  const registryNow = readRegistry(root);
+  if (!registryNow) throw new Error(`${SYNC_FILE} is missing`);
+  const commits = [...shas].reverse().map((sha) => ({ sha, changed: changedFiles(root, sha) }));
+  const plan = planRecord({
+    commits,
+    readAt: readAt(root),
+    registryAt: registryAt(root),
+    registryNow,
+    existsNow: { pages: pagePairs(root), fields: dataFields(root) },
+  });
+  if (!dryRun && shas.length) writeRegistry(root, applyPlan(registryNow, plan));
+  return { shas, plan };
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
+  if (process.argv.includes('--record-message')) { process.stdout.write(`${RECORD_MESSAGE}\n`); process.exit(0); }
   const root = fileURLToPath(new URL('..', import.meta.url));
   const dryRun = process.argv.includes('--dry-run');
-  const { shas, changed } = editorChanges(root);
+  const { shas, plan } = recordPending(root, { dryRun });
   if (!shas.length) {
-    process.stdout.write('The last commit is not an editor save: nothing confirmed (developer commits are confirmed by hand).\n');
+    process.stdout.write('No editor save is waiting to be recorded.\n');
     process.exit(0);
   }
-  process.stdout.write(`Editor saves: ${shas.map((s) => s.slice(0, 7)).join(', ')}\nFiles changed: ${changed.join(', ') || 'none'}\n`);
-  const plan = confirmChanged(root, changed, { dryRun });
-  for (const k of [...plan.pages, ...plan.fields]) process.stdout.write(`${dryRun ? 'would confirm' : 'confirmed'} ${k}\n`);
+  process.stdout.write(`Editor saves to record: ${shas.map((s) => s.slice(0, 7)).join(', ')}\n`);
+  const verb = dryRun ? 'would record' : 'recorded';
+  for (const k of [...Object.keys(plan.pages), ...Object.keys(plan.fields)]) process.stdout.write(`${verb} ${k}\n`);
   for (const k of plan.dropped) process.stdout.write(`${dryRun ? 'would forget' : 'forgot'} ${k} (no longer exists)\n`);
   if (!dryRun) {
     const r = spawnSync(process.execPath, [join(root, 'scripts', 'build-faculty-texts.mjs')], { cwd: root, encoding: 'utf8' });
