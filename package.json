@@ -5,12 +5,14 @@
   "type": "module",
   "description": "Prototype of a single bilingual international website for Nagoya University Graduate School of Medicine. Not an official site.",
   "scripts": {
+    "predev": "node scripts/copy-editor.mjs",
     "dev": "astro dev",
+    "prebuild": "node scripts/copy-editor.mjs",
     "build": "astro build && pagefind --site dist",
     "preview": "astro preview",
     "check": "node scripts/check-content.mjs && node scripts/check-staleness.mjs",
     "typecheck": "astro check",
-    "test": "node scripts/test-checks.mjs && node scripts/test-staleness.mjs && node scripts/test-content-plugin.mjs && node scripts/test-tools.mjs",
+    "test": "node scripts/test-checks.mjs && node scripts/test-staleness.mjs && node scripts/test-content-plugin.mjs && node scripts/test-tools.mjs && node scripts/test-editor.mjs",
     "weekly-check": "node --max-http-header-size=65536 scripts/weekly-check.mjs",
     "sync": "node scripts/sync.mjs",
     "faculty-texts": "node scripts/build-faculty-texts.mjs",
@@ -29,10 +31,12 @@
   },
   "devDependencies": {
     "@astrojs/check": "0.9.12",
+    "@sveltia/cms": "5.0.2",
     "css-tree": "3.2.1",
     "pagefind": "1.6.0",
     "parse5": "8.1.1",
     "satteri": "0.11.7",
-    "typescript": "6.0.3"
+    "typescript": "6.0.3",
+    "yaml": "2.9.1"
   }
 }

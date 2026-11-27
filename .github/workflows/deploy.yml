@@ -15,20 +15,39 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: pages-${{ github.ref }}
-  cancel-in-progress: true
+# Concurrency is set per job: a newer run cancels an older build, and a newer deploy an older one. A record-editor-sync
+# job that is running is never cancelled; one still waiting is replaced by a newer one (GitHub keeps one pending job
+# per group), which loses nothing because each records from the newest main.
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    concurrency:
+      group: pages-build-${{ github.ref }}
+      cancel-in-progress: true
+    outputs:
+      # How many editor saves were waiting to be recorded; record-editor-sync runs only when there were some.
+      editor_pending: ${{ steps.editor.outputs.pending }}
     steps:
       - uses: actions/checkout@v7
+        with:
+          # The editor step looks at up to 50 commits since the last record commit, and each needs its parent
+          # (scripts/editor-confirm.mjs, LOOK_BACK + 1).
+          fetch-depth: 51
       - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
       - run: npm ci
+      # A save from the editing page (public/admin/, message starting with "[editor]") changes one language at a time,
+      # and office staff cannot run "npm run sync -- confirm". On every run on main, record as in step what the editor
+      # saves since the last record commit changed, whatever the last commit is, so a save is not lost when a
+      # developer push, the Monday run or a later save cancels its run. The record-editor-sync job commits the record.
+      # Other changes keep the strict rule, with the limits given in scripts/editor-lib.mjs.
+      - name: Record editor saves as in step in both languages
+        id: editor
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: node scripts/editor-confirm.mjs
       - name: Check content sources
         run: node scripts/check-content.mjs
       - name: Test the content checks
@@ -41,6 +60,8 @@ jobs:
         run: node scripts/test-content-plugin.mjs
       - name: Test the weekly check and the structured-data check
         run: node scripts/test-tools.mjs
+      - name: Test the editor's confirmation and configuration
+        run: node scripts/test-editor.mjs
       - name: Type check
         run: npx astro check
       - run: npm run build
@@ -51,10 +72,53 @@ jobs:
         with:
           path: dist
 
+  # Commits the record of pending editor saves to main, so the next run starts from it. It records from the newest main,
+  # so saves that arrived after this run started are included. A separate job, so the build job (which also runs pull
+  # request code) never holds a token that can write to the repository. Its own group without cancel-in-progress: two
+  # record jobs never push at once and a running one is not stopped half-way (a waiting one may be replaced by a newer
+  # one, which records the same saves and any newer ones). It starts only when the build found saves to record.
+  record-editor-sync:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && needs.build.outputs.editor_pending != '' && needs.build.outputs.editor_pending != '0'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: editor-record-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 51
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - name: Record pending editor saves and commit the record to main
+        run: |
+          set -eu
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # When main moves on during the job, start again from the new main (the record is recomputed, not rebased).
+          for attempt in 1 2 3; do
+            git fetch --depth=51 origin main
+            git reset --hard origin/main
+            node scripts/editor-confirm.mjs
+            git add content-sync.json faculty
+            if git diff --cached --quiet; then echo "Nothing to record."; exit 0; fi
+            git commit -m "$(node scripts/editor-confirm.mjs --record-message)"
+            if git push origin HEAD:main; then exit 0; fi
+            echo "main moved on; recording again from the new main"
+          done
+          exit 1
+
   deploy:
     if: github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
+    concurrency:
+      group: pages-deploy-${{ github.ref }}
+      cancel-in-progress: true
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

@@ -44,6 +44,10 @@ jobs:
       - name: Type check
         run: npx astro check
       - run: npm run build
+      # The editing page stays on GitHub Pages only: its sign-in token would otherwise live on the faculty server's
+      # origin, shared with every other page of www.med.nagoya-u.ac.jp (docs/editor-setup.md).
+      - name: Leave the editing page out of the server build
+        run: rm -rf dist/admin
       - name: Check the built site at its new address
         run: node scripts/check-content.mjs --dist
       - uses: actions/upload-artifact@v4

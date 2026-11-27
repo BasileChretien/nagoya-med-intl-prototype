@@ -15,11 +15,17 @@ import { toDocument, elements, attr, attrs } from './html-lib.mjs';
 import { inArea, usableAreas } from './external-lib.mjs';
 import { PROTOTYPE } from '../src/lib/launch.mjs';
 import { urlLang } from '../src/lib/url-lang.mjs';
+import { parse as parseYaml } from 'yaml';
+import { EDITOR_CONFIG, editorConfigProblems } from './editor-config-lib.mjs';
+
+/** The editing page in the built site (public/admin/index.html). */
+const EDITOR_PAGE = 'admin/index.html';
 
 /** Names of the checks below; feature map entries refer to them in `tests`. */
 const CHECKS = ['pairing', 'programme-references', 'deadlines', 'data-files', 'images', 'internal-links', 'noindex', 'feature-map',
   'photo-descriptions', 'report-translations', 'versions-in-step', 'facts-match', 'translations-current', 'faculty-texts', 'faculty-live', 'acronyms', 'content-plugin',
-  'structured-data', 'sitemap', 'weekly-check', 'ja-summaries', 'dated-facts', 'search-index', 'feeds', 'no-outside-resources'];
+  'structured-data', 'sitemap', 'weekly-check', 'ja-summaries', 'dated-facts', 'search-index', 'feeds', 'no-outside-resources',
+  'editor-config'];
 
 // fileURLToPath decodes %20 and non-ASCII characters, so the check runs from any folder.
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
@@ -356,6 +362,13 @@ if (existsSync(featuresFile)) {
   }
 } else fail('docs/features.yaml is missing');
 
+// 5b. The editing page (public/admin/, docs/editor-setup.md): its configuration parses and still matches the files.
+if (existsSync(join(ROOT, EDITOR_CONFIG))) {
+  let config = null;
+  try { config = parseYaml(readFileSync(join(ROOT, EDITOR_CONFIG), 'utf8')); } catch (e) { fail(`${EDITOR_CONFIG} does not parse: ${String(e.message).split('\n')[0]}`); }
+  if (config) for (const problem of editorConfigProblems(ROOT, config)) fail(problem);
+} else if (existsSync(join(PUBLIC, 'admin', 'index.html'))) fail(`${EDITOR_CONFIG} is missing: the editing page cannot start without it`);
+
 // 6. After a build: every internal link points to a file that exists, every page is noindex while the site is a
 //    prototype (src/lib/launch.mjs), structured data is well formed, and the sitemap lists the pages.
 if (process.argv.includes('--dist')) {
@@ -409,7 +422,11 @@ if (process.argv.includes('--dist')) {
         if (!url) continue;
         // A relative link resolves against the page's address, not its source file: content links are rewritten to
         // full addresses at build time (src/lib/rehype-abbr.mjs), so one left relative would be read wrongly.
-        if (!/^([a-z][a-z0-9+.-]*:|\/)/i.test(url)) { fail(`${page} has a relative link "${url}": write it as a site link or a full address`); continue; }
+        // The editing page is a plain file served only at <site>/admin/: its script sits next to it (cms/).
+        if (!/^([a-z][a-z0-9+.-]*:|\/)/i.test(url)) {
+          if (page === EDITOR_PAGE && !url.includes('..')) { if (!existsSync(join(DIST, 'admin', url))) fail(`${page} loads missing ${url}: run npm run build (scripts/copy-editor.mjs)`); continue; }
+          fail(`${page} has a relative link "${url}": write it as a site link or a full address`); continue;
+        }
         // "//host/..." is another site, even when the site lives at the root of its host (BASE "").
         if (url.startsWith('//') || !url.startsWith(`${BASE}/`)) continue;
         checked += 1;
@@ -431,6 +448,7 @@ if (process.argv.includes('--dist')) {
     const sm = readFileSync(sitemapFile, 'utf8');
     for (const lang of ['en', 'ja']) if (!sm.includes(`${BASE}/${lang}/</loc>`)) fail(`the sitemap does not list the ${lang} home page`);
     if (/\/status\/<\/loc>/.test(sm)) fail('the sitemap lists the office checklist (status) page');
+    if (/\/admin\/<\/loc>/.test(sm)) fail('the sitemap lists the editing page (admin)');
   }
   // The search index covers both languages; the news feed and the calendar exist in both.
   const entry = join(DIST, 'pagefind', 'pagefind-entry.json');

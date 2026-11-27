@@ -200,6 +200,48 @@ The XQZW office also helps.
     edit: ['src/data/protected-areas.json', () => '[]'], expect: 'fail',
     message: /en\/about\/support\.md links to a page in Japanese with no English summary: add https:\/\/www\.med\.nagoya-u\.ac\.jp\/intlexch\/japanese\/alumni\//,
   },
+  // The editing page's configuration (public/admin/config.yml) follows the files it edits (editor-config).
+  {
+    name: 'an editor collection naming a data file that does not exist is reported',
+    edit: ['public/admin/config.yml', (old) => old.replace('file: src/data/news.json', 'file: src/data/zz-missing.json')], expect: 'fail',
+    message: /public\/admin\/config\.yml news: src\/data\/zz-missing\.json does not exist/,
+  },
+  {
+    name: 'an editor collection naming a page folder that does not exist is reported, for each language',
+    edit: ['public/admin/config.yml', (old) => old.replace('folder: src/content/pages/{{locale}}/about', 'folder: src/content/pages/{{locale}}/zz-missing')], expect: 'fail',
+    message: /folder src\/content\/pages\/ja\/zz-missing does not exist/,
+    also: (r) => (/folder src\/content\/pages\/en\/zz-missing does not exist/.test(r.stderr) ? null : 'the English folder was not reported'),
+  },
+  {
+    name: 'an editor field renamed away from the data is reported',
+    edit: ['public/admin/config.yml', (old) => old.replace('- name: howToApply', '- name: how_to_apply')], expect: 'fail',
+    message: /config\.yml programmes: field "how_to_apply" is in no entry of the data/,
+  },
+  {
+    name: 'a nested editor field that is not in the schema is reported',
+    edit: ['public/admin/config.yml', (old) => old.replace('- name: status', '- name: state')], expect: 'fail',
+    message: /config\.yml programmes: field "deadline\.state" is not in the schema of src\/content\.config\.ts/,
+  },
+  {
+    name: 'a page field that is not in the pages schema is reported',
+    edit: ['public/admin/config.yml', (old) => old.replace(/- name: summary(\r?\n\s+label: 一覧に出る要約)/, '- name: abstract$1')], expect: 'fail',
+    message: /config\.yml pages-study-in-nagoya: field "abstract" is not in the schema of src\/content\.config\.ts/,
+  },
+  {
+    name: 'a page field without an i18n setting is reported (it would drop the English value)',
+    edit: ['public/admin/config.yml', (old) => old.replace(/(- name: title\r?\n\s+label: ページの題名 \/ Title\r?\n\s+widget: string)\r?\n\s+i18n: true/, '$1')], expect: 'fail',
+    message: /config\.yml pages-study-in-nagoya: field "title" has no i18n setting/,
+  },
+  {
+    name: 'an editor commit message without the [editor] marker is reported',
+    edit: ['public/admin/config.yml', (old) => old.replace("update: '[editor] ", "update: '")], expect: 'fail',
+    message: /backend\.commit_messages\.update must start with \[editor\]/,
+  },
+  {
+    name: 'an editor configuration that does not parse is reported without a crash',
+    edit: ['public/admin/config.yml', (old) => `${old}\n  bad: [unclosed\n`], expect: 'fail',
+    message: /public\/admin\/config\.yml does not parse/, also: (r) => (crashed(r) ? 'the check crashed' : null),
+  },
 ];
 
 let failed = 0;

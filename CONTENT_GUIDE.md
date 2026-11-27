@@ -19,7 +19,7 @@ The workflow will not run unless the box is ticked: confirming is a statement th
 
 **On your computer.** Install Node.js 22.23.4 or later (the site's build on GitHub uses Node.js 22), run `npm ci` once in the project folder, then `npm run dev` to see the site at `http://localhost:4321/nagoya-med-intl-prototype/` while you edit. Run `npm run check` before you commit.
 
-**With a content editor, later.** [Pages CMS](https://pagescms.org/) and [Decap CMS](https://decapcms.org/) are free editors that work on top of a GitHub repository. They show forms instead of files, and every save becomes a commit, so the checks and the pull request review stay as they are. Neither is installed. Setting one up means writing a configuration file that describes the pages and the data files; the `confirm` step then runs from the Actions tab as above. Decide this once the office knows who will edit the site and how often.
+**In the editing page.** The site has an editing page on GitHub Pages, at `https://basilechretien.github.io/nagoya-med-intl-prototype/admin/` ([Sveltia CMS](https://sveltiacms.app/), free; never on the faculty server) for news, programme deadlines and facts, contacts and page texts. It shows forms in Japanese, saves straight to `main`, and the deploy checks stop a broken save from being published. A save from it is recorded as in step in both languages automatically (`scripts/editor-confirm.mjs`), so check both languages before saving. The office's guide is [docs/editing-guide-ja.md](docs/editing-guide-ja.md); setting up the sign-in once is in [docs/editor-setup.md](docs/editor-setup.md). When a data file's fields change, change `public/admin/config.yml` too.
 
 ### Your first edit
 

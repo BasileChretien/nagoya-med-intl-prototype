@@ -1,0 +1,438 @@
+# Sveltia CMS: the editing page for the office, served only on GitHub Pages at <site>/admin/ (never on the faculty
+# server: docs/editor-setup.md).
+# Setup and sign-in: docs/editor-setup.md. Guide for the office (Japanese): docs/editing-guide-ja.md.
+# Documentation: https://sveltiacms.app/en/docs
+#
+# Only what the office changes often is here; everything else is edited in the files (CONTENT_GUIDE.md).
+# When a data file's fields change (src/content.config.ts), change this file too: the content check
+# "editor-config" fails when a folder or file named here is missing, when a field (nested ones included) is not in
+# the collection's schema, or when a top-level field of a data file is in none of its entries.
+# Fields not declared here (ids, sources, toConfirm, partners...) are written back unchanged on save.
+
+backend:
+  name: github
+  repo: BasileChretien/nagoya-med-intl-prototype
+  branch: main
+  # Sign-in through Sveltia CMS Additions (docs/editor-setup.md, step 3). Once the service exists, remove the
+  # "#" in front of the next two lines and put the service's address after base_url:
+  # auth_type: additions
+  # base_url: https://<your-worker>.workers.dev
+  #
+  # Every save starts with "[editor]": the deploy workflow (.github/workflows/deploy.yml) then records the pages and
+  # fields each save changed as in step in both languages (scripts/editor-confirm.mjs). Keep the marker first.
+  commit_messages:
+    create: '[editor] 追加：{{collection}}「{{slug}}」（{{author-name}}）'
+    update: '[editor] 更新：{{collection}}「{{slug}}」（{{author-name}}）'
+    delete: '[editor] 削除：{{collection}}「{{slug}}」（{{author-name}}）'
+    uploadMedia: '[editor] ファイル追加：{{path}}（{{author-name}}）'
+    deleteMedia: '[editor] ファイル削除：{{path}}（{{author-name}}）'
+
+# Saving commits straight to main. The checks in deploy.yml stop anything broken from being published.
+publish_mode: simple
+
+# The published site, for the "view site" link only. At launch it may point to the faculty server's address; the
+# editing page itself stays on GitHub Pages.
+site_url: https://basilechretien.github.io/nagoya-med-intl-prototype/
+
+# Required by the editor. Uploading photos is not part of the editing page: every photo needs a description in
+# both languages in src/data/images.json, so a file uploaded here fails the content check until a developer adds it.
+media_folder: public/img/editor
+
+output:
+  # A field left empty is left out of the file, as the site's schemas expect (an empty "date" would fail them).
+  omit_empty_optional_fields: true
+  json:
+    indent_style: space
+    indent_size: 2
+
+i18n:
+  structure: multiple_folders
+  locales: [ja, en]
+  default_locale: ja
+
+collections:
+  # ------------------------------------------------------------------ news
+  - name: news
+    label: お知らせ・イベント / News
+    label_singular: お知らせ
+    description: お知らせ、イベント、募集の一覧です。新しい項目を追加できます。日本語と英語の両方を書いてください。
+    file: src/data/news.json
+    summary: '{{date}}　{{title.ja}}'
+    sortable_fields: [date]
+    # The news "body" is a pair of texts, not the body of a Markdown file: keep it with the other fields.
+    body_field: { inline: true }
+    fields:
+      - name: id
+        label: 番号 / ID
+        widget: uuid
+        prefix: news-
+        use_b32_encoding: true
+        hint: 自動で付きます。変更できません。
+      - name: date
+        label: 日付 / Date
+        widget: datetime
+        type: date
+        hint: お知らせの日、またはイベントの日です。
+      - name: category
+        label: 種類 / Category
+        widget: select
+        options:
+          - { label: お知らせ / News, value: news }
+          - { label: イベント / Event, value: event }
+          - { label: 募集 / Call, value: call }
+      - name: title
+        label: 見出し / Title
+        widget: object
+        fields:
+          - { name: en, label: 英語 / English, widget: string }
+          - { name: ja, label: 日本語 / Japanese, widget: string }
+      - name: summary
+        label: 要約 / Summary
+        widget: object
+        hint: 1文から3文で書きます。
+        fields:
+          - { name: en, label: 英語 / English, widget: text }
+          - { name: ja, label: 日本語 / Japanese, widget: text }
+      - name: body
+        label: 本文 / Full text
+        widget: object
+        required: false
+        hint: お知らせのページに出る全文です。段落の間は1行あけます。なくてもかまいません。
+        fields:
+          - { name: en, label: 英語 / English, widget: text }
+          - { name: ja, label: 日本語 / Japanese, widget: text }
+      - name: url
+        label: 詳しいページのアドレス / Link
+        widget: string
+        required: false
+        pattern: ['^https://', 'https:// で始まるアドレスを入れてください']
+      - name: until
+        label: 最終日 / Until
+        widget: datetime
+        type: date
+        required: false
+        hint: 何日も続くイベントの最終日、または募集の締切日です。
+
+  # ------------------------------------------------------------------ programmes
+  - name: programmes
+    label: プログラム / Programmes
+    label_singular: プログラム
+    description: プログラムの締切、定員、費用などを直します。日本語と英語の両方を直してください。
+    folder: src/data/programmes
+    format: json
+    create: false
+    delete: false
+    duplicate: false
+    identifier_field: name.ja
+    summary: '{{name.ja}}'
+    slug:
+      template: '{{slug}}'
+      editable: false
+    fields:
+      - name: name
+        label: プログラム名 / Name
+        widget: object
+        readonly: true
+        fields:
+          - { name: en, label: 英語 / English, widget: string }
+          - { name: ja, label: 日本語 / Japanese, widget: string }
+      - name: audience
+        label: 対象 / Who can apply
+        widget: object
+        fields:
+          - { name: en, label: 英語 / English, widget: text }
+          - { name: ja, label: 日本語 / Japanese, widget: text }
+      - name: duration
+        label: 期間 / Duration
+        widget: object
+        required: false
+        fields:
+          - { name: en, label: 英語 / English, widget: text }
+          - { name: ja, label: 日本語 / Japanese, widget: text }
+      - name: capacity
+        label: 定員 / Places
+        widget: object
+        required: false
+        fields:
+          - { name: en, label: 英語 / English, widget: text }
+          - { name: ja, label: 日本語 / Japanese, widget: text }
+      - name: cost
+        label: 費用 / Cost
+        widget: object
+        required: false
+        fields:
+          - { name: en, label: 英語 / English, widget: text }
+          - { name: ja, label: 日本語 / Japanese, widget: text }
+      - name: funding
+        label: 助成 / Funding
+        widget: object
+        required: false
+        fields:
+          - { name: en, label: 英語 / English, widget: text }
+          - { name: ja, label: 日本語 / Japanese, widget: text }
+      - name: language
+        label: 語学の条件 / Language test
+        widget: object
+        required: false
+        fields:
+          - { name: en, label: 英語 / English, widget: text }
+          - { name: ja, label: 日本語 / Japanese, widget: text }
+      - name: eligibility
+        label: 応募の条件 / Eligibility
+        widget: object
+        required: false
+        fields:
+          - { name: en, label: 英語 / English, widget: text }
+          - { name: ja, label: 日本語 / Japanese, widget: text }
+      - name: howToApply
+        label: 応募の方法 / How to apply
+        widget: object
+        required: false
+        fields:
+          - { name: en, label: 英語 / English, widget: text }
+          - { name: ja, label: 日本語 / Japanese, widget: text }
+      - name: deadline
+        label: 締切 / Deadline
+        widget: object
+        fields:
+          - name: status
+            label: 状態 / Status
+            widget: select
+            options:
+              - { label: 受付中 / Open, value: open }
+              - { label: 随時 / Rolling, value: rolling }
+              - { label: 未発表 / Not yet announced, value: tba }
+              - { label: 締切 / Closed, value: closed }
+          - name: date
+            label: 締切日 / Date
+            widget: datetime
+            type: date
+            required: false
+            hint: 日付が決まっているときだけ入れます。
+          - name: text
+            label: 締切の説明 / Text
+            widget: object
+            fields:
+              - { name: en, label: 英語 / English, widget: text }
+              - { name: ja, label: 日本語 / Japanese, widget: text }
+      - name: checked
+        label: 確認した日 / Facts checked on
+        widget: datetime
+        type: date
+        hint: 公式のページと見比べた日です。今日より後の日は入れられません。
+
+  # ------------------------------------------------------------------ contacts
+  - name: contacts
+    label: 連絡先 / Contacts
+    label_singular: 連絡先
+    description: 窓口のメール、電話、場所を直します。
+    file: src/data/contacts.json
+    create: false
+    delete: false
+    duplicate: false
+    summary: '{{label.ja}}'
+    fields:
+      - name: label
+        label: 窓口の名前 / Name
+        widget: object
+        readonly: true
+        fields:
+          - { name: en, label: 英語 / English, widget: string }
+          - { name: ja, label: 日本語 / Japanese, widget: string }
+      - name: email
+        label: メール / Email
+        widget: string
+        hint: 窓口のアドレスだけにします。個人のアドレスは載せません。
+        pattern: ['^[^@\s]+@[^@\s]+\.[^@\s]+$', 'メールアドレスの形で入れてください']
+      - name: phone
+        label: 電話 / Phone
+        widget: string
+        required: false
+        hint: 例：+81-52-744-2507
+      - name: address
+        label: 住所 / Address
+        widget: object
+        required: false
+        fields:
+          - { name: en, label: 英語 / English, widget: string }
+          - { name: ja, label: 日本語 / Japanese, widget: string }
+      - name: location
+        label: 建物と部屋 / Building and room
+        widget: object
+        required: false
+        fields:
+          - { name: en, label: 英語 / English, widget: string }
+          - { name: ja, label: 日本語 / Japanese, widget: string }
+
+  # ------------------------------------------------------------------ pages, one collection per section
+  # The body is edited as Markdown text only (modes: [raw]): pages hold tables and the site's own syntax, which a
+  # rich-text editor could rewrite. Every field has i18n: true, so each language keeps its own value.
+  - name: pages-study-in-nagoya
+    label: 'ページ：名古屋で学ぶ / Pages: Study in Nagoya'
+    label_singular: ページ
+    folder: src/content/pages/{{locale}}/study-in-nagoya
+    extension: md
+    format: frontmatter
+    i18n: true
+    create: false
+    delete: false
+    duplicate: false
+    slug: { template: '{{slug}}', editable: false }
+    fields:
+      - name: title
+        label: ページの題名 / Title
+        widget: string
+        i18n: true
+      - name: description
+        label: ページの説明 / Description
+        widget: text
+        i18n: true
+        maxlength: 220
+        hint: 検索結果などに出る短い説明です。160字以内にします。
+      - name: summary
+        label: 一覧に出る要約 / Summary
+        widget: text
+        i18n: true
+        required: false
+      - name: body
+        label: 本文 / Body
+        widget: markdown
+        modes: [raw]
+        i18n: true
+        hint: '表・太字・リンク・見出し・箇条書きの記号（`|` `**` `[ ]( )` `#` `-`）は消さないでください。'
+
+  - name: pages-study-abroad
+    label: 'ページ：海外で学ぶ / Pages: Study abroad'
+    label_singular: ページ
+    folder: src/content/pages/{{locale}}/study-abroad
+    extension: md
+    format: frontmatter
+    i18n: true
+    create: false
+    delete: false
+    duplicate: false
+    slug: { template: '{{slug}}', editable: false }
+    fields:
+      - name: title
+        label: ページの題名 / Title
+        widget: string
+        i18n: true
+      - name: description
+        label: ページの説明 / Description
+        widget: text
+        i18n: true
+        maxlength: 220
+        hint: 検索結果などに出る短い説明です。160字以内にします。
+      - name: summary
+        label: 一覧に出る要約 / Summary
+        widget: text
+        i18n: true
+        required: false
+      - name: body
+        label: 本文 / Body
+        widget: markdown
+        modes: [raw]
+        i18n: true
+        hint: '表・太字・リンク・見出し・箇条書きの記号（`|` `**` `[ ]( )` `#` `-`）は消さないでください。'
+
+  - name: pages-degrees
+    label: 'ページ：国際共同学位 / Pages: Joint & double degrees'
+    label_singular: ページ
+    folder: src/content/pages/{{locale}}/degrees
+    extension: md
+    format: frontmatter
+    i18n: true
+    create: false
+    delete: false
+    duplicate: false
+    slug: { template: '{{slug}}', editable: false }
+    fields:
+      - name: title
+        label: ページの題名 / Title
+        widget: string
+        i18n: true
+      - name: description
+        label: ページの説明 / Description
+        widget: text
+        i18n: true
+        maxlength: 220
+        hint: 検索結果などに出る短い説明です。160字以内にします。
+      - name: summary
+        label: 一覧に出る要約 / Summary
+        widget: text
+        i18n: true
+        required: false
+      - name: body
+        label: 本文 / Body
+        widget: markdown
+        modes: [raw]
+        i18n: true
+        hint: '表・太字・リンク・見出し・箇条書きの記号（`|` `**` `[ ]( )` `#` `-`）は消さないでください。'
+
+  - name: pages-partnerships
+    label: 'ページ：国際連携 / Pages: Partnerships'
+    label_singular: ページ
+    folder: src/content/pages/{{locale}}/partnerships
+    extension: md
+    format: frontmatter
+    i18n: true
+    create: false
+    delete: false
+    duplicate: false
+    slug: { template: '{{slug}}', editable: false }
+    fields:
+      - name: title
+        label: ページの題名 / Title
+        widget: string
+        i18n: true
+      - name: description
+        label: ページの説明 / Description
+        widget: text
+        i18n: true
+        maxlength: 220
+        hint: 検索結果などに出る短い説明です。160字以内にします。
+      - name: summary
+        label: 一覧に出る要約 / Summary
+        widget: text
+        i18n: true
+        required: false
+      - name: body
+        label: 本文 / Body
+        widget: markdown
+        modes: [raw]
+        i18n: true
+        hint: '表・太字・リンク・見出し・箇条書きの記号（`|` `**` `[ ]( )` `#` `-`）は消さないでください。'
+
+  - name: pages-about
+    label: 'ページ：私たちについて / Pages: About us'
+    label_singular: ページ
+    folder: src/content/pages/{{locale}}/about
+    extension: md
+    format: frontmatter
+    i18n: true
+    create: false
+    delete: false
+    duplicate: false
+    slug: { template: '{{slug}}', editable: false }
+    fields:
+      - name: title
+        label: ページの題名 / Title
+        widget: string
+        i18n: true
+      - name: description
+        label: ページの説明 / Description
+        widget: text
+        i18n: true
+        maxlength: 220
+        hint: 検索結果などに出る短い説明です。160字以内にします。
+      - name: summary
+        label: 一覧に出る要約 / Summary
+        widget: text
+        i18n: true
+        required: false
+      - name: body
+        label: 本文 / Body
+        widget: markdown
+        modes: [raw]
+        i18n: true
+        hint: '表・太字・リンク・見出し・箇条書きの記号（`|` `**` `[ ]( )` `#` `-`）は消さないでください。'
