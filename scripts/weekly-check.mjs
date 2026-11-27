@@ -2,7 +2,10 @@
 /**
  * The weekly check (.github/workflows/weekly-check.yml), after `astro build`:
  *   1. the content checks (scripts/check-content.mjs): passed deadlines, pairs, data;
- *   2. every outside link in the built site, with the audit's rules (scripts/external-lib.mjs).
+ *   2. every outside link in the built site, with the audit's rules (scripts/external-lib.mjs);
+ *   3. every password-protected area the site links to but does not hold (src/data/protected-areas.json, such as the
+ *      Frontier-kai members' area): each must still ask for a password. Links into those areas are checked here, not
+ *      as outside links, where the password prompt (401) would count as broken.
  * Writes weekly-check.md and weekly-check.json in the folder given (default: the current one), adds the report to
  * the run summary, and sets `problems=true|false` for the step that opens or closes the issue.
  *   node --max-http-header-size=65536 scripts/weekly-check.mjs [out-dir]   (npm run weekly-check)
@@ -12,7 +15,7 @@ import { readFileSync, readdirSync, statSync, writeFileSync, appendFileSync, exi
 import { join, relative, sep } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { externalLinks, checkAll, weeklyReport } from './external-lib.mjs';
+import { externalLinks, checkAll, weeklyReport, inArea, checkProtected } from './external-lib.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const DIST = join(ROOT, 'dist');
@@ -36,11 +39,14 @@ if (!canonical) {
 }
 const self = canonical.replace(/en\/$/, '');
 
+const areas = JSON.parse(readFileSync(join(ROOT, 'src', 'data', 'protected-areas.json'), 'utf8'));
+
 /** @type {Map<string, Set<string>>} address -> pages that use it */
 const uses = new Map();
 for (const f of walk(DIST).filter((p) => p.endsWith('.html'))) {
   const page = `/${relative(DIST, f).split(sep).join('/').replace(/index\.html$/, '')}`;
   for (const url of externalLinks(readFileSync(f, 'utf8'), self)) {
+    if (inArea(url, areas)) continue;
     if (!uses.has(url)) uses.set(url, new Set());
     uses.get(url).add(page);
   }
@@ -48,14 +54,16 @@ for (const f of walk(DIST).filter((p) => p.endsWith('.html'))) {
 process.stdout.write(`Checking ${uses.size} outside addresses...\n`);
 const checked = await checkAll([...uses.keys()]);
 const results = checked.map((r) => ({ ...r, places: [...uses.get(r.url)].sort() }));
+process.stdout.write(`Checking ${areas.length} password-protected areas...\n`);
+const areaResults = await checkProtected(areas);
 
 const run = spawnSync(process.execPath, [join(ROOT, 'scripts', 'check-content.mjs')], { cwd: ROOT, encoding: 'utf8' });
 const content = { code: run.status ?? 1, output: `${run.stdout}\n${run.stderr}` };
 
 const date = new Date().toISOString().slice(0, 10);
-const { markdown, full, problems } = weeklyReport({ checked: date, results, content });
+const { markdown, full, problems } = weeklyReport({ checked: date, results, content, areas: areaResults });
 writeFileSync(join(OUT, 'weekly-check.md'), markdown);
-writeFileSync(join(OUT, 'weekly-check.json'), JSON.stringify({ checked: date, content, results }, null, 1));
+writeFileSync(join(OUT, 'weekly-check.json'), JSON.stringify({ checked: date, content, areas: areaResults, results }, null, 1));
 // The issue body (weekly-check.md) is cut to GitHub's limit when needed; the run summary keeps the whole report.
 if (process.env.GITHUB_STEP_SUMMARY) appendFileSync(process.env.GITHUB_STEP_SUMMARY, full);
 if (process.env.GITHUB_OUTPUT) appendFileSync(process.env.GITHUB_OUTPUT, `problems=${problems}\n`);

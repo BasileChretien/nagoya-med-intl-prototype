@@ -156,7 +156,7 @@ export function servedAt(rel, siteAddress) {
 /**
  * Outside addresses linked from a Markdown page, read by rendering it with satteri, the Markdown processor the site
  * uses, so every form counts: [t](url), titles, <url>, reference definitions, autolinks and raw <a href>.
- * Used by the summaries check (check-content 3e).
+ * Used by the summaries check (check-content 3f).
  * @param {string} body Markdown without its front matter @returns {Promise<string[]>}
  */
 export async function outsideLinks(body) {

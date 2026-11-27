@@ -184,6 +184,22 @@ The XQZW office also helps.
     edit: ['src/data/programmes/jdp-lund.json', (old) => { const d = JSON.parse(old); d.deadline = { ...d.deadline, status: 'open', date: '2025-01-10' }; return JSON.stringify(d, null, 2); }], expect: 'pass',
     also: (r) => (/warning: programmes\/jdp-lund\.json: deadline 2025-01-10 has passed but status is "open": the site shows it as closed/.test(r.stdout) ? null : 'no warning'),
   },
+  // Password-protected areas (the Frontier-kai members' area): well formed, and only they skip the summary rule.
+  {
+    name: 'a protected area without a full https address is reported',
+    edit: ['src/data/protected-areas.json', (old) => old.replace('"https://', '"http://')], expect: 'fail',
+    message: /protected-areas\.json frontier-kai-members: "url" must be a full https address/,
+  },
+  {
+    name: 'a protected area without a Japanese name is reported',
+    edit: ['src/data/protected-areas.json', (old) => { const d = JSON.parse(old); delete d[0].name.ja; return JSON.stringify(d, null, 2); }], expect: 'fail',
+    message: /protected-areas\.json frontier-kai-members: no "name\.ja"/,
+  },
+  {
+    name: 'a link into a Japanese members\' area needs no English summary only while the area is listed as protected',
+    edit: ['src/data/protected-areas.json', () => '[]'], expect: 'fail',
+    message: /en\/about\/support\.md links to a page in Japanese with no English summary: add https:\/\/www\.med\.nagoya-u\.ac\.jp\/intlexch\/japanese\/alumni\//,
+  },
 ];
 
 let failed = 0;

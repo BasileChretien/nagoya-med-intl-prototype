@@ -51,3 +51,11 @@ jobs:
           name: site-for-server
           path: dist
           retention-days: 14
+      - name: How to upload
+        run: |
+          {
+            echo "## Before you upload"
+            echo ""
+            echo "- Upload the contents of the zip into the site's folder on the server, adding and replacing files. Never empty the folder first, and never use a mirror or sync option that deletes files missing from the zip."
+            echo "- Never touch \`/intlexch/japanese/alumni/\`: it is the Frontier-kai members' area, with its own password, and it is not part of this site (docs/launch.md)."
+          } >> "$GITHUB_STEP_SUMMARY"

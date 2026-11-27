@@ -5,7 +5,7 @@
  * No network: requests go to a fake fetch. Run: node scripts/test-tools.mjs
  */
 import { spawnSync } from 'node:child_process';
-import { externalLinks, verdict, checkAll, limiter, weeklyReport, OWN_HOST, ISSUE_LIMIT } from './external-lib.mjs';
+import { externalLinks, verdict, checkAll, limiter, weeklyReport, OWN_HOST, ISSUE_LIMIT, inArea, protectedVerdict, checkProtected } from './external-lib.mjs';
 import { structuredData, missingTypes } from './structured-lib.mjs';
 import { outsideResources, outsideInCss, outsideLinks, isOutside, cssAddressesByPattern, loadedAddresses, isPageRelative, servedAt } from './resources-lib.mjs';
 import { programmeDeadline, newsEntry, icsText, shownStatus } from '../src/lib/calendar.ts';
@@ -104,6 +104,78 @@ const SELF = 'https://example.github.io/site/';
   say(deadline.problems && /- warning: programmes\/x\.json: deadline 2026-01-01 has passed/.test(deadline.markdown), 'a passed deadline found by the content checks opens an issue');
   const many = weeklyReport({ ...base, results: Array.from({ length: 100 }, (_, i) => ({ url: `https://a.org/${i}`, status: 404, places: ['/en/'] })) });
   say(/… and 20 more/.test(many.markdown), 'a long list is cut, and says how many are left out');
+  say(!/Password-protected areas/.test(onlyRefused.markdown), 'with no protected area, the report has no section for them');
+}
+
+// Password-protected areas (src/data/protected-areas.json): the area, its address without the final slash and
+// anything under it belong to it; nothing else does.
+{
+  const areas = [{ url: 'https://www.med.nagoya-u.ac.jp/intlexch/japanese/alumni/' }];
+  const cases = [
+    ['https://www.med.nagoya-u.ac.jp/intlexch/japanese/alumni/', true],
+    ['https://www.med.nagoya-u.ac.jp/intlexch/japanese/alumni', true],
+    ['https://www.med.nagoya-u.ac.jp/intlexch/japanese/alumni/index.html', true],
+    ['https://www.med.nagoya-u.ac.jp/intlexch/japanese/alumnifake/', false],
+    ['https://www.med.nagoya-u.ac.jp/intlexch/japanese/', false],
+  ];
+  const wrong = cases.filter(([url, want]) => inArea(url, areas) !== want).map(([url]) => url);
+  say(wrong.length === 0, 'an address belongs to a protected area only when it is the area or under it', wrong.join('; '));
+}
+
+// A protected area must keep asking for a password; anything else is named for what it means.
+{
+  const cases = [
+    [{ status: 401, auth: 'Basic realm="Input ID and Password."' }, 'protected'],
+    [{ status: 401, auth: null }, 'unverified'],
+    [{ status: 200 }, 'open'],
+    [{ status: 302 }, 'moved'],
+    [{ status: 301 }, 'moved'],
+    [{ status: 404 }, 'missing'],
+    [{ status: 410 }, 'missing'],
+    [{ status: 500 }, 'unverified'],
+    [{ status: null, error: 'TimeoutError' }, 'unverified'],
+  ];
+  const wrong = cases.filter(([rec, want]) => protectedVerdict(rec) !== want).map(([rec, want]) => `${rec.status} gave ${protectedVerdict(rec)}, not ${want}`);
+  say(wrong.length === 0, 'protected-area verdicts: a password prompt is protected; an answer, a redirect or a missing page is not', wrong.join('; '));
+}
+
+// The protected areas are asked for without following redirects, and an error is a result, not a crash.
+{
+  const seen = [];
+  const headers = (h) => ({ get: (k) => h[k.toLowerCase()] ?? null });
+  const fakeFetch = async (url, init) => {
+    seen.push(init.redirect);
+    if (url.includes('gone')) { const e = new TypeError('fetch failed'); e.cause = { code: 'ECONNRESET' }; throw e; }
+    if (url.includes('moved')) return { status: 302, headers: headers({ location: 'https://x.example/ja/' }), body: { cancel: async () => {} } };
+    return { status: 401, headers: headers({ 'www-authenticate': 'Basic realm="x"' }), body: { cancel: async () => {} } };
+  };
+  const areas = [
+    { id: 'a', url: 'https://x.example/members/', name: { en: 'Members' } },
+    { id: 'b', url: 'https://x.example/moved/', name: { en: 'Moved' } },
+    { id: 'c', url: 'https://gone.example/m/' },
+  ];
+  const res = await checkProtected(areas, { fetchImpl: fakeFetch });
+  say(seen.every((r) => r === 'manual'), 'protected areas are asked for without following redirects', seen.join(','));
+  say(protectedVerdict(res[0]) === 'protected' && res[0].name === 'Members', 'a password prompt is read with its header', JSON.stringify(res[0]));
+  say(protectedVerdict(res[1]) === 'moved' && res[1].location === 'https://x.example/ja/', 'a redirect is reported with where it leads', JSON.stringify(res[1]));
+  say(res[2].status === null && /ECONNRESET/.test(res[2].error) && res[2].name === 'c', 'a failed request is a result, named by its id when it has no name', JSON.stringify(res[2]));
+}
+
+// The weekly report: a protected area that answers, moves or is gone opens an issue; one that asks for a password,
+// or that could not be checked, does not.
+{
+  const base = { checked: '2026-11-30', results: [], content: { code: 0, output: '' } };
+  const area = (rec) => ({ url: 'https://x.example/members/', name: 'Frontier-kai members\' area', ...rec });
+  const fine = weeklyReport({ ...base, areas: [area({ status: 401, auth: 'Basic realm="x"' })] });
+  say(!fine.problems && /## Password-protected areas/.test(fine.markdown) && /Asks for a password, as it should\./.test(fine.markdown), 'a protected area that asks for a password is listed as fine, without an issue', fine.markdown);
+  const open = weeklyReport({ ...base, areas: [area({ status: 200 })] });
+  say(open.problems && /Answers without a password/.test(open.markdown), 'a protected area that answers without a password opens an issue');
+  const moved = weeklyReport({ ...base, areas: [area({ status: 302, location: 'https://x.example/ja/' })] });
+  say(moved.problems && /Sends visitors to https:\/\/x\.example\/ja\//.test(moved.markdown), 'a protected area that redirects opens an issue and says where it leads');
+  const missing = weeklyReport({ ...base, areas: [area({ status: 404 })] });
+  say(missing.problems && /Not found/.test(missing.markdown), 'a protected area that is gone opens an issue');
+  const unknown = weeklyReport({ ...base, areas: [area({ status: null, error: 'TimeoutError: aborted' })] });
+  say(!unknown.problems && /Could not be checked \(TimeoutError: aborted\)/.test(unknown.markdown), 'a protected area that could not be checked is listed without an issue');
 }
 
 // Structured data: valid blocks pass; bad JSON, a missing type or context, and a relative address are reported.

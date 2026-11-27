@@ -12,6 +12,7 @@ import { readFeatures, drawFeatures } from './features.mjs';
 import { structuredData, missingTypes } from './structured-lib.mjs';
 import { outsideResources, outsideInCss, outsideLinks, loadedAddresses, isPageRelative, servedAt } from './resources-lib.mjs';
 import { toDocument, elements, attr, attrs } from './html-lib.mjs';
+import { inArea } from './external-lib.mjs';
 import { PROTOTYPE } from '../src/lib/launch.mjs';
 import { urlLang } from '../src/lib/url-lang.mjs';
 
@@ -284,9 +285,26 @@ if (glossary) {
   }
 }
 
-// 3e. Summaries of Japanese-only pages (src/data/ja-summaries.json, shown by src/lib/rehype-abbr.mjs): each is
+// 3e. Password-protected areas the site links to but does not hold (src/data/protected-areas.json, such as the
+//     Frontier-kai members' area on the faculty server): each has an id, a full https address and a name in both
+//     languages. The weekly check asks each for its page and reports one that stops asking for a password.
+const protectedAreas = readList('protected-areas.json') ?? [];
+{
+  const seen = new Set();
+  for (const a of protectedAreas) {
+    if (typeof a.id !== 'string' || !a.id) { fail('protected-areas.json: an entry has no "id"'); continue; }
+    if (seen.has(a.id)) fail(`protected-areas.json: ${a.id} is listed twice`);
+    seen.add(a.id);
+    if (typeof a.url !== 'string' || !/^https:\/\/[^/]+\/./.test(a.url)) fail(`protected-areas.json ${a.id}: "url" must be a full https address`);
+    for (const l of ['en', 'ja']) if (typeof a.name?.[l] !== 'string' || !a.name[l].trim()) fail(`protected-areas.json ${a.id}: no "name.${l}"`);
+  }
+}
+const validAreas = protectedAreas.filter((a) => typeof a.url === 'string' && /^https:\/\//.test(a.url));
+
+// 3f. Summaries of Japanese-only pages (src/data/ja-summaries.json, shown by src/lib/rehype-abbr.mjs): each is
 //     marked as written automatically, dated, short, and used by an English page; and every link from an English
-//     page to a page in Japanese has one. PDF files are not required: their folder does not tell their language.
+//     page to a page in Japanese has one. PDF files are not required: their folder does not tell their language,
+//     and neither are the password-protected areas (3e): nobody without the password can read them to summarise.
 const summaries = readList('ja-summaries.json');
 if (summaries) {
   const summarised = new Set();
@@ -309,7 +327,7 @@ if (summaries) {
       linkedFromEnglish.add(url);
       let pathname = '';
       try { pathname = new URL(url).pathname; } catch { continue; }
-      if (!/\.pdf$/i.test(pathname) && urlLang(url) === 'ja' && !summarised.has(url)) {
+      if (!/\.pdf$/i.test(pathname) && urlLang(url) === 'ja' && !summarised.has(url) && !inArea(url, validAreas)) {
         fail(`en/${p} links to a page in Japanese with no English summary: add ${url} to src/data/ja-summaries.json, or link its English version`);
       }
     }
