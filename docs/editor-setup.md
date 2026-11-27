@@ -146,25 +146,36 @@ Each save commits straight to `main` (the Simple workflow). The commit message s
 (`backend.commit_messages` in `config.yml`). `.github/workflows/deploy.yml`, on every run on `main` (a push, the
 Monday rebuild or a manual run), then:
 
-1. runs `scripts/editor-confirm.mjs` before the checks. It walks back from the newest commit to the last record
-   commit (`chore: record editor saves as in step [skip ci]`), skipping developer commits, and takes every editor save
-   in between. For each one it records as in step (in `content-sync.json`) only the pages and fields whose value that
-   save changed, with the value the save gave them. So a save is never lost when its run is cancelled by a developer
-   push, the Monday run or the next save: the next run picks it up. A developer's change that was not confirmed stays
-   out of step, even in a file an editor also saved, and a developer's later confirmation is never overwritten. When
-   there were editor saves, it also regenerates `faculty/*.md`.
+1. runs `scripts/editor-confirm.mjs` before the checks. It lists the commits since the last record commit
+   (`chore: record editor saves as in step [skip ci]`), along every parent so that a save merged in by a plain
+   `git pull` is seen too, skips developer and merge commits, and takes every editor save among them. For each one it
+   records as in step (in `content-sync.json`) only the pages and fields whose value that save changed, with the whole
+   value they had after the save. So a save is not lost when its run is cancelled by a developer push, the Monday run
+   or the next save: the next run picks it up. Pages and fields the editor did not change keep the strict rule, even in
+   a file an editor also saved, and a key a developer confirmed after the save keeps the developer's record. When there
+   were editor saves, it also regenerates `faculty/*.md`.
 2. runs all the checks and the build as for any commit. A save that breaks a rule stops here and is not published;
    the site keeps the previous version. For example: a passed date marked open, an unexplained acronym, a language
    left empty, or, in a programme, contact or partner fact, numbers that differ between the two languages.
-3. deploys the site, and the separate job `record-editor-sync` commits the record to `main`. It is the only job with
-   write access, it records from the newest `main` (so saves that arrived meanwhile are included), and it is never
-   cancelled by a newer run.
+3. deploys the site, and, only when the editor step found saves to record, the separate job `record-editor-sync`
+   commits the record to `main`. It is the only job with write access and it records from the newest `main` (so saves
+   that arrived meanwhile are included). A running record job is not cancelled by a newer run; one still waiting to
+   start is replaced by the newer run's, which records the same saves and any newer ones, so nothing is lost.
 
-**Limit:** a save is trusted as checked in both languages. If someone changes only the Japanese, the English is
-recorded as still saying the same thing. The numbers check catches a difference only in programme, contact and
-partner facts; it does not read page texts or news items. The office's guide asks staff to read both languages
-before saving. More than 50 commits on `main` since the last record commit would leave the oldest saves unrecorded
-(the workflow looks back 50 commits); the check would then report them, and a developer confirms them by hand.
+**Limits:**
+
+- A save is trusted as checked in both languages. If someone changes only the Japanese, the English is recorded as
+  still saying the same thing. The office's guide asks staff to read both languages before saving.
+- The numbers check catches a difference only in programme, contact and partner facts; it does not read page texts
+  or news items.
+- A save records the whole value of what it changed. If a developer changed the English of a page without confirming
+  it and an editor then saves the Japanese of the same page, the developer's change is recorded as in step with it.
+  The same holds for the two languages of one data field.
+- A developer confirmation that leaves the registry entry as it was cannot be told from no confirmation, so a later
+  editor save of that key records its own value as usual.
+- The walk looks at the 50 newest commits since the last record commit (the workflow fetches 51, so each has its
+  parent). Older pending saves would be left unrecorded; the check would then report them, and a developer confirms
+  them by hand.
 
 **Repository rules:** saves and the record commit push straight to `main`. Protect `main` against force pushes and
 deletion (the Additions security checklist recommends it, with the app not on the bypass list), but do not require a

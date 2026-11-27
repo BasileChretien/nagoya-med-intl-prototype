@@ -4,10 +4,13 @@
  * Every editor save is a commit whose message starts with EDITOR_MARKER (backend.commit_messages in config.yml).
  * Office staff cannot run `npm run sync -- confirm`, so the deploy workflow records editor saves as in step
  * (scripts/editor-confirm.mjs): for each editor commit since the last record commit, the pages and fields whose value
- * that commit changed, with the value it gave them. The editor's change is trusted as checked in both languages.
- * Anything else stays as strict as before: a developer's unconfirmed change is never confirmed here, even in a file an
- * editor also saved, and a later developer confirmation is never overwritten. Facts whose two languages give
- * different numbers, and fields given in one language only, still fail the check.
+ * that commit changed, with the whole value it gave them (both languages). The editor's change is trusted as checked
+ * in both languages. Other keys stay as strict as before, even in a file an editor also saved, and a key whose registry
+ * entry changed after the save (a developer confirmed it) is left as the developer recorded it. Two limits:
+ *  - a developer's unconfirmed change to the same key (the English of a page, say) is confirmed with the editor's
+ *    save of that key (its Japanese), because the key's whole value after the save is recorded;
+ *  - a developer confirmation that leaves the registry entry as it was cannot be told from no confirmation.
+ * Facts whose two languages give different numbers, and fields given in one language only, still fail the check.
  */
 import { slugOf, pageText, fingerprint, dataFileOf, scanDataFile } from './staleness-lib.mjs';
 
@@ -38,18 +41,19 @@ export function ownerOf(path) {
 }
 
 /**
- * The editor commits not yet recorded, newest first. The walk goes back from HEAD and stops at the last record commit
- * (everything older was recorded then), at a commit whose parent is not in the clone (a shallow clone's last commit
- * would otherwise look as if it added every file), or at the end of the list. Developer commits are skipped, so an
- * editor save under a developer push, or one whose run was cancelled, is carried forward to the next run.
+ * The editor commits not yet recorded, newest first, from the commits since the last record commit (editor-confirm.mjs
+ * lists them along every parent). Developer and merge commits are skipped, so an editor save under a developer push,
+ * or one whose run was cancelled, is carried forward to the next run. A commit whose parent is not in the clone is
+ * skipped too (a shallow clone's last commit would otherwise look as if it added every file). The list stops at a
+ * record commit, should one be in it.
  * @param {{ sha: string, message: string, hasParent: boolean }[]} commits newest first, from HEAD
  * @returns {string[]} shas
  */
 export function pendingEditorCommits(commits) {
   const out = [];
   for (const c of commits) {
-    if (isRecordCommit(c.message) || !c.hasParent) break;
-    if (isEditorCommit(c.message)) out.push(c.sha);
+    if (isRecordCommit(c.message)) break;
+    if (c.hasParent && isEditorCommit(c.message)) out.push(c.sha);
   }
   return out;
 }
@@ -77,9 +81,10 @@ const same = (a, b) => (a?.en ?? null) === (b?.en ?? null) && (a?.ja ?? null) ==
 
 /**
  * What to record for the pending editor commits. For each commit, oldest first, and each page or field whose value
- * it changed (compared with its parent), record the value the commit gave it, or forget the key when the commit
- * removed it and it no longer exists. A key whose registry entry changed after that commit (a developer confirmed
- * it, by hand or with the Actions workflow) is left as the developer recorded it.
+ * it changed (compared with its first parent), record the whole value the commit gave it, or forget the key when the
+ * commit removed it and it no longer exists. A key whose registry entry changed after that commit (a developer
+ * confirmed it, by hand or with the Actions workflow) is left as the developer recorded it. See the two limits in the
+ * header of this file.
  * @param {{
  *   commits: { sha: string, changed: string[] }[],                 oldest first
  *   readAt: (rev: string, path: string) => string | null,

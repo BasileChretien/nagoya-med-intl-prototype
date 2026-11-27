@@ -12,12 +12,16 @@
  * Does nothing when no editor save is pending (none since the last record commit).
  */
 import { spawnSync } from 'node:child_process';
+import { appendFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { pagePairs, dataFields, readRegistry, writeRegistry, SYNC_FILE } from './staleness-lib.mjs';
-import { pendingEditorCommits, planRecord, applyPlan, RECORD_MESSAGE } from './editor-lib.mjs';
+import { pendingEditorCommits, planRecord, applyPlan, isRecordCommit, RECORD_MESSAGE, RECORD_SUBJECT } from './editor-lib.mjs';
 
-/** How many commits to look back at most; deploy.yml fetches this many. More pending saves than this are missed. */
+/**
+ * How many commits to look at, at most. deploy.yml fetches LOOK_BACK + 1 commits (fetch-depth 51), so the oldest of
+ * them still has its parent to compare with. Pending saves beyond this are missed (the check then reports them).
+ */
 export const LOOK_BACK = 50;
 
 /** @param {string} root @param {string[]} args */
@@ -26,9 +30,21 @@ function git(root, args) {
   return { ok: r.status === 0, out: r.stdout ?? '' };
 }
 
-/** The last commits from HEAD along the first parent, newest first. */
+/** The newest record commit reachable from HEAD (by its subject, not by text quoted in a message body), or null. */
+export function lastRecordCommit(root, n = LOOK_BACK) {
+  const log = git(root, ['log', `-n${n}`, '--fixed-strings', `--grep=${RECORD_SUBJECT}`, '--format=%H%x1f%B%x1e']);
+  if (!log.ok) throw new Error('git log failed: run this in a git clone');
+  const hit = log.out.split('\x1e').map((s) => s.trim()).filter(Boolean).map((e) => e.split('\x1f')).find(([, message]) => isRecordCommit(message));
+  return hit ? hit[0] : null;
+}
+
+/**
+ * The commits reachable from HEAD but not from the last record commit, newest first, along every parent: a merge
+ * from a plain `git pull` can put an editor save on its second parent. Bounded by LOOK_BACK and by the clone's depth.
+ */
 export function recentCommits(root, n = LOOK_BACK) {
-  const log = git(root, ['log', '--first-parent', `-n${n}`, '--format=%H%x1f%B%x1e']);
+  const record = lastRecordCommit(root, n);
+  const log = git(root, ['log', '--topo-order', `-n${n}`, '--format=%H%x1f%B%x1e', 'HEAD', ...(record ? [`^${record}`] : [])]);
   if (!log.ok) throw new Error('git log failed: run this in a git clone');
   return log.out.split('\x1e').map((s) => s.trim()).filter(Boolean).map((entry) => {
     const [sha, message = ''] = entry.split('\x1f');
@@ -82,6 +98,8 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const root = fileURLToPath(new URL('..', import.meta.url));
   const dryRun = process.argv.includes('--dry-run');
   const { shas, plan } = recordPending(root, { dryRun });
+  // In GitHub Actions, tell later jobs how many saves were pending (deploy.yml runs record-editor-sync only then).
+  if (process.env.GITHUB_OUTPUT) appendFileSync(process.env.GITHUB_OUTPUT, `pending=${shas.length}\n`);
   if (!shas.length) {
     process.stdout.write('No editor save is waiting to be recorded.\n');
     process.exit(0);

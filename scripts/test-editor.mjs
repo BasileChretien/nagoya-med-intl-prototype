@@ -61,7 +61,8 @@ const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
     'developer commits are skipped and the walk stops at the last record commit');
   say(same(pendingEditorCommits([c('a', 'feat: z'), c('b', '[editor] y'), c('c', '[editor] x')]), ['b', 'c']), 'editor saves under a developer commit are still pending');
   say(same(pendingEditorCommits([c('a', RECORD_MESSAGE), c('b', '[editor] y')]), []), 'nothing is pending right after a record commit');
-  say(same(pendingEditorCommits([c('a', '[editor] x'), c('b', '[editor] y', false)]), ['a']), 'a commit whose parent is not in a shallow clone is not taken (it would look as if it added every file)');
+  say(same(pendingEditorCommits([c('a', '[editor] x'), c('b', '[editor] y', false), c('d', '[editor] w')]), ['a', 'd']),
+    'a commit whose parent is not in a shallow clone is skipped (it would look as if it added every file), not the ones after it');
   const frozen = { pages: { p: { en: '1', ja: '1' } }, fields: { f: { en: '1', ja: '1' }, g: { en: '1', ja: '1' } } };
   const before = JSON.stringify(frozen);
   const next = applyPlan(frozen, { pages: { p: { en: '1', ja: '2' } }, fields: {}, dropped: ['g'] });
@@ -74,8 +75,9 @@ const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
   const messages = Object.entries(config.backend?.commit_messages ?? {});
   say(messages.length >= 3 && messages.every(([, m]) => String(m).startsWith(EDITOR_MARKER)), `every commit message in config.yml starts with ${EDITOR_MARKER}`, JSON.stringify(messages));
   const deploy = readFileSync(join(ROOT, '.github', 'workflows', 'deploy.yml'), 'utf8');
-  say(deploy.includes('editor-confirm.mjs --record-message') && /cancel-in-progress: false/.test(deploy),
-    'deploy.yml takes the record message from the script and never cancels a record job');
+  say(deploy.includes('editor-confirm.mjs --record-message') && /cancel-in-progress: false/.test(deploy) && /fetch-depth: 51/.test(deploy) && /--depth=51/.test(deploy)
+    && /needs\.build\.outputs\.editor_pending/.test(deploy),
+    'deploy.yml takes the record message from the script, fetches LOOK_BACK + 1 commits, does not cancel a running record job and starts it only when saves are pending');
 }
 
 // ------------------------------------------------------------ recording, on small git repositories
@@ -163,6 +165,37 @@ inRepo('the walk stops at the record commit: a later developer change stays out 
   const { shas, plan } = recordPending(r.dir);
   const left = r.stale();
   return shas.length === 1 && !plan.pages.about && left.length === 1 && /ja\/about is stale/.test(left[0]) ? null : `${JSON.stringify(plan)} ${left}`;
+});
+
+inRepo("documented limit: a developer's unconfirmed change to the same key is confirmed with the editor's save of it", (r) => {
+  r.write('src/content/pages/en/about/index.md', '---\ntitle: About\nupdated: 2026-11-25\n---\n\nWe are the office, changed.\n');
+  r.commit('feat: a developer change to the English page, not confirmed');
+  r.editJa('国際連携室の窓口です。');
+  r.commit('[editor] 更新：ページ「index」（Office）');
+  const { plan } = recordPending(r.dir);
+  return plan.pages.about && !r.stale().length ? null : `${JSON.stringify(plan)} ${r.stale()}`;
+});
+
+inRepo('an editor save on the second parent of a merge (a plain git pull) is recorded', (r) => {
+  const base = r.git('rev-parse', 'HEAD');
+  r.editJa('国際連携室の窓口です。');
+  r.commit('[editor] 更新：ページ「index」（Office）');
+  const save = r.git('rev-parse', 'HEAD');
+  r.git('checkout', '-q', '-b', 'local', base);
+  r.write('README.md', 'a developer change made before pulling\n');
+  r.commit('docs: a developer change');
+  r.git('merge', '-q', '--no-ff', '-m', 'Merge remote-tracking branch origin/main', save);
+  const parents = r.git('rev-list', '--parents', '-n1', 'HEAD').split(' ');
+  const { shas, plan } = recordPending(r.dir);
+  return parents[2] === save && same(shas, [save]) && plan.pages.about && !r.stale().length ? null : `${parents} ${JSON.stringify({ shas, plan })} ${r.stale()}`;
+});
+
+inRepo('a commit that only quotes the record message in its body does not stop the walk', (r) => {
+  r.editJa('国際連携室の窓口です。');
+  r.commit('[editor] 更新：ページ「index」（Office）');
+  r.commit(`docs: explain the workflow\n\nIt pushes "${RECORD_MESSAGE}".`);
+  const { shas, plan } = recordPending(r.dir);
+  return shas.length === 1 && plan.pages.about ? null : JSON.stringify({ shas, plan });
 });
 
 inRepo('a developer confirmation made after an editor save is not overwritten', (r) => {
