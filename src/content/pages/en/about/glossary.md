@@ -1,14 +1,14 @@
 ---
 title: Abbreviations
 description: What the abbreviations used on this site stand for, with a link to each institution or organisation.
-section: about
-order: 90
 summary: Every abbreviation used on the site, what it stands for and, for institutions, their website.
+order: 90
+section: about
+sources:
+  - https://www.med.nagoya-u.ac.jp/jdp/en/cu/
 status: to-confirm
 toConfirm:
   - DMAT, an English test accepted for the CUHK double degree, could not be identified. Confirm its full name.
-sources:
-  - https://www.med.nagoya-u.ac.jp/jdp/en/cu/
 updated: 2026-11-25
 ---
 

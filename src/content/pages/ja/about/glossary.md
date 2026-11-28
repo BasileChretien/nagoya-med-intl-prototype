@@ -1,14 +1,14 @@
 ---
 title: 略語の一覧
-description: このサイトで使う略語の正式名称と、大学や団体の公式サイトへのリンクです。
-section: about
-order: 90
+description: このサイトで使う略語の正式名称と、大学や団体の公式サイトへのリンクです。。
 summary: サイトで使う略語の正式名称と、大学や団体の公式サイトをまとめています。
+order: 90
+section: about
+sources:
+  - https://www.med.nagoya-u.ac.jp/jdp/cu/
 status: to-confirm
 toConfirm:
   - 香港中文大学ダブル・ディグリーで認められる英語試験DMATの正式名称を確認できませんでした。確認してください。
-sources:
-  - https://www.med.nagoya-u.ac.jp/jdp/cu/
 updated: 2026-11-25
 ---
 
