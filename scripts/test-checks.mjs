@@ -54,6 +54,27 @@ const cases = [
     name: 'a scroll-driven animation inside @supports but outside the reduced-motion guard is reported',
     edit: ['src/styles/global.css', (old) => `${old}\n@supports (animation-timeline: view()) { .zz-test { view-timeline: --zz; } }\n`],
     expect: 'fail', message: /global\.css line \d+: view-timeline outside @media \(prefers-reduced-motion: no-preference\)/,
+    also: (r) => (/animation-timeline outside/.test(r.stderr) ? 'the @supports feature test was taken for an animation' : null),
+  },
+  {
+    name: 'the guards in the other order, @supports outside the reduced-motion @media, pass (review of #30)',
+    edit: ['src/styles/global.css', (old) => `${old}\n@supports (animation-timeline: view()) { @media (prefers-reduced-motion: no-preference) { .zz-test { animation-timeline: view(); } } }\n`],
+    expect: 'pass',
+  },
+  {
+    name: 'a negated reduced-motion query does not count as the guard (review of #30)',
+    edit: ['src/styles/global.css', (old) => `${old}\n@media not all and (prefers-reduced-motion: no-preference) { .zz-test { animation-timeline: view(); } }\n`],
+    expect: 'fail', message: /global\.css line \d+: animation-timeline outside @media \(prefers-reduced-motion: no-preference\)/,
+  },
+  {
+    name: 'a reduced-motion query joined by a comma does not count as the guard (review of #30)',
+    edit: ['src/styles/global.css', (old) => `${old}\n@media print, (prefers-reduced-motion: no-preference) { .zz-test { animation-timeline: view(); } }\n`],
+    expect: 'fail', message: /global\.css line \d+: animation-timeline outside @media \(prefers-reduced-motion: no-preference\)/,
+  },
+  {
+    name: 'a second message of the head of the office is reported, since the home page shows one (review of #30)',
+    edit: ['src/data/office-head.json', (old) => { const list = JSON.parse(old); return JSON.stringify([...list, { ...list[0], id: 'zz-test-head' }], null, 1); }],
+    expect: 'fail', message: /office-head\.json: must hold exactly one entry/,
   },
   // Operating-system files are not photos (round 3). Planted in a folder the test creates, so a real
   // Thumbs.db or .DS_Store written by the OS elsewhere can neither block nor be touched by the test.

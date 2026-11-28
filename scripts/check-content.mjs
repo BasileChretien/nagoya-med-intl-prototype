@@ -212,8 +212,9 @@ if (imgs) {
 
 // 3b'. Portraits. The only staff photo on the site is the head of the office's, in the message on the home page
 //      (src/data/office-head.json), as the department asked. The message names a portrait listed in images.json,
-//      and no portrait is left that the message does not name.
+//      and no portrait is left that the message does not name. The file holds one message: the home page shows one.
 const heads = readList('office-head.json');
+if (heads && heads.length !== 1) fail(`office-head.json: must hold exactly one entry, the message of the current head of the office (now ${heads.length})`);
 if (heads && imgs) {
   const portraits = new Set(imgs.filter((im) => im.kind === 'portrait').map((im) => im.id));
   const named = new Set(heads.map((h) => h.photo));
@@ -364,16 +365,24 @@ for (const f of walk(PUBLIC).filter((x) => /\.(jpe?g|png|webp|avif|gif)$/i.test(
 }
 
 // 4b. Motion on scroll (src/styles/global.css) plays only for visitors whose system does not ask for less motion:
-//     every scroll-driven timeline sits inside an @media rule with (prefers-reduced-motion: no-preference).
+//     every scroll-driven timeline sits inside an @media rule with (prefers-reduced-motion: no-preference), in a
+//     query with no "not" and no comma (either could let motion play for those visitors). The feature test of an
+//     @supports rule, such as @supports (animation-timeline: view()), runs nothing and is skipped.
 {
   const cssFile = join(ROOT, 'src', 'styles', 'global.css');
   const atRules = [];
+  const isGuard = (a) => {
+    if (a.name !== 'media' || !a.prelude) return false;
+    const q = csstree.generate(a.prelude);
+    return /prefers-reduced-motion:no-preference/.test(q.replace(/\s+/g, '')) && !/(^|[\s,(])not\b/i.test(q) && !q.includes(',');
+  };
   csstree.walk(csstree.parse(readFileSync(cssFile, 'utf8'), { positions: true }), {
     enter(node) {
+      if (node.type === 'SupportsDeclaration') return csstree.walk.skip;
       if (node.type === 'Atrule') atRules.push(node);
-      if (node.type !== 'Declaration' || !/^(animation|view|scroll)-timeline/.test(node.property)) return;
-      const guarded = atRules.some((a) => a.name === 'media' && a.prelude && /prefers-reduced-motion\s*:\s*no-preference/.test(csstree.generate(a.prelude)));
-      if (!guarded) fail(`src/styles/global.css line ${node.loc.start.line}: ${node.property} outside @media (prefers-reduced-motion: no-preference); motion on scroll must stop for visitors who ask for less motion`);
+      if (node.type !== 'Declaration' || !/^(animation|view|scroll)-timeline/.test(node.property)) return undefined;
+      if (!atRules.some(isGuard)) fail(`src/styles/global.css line ${node.loc.start.line}: ${node.property} outside @media (prefers-reduced-motion: no-preference) (a query with no "not" and no comma); motion on scroll must stop for visitors who ask for less motion`);
+      return undefined;
     },
     leave(node) { if (node.type === 'Atrule') atRules.pop(); },
   });

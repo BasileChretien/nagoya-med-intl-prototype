@@ -68,7 +68,7 @@ const en = {
   numPartners: 'partner institutions listed',
   numProgrammes: 'programmes described',
   numApplicants: 'students from universities abroad apply each year for a clinical clerkship in Nagoya',
-  frontierTitle: 'The Frontier-kai, alumni who studied abroad',
+  frontierTitle: 'The doctors of the Frontier-kai',
   frontierText: 'Students who had studied abroad founded the Frontier-kai in 1998. The alumni association shares information and helps the students who come after them.',
   frontierMore: 'About the Frontier-kai',
   headTitle: 'A message from the head of the office',
