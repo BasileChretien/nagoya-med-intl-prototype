@@ -76,6 +76,21 @@ features:
     status: works
     delivered_by: [src/components/Photo.astro, src/data/images.json]
     tests: [photo-descriptions, images]
+  - id: head-message
+    says: The home page shows the head of the office's message beside his photo, as on the office's current exchange site; the English is an automatic translation and says so.
+    stage: Explore
+    status: works
+    delivered_by: [src/pages/[lang]/index.astro, src/data/office-head.json]
+    tests: [versions-in-step, images]
+    docs: CONTENT_GUIDE.md
+    limits: No person has checked the English translation yet. A new head of the office or a new message needs technical help (a new photo and src/data/office-head.json); the editing page does not offer it.
+  - id: scroll-motion
+    says: As on the office's current exchange site, the photos behind the home title and the photo bands move more slowly than the page, and blocks fade in as they come into view; nothing moves for visitors whose system asks for less motion.
+    stage: Explore
+    status: works
+    delivered_by: [src/styles/global.css]
+    tests: [motion]
+    limits: Built with CSS scroll-driven animations and no script; browsers that do not support them show the page without motion.
   - id: news
     says: Every news item has its own page in both languages; the list can be filtered by type and partner, and past events and closed calls are labelled.
     stage: Explore

@@ -16,6 +16,7 @@ import { inArea, usableAreas } from './external-lib.mjs';
 import { PROTOTYPE } from '../src/lib/launch.mjs';
 import { urlLang } from '../src/lib/url-lang.mjs';
 import { parse as parseYaml } from 'yaml';
+import * as csstree from 'css-tree';
 import { EDITOR_CONFIG, editorConfigProblems } from './editor-config-lib.mjs';
 
 /** The editing page in the built site (public/admin/index.html). */
@@ -25,7 +26,7 @@ const EDITOR_PAGE = 'admin/index.html';
 const CHECKS = ['pairing', 'programme-references', 'deadlines', 'data-files', 'images', 'internal-links', 'noindex', 'feature-map',
   'photo-descriptions', 'report-translations', 'versions-in-step', 'facts-match', 'translations-current', 'faculty-texts', 'faculty-live', 'acronyms', 'content-plugin',
   'structured-data', 'sitemap', 'weekly-check', 'ja-summaries', 'dated-facts', 'search-index', 'feeds', 'no-outside-resources',
-  'editor-config'];
+  'editor-config', 'motion'];
 
 // fileURLToPath decodes %20 and non-ASCII characters, so the check runs from any folder.
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
@@ -209,6 +210,22 @@ if (imgs) {
   }
 }
 
+// 3b'. Portraits. The only staff photo on the site is the head of the office's, in the message on the home page
+//      (src/data/office-head.json), as the department asked. The message names a portrait listed in images.json,
+//      and no portrait is left that the message does not name. The file holds one message: the home page shows one.
+const heads = readList('office-head.json');
+if (heads && heads.length !== 1) fail(`office-head.json: must hold exactly one entry, the message of the current head of the office (now ${heads.length})`);
+if (heads && imgs) {
+  const portraits = new Set(imgs.filter((im) => im.kind === 'portrait').map((im) => im.id));
+  const named = new Set(heads.map((h) => h.photo));
+  for (const h of heads) {
+    if (!portraits.has(h.photo)) fail(`office-head.json ${h.id}: "photo" must be the id of a photo of kind "portrait" in images.json (now ${JSON.stringify(h.photo)})`);
+  }
+  for (const id of portraits) {
+    if (!named.has(id)) fail(`images.json ${id}: a portrait must be the photo in the head of the office's message (office-head.json); the site shows no other staff photos`);
+  }
+}
+
 // 3c. Every student report exists in its original language and as an automatic translation, paragraph for paragraph.
 const stories = lists.stories;
 if (stories) {
@@ -270,7 +287,7 @@ if (glossary) {
   for (const lang of ['en', 'ja']) for (const p of md(lang)) report(`${lang}/${p}`, readFileSync(join(PAGES, lang, p), 'utf8'));
   // Visible texts of the data files: skip keys that hold ids, codes, tags or addresses.
   const SKIP_KEYS = new Set(['id', 'sources', 'source', 'page', 'contact', 'section', 'url', 'status', 'date', 'category', 'countryCode', 'region', 'links', 'email', 'phone', 'fax', 'file', 'thumb', 'story', 'kind', 'programmes', 'partners', 'map',
-    'evidence', 'checked', 'method']);
+    'evidence', 'checked', 'method', 'photo', 'translated']);
   const texts = (value, key = '') => {
     if (SKIP_KEYS.has(key)) return [];
     if (typeof value === 'string') return [value];
@@ -280,7 +297,7 @@ if (glossary) {
   };
   const dataFiles = [
     ...walk(join(DATA, 'programmes')).filter((f) => f.endsWith('.json')).map((f) => `programmes/${basename(f)}`),
-    'contacts.json', 'partners.json', 'news.json', 'ja-summaries.json',
+    'contacts.json', 'partners.json', 'news.json', 'ja-summaries.json', 'office-head.json',
   ];
   for (const name of dataFiles) {
     const f = join(DATA, name);
@@ -345,6 +362,29 @@ if (summaries) {
 for (const f of walk(PUBLIC).filter((x) => /\.(jpe?g|png|webp|avif|gif)$/i.test(x))) {
   const kb = statSync(f).size / 1024;
   if (kb > MAX_IMAGE_KB) fail(`${relative(ROOT, f)} is ${Math.round(kb)} KB (limit ${MAX_IMAGE_KB} KB)`);
+}
+
+// 4b. Motion on scroll (src/styles/global.css) plays only for visitors whose system does not ask for less motion:
+//     every scroll-driven timeline sits inside an @media rule whose query is exactly (prefers-reduced-motion:
+//     no-preference), alone or after "screen and" or "all and". Any other query is refused, because "not", a comma
+//     or "or" could let motion play for those visitors; other conditions go in an @media rule of their own. The
+//     feature test of an @supports rule, such as @supports (animation-timeline: view()), runs nothing and is skipped.
+{
+  const cssFile = join(ROOT, 'src', 'styles', 'global.css');
+  const atRules = [];
+  const GUARD = /^(?:(?:only )?(?:screen|all) and )?\(prefers-reduced-motion:no-preference\)$/;
+  const isGuard = (a) => a.name === 'media' && Boolean(a.prelude)
+    && GUARD.test(csstree.generate(a.prelude).toLowerCase().replace(/\s+/g, ' ').replace(/\(\s*/g, '(').replace(/\s*\)/g, ')').replace(/\s*:\s*/g, ':').trim());
+  csstree.walk(csstree.parse(readFileSync(cssFile, 'utf8'), { positions: true }), {
+    enter(node) {
+      if (node.type === 'SupportsDeclaration') return csstree.walk.skip;
+      if (node.type === 'Atrule') atRules.push(node);
+      if (node.type !== 'Declaration' || !/^(animation|view|scroll)-timeline/.test(node.property)) return undefined;
+      if (!atRules.some(isGuard)) fail(`src/styles/global.css line ${node.loc.start.line}: ${node.property} outside @media (prefers-reduced-motion: no-preference) (exactly that query, alone or after "screen and"); motion on scroll must stop for visitors who ask for less motion`);
+      return undefined;
+    },
+    leave(node) { if (node.type === 'Atrule') atRules.pop(); },
+  });
 }
 
 // 5. Feature map: entries name real files and real checks, and the drawn picture is current.

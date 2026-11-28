@@ -30,6 +30,62 @@ const cases = [
   { name: 'an upper-case extension is reported', plant: ['public/img/pages/zz-test.GIF', 'GIF89a'], expect: 'fail', message: /public\/img\/pages\/zz-test\.GIF is not in images\.json/ },
   { name: 'a file with no extension is reported', plant: ['public/img/pages/zz-test', 'x'], expect: 'fail', message: /public\/img\/pages\/zz-test is not in images\.json/ },
   { name: 'only campus-N.webp is exempt, not campus-N.gif', plant: ['public/img/campus-1.gif', 'GIF89a'], expect: 'fail', message: /public\/img\/campus-1\.gif is not in images\.json/ },
+  // The only staff photo is the head of the office's portrait, named by his message (office-head.json).
+  {
+    name: 'a portrait that the head of the office\'s message does not name is reported',
+    edit: ['src/data/images.json', (old) => JSON.stringify([...JSON.parse(old), {
+      id: 'zz-test-portrait', kind: 'portrait', file: 'img/pages/82d0fc97d0ff.webp', width: 560, height: 978,
+      alt: { en: 'A member of staff.', ja: '職員' }, source: 'https://www.med.nagoya-u.ac.jp/',
+    }], null, 1)],
+    expect: 'fail', message: /images\.json zz-test-portrait: a portrait must be the photo in the head of the office's message/,
+  },
+  {
+    name: 'the head of the office\'s message naming a photo that is not a portrait is reported',
+    edit: ['src/data/office-head.json', (old) => old.replace(/"photo": "[^"]*"/, '"photo": "zz-missing"')],
+    expect: 'fail', message: /office-head\.json head: "photo" must be the id of a photo of kind "portrait"/,
+  },
+  // Motion on scroll stops for visitors who ask for less motion.
+  {
+    name: 'a scroll-driven animation outside the reduced-motion guard is reported',
+    edit: ['src/styles/global.css', (old) => `${old}\n.zz-test { animation-timeline: view(); }\n`],
+    expect: 'fail', message: /global\.css line \d+: animation-timeline outside @media \(prefers-reduced-motion: no-preference\)/,
+  },
+  {
+    name: 'a scroll-driven animation inside @supports but outside the reduced-motion guard is reported',
+    edit: ['src/styles/global.css', (old) => `${old}\n@supports (animation-timeline: view()) { .zz-test { view-timeline: --zz; } }\n`],
+    expect: 'fail', message: /global\.css line \d+: view-timeline outside @media \(prefers-reduced-motion: no-preference\)/,
+    also: (r) => (/animation-timeline outside/.test(r.stderr) ? 'the @supports feature test was taken for an animation' : null),
+  },
+  {
+    name: 'the guards in the other order, @supports outside the reduced-motion @media, pass (review of #30)',
+    edit: ['src/styles/global.css', (old) => `${old}\n@supports (animation-timeline: view()) { @media (prefers-reduced-motion: no-preference) { .zz-test { animation-timeline: view(); } } }\n`],
+    expect: 'pass',
+  },
+  {
+    name: 'a negated reduced-motion query does not count as the guard (review of #30)',
+    edit: ['src/styles/global.css', (old) => `${old}\n@media not all and (prefers-reduced-motion: no-preference) { .zz-test { animation-timeline: view(); } }\n`],
+    expect: 'fail', message: /global\.css line \d+: animation-timeline outside @media \(prefers-reduced-motion: no-preference\)/,
+  },
+  {
+    name: 'a reduced-motion query joined by a comma does not count as the guard (review of #30)',
+    edit: ['src/styles/global.css', (old) => `${old}\n@media print, (prefers-reduced-motion: no-preference) { .zz-test { animation-timeline: view(); } }\n`],
+    expect: 'fail', message: /global\.css line \d+: animation-timeline outside @media \(prefers-reduced-motion: no-preference\)/,
+  },
+  {
+    name: 'a reduced-motion query joined by "or" does not count as the guard (review of #30, round 2)',
+    edit: ['src/styles/global.css', (old) => `${old}\n@media (prefers-reduced-motion: no-preference) or (min-width: 0) { .zz-test { animation-timeline: view(); } }\n`],
+    expect: 'fail', message: /global\.css line \d+: animation-timeline outside @media \(prefers-reduced-motion: no-preference\)/,
+  },
+  {
+    name: 'the guard written in capitals, with screen and, still counts (review of #30, round 2)',
+    edit: ['src/styles/global.css', (old) => `${old}\n@media SCREEN AND (PREFERS-REDUCED-MOTION: NO-PREFERENCE) { .zz-test { animation-timeline: view(); } }\n`],
+    expect: 'pass',
+  },
+  {
+    name: 'a second message of the head of the office is reported, since the home page shows one (review of #30)',
+    edit: ['src/data/office-head.json', (old) => { const list = JSON.parse(old); return JSON.stringify([...list, { ...list[0], id: 'zz-test-head' }], null, 1); }],
+    expect: 'fail', message: /office-head\.json: must hold exactly one entry/,
+  },
   // Operating-system files are not photos (round 3). Planted in a folder the test creates, so a real
   // Thumbs.db or .DS_Store written by the OS elsewhere can neither block nor be touched by the test.
   { name: 'Thumbs.db written by Windows Explorer is ignored', plant: ['public/img/zz-test-os/Thumbs.db', 'x'], expect: 'pass' },

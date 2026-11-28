@@ -82,6 +82,7 @@ Each task below ends with `npm run check`. When the check prints an error, it al
 | News and events | `src/data/news.json` | all items |
 | Student stories | `src/data/stories.json`, with the full texts in `src/data/reports/` | all stories |
 | Photos | `src/data/images.json`, with the files in `public/img/` | all photos |
+| The head of the office's message on the home page | `src/data/office-head.json`, with his photo in `src/data/images.json` (kind `portrait`) | the message |
 | Faculty pages and their checks | `src/data/faculty.json` | the whole faculty layer |
 
 A fact is stored once. A page never retypes a deadline, a capacity, a staff title or an email that is already in a data file: the layout shows it from the data. Prose explains; data states. The team (names, titles, research) lives in the faculty's laboratory directory entry, not in this site (section 6).
@@ -222,7 +223,7 @@ Every photo is an entry in `src/data/images.json`:
   "caption": { "en": "...", "ja": "..." }, "source": "https://www.med.nagoya-u.ac.jp/..." }
 ```
 
-- `kind` is `hero` (the large photo at the top of a page), `figure` (a photo inside a page) or `story` (a photo of a student report). A `hero` or `figure` names its `page`; a `story` photo names its `story`.
+- `kind` is `hero` (the large photo at the top of a page), `figure` (a photo inside a page) or `story` (a photo of a student report). A `hero` or `figure` names its `page`; a `story` photo names its `story`. `portrait` is kept for the photo of the head of the office in his message on the home page; `src/data/office-head.json` names it, and the check fails for a portrait it does not name.
 - `alt` is required in both languages: what the photo shows and why it matters, at most 125 characters in English and 60 in Japanese. Do not start with "Photo of". Do not name people unless the photo or page makes it certain.
 - `caption` is optional and only states facts (event, place, date).
 - `source` is the address of the photo or of the page it was published on.
@@ -243,7 +244,7 @@ Both languages:
 - Write for the visitor and their goal: who can apply, when, how, at what cost, whom to ask.
 - Short paragraphs, informative headings (`##`, `###`), lists for documents and steps, tables only for real comparisons.
 - Do not copy errors. The audit register (`report/issues.json` in the project folder) lists typos, contradictions and outdated statements found on the old sites: correct typos; drop COVID-era notices and expired calls; when two sources disagree, use the more authoritative and recent one (lab directory, then faculty site, then the 2021 Japanese exchange site, then the older sites) and add the point to `toConfirm`.
-- No personal email addresses, no phone extensions of individuals, no staff portraits. Use the contact ids. Photos of students come from their published reports (section 7).
+- No personal email addresses, no phone extensions of individuals, no staff portraits. The one exception is the photo of the head of the office beside his message on the home page, which the department asked for, as on the office's current exchange site. Use the contact ids. Photos of students come from their published reports (section 7).
 - No marketing filler. No "world-class", "cutting-edge", "unique opportunity".
 
 English: plain British or American spelling consistently (use American: "program" in official programme names as the university writes them, otherwise "programme" is acceptable but be consistent within a page). Address the reader as "you". Avoid em-dash asides and colon-then-reveal sentences.

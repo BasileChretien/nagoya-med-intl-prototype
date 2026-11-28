@@ -2030,6 +2030,10 @@
    "en": "58a4063c773ee057",
    "ja": "1788aaa8036d34b7"
   },
+  "images.json#portrait-82d0fc97d0ff/alt": {
+   "en": "c5d85fd649c5a618",
+   "ja": "b5f8cbd7f5ee18c7"
+  },
   "images.json#research-2014-kimberley-evans-1/alt": {
    "en": "e71d7e27a0b9fdb0",
    "ja": "de9c91df08c47375"
@@ -2593,6 +2597,22 @@
   "news.json#2026-03-experience-reports/title": {
    "en": "5498d2df4e42ea51",
    "ja": "2f597a500c354777"
+  },
+  "office-head.json#head/heading": {
+   "en": "2eb9976f5ddc8f09",
+   "ja": "f7ddf23df6957cef"
+  },
+  "office-head.json#head/message": {
+   "en": "abb11fabc5889cbb",
+   "ja": "974c3ee50b8bfbd6"
+  },
+  "office-head.json#head/name": {
+   "en": "df28e79180e17168",
+   "ja": "e4c0b9429385c74a"
+  },
+  "office-head.json#head/role": {
+   "en": "e1fd6f3fb6602d25",
+   "ja": "62d0083f61089605"
   },
   "partners.json#adelaide/country": {
    "en": "c1ef40ce0484c698",

@@ -6240,6 +6240,18 @@
   "source": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/images/home_img2.jpg"
  },
  {
+  "id": "portrait-82d0fc97d0ff",
+  "kind": "portrait",
+  "file": "img/pages/82d0fc97d0ff.webp",
+  "width": 560,
+  "height": 978,
+  "alt": {
+   "en": "Professor Hideki Kasuya in a white coat, sitting in a leather armchair.",
+   "ja": "白衣姿で革の肘掛け椅子に座る粕谷英樹教授"
+  },
+  "source": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/images/member/kasuya.png"
+ },
+ {
   "id": "page-3fa82e61b55a-about-support",
   "kind": "hero",
   "page": "about/support",

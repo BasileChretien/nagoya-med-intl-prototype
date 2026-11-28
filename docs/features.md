@@ -24,6 +24,8 @@ flowchart LR
   S2 --- story_library("story-library")
   S2 --- report_pages("report-pages")
   S2 --- photos("photos")
+  S2 --- head_message("head-message")
+  S2 --- scroll_motion("scroll-motion")
   S2 --- news("news")
   S3 --- partners_contacts("partners-contacts")
   S3 --- office_access("office-access")
@@ -58,6 +60,8 @@ flowchart LR
 | Explore | `story-library` | Visitors can filter student stories by type, country and year, share or link a filtered list by its address, and open the full report; the Japanese list opens on Nagoya students abroad. | works | data-files |
 | Explore | `report-pages` | Every student report has its own page in English and Japanese; the version that is not the original is an automatic translation, labelled as such, with a link to the original. *Limit: Translations are automatic (AI) and have not been checked by a person.* | works | report-translations |
 | Explore | `photos` | Pages, reports and the team list show photos, each with a description in both languages for screen readers. | works | photo-descriptions, images |
+| Explore | `head-message` | The home page shows the head of the office's message beside his photo, as on the office's current exchange site; the English is an automatic translation and says so. *Limit: No person has checked the English translation yet. A new head of the office or a new message needs technical help (a new photo and src/data/office-head.json); the editing page does not offer it.* | works | versions-in-step, images |
+| Explore | `scroll-motion` | As on the office's current exchange site, the photos behind the home title and the photo bands move more slowly than the page, and blocks fade in as they come into view; nothing moves for visitors whose system asks for less motion. *Limit: Built with CSS scroll-driven animations and no script; browsers that do not support them show the page without motion.* | works | motion |
 | Explore | `news` | Every news item has its own page in both languages; the list can be filtered by type and partner, and past events and closed calls are labelled. | works | data-files |
 | Contact | `partners-contacts` | Partner universities and contact points come from data files and stay consistent everywhere; the partner list can be searched and filtered by region and link, with counts, and opened on one filter from another page. | works | data-files |
 | Contact | `office-access` | Visitors find the office's building, floor and room, step-by-step directions from Tsurumai Station, a route map and the printable route guide. | works | pairing, images, internal-links |

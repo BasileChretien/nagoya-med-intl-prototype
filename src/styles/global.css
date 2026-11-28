@@ -224,6 +224,25 @@ a.card:hover { border-color: var(--sky-ink); box-shadow: 0 8px 24px rgba(31, 42,
 .photo-panel .numbers { text-align: center; }
 .photo-panel .number { border-left: 0; padding: 0; justify-items: center; }
 .photo-panel .number b { font-size: clamp(2.4rem, 2rem + 1.5vw, 3.2rem); }
+.photo-panel-narrow { max-width: 46rem; margin-inline: auto; }
+.photo-panel-narrow .band-more { margin-top: 0; }
+.photo-band + .photo-band { margin-top: 3px; }
+
+/* The head of the office's message, as the old site's "国際連携室 紹介" section: the quote beside his photo. */
+.head-message { overflow-x: clip; }
+.head-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(160px, 240px); gap: clamp(1.5rem, 1rem + 3vw, 4rem); align-items: end; max-width: 60rem; margin: 0 auto; }
+.head-quote { margin: 0; }
+.head-quote blockquote { margin: 0; padding-left: clamp(1rem, 0.5rem + 1.5vw, 1.75rem); border-left: 3px solid var(--sky); font-size: 1.04rem; line-height: 1.95; color: var(--ink); }
+.head-quote blockquote p { margin: 0; }
+.head-quote figcaption { display: grid; gap: 0.3rem; margin-top: 1.5rem; padding-left: clamp(1rem, 0.5rem + 1.5vw, 1.75rem); }
+.head-quote figcaption b { font-family: var(--f-serif); font-size: 1.3rem; color: var(--sky-ink); letter-spacing: 0.04em; }
+.head-quote figcaption span { color: var(--muted); font-size: 0.92rem; line-height: 1.5; }
+.head-photo { width: 100%; height: auto; }
+.head-note { max-width: 60rem; margin: 1.75rem auto 0; font-size: 0.88rem; color: var(--muted); }
+@media (max-width: 760px) {
+  .head-grid { grid-template-columns: minmax(0, 1fr); justify-items: center; }
+  .head-photo { width: min(200px, 55%); }
+}
 
 /* Stories */
 .story { gap: 0.4rem; }
@@ -404,3 +423,26 @@ a.card:hover { border-color: var(--sky-ink); box-shadow: 0 8px 24px rgba(31, 42,
   .brand-emblem { filter: brightness(0); }
   .hero .wrap { min-height: 0; padding-block: 1.5rem; }
 }
+
+/* Motion on scroll, as on the office's current exchange site: the photos behind the title and the bands move more
+   slowly than the page, and blocks fade in as they come into view. CSS scroll-driven animations only, no script.
+   Browsers without them, visitors whose system asks for less motion, and print get the still page.
+   Longhands only: the build's minifier folds animation-timeline into the animation shorthand otherwise, a form
+   browsers reject, which drops the whole animation. */
+@media screen and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .hero { view-timeline: --hero; }
+    .hero picture { animation-name: drift-down; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: --hero; animation-range: exit 0% exit 100%; }
+    /* The photo is taller than its band (124 %), so moving it by 9 % of its height either way never shows an edge. */
+    .photo-band { view-timeline: --band; }
+    .photo-band > img { top: -12%; bottom: auto; height: 124%; animation-name: drift-band; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: --band; animation-range: cover 0% cover 100%; }
+    .reveal, .reveal-each > *, .reveal-left, .reveal-right { animation-name: rise; animation-timing-function: ease-out; animation-fill-mode: both; animation-timeline: view(); animation-range: entry 0% entry 75%; }
+    .reveal-left { animation-name: from-left; }
+    .reveal-right { animation-name: from-right; }
+  }
+}
+@keyframes drift-down { to { transform: translateY(30%); } }
+@keyframes drift-band { from { transform: translateY(-9%); } to { transform: translateY(9%); } }
+@keyframes rise { from { opacity: 0; transform: translateY(1.75rem); } }
+@keyframes from-left { from { opacity: 0; transform: translateX(-2.25rem); } }
+@keyframes from-right { from { opacity: 0; transform: translateX(2.25rem); } }

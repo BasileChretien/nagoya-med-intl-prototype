@@ -43,11 +43,34 @@ for (const s of doors) {
   const { hero } = await pageImages(s);
   if (hero) doorPhotos[s] = hero;
 }
-// The photo behind the numbers: the students' group from the office's current exchange site, where it sits behind
-// the band for students who want to study abroad. It is also a photo of the Study abroad page.
-const BAND_PHOTO = 'page-a1018404cfdd-study-abroad';
-const bandPhoto = (await allImages()).find((i) => i.id === BAND_PHOTO)?.data;
-if (!bandPhoto) throw new Error(`The photo behind the numbers (${BAND_PHOTO}) is not in src/data/images.json.`);
+
+const images = await allImages();
+/** A photo named by id in images.json; the build stops if it is missing, so no band turns blank unnoticed. */
+function photoById(id: string, what: string): ImageEntry['data'] {
+  const photo = images.find((i) => i.id === id)?.data;
+  if (!photo) throw new Error(`${what} (${id}) is not in src/data/images.json.`);
+  return photo;
+}
+/** The attributes of a photo behind a band: the thumbnail on phones, the full file on wide screens. */
+function bandImage(p: ImageEntry['data']) {
+  return {
+    src: asset(p.thumb ?? p.file),
+    srcset: p.thumb && p.thumbWidth ? `${asset(p.thumb)} ${p.thumbWidth}w, ${asset(p.file)} ${p.width}w` : undefined,
+    sizes: '100vw',
+    width: p.width,
+    height: p.height,
+  };
+}
+// The two photo bands of the office's current exchange site, in its order: the students' group (behind its band
+// for students who want to study abroad, here behind the numbers; also a photo of the Study abroad page), then the
+// campus from above behind the Frontier-kai (also the top photo of the Support page, which covers the association).
+const bandPhoto = photoById('page-a1018404cfdd-study-abroad', 'The photo behind the numbers');
+const frontierPhoto = photoById('page-3fa82e61b55a-about-support', 'The photo behind the Frontier-kai band');
+const FRONTIER_HASH: Record<Lang, string> = { en: 'alumni-of-study-abroad', ja: '留学経験のある卒業生の方へ' };
+// The head of the office's message with his photo, as on the office's current exchange site (src/data/office-head.json).
+const head = (await getCollection('officeHead'))[0]?.data;
+const headPhoto = head ? photoById(head.photo, 'The photo of the head of the office') : undefined;
+const headOriginal: Lang = head?.translated === 'ja' ? 'en' : 'ja';
 ---
 <Base lang={lang} title={ui.heroTitle} description={ui.heroLede} slug="" structured={structured}>
   <section class="hero">
@@ -65,10 +88,10 @@ if (!bandPhoto) throw new Error(`The photo behind the numbers (${BAND_PHOTO}) is
 
   <section class="band" aria-labelledby="doors">
     <div class="wrap">
-      <div class="band-head"><h2 id="doors">{ui.doorsTitle}</h2></div>
+      <div class="band-head reveal"><h2 id="doors">{ui.doorsTitle}</h2></div>
       <div class="grid cols-4">
         {doors.map((s) => (
-          <a class="door" href={href(lang, s)}>
+          <a class="door reveal" href={href(lang, s)}>
             <div class="door-photo">
               {doorPhotos[s] && <img {...cardImage(doorPhotos[s]!.data)} alt={doorPhotos[s]!.data.alt[lang]} loading="lazy" decoding="async" />}
               <h3 class="door-title"><span>{ui.sections[s]}</span></h3>
@@ -80,7 +103,7 @@ if (!bandPhoto) throw new Error(`The photo behind the numbers (${BAND_PHOTO}) is
       <h3 class="band-sub" id="more-doors">{ui.moreDoorsTitle}</h3>
       <ul class="grid cols-3 plain-list" aria-labelledby="more-doors">
         {moreDoors.map(({ path, hash }) => (
-          <li><a class="card door-more" href={`${href(lang, path)}${hash ? `#${hash[lang]}` : ''}`}><span class="door-more-title">{ui.audienceCards[path]}</span></a></li>
+          <li class="reveal"><a class="card door-more" href={`${href(lang, path)}${hash ? `#${hash[lang]}` : ''}`}><span class="door-more-title">{ui.audienceCards[path]}</span></a></li>
         ))}
       </ul>
     </div>
@@ -88,7 +111,7 @@ if (!bandPhoto) throw new Error(`The photo behind the numbers (${BAND_PHOTO}) is
 
   <section class="band soft" aria-labelledby="dates">
     <div class="wrap">
-      <div class="band-head"><h2 id="dates">{ui.keyDates}</h2><p>{ui.keyDatesNote}</p></div>
+      <div class="band-head reveal"><h2 id="dates">{ui.keyDates}</h2><p>{ui.keyDatesNote}</p></div>
       <DeadlineList lang={lang} programmes={programmes} limit={8} />
       <p class="band-more"><a class="btn-pill" href={href(lang, 'programmes')}>{ui.allProgrammes}</a></p>
     </div>
@@ -96,8 +119,8 @@ if (!bandPhoto) throw new Error(`The photo behind the numbers (${BAND_PHOTO}) is
 
   <section class="band" aria-labelledby="stories">
     <div class="wrap">
-      <div class="band-head"><h2 id="stories">{ui.stories}</h2><p>{ui.storiesLede}</p></div>
-      <div class="grid cols-3">
+      <div class="band-head reveal"><h2 id="stories">{ui.stories}</h2><p>{ui.storiesLede}</p></div>
+      <div class="grid cols-3 reveal-each">
         {featured.map((s) => <StoryCard story={s} lang={lang} />)}
       </div>
       <p class="band-more"><a class="btn-pill" href={href(lang, 'stories')}>{fill(ui.allStories, { n: stories.length })}</a></p>
@@ -105,19 +128,8 @@ if (!bandPhoto) throw new Error(`The photo behind the numbers (${BAND_PHOTO}) is
   </section>
 
   <section class="photo-band" aria-labelledby="numbers">
-    {bandPhoto && (
-      <img
-        src={asset(bandPhoto.thumb ?? bandPhoto.file)}
-        srcset={bandPhoto.thumb && bandPhoto.thumbWidth ? `${asset(bandPhoto.thumb)} ${bandPhoto.thumbWidth}w, ${asset(bandPhoto.file)} ${bandPhoto.width}w` : undefined}
-        sizes="100vw"
-        width={bandPhoto.width}
-        height={bandPhoto.height}
-        alt=""
-        loading="lazy"
-        decoding="async"
-      />
-    )}
-    <div class="wrap"><div class="photo-panel">
+    <img {...bandImage(bandPhoto)} alt="" loading="lazy" decoding="async" />
+    <div class="wrap"><div class="photo-panel reveal">
       <div class="band-head"><h2 id="numbers">{ui.numbersTitle}</h2></div>
       <div class="numbers">
         <div class="number"><b>{stories.length}</b><span>{fill(ui.numStories, { year: Math.min(...stories.map((s) => s.data.year)) })}</span></div>
@@ -128,9 +140,39 @@ if (!bandPhoto) throw new Error(`The photo behind the numbers (${BAND_PHOTO}) is
     </div></div>
   </section>
 
+  <section class="photo-band" aria-labelledby="frontier">
+    <img {...bandImage(frontierPhoto)} alt="" loading="lazy" decoding="async" />
+    <div class="wrap"><div class="photo-panel photo-panel-narrow reveal">
+      <div class="band-head"><h2 id="frontier">{ui.frontierTitle}</h2><p>{ui.frontierText}</p></div>
+      <p class="band-more"><a class="btn-pill" href={`${href(lang, 'about/support')}#${FRONTIER_HASH[lang]}`}>{ui.frontierMore}</a></p>
+    </div></div>
+  </section>
+
+  {head && headPhoto && (
+    <section class="band head-message" aria-labelledby="head-message">
+      <div class="wrap">
+        <div class="band-head reveal"><h2 id="head-message">{ui.headTitle}</h2><p>{head.heading[lang]}</p></div>
+        <div class="head-grid">
+          <figure class="head-quote reveal-left">
+            <blockquote cite={head.source}><p>{head.message[lang]}</p></blockquote>
+            <figcaption><b>{head.name[lang]}</b><span>{head.role[lang]}</span></figcaption>
+          </figure>
+          <img class="head-photo reveal-right" src={asset(headPhoto.file)} width={headPhoto.width} height={headPhoto.height} alt={headPhoto.alt[lang]} loading="lazy" decoding="async" />
+        </div>
+        {head.translated === lang && (
+          <p class="head-note">
+            <strong>{ui.machineLead}</strong>{lang === 'en' ? ' ' : ''}{fill(ui.headNote, { lang: ui.langName[headOriginal] })}
+            {' '}<a href={head.source} hreflang={headOriginal}>{fill(ui.readOriginal, { lang: ui.langName[headOriginal] })}</a>
+          </p>
+        )}
+        <p class="band-more"><a class="btn-pill" href={href(lang, 'about')}>{ui.headMore}</a></p>
+      </div>
+    </section>
+  )}
+
   <section class="band" aria-labelledby="news">
     <div class="wrap">
-      <div class="band-head"><h2 id="news">{ui.news}</h2></div>
+      <div class="band-head reveal"><h2 id="news">{ui.news}</h2></div>
       <ul class="news-list news-home">
         {news.map((n) => (
           <li>
