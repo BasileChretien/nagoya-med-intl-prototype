@@ -13,10 +13,11 @@ backend:
   name: github
   repo: BasileChretien/nagoya-med-intl-prototype
   branch: main
-  # Sign-in through Sveltia CMS Additions (docs/editor-setup.md, step 3). Once the service exists, remove the
-  # "#" in front of the next two lines and put the service's address after base_url:
-  # auth_type: additions
-  # base_url: https://<your-worker>.workers.dev
+  # Sign-in through Sveltia CMS Additions, a free service on Cloudflare Workers (docs/editor-setup.md). Staff sign in
+  # with a username and password made on the editor's Administration page. The service is deployed from the
+  # configuration repository BasileChretien/sveltia-cms-additions; if it moves, change base_url.
+  auth_type: additions
+  base_url: https://sveltia-cms-additions.basilechretien.workers.dev
   #
   # Every save starts with "[editor]": the deploy workflow (.github/workflows/deploy.yml) then records the pages and
   # fields each save changed as in step in both languages (scripts/editor-confirm.mjs). Keep the marker first.

@@ -75,8 +75,9 @@ Follow [Additions setup, step 1](https://sveltiacms.app/en/docs/additions/setup)
 
 ## Step 2. Point the editor at the service
 
-In `public/admin/config.yml`, under `backend:`, remove the `#` in front of the two lines and put the Worker's
-address after `base_url:`:
+In `public/admin/config.yml`, under `backend:`, set `auth_type: additions` and put the Worker's address after
+`base_url:`. Both are set for this site, with the address `https://sveltia-cms-additions.basilechretien.workers.dev`.
+Change `base_url` if the service ever gets another address.
 
 ```yaml
 backend:
