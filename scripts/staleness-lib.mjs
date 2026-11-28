@@ -61,6 +61,7 @@ export const LIST_DATA_FILES = [
   { file: 'partners.json', facts: true },
   { file: 'news.json', facts: false },
   { file: 'images.json', facts: false },
+  { file: 'office-head.json', facts: false },
 ];
 
 /**

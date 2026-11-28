@@ -156,11 +156,33 @@ const translations = defineCollection({
   }),
 });
 
+/**
+ * The head of the office's message on the home page, as the department asked (the office's current exchange site
+ * has the same section). The text is quoted from the head's greeting on the faculty site; `translated` names the
+ * language that is an automatic translation, which the page labels as such.
+ */
+const officeHead = defineCollection({
+  loader: file('src/data/office-head.json'),
+  schema: z.object({
+    name: L,
+    role: L,
+    /** The greeting's title, shown under the section heading. */
+    heading: L,
+    message: L,
+    translated: z.enum(['en', 'ja']).optional(),
+    /** The page the message is quoted from, in its original language. */
+    source: z.string().url(),
+    /** Id of the photo in images.json (kind "portrait"). */
+    photo: z.string(),
+  }),
+});
+
 /** Photos, each with a description in both languages for screen readers. */
 const images = defineCollection({
   loader: file('src/data/images.json'),
   schema: z.object({
-    kind: z.enum(['story', 'hero', 'figure']),
+    /** "portrait" is the photo of the head of the office in the message on the home page; no other staff portraits. */
+    kind: z.enum(['story', 'hero', 'figure', 'portrait']),
     story: z.string().optional(),
     page: z.string().optional(),
     file: z.string(),
@@ -175,4 +197,4 @@ const images = defineCollection({
   }),
 });
 
-export const collections = { pages, programmes, contacts, partners, news, stories, reports, translations, images };
+export const collections = { pages, programmes, contacts, partners, news, stories, reports, translations, images, officeHead };
