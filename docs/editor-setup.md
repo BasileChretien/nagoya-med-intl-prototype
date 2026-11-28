@@ -9,8 +9,9 @@ Japanese, is [editing-guide-ja.md](editing-guide-ja.md).
 
 The editor itself needs no setup: `public/admin/index.html` loads it from the site itself (the devDependency
 `@sveltia/cms`, copied into the build by `scripts/copy-editor.mjs`) and `public/admin/config.yml` describes what it
-edits. What is missing is the **sign-in**. This page sets it up once. Only the owner of the GitHub repository can
-do it, because it installs a GitHub App on the repository. Allow about one hour.
+edits. The **sign-in** needs a one-time setup, described here; for this site it was done on 28 November 2026. Only
+the owner of the GitHub repository can do it, because it installs a GitHub App on the repository. Allow about one
+hour.
 
 ## What staff can and cannot edit
 
@@ -58,7 +59,8 @@ limited to some files); GitHub Enterprise is not supported; it needs Sveltia CMS
    setup. If you move it later: change `repo:` and `site_url` in `public/admin/config.yml`, install the GitHub App
    on the moved repository (Administration page, GitHub section), and replace the host in the allowed domains.
 2. You need: the repository owner's GitHub account, and a free [Cloudflare](https://dash.cloudflare.com/sign-up)
-   account (the office's, not a personal one). Turn on two-factor authentication on both.
+   account (the office's, not a personal one). Turn on two-factor authentication on both. For now, this site's
+   service runs on the developer's own Cloudflare account (see "Keeping it running").
 3. Keep a password manager ready for the admin secret.
 
 ## Step 1. Deploy the service on Cloudflare
@@ -66,7 +68,11 @@ limited to some files); GitHub Enterprise is not supported; it needs Sveltia CMS
 Follow [Additions setup, step 1](https://sveltiacms.app/en/docs/additions/setup):
 
 1. On that page, click **Deploy to Cloudflare**. It copies a small configuration repository into your GitHub
-   account, creates the storage and deploys the service with Workers Builds.
+   account, creates the storage and deploys the service with Workers Builds. On Cloudflare's form, connect GitHub
+   under **Git account** and keep the name `sveltia-cms-additions`. Leave **Protect with Cloudflare Access** off: it
+   would put a Cloudflare login in front of the sign-in service. Do not connect the site's own repository to a
+   Worker (Workers & Pages > Create > Import a repository): that makes a second Worker, which tries to build the site
+   on every push and fails.
 2. It asks for one value, `ADMIN_SECRET`. Create it with `openssl rand -base64 32` (at least 32 characters) and
    store it in the password manager. Whoever has it can create admin accounts.
 3. In the Cloudflare dashboard, open **Workers & Pages**, select the new Worker, open **Domains** and turn on the
@@ -76,8 +82,7 @@ Follow [Additions setup, step 1](https://sveltiacms.app/en/docs/additions/setup)
 ## Step 2. Point the editor at the service
 
 In `public/admin/config.yml`, under `backend:`, set `auth_type: additions` and put the Worker's address after
-`base_url:`. Both are set for this site, with the address `https://sveltia-cms-additions.basilechretien.workers.dev`.
-Change `base_url` if the service ever gets another address.
+`base_url:`. For this site, both are set:
 
 ```yaml
 backend:
@@ -85,12 +90,12 @@ backend:
   repo: BasileChretien/nagoya-med-intl-prototype
   branch: main
   auth_type: additions
-  base_url: https://sveltia-cms-additions.<your-account>.workers.dev
+  base_url: https://sveltia-cms-additions.basilechretien.workers.dev
 ```
 
-Commit this like any developer change (through a pull request). Both keys are needed: `base_url` is required when
-`auth_type` is `additions`. When the deploy has finished, the editing page shows a username and password form and
-a **Use Admin Secret** button.
+Both keys are needed: `base_url` is required when `auth_type` is `additions`. If the service gets another address,
+change `base_url` like any developer change (through a pull request). When the deploy has finished, the editing page
+shows a username and password form and a **Use Admin Secret** button.
 
 ## Step 3. Run the setup wizard
 
@@ -131,15 +136,17 @@ A forgotten password: **Reset Password** in the person's menu gives a new tempor
 2. Open **ページ：私たちについて / Pages: About us**, choose a page, and add a full stop at the end of the Japanese
    summary. Save.
 3. In the repository, open the commit list of `main`: a commit `[editor] 更新：ページ「...」` has appeared. Open it
-   and check that **only the summary line changed**. This is the one thing not yet tried on the live site: the
-   documentation says other values are written back unchanged, but the YAML formatting of the front matter may be
-   rewritten. If more than the edited line changed, tell the developer before staff start.
+   and check that **only the summary line changed**. Tried on the live site on 28 November 2026: the first save of a
+   page or a programme also puts that file's lines in the editor's order once, without changing any value (for a
+   page, in both language files); later saves of those files changed only the edited line. A news save changed only
+   its own line. Contacts were not tried. If a save changes a value you did not edit, tell the developer before staff
+   start.
 4. Open **Actions**: the "Check and deploy" run for that commit is green, its step "Record editor saves as in step in
    both languages" lists the page, and the job `record-editor-sync` has pushed a commit
    `chore: record editor saves as in step [skip ci]`.
 5. After a few minutes the site shows the change. Remove the full stop the same way.
-6. Repeat once with a programme (change the "checked" date and set it back) and once with a news item, and check the
-   JSON diff in the same way.
+6. Repeat once with a programme (change the "checked" date and set it back), once with a news item and once with a
+   contact (change the building and room and set it back), and check the JSON diff in the same way.
 
 ## What happens after a save
 
@@ -179,9 +186,10 @@ Monday rebuild or a manual run), then:
   than that, or one whose parent is outside the clone, is left unrecorded; the check then reports it, and a developer
   confirms it by hand.
 
-**Repository rules:** saves and the record commit push straight to `main`. Protect `main` against force pushes and
-deletion (the Additions security checklist recommends it, with the app not on the bypass list), but do not require a
-pull request on `main`, or every save will be refused.
+**Repository rules:** saves and the record commit push straight to `main`. Two rulesets (Settings > Rules >
+Rulesets) block force pushes and deletion, as the Additions security checklist recommends, with nobody on their bypass
+list, the app included: "Protect main (editing page)" for `main` and "Protect tags (editing page)" for all tags. Do
+not require a pull request on `main`, or every save will be refused.
 
 ## Where the editing page lives
 
@@ -219,6 +227,15 @@ nothing from other sites, as before.
 
 ## Keeping it running
 
+- Where the service runs: the Worker `sveltia-cms-additions` on the developer's own Cloudflare account, deployed from
+  the configuration repository `BasileChretien/sveltia-cms-additions`. Cloudflare's GitHub app needs access to that
+  repository only; the site's own GitHub App, made by the wizard, to this repository only. Before the developer
+  leaves, set the service up again on the office's Cloudflare account (steps 1 to 5) and change `base_url`. A new
+  deploy starts empty, so the wizard and the user accounts are done again. When the new service works, remove the
+  old one, or it stays a second way to write to `main`: delete the first GitHub App (GitHub > Settings > Developer
+  settings > GitHub Apps > the app > Advanced > Delete GitHub App, which also removes it from the repository), delete
+  the old Worker (Workers & Pages > the Worker > Settings > Delete), and delete the old configuration repository or
+  hand it over.
 - Sveltia CMS: merge the Dependabot pull request for `@sveltia/cms` after its checks pass, then open the editing page
   once to see that it starts.
 - Additions: when a new version comes out, the Administration page shows a notice, and Dependabot opens a pull
