@@ -138,14 +138,15 @@ A forgotten password: **Reset Password** in the person's menu gives a new tempor
 3. In the repository, open the commit list of `main`: a commit `[editor] 更新：ページ「...」` has appeared. Open it
    and check that **only the summary line changed**. Tried on the live site on 28 November 2026: the first save of a
    page or a programme also puts that file's lines in the editor's order once, without changing any value (for a
-   page, in both language files); later saves change only the edited line. A news save changed only its own line.
-   If a save changes a value you did not edit, tell the developer before staff start.
+   page, in both language files); later saves of those files changed only the edited line. A news save changed only
+   its own line. Contacts were not tried. If a save changes a value you did not edit, tell the developer before staff
+   start.
 4. Open **Actions**: the "Check and deploy" run for that commit is green, its step "Record editor saves as in step in
    both languages" lists the page, and the job `record-editor-sync` has pushed a commit
    `chore: record editor saves as in step [skip ci]`.
 5. After a few minutes the site shows the change. Remove the full stop the same way.
-6. Repeat once with a programme (change the "checked" date and set it back) and once with a news item, and check the
-   JSON diff in the same way.
+6. Repeat once with a programme (change the "checked" date and set it back), once with a news item and once with a
+   contact (change the building and room and set it back), and check the JSON diff in the same way.
 
 ## What happens after a save
 
@@ -230,7 +231,11 @@ nothing from other sites, as before.
   the configuration repository `BasileChretien/sveltia-cms-additions`. Cloudflare's GitHub app needs access to that
   repository only; the site's own GitHub App, made by the wizard, to this repository only. Before the developer
   leaves, set the service up again on the office's Cloudflare account (steps 1 to 5) and change `base_url`. A new
-  deploy starts empty, so the wizard and the user accounts are done again.
+  deploy starts empty, so the wizard and the user accounts are done again. When the new service works, remove the
+  old one, or it stays a second way to write to `main`: delete the first GitHub App (GitHub > Settings > Developer
+  settings > GitHub Apps > the app > Advanced > Delete GitHub App, which also removes it from the repository), delete
+  the old Worker (Workers & Pages > the Worker > Settings > Delete), and delete the old configuration repository or
+  hand it over.
 - Sveltia CMS: merge the Dependabot pull request for `@sveltia/cms` after its checks pass, then open the editing page
   once to see that it starts.
 - Additions: when a new version comes out, the Administration page shows a notice, and Dependabot opens a pull

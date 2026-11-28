@@ -148,7 +148,7 @@ features:
     delivered_by: [public/admin/index.html, public/admin/config.yml, scripts/copy-editor.mjs, scripts/editor-lib.mjs, scripts/editor-confirm.mjs, scripts/editor-config-lib.mjs, .github/workflows/deploy.yml, docs/editor-setup.md, docs/editing-guide-ja.md]
     tests: [editor-config, versions-in-step]
     docs: docs/editing-guide-ja.md
-    limits: Staff sign in with accounts made on the editor's Administration page (free sign-in service on Cloudflare, docs/editor-setup.md). The first save of a page or programme puts that file's lines in the editor's order once, without changing any value. A save is trusted as checked in both languages; numbers are compared only in programme, contact and partner facts. Interface translations and fonts still come from unpkg and jsDelivr. Photos, new pages, partners and stories still need technical help.
+    limits: The sign-in service runs on the developer's own Cloudflare account; before the developer leaves, it must be set up again on the office's account, with new user accounts (docs/editor-setup.md). The first save of a page or programme puts that file's lines in the editor's order once, without changing any value; contacts were not tried. A save is trusted as checked in both languages; numbers are compared only in programme, contact and partner facts. Interface translations and fonts still come from unpkg and jsDelivr. Photos, new pages, partners and stories still need technical help.
   - id: automatic-checks
     says: Every change is checked for missing translations, passed deadlines, large images and broken internal links before it is published.
     stage: Maintain
