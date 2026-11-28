@@ -72,6 +72,16 @@ const cases = [
     expect: 'fail', message: /global\.css line \d+: animation-timeline outside @media \(prefers-reduced-motion: no-preference\)/,
   },
   {
+    name: 'a reduced-motion query joined by "or" does not count as the guard (review of #30, round 2)',
+    edit: ['src/styles/global.css', (old) => `${old}\n@media (prefers-reduced-motion: no-preference) or (min-width: 0) { .zz-test { animation-timeline: view(); } }\n`],
+    expect: 'fail', message: /global\.css line \d+: animation-timeline outside @media \(prefers-reduced-motion: no-preference\)/,
+  },
+  {
+    name: 'the guard written in capitals, with screen and, still counts (review of #30, round 2)',
+    edit: ['src/styles/global.css', (old) => `${old}\n@media SCREEN AND (PREFERS-REDUCED-MOTION: NO-PREFERENCE) { .zz-test { animation-timeline: view(); } }\n`],
+    expect: 'pass',
+  },
+  {
     name: 'a second message of the head of the office is reported, since the home page shows one (review of #30)',
     edit: ['src/data/office-head.json', (old) => { const list = JSON.parse(old); return JSON.stringify([...list, { ...list[0], id: 'zz-test-head' }], null, 1); }],
     expect: 'fail', message: /office-head\.json: must hold exactly one entry/,

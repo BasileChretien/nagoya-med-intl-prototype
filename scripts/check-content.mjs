@@ -365,23 +365,22 @@ for (const f of walk(PUBLIC).filter((x) => /\.(jpe?g|png|webp|avif|gif)$/i.test(
 }
 
 // 4b. Motion on scroll (src/styles/global.css) plays only for visitors whose system does not ask for less motion:
-//     every scroll-driven timeline sits inside an @media rule with (prefers-reduced-motion: no-preference), in a
-//     query with no "not" and no comma (either could let motion play for those visitors). The feature test of an
-//     @supports rule, such as @supports (animation-timeline: view()), runs nothing and is skipped.
+//     every scroll-driven timeline sits inside an @media rule whose query is exactly (prefers-reduced-motion:
+//     no-preference), alone or after "screen and" or "all and". Any other query is refused, because "not", a comma
+//     or "or" could let motion play for those visitors; other conditions go in an @media rule of their own. The
+//     feature test of an @supports rule, such as @supports (animation-timeline: view()), runs nothing and is skipped.
 {
   const cssFile = join(ROOT, 'src', 'styles', 'global.css');
   const atRules = [];
-  const isGuard = (a) => {
-    if (a.name !== 'media' || !a.prelude) return false;
-    const q = csstree.generate(a.prelude);
-    return /prefers-reduced-motion:no-preference/.test(q.replace(/\s+/g, '')) && !/(^|[\s,(])not\b/i.test(q) && !q.includes(',');
-  };
+  const GUARD = /^(?:(?:only )?(?:screen|all) and )?\(prefers-reduced-motion:no-preference\)$/;
+  const isGuard = (a) => a.name === 'media' && Boolean(a.prelude)
+    && GUARD.test(csstree.generate(a.prelude).toLowerCase().replace(/\s+/g, ' ').replace(/\(\s*/g, '(').replace(/\s*\)/g, ')').replace(/\s*:\s*/g, ':').trim());
   csstree.walk(csstree.parse(readFileSync(cssFile, 'utf8'), { positions: true }), {
     enter(node) {
       if (node.type === 'SupportsDeclaration') return csstree.walk.skip;
       if (node.type === 'Atrule') atRules.push(node);
       if (node.type !== 'Declaration' || !/^(animation|view|scroll)-timeline/.test(node.property)) return undefined;
-      if (!atRules.some(isGuard)) fail(`src/styles/global.css line ${node.loc.start.line}: ${node.property} outside @media (prefers-reduced-motion: no-preference) (a query with no "not" and no comma); motion on scroll must stop for visitors who ask for less motion`);
+      if (!atRules.some(isGuard)) fail(`src/styles/global.css line ${node.loc.start.line}: ${node.property} outside @media (prefers-reduced-motion: no-preference) (exactly that query, alone or after "screen and"); motion on scroll must stop for visitors who ask for less motion`);
       return undefined;
     },
     leave(node) { if (node.type === 'Atrule') atRules.pop(); },
