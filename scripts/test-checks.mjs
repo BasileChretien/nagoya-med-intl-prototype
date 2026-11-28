@@ -82,6 +82,26 @@ const cases = [
     expect: 'pass',
   },
   {
+    name: 'a scroll-driven fade (opacity tied to the scroll position) is reported',
+    edit: ['src/styles/global.css', (old) => `${old}\n@media (prefers-reduced-motion: no-preference) { .zz-test { animation-name: zz-fade; animation-timeline: view(); } }\n@keyframes zz-fade { from { opacity: 0; } }\n`],
+    expect: 'fail', message: /global\.css line \d+: @keyframes zz-fade changes opacity/,
+  },
+  {
+    name: 'a fade tied to the scroll by a separate rule is reported (review of #31)',
+    edit: ['src/styles/global.css', (old) => `${old}\n@media (prefers-reduced-motion: no-preference) { .zz-test { animation-timeline: view(); } .zz-test { animation-name: zz-fade; } }\n@keyframes zz-fade { from { OPACITY: 0; } }\n`],
+    expect: 'fail', message: /global\.css line \d+: @keyframes zz-fade changes opacity/,
+  },
+  {
+    name: 'a fade written as filter: opacity() is reported (review of #31)',
+    edit: ['src/styles/global.css', (old) => `${old}\n@keyframes zz-fade { from { filter: opacity(0); } }\n`],
+    expect: 'fail', message: /global\.css line \d+: @keyframes zz-fade changes opacity/,
+  },
+  {
+    name: 'a scroll-driven movement without opacity passes',
+    edit: ['src/styles/global.css', (old) => `${old}\n@media (prefers-reduced-motion: no-preference) { .zz-test { animation-name: zz-move; animation-timeline: view(); } }\n@keyframes zz-move { from { transform: translateY(1rem); } }\n`],
+    expect: 'pass',
+  },
+  {
     name: 'a second message of the head of the office is reported, since the home page shows one (review of #30)',
     edit: ['src/data/office-head.json', (old) => { const list = JSON.parse(old); return JSON.stringify([...list, { ...list[0], id: 'zz-test-head' }], null, 1); }],
     expect: 'fail', message: /office-head\.json: must hold exactly one entry/,

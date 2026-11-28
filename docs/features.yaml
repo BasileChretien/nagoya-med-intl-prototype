@@ -88,9 +88,9 @@ features:
     says: As on the office's current exchange site, the photos behind the home title and the photo bands move more slowly than the page, and blocks fade in as they come into view; nothing moves for visitors whose system asks for less motion.
     stage: Explore
     status: works
-    delivered_by: [src/styles/global.css]
+    delivered_by: [src/styles/global.css, src/pages/[lang]/index.astro]
     tests: [motion]
-    limits: Built with CSS scroll-driven animations and no script; browsers that do not support them show the page without motion.
+    limits: The photos move with CSS scroll-driven animations; browsers that do not support them show them still. The fade-ins are short timed transitions started by a few lines of the site's own script; without scripts every block is simply shown.
   - id: news
     says: Every news item has its own page in both languages; the list can be filtered by type and partner, and past events and closed calls are labelled.
     stage: Explore

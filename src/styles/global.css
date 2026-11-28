@@ -424,11 +424,15 @@ a.card:hover { border-color: var(--sky-ink); box-shadow: 0 8px 24px rgba(31, 42,
   .hero .wrap { min-height: 0; padding-block: 1.5rem; }
 }
 
-/* Motion on scroll, as on the office's current exchange site: the photos behind the title and the bands move more
-   slowly than the page, and blocks fade in as they come into view. CSS scroll-driven animations only, no script.
-   Browsers without them, visitors whose system asks for less motion, and print get the still page.
-   Longhands only: the build's minifier folds animation-timeline into the animation shorthand otherwise, a form
-   browsers reject, which drops the whole animation. */
+/* Motion on scroll, as on the office's current exchange site.
+   - The photos behind the title and the bands move more slowly than the page: CSS scroll-driven animations, no
+     script. Longhands only: the build's minifier folds animation-timeline into the animation shorthand otherwise,
+     a form browsers reject, which drops the whole animation.
+   - Blocks fade in once as they come into view, with a short timed transition started by the home page's script
+     (it adds .reveal-on to <html>, then .is-in to each block as it enters the window). A fade tied to the scroll
+     position would leave text half-faded wherever the reader stops; this one always ends fully visible. Without
+     the script nothing is hidden.
+   Visitors whose system asks for less motion, browsers without these features, and print get the still page. */
 @media screen and (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
     .hero { view-timeline: --hero; }
@@ -436,13 +440,12 @@ a.card:hover { border-color: var(--sky-ink); box-shadow: 0 8px 24px rgba(31, 42,
     /* The photo is taller than its band (124 %), so moving it by 9 % of its height either way never shows an edge. */
     .photo-band { view-timeline: --band; }
     .photo-band > img { top: -12%; bottom: auto; height: 124%; animation-name: drift-band; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: --band; animation-range: cover 0% cover 100%; }
-    .reveal, .reveal-each > *, .reveal-left, .reveal-right { animation-name: rise; animation-timing-function: ease-out; animation-fill-mode: both; animation-timeline: view(); animation-range: entry 0% entry 75%; }
-    .reveal-left { animation-name: from-left; }
-    .reveal-right { animation-name: from-right; }
   }
+  /* Hidden at once, shown with a transition: only the reveal is animated. */
+  .reveal-on :is(.reveal, .reveal-each > *, .reveal-left, .reveal-right).is-in { transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
+  .reveal-on :is(.reveal, .reveal-each > *):not(.is-in) { opacity: 0; transform: translateY(1.75rem); }
+  .reveal-on .reveal-left:not(.is-in) { opacity: 0; transform: translateX(-2.25rem); }
+  .reveal-on .reveal-right:not(.is-in) { opacity: 0; transform: translateX(2.25rem); }
 }
 @keyframes drift-down { to { transform: translateY(30%); } }
 @keyframes drift-band { from { transform: translateY(-9%); } to { transform: translateY(9%); } }
-@keyframes rise { from { opacity: 0; transform: translateY(1.75rem); } }
-@keyframes from-left { from { opacity: 0; transform: translateX(-2.25rem); } }
-@keyframes from-right { from { opacity: 0; transform: translateX(2.25rem); } }

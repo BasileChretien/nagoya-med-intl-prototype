@@ -369,13 +369,31 @@ for (const f of walk(PUBLIC).filter((x) => /\.(jpe?g|png|webp|avif|gif)$/i.test(
 //     no-preference), alone or after "screen and" or "all and". Any other query is refused, because "not", a comma
 //     or "or" could let motion play for those visitors; other conditions go in an @media rule of their own. The
 //     feature test of an @supports rule, such as @supports (animation-timeline: view()), runs nothing and is skipped.
+//     No keyframes change opacity (the property in any case, or filter: opacity()). Tied to the scroll position, a
+//     fade leaves text half-faded wherever the reader stops (Lighthouse measured 1.56:1 on the home page), and any
+//     rule of the cascade can tie keyframes to the scroll, so fades are timed transitions on this site.
 {
   const cssFile = join(ROOT, 'src', 'styles', 'global.css');
+  const ast = csstree.parse(readFileSync(cssFile, 'utf8'), { positions: true });
   const atRules = [];
   const GUARD = /^(?:(?:only )?(?:screen|all) and )?\(prefers-reduced-motion:no-preference\)$/;
   const isGuard = (a) => a.name === 'media' && Boolean(a.prelude)
     && GUARD.test(csstree.generate(a.prelude).toLowerCase().replace(/\s+/g, ' ').replace(/\(\s*/g, '(').replace(/\s*\)/g, ')').replace(/\s*:\s*/g, ':').trim());
-  csstree.walk(csstree.parse(readFileSync(cssFile, 'utf8'), { positions: true }), {
+  csstree.walk(ast, {
+    visit: 'Atrule',
+    enter(node) {
+      if (!/keyframes$/i.test(node.name) || !node.prelude || !node.block) return;
+      csstree.walk(node.block, {
+        visit: 'Declaration',
+        enter(d) {
+          const property = d.property.toLowerCase();
+          if (property !== 'opacity' && !(property === 'filter' && /opacity\(/i.test(csstree.generate(d.value)))) return;
+          fail(`src/styles/global.css line ${d.loc.start.line}: @keyframes ${csstree.generate(node.prelude).trim()} changes opacity; tied to the scroll, a fade leaves text half-faded wherever the reader stops, so fades are timed transitions on this site`);
+        },
+      });
+    },
+  });
+  csstree.walk(ast, {
     enter(node) {
       if (node.type === 'SupportsDeclaration') return csstree.walk.skip;
       if (node.type === 'Atrule') atRules.push(node);

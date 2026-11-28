@@ -187,4 +187,23 @@ const headOriginal: Lang = head?.translated === 'ja' ? 'en' : 'ja';
       <p class="band-more"><a class="btn-pill" href={href(lang, 'news')}>{ui.allNews}</a></p>
     </div>
   </section>
+
+  <script is:inline>
+    // Blocks fade in once as they come into view (styles: "Motion on scroll" in global.css). A block already in the
+    // window is shown at once, before anything is hidden; nothing is hidden for visitors who ask for less motion.
+    // A block counts as in view as soon as any part of it is, so even a block taller than the window is shown.
+    (() => {
+      if (!matchMedia('(prefers-reduced-motion: no-preference)').matches || !('IntersectionObserver' in window)) return;
+      const io = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+        }
+      }, { threshold: 0 });
+      for (const b of document.querySelectorAll('.reveal, .reveal-each > *, .reveal-left, .reveal-right')) {
+        if (b.getBoundingClientRect().top < innerHeight) b.classList.add('is-in');
+        else io.observe(b);
+      }
+      document.documentElement.classList.add('reveal-on');
+    })();
+  </script>
 </Base>
