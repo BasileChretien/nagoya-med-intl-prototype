@@ -82,6 +82,16 @@ const cases = [
     expect: 'pass',
   },
   {
+    name: 'a scroll-driven fade (opacity tied to the scroll position) is reported',
+    edit: ['src/styles/global.css', (old) => `${old}\n@media (prefers-reduced-motion: no-preference) { .zz-test { animation-name: zz-fade; animation-timeline: view(); } }\n@keyframes zz-fade { from { opacity: 0; } }\n`],
+    expect: 'fail', message: /global\.css line \d+: the scroll-driven animation "zz-fade" changes opacity/,
+  },
+  {
+    name: 'a scroll-driven movement without opacity passes',
+    edit: ['src/styles/global.css', (old) => `${old}\n@media (prefers-reduced-motion: no-preference) { .zz-test { animation-name: zz-move; animation-timeline: view(); } }\n@keyframes zz-move { from { transform: translateY(1rem); } }\n`],
+    expect: 'pass',
+  },
+  {
     name: 'a second message of the head of the office is reported, since the home page shows one (review of #30)',
     edit: ['src/data/office-head.json', (old) => { const list = JSON.parse(old); return JSON.stringify([...list, { ...list[0], id: 'zz-test-head' }], null, 1); }],
     expect: 'fail', message: /office-head\.json: must hold exactly one entry/,
