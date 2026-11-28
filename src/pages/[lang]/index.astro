@@ -5,7 +5,7 @@ import DeadlineList from '../../components/DeadlineList.astro';
 import StoryCard from '../../components/StoryCard.astro';
 import { t, fill, SECTIONS, type Lang } from '../../i18n/ui';
 import { href, asset, cardImage, langPaths, programmesIn, formatDate } from '../../lib/site';
-import { pageImages, type ImageEntry } from '../../lib/reports';
+import { allImages, pageImages, type ImageEntry } from '../../lib/reports';
 import { officeData } from '../../lib/structured';
 
 export function getStaticPaths() {
@@ -43,14 +43,19 @@ for (const s of doors) {
   const { hero } = await pageImages(s);
   if (hero) doorPhotos[s] = hero;
 }
-// The photo behind the numbers: the About section's photo (the hospital across the park), which no door shows.
-const bandPhoto = (await pageImages('about')).hero?.data;
+// The photo behind the numbers: the students' group from the office's current exchange site, where it sits behind
+// the band for students who want to study abroad. It is also a photo of the Study abroad page.
+const BAND_PHOTO = 'page-a1018404cfdd-study-abroad';
+const bandPhoto = (await allImages()).find((i) => i.id === BAND_PHOTO)?.data;
+if (!bandPhoto) throw new Error(`The photo behind the numbers (${BAND_PHOTO}) is not in src/data/images.json.`);
 ---
 <Base lang={lang} title={ui.heroTitle} description={ui.heroLede} slug="" structured={structured}>
   <section class="hero">
+    {/* The hospital and Tsurumai Park from above: the last slide of the office's current exchange site
+        (intlexch/japanese/images/slides/8.jpg). Decorative, so it is not listed in images.json. */}
     <picture>
       <source media="(min-width: 901px)" srcset={asset('img/campus-1400.webp')} type="image/webp" />
-      <img src={asset('img/campus-900.webp')} alt="" width="900" height="516" fetchpriority="high" decoding="async" />
+      <img src={asset('img/campus-900.webp')} alt="" width="900" height="506" fetchpriority="high" decoding="async" />
     </picture>
     <div class="wrap">
       <h1>{ui.heroTitle}</h1>

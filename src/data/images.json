@@ -6208,6 +6208,54 @@
   "source": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/images/home/photo02.jpg"
  },
  {
+  "id": "page-d922e8366c82-about",
+  "kind": "figure",
+  "page": "about",
+  "file": "img/pages/d922e8366c82.webp",
+  "thumb": "img/pages/d922e8366c82-t.webp",
+  "thumbWidth": 400,
+  "thumbHeight": 246,
+  "width": 400,
+  "height": 246,
+  "alt": {
+   "en": "University hospital buildings, one with a rounded glass tower, seen past the campus gate under a blue sky.",
+   "ja": "青空の下、門の向こうに建つ大学病院の建物と丸いガラスの塔"
+  },
+  "source": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/images/home_img1.jpg"
+ },
+ {
+  "id": "page-0ec8f693d904-about",
+  "kind": "figure",
+  "page": "about",
+  "file": "img/pages/0ec8f693d904.webp",
+  "thumb": "img/pages/0ec8f693d904-t.webp",
+  "thumbWidth": 280,
+  "thumbHeight": 426,
+  "width": 280,
+  "height": 426,
+  "alt": {
+   "en": "A group in surgical caps and gowns, seen from behind, in an operating room under surgical lights.",
+   "ja": "無影灯のある手術室に立つ、手術帽と術衣を着けた人たちの後ろ姿"
+  },
+  "source": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/images/home_img2.jpg"
+ },
+ {
+  "id": "page-3fa82e61b55a-about-support",
+  "kind": "hero",
+  "page": "about/support",
+  "file": "img/pages/3fa82e61b55a.webp",
+  "thumb": "img/pages/3fa82e61b55a-t.webp",
+  "thumbWidth": 560,
+  "thumbHeight": 373,
+  "width": 1280,
+  "height": 853,
+  "alt": {
+   "en": "Aerial view of the university hospital and the medical campus beside Tsurumai Park, with the railway and the city behind.",
+   "ja": "鶴舞公園の隣にある大学病院と医学部キャンパスを上空から見た景色"
+  },
+  "source": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/images/home/frontier_bg.webp"
+ },
+ {
   "id": "page-450194a466a5-study-in-nagoya",
   "kind": "figure",
   "page": "study-in-nagoya",
@@ -6366,6 +6414,22 @@
    "ja": "2019年度の海外臨床実習派遣留学生による帰国報告会"
   },
   "source": "https://www.med.nagoya-u.ac.jp/medical_J/international/images/program_19.jpg"
+ },
+ {
+  "id": "page-a1018404cfdd-study-abroad",
+  "kind": "figure",
+  "page": "study-abroad",
+  "file": "img/pages/a1018404cfdd.webp",
+  "thumb": "img/pages/a1018404cfdd-t.webp",
+  "thumbWidth": 560,
+  "thumbHeight": 315,
+  "width": 1600,
+  "height": 900,
+  "alt": {
+   "en": "A group of students outdoors between two concrete buildings, turned towards a speaker at the front.",
+   "ja": "コンクリートの建物の間で、前に立つ人の話を聞く学生のグループ"
+  },
+  "source": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/images/home/abroad_bg.webp"
  },
  {
   "id": "page-a0d298ead951-study-abroad-clinical-electives",
@@ -6626,6 +6690,38 @@
    "ja": "病棟の事務室で病院スタッフ3人と並ぶ日本人学生"
   },
   "source": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/education/abroad/images/program2-3.jpg"
+ },
+ {
+  "id": "page-dbc4196c7cfb-study-abroad-safety",
+  "kind": "hero",
+  "page": "study-abroad/safety",
+  "file": "img/pages/dbc4196c7cfb.webp",
+  "thumb": "img/pages/dbc4196c7cfb-t.webp",
+  "thumbWidth": 560,
+  "thumbHeight": 373,
+  "width": 1280,
+  "height": 853,
+  "alt": {
+   "en": "An aircraft wing above the clouds against a blue sky.",
+   "ja": "青空と雲の上を飛ぶ飛行機の翼"
+  },
+  "source": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/images/slides/2.jpg"
+ },
+ {
+  "id": "page-21ce0677e11b-study-abroad-usmle-and-certificates",
+  "kind": "hero",
+  "page": "study-abroad/usmle-and-certificates",
+  "file": "img/pages/21ce0677e11b.webp",
+  "thumb": "img/pages/21ce0677e11b-t.webp",
+  "thumbWidth": 560,
+  "thumbHeight": 373,
+  "width": 1280,
+  "height": 853,
+  "alt": {
+   "en": "Students at a table in a classroom, one writing in a notebook while the others listen.",
+   "ja": "教室の机でノートを取る学生と、話を聞くほかの学生たち"
+  },
+  "source": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/images/slides/6.jpg"
  },
  {
   "id": "page-1ade7161291a-degrees",
@@ -6896,6 +6992,22 @@
   "source": "https://www.med.nagoya-u.ac.jp/jdp/lund/images/10.jpg"
  },
  {
+  "id": "page-8d9ecbaa969c-degrees-unc-scholar-exchange",
+  "kind": "hero",
+  "page": "degrees/unc-scholar-exchange",
+  "file": "img/pages/8d9ecbaa969c.webp",
+  "thumb": "img/pages/8d9ecbaa969c-t.webp",
+  "thumbWidth": 560,
+  "thumbHeight": 373,
+  "width": 1280,
+  "height": 853,
+  "alt": {
+   "en": "An airliner flying through a pink and orange sky above the clouds.",
+   "ja": "雲の上のピンクとオレンジ色の空を飛ぶ旅客機"
+  },
+  "source": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/images/slides/3.jpg"
+ },
+ {
   "id": "page-ba8c453d9eac-partnerships",
   "kind": "hero",
   "page": "partnerships",
@@ -7152,6 +7264,86 @@
   "source": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/support/exchange/images/2603-24-03.jpg"
  },
  {
+  "id": "page-ea870bc1e0a2-partnerships-become-a-partner",
+  "kind": "hero",
+  "page": "partnerships/become-a-partner",
+  "file": "img/pages/ea870bc1e0a2.webp",
+  "thumb": "img/pages/ea870bc1e0a2-t.webp",
+  "thumbWidth": 560,
+  "thumbHeight": 374,
+  "width": 1280,
+  "height": 854,
+  "alt": {
+   "en": "Smiling doctors in white coats and scrubs stacking their hands together around a table.",
+   "ja": "白衣や手術着の医師たちが、笑顔で手を重ね合わせている"
+  },
+  "source": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/images/slides/1.jpg"
+ },
+ {
+  "id": "page-46ebaa288737-partnerships-for-faculty",
+  "kind": "hero",
+  "page": "partnerships/for-faculty",
+  "file": "img/pages/46ebaa288737.webp",
+  "thumb": "img/pages/46ebaa288737-t.webp",
+  "thumbWidth": 560,
+  "thumbHeight": 373,
+  "width": 1280,
+  "height": 853,
+  "alt": {
+   "en": "Doctors around a conference table discussing an X-ray image.",
+   "ja": "会議机を囲み、X線画像を見ながら話し合う医師たち"
+  },
+  "source": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/images/slides/4.jpg"
+ },
+ {
+  "id": "page-6c4c37701b04-partnerships-companies",
+  "kind": "hero",
+  "page": "partnerships/companies",
+  "file": "img/pages/6c4c37701b04.webp",
+  "thumb": "img/pages/6c4c37701b04-t.webp",
+  "thumbWidth": 560,
+  "thumbHeight": 420,
+  "width": 1280,
+  "height": 960,
+  "alt": {
+   "en": "Tall buildings seen from below, with blue sky and clouds between them.",
+   "ja": "下から見上げた高い建物と、その間に見える青空と雲"
+  },
+  "source": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/images/slides/5.jpg"
+ },
+ {
+  "id": "page-2b415b531b4f-partnerships-agreements",
+  "kind": "hero",
+  "page": "partnerships/agreements",
+  "file": "img/pages/2b415b531b4f.webp",
+  "thumb": "img/pages/2b415b531b4f-t.webp",
+  "thumbWidth": 560,
+  "thumbHeight": 373,
+  "width": 1280,
+  "height": 852,
+  "alt": {
+   "en": "A bright atrium with a glass roof, walkways and a tree inside a large building.",
+   "ja": "ガラス屋根から光が入る大きな建物の吹き抜けと通路、木"
+  },
+  "source": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/images/slides/7.jpg"
+ },
+ {
+  "id": "page-5d47082c832b-partnerships-coordinators",
+  "kind": "hero",
+  "page": "partnerships/coordinators",
+  "file": "img/pages/5d47082c832b.webp",
+  "thumb": "img/pages/5d47082c832b-t.webp",
+  "thumbWidth": 560,
+  "thumbHeight": 336,
+  "width": 600,
+  "height": 360,
+  "alt": {
+   "en": "Three young people talking and smiling on an outdoor stairway beside a building, with trees behind.",
+   "ja": "建物の脇の屋外階段で、笑顔で話す若者3人と後ろの木々"
+  },
+  "source": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/images/home/photo01.jpg"
+ },
+ {
   "id": "page-d8bff7f6e4b9-study-in-nagoya-research-training",
   "kind": "hero",
   "page": "study-in-nagoya/research-training",
@@ -7166,6 +7358,22 @@
    "ja": "顕微鏡やモニターが並ぶ広い実験室"
   },
   "source": "https://www.med.nagoya-u.ac.jp/medical_E/international/images/rep_104-2.jpg"
+ },
+ {
+  "id": "page-49a0ecb72a1b-study-in-nagoya-visiting-researchers",
+  "kind": "hero",
+  "page": "study-in-nagoya/visiting-researchers",
+  "file": "img/pages/49a0ecb72a1b.webp",
+  "thumb": "img/pages/49a0ecb72a1b-t.webp",
+  "thumbWidth": 500,
+  "thumbHeight": 345,
+  "width": 500,
+  "height": 345,
+  "alt": {
+   "en": "Someone looking into a stereo microscope at a laboratory bench.",
+   "ja": "実験台で実体顕微鏡をのぞく人"
+  },
+  "source": "https://www.med.nagoya-u.ac.jp/intlexch/japanese/images/home_img3.jpg"
  },
  {
   "id": "page-office-route-map-about-access",

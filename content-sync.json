@@ -1670,6 +1670,10 @@
    "en": "016864c0b52ae9b6",
    "ja": "e77a0e335826d129"
   },
+  "images.json#page-0ec8f693d904-about/alt": {
+   "en": "b6e4710438d02848",
+   "ja": "4b43ba91d3d6b829"
+  },
   "images.json#page-16e987423cfd-partnerships-visits/alt": {
    "en": "f9a51a6c87d8a784",
    "ja": "9c1b3480eef24ee3"
@@ -1694,6 +1698,10 @@
    "en": "ca8036f456660b5e",
    "ja": "6b503b56616bdb5b"
   },
+  "images.json#page-21ce0677e11b-study-abroad-usmle-and-certificates/alt": {
+   "en": "279dfb5fafc8d113",
+   "ja": "e949f405531cb846"
+  },
   "images.json#page-2705334a2f6b-degrees-joint-degree/alt": {
    "en": "ff5f0b51645d34dd",
    "ja": "121ea4554de57b55"
@@ -1701,6 +1709,10 @@
   "images.json#page-2ad2e62d0996-about/alt": {
    "en": "80400cebbf0ccc6e",
    "ja": "aee4af8c19e17359"
+  },
+  "images.json#page-2b415b531b4f-partnerships-agreements/alt": {
+   "en": "0352d6e0923b2400",
+   "ja": "cc509169aec3e67e"
   },
   "images.json#page-2f490494582b-study-abroad-clinical-electives/alt": {
    "en": "f8d8a2cec93fe87d",
@@ -1722,6 +1734,10 @@
    "en": "fba932917ea393d2",
    "ja": "106d61d6971cf643"
   },
+  "images.json#page-3fa82e61b55a-about-support/alt": {
+   "en": "19d96b93b904c22e",
+   "ja": "ee0e3758b690b716"
+  },
   "images.json#page-450194a466a5-study-in-nagoya/alt": {
    "en": "d38ac96bbdd208eb",
    "ja": "5909d75770cd8d8e"
@@ -1730,9 +1746,17 @@
    "en": "83ac8edb2926dbd9",
    "ja": "4d1d8558342317cb"
   },
+  "images.json#page-46ebaa288737-partnerships-for-faculty/alt": {
+   "en": "d5824bc38d4c8ebc",
+   "ja": "3126a24ad538774b"
+  },
   "images.json#page-48f3059f0ae0-degrees-freiburg/alt": {
    "en": "4b4e865bc28becfd",
    "ja": "589a1637a236c221"
+  },
+  "images.json#page-49a0ecb72a1b-study-in-nagoya-visiting-researchers/alt": {
+   "en": "23c4c62bf0b12bd8",
+   "ja": "1d7785472ac58aba"
   },
   "images.json#page-4f003f18cfe1-study-abroad-research-abroad/alt": {
    "en": "da2248d356c0d911",
@@ -1754,6 +1778,10 @@
    "en": "db07d04d51775043",
    "ja": "6035c63551b5ae85"
   },
+  "images.json#page-5d47082c832b-partnerships-coordinators/alt": {
+   "en": "00b2b411649016c3",
+   "ja": "07a5812f8d790aa4"
+  },
   "images.json#page-5e15649074c7-degrees-adelaide/alt": {
    "en": "918e63b22be273e1",
    "ja": "ddd777f2de6c32bd"
@@ -1761,6 +1789,10 @@
   "images.json#page-67db7535597d-study-abroad-short-programmes/alt": {
    "en": "0887d5d9935eda7f",
    "ja": "d1b6cd9dcf04227e"
+  },
+  "images.json#page-6c4c37701b04-partnerships-companies/alt": {
+   "en": "a90bdea4d1528bd8",
+   "ja": "96240ffc196a2aae"
   },
   "images.json#page-7c7b5f5c3e74-degrees/alt": {
    "en": "5625ff3220019c0d",
@@ -1773,6 +1805,10 @@
   "images.json#page-8b307dc7c221-partnerships-game/alt": {
    "en": "f7ed32fc2fbbb818",
    "ja": "5363baeae38e0bd9"
+  },
+  "images.json#page-8d9ecbaa969c-degrees-unc-scholar-exchange/alt": {
+   "en": "34d9d479685f53e0",
+   "ja": "b78b82b6b20b3698"
   },
   "images.json#page-909f58b73327-study-abroad-clinical-electives/alt": {
    "en": "b835583c76bd0649",
@@ -1797,6 +1833,10 @@
   "images.json#page-a0d298ead951-study-abroad-clinical-electives/caption": {
    "en": "630d21c12041e4e7",
    "ja": "8896a25241308d83"
+  },
+  "images.json#page-a1018404cfdd-study-abroad/alt": {
+   "en": "46e3cc23131218ad",
+   "ja": "abf90beb83032b6b"
   },
   "images.json#page-a13f2b63419a-degrees-adelaide/alt": {
    "en": "dedca86c45f926c3",
@@ -1922,6 +1962,14 @@
    "en": "fb1a58be884a0660",
    "ja": "482d1db724fa2f1b"
   },
+  "images.json#page-d922e8366c82-about/alt": {
+   "en": "0eb29a018441749e",
+   "ja": "09ef95409af4d769"
+  },
+  "images.json#page-dbc4196c7cfb-study-abroad-safety/alt": {
+   "en": "480772d001a9e944",
+   "ja": "093fa2d4f63df021"
+  },
   "images.json#page-dc92b376df1e-degrees-lund/alt": {
    "en": "359c5520763112c7",
    "ja": "96afcbc067498aa1"
@@ -1933,6 +1981,10 @@
   "images.json#page-e266ac411146-partnerships-symposia/caption": {
    "en": "f5baa6791bfe135a",
    "ja": "8a5c6bae99bbcd1d"
+  },
+  "images.json#page-ea870bc1e0a2-partnerships-become-a-partner/alt": {
+   "en": "5eb03da553a412ea",
+   "ja": "9753a198ae18f748"
   },
   "images.json#page-ec517092c82b-study-abroad-short-programmes/alt": {
    "en": "474c520125b5b06a",
