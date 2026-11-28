@@ -369,8 +369,9 @@ for (const f of walk(PUBLIC).filter((x) => /\.(jpe?g|png|webp|avif|gif)$/i.test(
 //     no-preference), alone or after "screen and" or "all and". Any other query is refused, because "not", a comma
 //     or "or" could let motion play for those visitors; other conditions go in an @media rule of their own. The
 //     feature test of an @supports rule, such as @supports (animation-timeline: view()), runs nothing and is skipped.
-//     No scroll-driven animation changes opacity: tied to the scroll position, a fade leaves text half-faded wherever
-//     the reader stops (Lighthouse measured 1.56:1 on the home page). Fade with a timed transition instead.
+//     No keyframes change opacity (the property in any case, or filter: opacity()). Tied to the scroll position, a
+//     fade leaves text half-faded wherever the reader stops (Lighthouse measured 1.56:1 on the home page), and any
+//     rule of the cascade can tie keyframes to the scroll, so fades are timed transitions on this site.
 {
   const cssFile = join(ROOT, 'src', 'styles', 'global.css');
   const ast = csstree.parse(readFileSync(cssFile, 'utf8'), { positions: true });
@@ -378,28 +379,18 @@ for (const f of walk(PUBLIC).filter((x) => /\.(jpe?g|png|webp|avif|gif)$/i.test(
   const GUARD = /^(?:(?:only )?(?:screen|all) and )?\(prefers-reduced-motion:no-preference\)$/;
   const isGuard = (a) => a.name === 'media' && Boolean(a.prelude)
     && GUARD.test(csstree.generate(a.prelude).toLowerCase().replace(/\s+/g, ' ').replace(/\(\s*/g, '(').replace(/\s*\)/g, ')').replace(/\s*:\s*/g, ':').trim());
-  // Keyframes that change opacity, by name.
-  const fading = new Set();
   csstree.walk(ast, {
     visit: 'Atrule',
     enter(node) {
       if (!/keyframes$/i.test(node.name) || !node.prelude || !node.block) return;
-      let fades = false;
-      csstree.walk(node.block, { visit: 'Declaration', enter(d) { if (d.property === 'opacity') fades = true; } });
-      if (fades) fading.add(csstree.generate(node.prelude).trim());
-    },
-  });
-  // A rule that ties an animation to the scroll must not name one of them.
-  csstree.walk(ast, {
-    visit: 'Rule',
-    enter(node) {
-      const decls = node.block.children.toArray().filter((d) => d.type === 'Declaration');
-      const timeline = decls.find((d) => d.property === 'animation-timeline');
-      if (!timeline) return;
-      const names = decls.filter((d) => d.property === 'animation-name' || d.property === 'animation')
-        .flatMap((d) => csstree.generate(d.value).split(/[\s,]+/));
-      const faded = names.find((n) => fading.has(n));
-      if (faded) fail(`src/styles/global.css line ${timeline.loc.start.line}: the scroll-driven animation "${faded}" changes opacity, which leaves text half-faded wherever the reader stops; fade with a timed transition instead`);
+      csstree.walk(node.block, {
+        visit: 'Declaration',
+        enter(d) {
+          const property = d.property.toLowerCase();
+          if (property !== 'opacity' && !(property === 'filter' && /opacity\(/i.test(csstree.generate(d.value)))) return;
+          fail(`src/styles/global.css line ${d.loc.start.line}: @keyframes ${csstree.generate(node.prelude).trim()} changes opacity; tied to the scroll, a fade leaves text half-faded wherever the reader stops, so fades are timed transitions on this site`);
+        },
+      });
     },
   });
   csstree.walk(ast, {

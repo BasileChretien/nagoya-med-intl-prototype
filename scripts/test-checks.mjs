@@ -84,7 +84,17 @@ const cases = [
   {
     name: 'a scroll-driven fade (opacity tied to the scroll position) is reported',
     edit: ['src/styles/global.css', (old) => `${old}\n@media (prefers-reduced-motion: no-preference) { .zz-test { animation-name: zz-fade; animation-timeline: view(); } }\n@keyframes zz-fade { from { opacity: 0; } }\n`],
-    expect: 'fail', message: /global\.css line \d+: the scroll-driven animation "zz-fade" changes opacity/,
+    expect: 'fail', message: /global\.css line \d+: @keyframes zz-fade changes opacity/,
+  },
+  {
+    name: 'a fade tied to the scroll by a separate rule is reported (review of #31)',
+    edit: ['src/styles/global.css', (old) => `${old}\n@media (prefers-reduced-motion: no-preference) { .zz-test { animation-timeline: view(); } .zz-test { animation-name: zz-fade; } }\n@keyframes zz-fade { from { OPACITY: 0; } }\n`],
+    expect: 'fail', message: /global\.css line \d+: @keyframes zz-fade changes opacity/,
+  },
+  {
+    name: 'a fade written as filter: opacity() is reported (review of #31)',
+    edit: ['src/styles/global.css', (old) => `${old}\n@keyframes zz-fade { from { filter: opacity(0); } }\n`],
+    expect: 'fail', message: /global\.css line \d+: @keyframes zz-fade changes opacity/,
   },
   {
     name: 'a scroll-driven movement without opacity passes',
